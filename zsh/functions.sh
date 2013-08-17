@@ -4,11 +4,6 @@ function chpwd() {
   ls -G
 }
 
-# mkdir with intermediate directories and cd
-md() {
-  mkdir -p "$1" && cd "$1";
-}
-
 # remove files with hierarchy
 rr() {
   rm -rf "$@";
