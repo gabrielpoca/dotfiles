@@ -1,3 +1,8 @@
+# Play an alarm file once your internet connection returns.
+conf wait_for_net() {
+  until ping -W1 -c1 8.8.8.8; do sleep 5; done && afplay ~/alarm.mp3
+}
+
 # quick go to configuration
 conf() {
   case $1 in
@@ -38,7 +43,7 @@ extract() {
 
 # open conflicted files
 conflicts() {
-  sb +/"<<<<<<<" $( git diff --name-only --diff-filter=U | xargs )
+  vim +/"<<<<<<<" $( git diff --name-only --diff-filter=U | xargs )
 }
 
 # check latex file
@@ -59,4 +64,15 @@ radio() {
   else
     echo "Radio does not exist!"
   fi
+}
+
+merge-feature() {
+  branch=`git_prompt_info | cut -d ":" -f2`
+  echo $branch
+  git fetch && git checkout dev && git rebase && git checkout $branch &&  git rebase dev && git rebase -i dev && git push -f && git checkout dev && git merge $branch && git push origin :$branch && git branch -d $branch
+}
+
+new-feature() {
+  branch="$@"
+  git checkout dev && git fetch && git rebase && git branch $branch && git checkout $branch
 }

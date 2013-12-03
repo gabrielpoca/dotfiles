@@ -1,172 +1,169 @@
-set nocompatible
-
-
-" ctrl-s    			: save document
-" ctrl-p    			: ctrlp plugin open
-" nt        			: open nerdtree
-" gn        			: go to nedtree
-" tt        			: open tagbar
-" ctrl-e    			: zen expand
-" leader+w        : indent file
-" leader+leader+w : easymotion
-
-" chagne the leader key to ,
 let mapleader = ","
 
-nnoremap <leader>ln :NumbersToggle<CR>
-let g:enable_numbers = 0
-"nnoremap <F4> :NumbersOnOff<CR>
-
-set wildignore=*.swp,*.bak,*.pyc,*.class
-
+set nocompatible
 set nobackup
+set nowritebackup
 set noswapfile
-
-" to prevent the 'crontab: temp file must be edited in place' message
-if $VIM_CRONTAB == "true"
-  set nowritebackup
-  set backupskip=/tmp/*,/private/tmp/*" 
-endif
-
-" configuration for scss, https://github.com/cakebaker/scss-syntax.vim
-au BufRead,BufNewFile *.scss set filetype=scss
-" set filetype for scss.erb and js.erb, 
-" http://stackoverflow.com/questions/8413781/automatically-set-multiple-file-types-in-filetype-if-a-file-has-multiple-exten
-autocmd BufRead,BufNewFile *.scss.erb setlocal filetype=scss.eruby
-autocmd BufRead,BufNewFile *.js.erb setlocal filetype=javascript.eruby
-
-" Vim-powerline configuration
-set encoding=utf-8 " Necessary to show Unicode glyphs
-set laststatus=2 " The prevent: The statusline is hidden/only appears in split windows!
-
-" Disable bell
-set vb
-
-" Temporary fileslate dir
-set directory=~/.vim/tmp
-
-" entable mouse scroll
+set history=50
+set ruler         " show the cursor position all the time
+set showcmd       " display incomplete commands
+set noshowmode    " powerline shows the mode
+set incsearch     " do incremental searching
+"set hlsearch      " highlight searches (:noh to turn off)
+set ignorecase    " case insensitive searching
+set smartcase     " overrides ignorecase when pattern contains caps
+set scrolloff=2   " Show 3 lines of context around the cursor.
+set laststatus=2  " Always display the status line
+set encoding=utf-8
+set backspace=indent,eol,start
+set splitright
+set nofoldenable
 set mouse=a
-
-" pathogen
-set nocp
-"call pathogen#infect()
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
-
-" set cursorline
-set nocursorline
-
-" Presever the column during motion
-set nostartofline
-
-" Show line numbers (off = set nonu)
-set nu
-
-" Turn off message 'Thanks for flying vim'
-set title
-
-" Use incremental search
-set incsearch
-
-" Highlight search results
-" set hlsearch
-
-" Allow Vim to manage multiple buffers efectively
-" 1. The current buffer can be put to the background without writing to disk
-" 2. When a background buffer becomes current again, marks and undo-history are remembered
-set hidden
-
-" Boost history (20 to 1000)
+set ttyfast
+set number
+set guicursor+=a:blinkon0
 set history=1000
-
-" persistent undo
-" allows to undo even after closing vim or even
-" shutting down the computer
 set undofile
 set undodir=~/.vim/undo
 
-" remember some stuff after quiting vim:
-" marks, registers, searches, buffer list
-set viminfo='20,<50,s10,h,%
-
-" use backspace as a normal app
-set backspace=indent,eol,start
-
-" search is not case sensitive
-set ignorecase
-
-if &t_Co > 2 || has("gui_running")
-  " switch syntax highlighting on, when the terminal has colors
-  syntax on
-end
-
+" Whitespace stuff
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+set shiftround
+set list listchars=tab:->,trail:·
 
-" auto indent when editing
-set autoindent
-set smartindent
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
+  syntax on
+endif
 
-" Use plugins according to iletypes
-filetype indent on
-filetype plugin on
-filetype on
-filetype plugin indent on
+filetype off  " required by vundle
 
-" Tagbar
-map <silent> tt :TagbarToggle<cr>
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+Bundle 'gabrielpoca/vim-colorpack'
+Bundle 'gabrielpoca/ultisnips'
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'tpope/vim-fugitive'
+Bundle 'kien/ctrlp.vim'
+"Bundle 'powerline'
+Bundle 'Lokaltog/powerline', {'rtp': '~/.powerline/bindings/vim'}
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'othree/html5.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'danro/rename.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tpope/vim-haml'
+Bundle 'tpope/vim-cucumber'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'tpope/vim-rails'
+Bundle 'slim-template/vim-slim'
+"Bundle 'Yggdroot/indentLine'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'wesQ3/vim-windowswap'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'noahfrederick/vim-hemisu'
+Bundle 'rking/ag.vim'
+Bundle "pangloss/vim-javascript"
+Bundle "stefanoverna/vim-i18n"
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-vividchalk'
+
+filetype plugin indent on     " required!
+
+" Color scheme
+set t_Co=256
+colorscheme solarized
+
+if has("gui_running")
+  set guioptions=egmrt
+  set guioptions-=r
+  set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+  set bg=light
+  set vb
+  colorscheme Tomorrow
+else
+  set clipboard=unnamed
+  "set lazyredraw " Wait to redraw
+endif
+
+" ctrlp plugin
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip  "MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_dont_split = 'nerdtree'
+let g:multiedit_nomappings = 1
+let g:ctrlp_use_caching = 1
 
 " NERDTree configuration
 let NERDTreeWinPos='left'
-" NERDTree autoclose on only window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-" Toggle NERDTreeTabs
-"map <silent> nt :NERDTreeTabsToggle<cr>
-" Toogle NERDTree
-map <silent> nt :NERDTreeToggle<cr>
-map <silent> gn :NERDTreeFocus<cr>
+let g:nerdtree_tabs_smart_startup_focus = 2
+let g:nerdtree_tabs_open_on_gui_startup = 0
 
-" Turn off search highlight
-nmap <silent> <C-N> :silent noh<CR>
+" Html5 configuration
+let g:html5_microdata_attributes_complete = 0
+let g:html5_aria_attributes_complete = 0
+let g:html5_rdfa_attributes_complete = 0
+
+" moves selected string to i18n
+vmap <Leader>z :call I18nTranslateString()<CR>
+
+" indent file
+map <leader>fi mzgg=G`z<CR>
 
 " Use ctrl-s to save in any mode
 map <c-s> :w<CR>
-nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>
+nmap <c-s> <Esc>:w<CR>
 
-" zen expand
-let g:user_zen_expandabbr_key = '<c-e>'
+" fugitive shortcuts
+noremap <leader>gb :Gblame<CR>
+noremap <leader>gs :Gstatus<CR>
+noremap <leader>gp :Git push<CR>
 
-" THEME
-set background=light
-syntax enable
+" move to split
+nmap <silent> <C-k> :wincmd k<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-l> :wincmd l<CR>
 
-set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+" Toogle NERDTree
+map <silent> nt :NERDTreeTabsToggle<cr>
+map <silent> gn :NERDTreeFocus<cr>
 
-" gui and terminal colorschemes
-if has("gui_running")
-  "colorscheme github256
-  colorscheme solarized
-  set nowrap
-  set guioptions=egmrt
-  set guioptions-=r
-else
-  " set term to 256color so it works on screen and tmux
-  set term=xterm-256color
-  colorscheme solarized
-  set wrap
-  set linebreak
-endif
+" Change background
+map <silent> <leader>bd :set background=dark<cr>
+map <silent> <leader>bl :set background=light<cr>
 
-if &term =~ '256color'
-  " Disable Background Color Erase (BCE) so that color schemes
-  " work properly when Vim is used inside tmux and GNU screen.
-  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
+" simple vertical splits
+map <leader>v <C-w>v
+
+" Hide highlighted terms
+map <silent> <leader><cr> :noh<cr>
+
+" make + beahve like :
+nnoremap + :
+
+let g:windowswap_map_keys = 0 "prevent default bindings
+nnoremap <silent> <leader>fs :wincmd l<CR>:call WindowSwap#MarkWindowSwap()<CR>:wincmd h<CR>:call WindowSwap#DoWindowSwap()<CR>
+nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
+nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
+
+" Rspec.vim mappings
+map <Leader>rt :call RunCurrentSpecFile()<CR>
+map <Leader>rs :call RunNearestSpec()<CR>
+map <Leader>rl :call RunLastSpec()<CR>
+map <Leader>ra :call RunAllSpecs()<CR>
+let g:rspec_command = "zeus rspec {spec}"
 
 " macvim tab navigation
 if has("gui_macvim")
@@ -181,32 +178,36 @@ if has("gui_macvim")
   map <D-9> :tabfirst<Cr>9gt
 endif
 
-" ctrlp plugin
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/fixtures/*,*/functional/*  " MacOSX/Linux
-"let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-let g:ctrlp_dont_split = 'nerdtree'
-let g:multiedit_nomappings = 1
-let g:ctrlp_use_caching = 0
+" close all hidden buffers
+function! Wipeout()
+  " list of *all* buffer numbers
+  let l:buffers = range(1, bufnr('$'))
 
-" indent file
-map <leader>w mzgg=G`z<CR>
-imap <leader>w <c-c>mzgg=G`z<CR>
+  " what tab page are we in?
+  let l:currentTab = tabpagenr()
+  try
+    " go through all tab pages
+    let l:tab = 0
+    while l:tab < tabpagenr('$')
+      let l:tab += 1
 
-nmap <silent> <leader>k :wincmd k<CR>
-nmap <silent> <leader>j :wincmd j<CR>
-nmap <silent> <leader>h :wincmd h<CR>
-nmap <silent> <leader>l :wincmd l<CR>
+      " go through all windows
+      let l:win = 0
+      while l:win < winnr('$')
+        let l:win += 1
+        " whatever buffer is in this window in this tab, remove it from
+        " l:buffers list
+        let l:thisbuf = winbufnr(l:win)
+        call remove(l:buffers, index(l:buffers, l:thisbuf))
+      endwhile
+    endwhile
 
-" disable arrow keys
-"map <up> <nop>
-"map <down> <nop>
-"map <left> <nop>
-"map <right> <nop>
-
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+    " if there are any buffers left, delete them
+    if len(l:buffers)
+      execute 'bwipeout' join(l:buffers)
+    endif
+  finally
+    " go back to our original tab page
+    execute 'tabnext' l:currentTab
+  endtry
+endfunction

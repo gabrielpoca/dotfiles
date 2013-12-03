@@ -17,6 +17,11 @@ alias ...='cd ../..'
 alias ..='cd ..'
 
 
+# Application
+alias z='zeus'
+alias zc='zeus cucumber'
+alias zrs='zeus rspec spec'
+
 # Detect which `ls` flavor is in use
 # if ls --color > /dev/null 2>&1; then # GNU `ls`
     # colorflag="--color"

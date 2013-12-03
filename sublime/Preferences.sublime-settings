@@ -30,7 +30,7 @@
 	"ignored_packages":
 	[
 		"Vintage",
-		"All Autocomplete"
+		"SideBarEnhancements"
 	],
 	"jump_target_scope": "keyword",
 	"line_padding_bottom": -1,
@@ -42,7 +42,7 @@
 	"remember_open_files": false,
 	"remember_open_folders": false,
 	"tab_size": 2,
-	"theme": "Pseudo OSX Light.sublime-theme",
+	"theme": "Flatland Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
 	"trim_trailing_white_space_on_save": true,
 	"word_wrap": false

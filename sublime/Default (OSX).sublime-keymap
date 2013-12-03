@@ -8,7 +8,7 @@
   { "keys": ["super+ctrl+alt+shift+7"], "command": "focus_group", "args": { "group": 6 } },
   { "keys": ["super+ctrl+alt+shift+8"], "command": "focus_group", "args": { "group": 7 } },
   { "keys": ["super+ctrl+alt+shift+9"], "command": "focus_group", "args": { "group": 8 } },
-  { "keys": ["super+ctrl+alt+shift+c"], "command": "toggle_comment", "args": { "block": false } },
+  //{ "keys": ["super+ctrl+alt+shift+c"], "command": "toggle_comment", "args": { "block": false } },
   { "keys": ["super+ctrl+alt+shift+s"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} },
   { "keys": ["super+ctrl+alt+shift+a"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
   { "keys": ["super+ctrl+alt+shift+d"], "command": "goto_definition" },
