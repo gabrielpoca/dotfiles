@@ -14,6 +14,14 @@ conf() {
   esac
 }
 
+crypt-folder() {
+  tar -cz $1 | gpg -c -o ${1}.tgz.gpg
+}
+
+decrypt-folder() {
+  gpg -d ${1} | tar xz
+}
+
 # extract all kind of files
 extract() {
   if [ -f $1 ] ; then
