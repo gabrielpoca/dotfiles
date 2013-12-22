@@ -18,9 +18,14 @@ alias ..='cd ..'
 
 
 # Application
-alias z='zeus'
-alias zc='zeus cucumber'
-alias zrs='zeus rspec spec'
+alias s='spring'
+alias scu='spring cucumber'
+alias srs='spring rspec spec'
+alias sc='spring rails c'
+alias ss='spring rails s'
+alias sr='spring rake'
+
+alias mvim="reattach-to-user-namespace mvim"
 
 # Detect which `ls` flavor is in use
 # if ls --color > /dev/null 2>&1; then # GNU `ls`

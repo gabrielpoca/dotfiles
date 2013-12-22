@@ -20,7 +20,7 @@
 		".zeus.sock",
 		"tmp"
 	],
-	"font_face": "Source Code Pro",
+	"font_face": "Inconsolata XL",
 	"font_options":
 	[
 		"subpixel_antialias"
@@ -29,8 +29,7 @@
 	"highlight_line": true,
 	"ignored_packages":
 	[
-		"Vintage",
-		"SideBarEnhancements"
+		"Vintage"
 	],
 	"jump_target_scope": "keyword",
 	"line_padding_bottom": -1,

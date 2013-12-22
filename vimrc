@@ -20,11 +20,14 @@ set splitright
 set nofoldenable
 set mouse=a
 set ttyfast
+set ttymouse=xterm2
 set number
 set guicursor+=a:blinkon0
 set history=1000
 set undofile
 set undodir=~/.vim/undo
+"set relativenumber
+set colorcolumn=80
 
 " Whitespace stuff
 set tabstop=2
@@ -50,25 +53,18 @@ Bundle 'gmarik/vundle'
 Bundle 'gabrielpoca/vim-colorpack'
 Bundle 'gabrielpoca/ultisnips'
 Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
-"Bundle 'powerline'
-Bundle 'Lokaltog/powerline', {'rtp': '~/.powerline/bindings/vim'}
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'othree/html5.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'danro/rename.vim'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-haml'
 Bundle 'tpope/vim-cucumber'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'tpope/vim-rails'
 Bundle 'slim-template/vim-slim'
-"Bundle 'Yggdroot/indentLine'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'wesQ3/vim-windowswap'
-Bundle 'thoughtbot/vim-rspec'
 Bundle 'noahfrederick/vim-hemisu'
 Bundle 'rking/ag.vim'
 Bundle "pangloss/vim-javascript"
@@ -76,12 +72,22 @@ Bundle "stefanoverna/vim-i18n"
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-vividchalk'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'bling/vim-airline'
+Bundle 'guns/vim-clojure-static'
 
 filetype plugin indent on     " required!
 
+
+" use ru files like ruby
+au BufRead,BufNewFile *.ru setfiletype ruby
+
 " Color scheme
 set t_Co=256
-colorscheme solarized
+colorscheme Tomorrow
+
+" Clipboard
+set clipboard=unnamed
 
 if has("gui_running")
   set guioptions=egmrt
@@ -91,9 +97,11 @@ if has("gui_running")
   set vb
   colorscheme Tomorrow
 else
-  set clipboard=unnamed
   "set lazyredraw " Wait to redraw
 endif
+
+" powerline
+let g:airline_powerline_fonts = 1
 
 " ctrlp plugin
 let g:ctrlp_map = '<c-p>'
@@ -103,6 +111,9 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_dont_split = 'nerdtree'
 let g:multiedit_nomappings = 1
 let g:ctrlp_use_caching = 1
+map <leader>bo :CtrlPBuffer<CR>
+imap <leader>bo <Esc>:CtrlPBuffer<CR>
+nmap <leader>bo <Esc>:CtrlPBuffer<CR>
 
 " NERDTree configuration
 let NERDTreeWinPos='left'
@@ -114,11 +125,17 @@ let g:html5_microdata_attributes_complete = 0
 let g:html5_aria_attributes_complete = 0
 let g:html5_rdfa_attributes_complete = 0
 
+" disable folding
+let g:vim_markdown_folding_disabled=1
+
 " moves selected string to i18n
 vmap <Leader>z :call I18nTranslateString()<CR>
 
 " indent file
 map <leader>fi mzgg=G`z<CR>
+
+" change all commits to squash except for the first
+map <Leader>prs mzggjvG$:s/^pick/s<CR>
 
 " Use ctrl-s to save in any mode
 map <c-s> :w<CR>
@@ -137,7 +154,7 @@ nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
 " Toogle NERDTree
-map <silent> nt :NERDTreeTabsToggle<cr>
+map <silent> nt :NERDTreeToggle<cr>
 map <silent> gn :NERDTreeFocus<cr>
 
 " Change background
@@ -157,13 +174,6 @@ let g:windowswap_map_keys = 0 "prevent default bindings
 nnoremap <silent> <leader>fs :wincmd l<CR>:call WindowSwap#MarkWindowSwap()<CR>:wincmd h<CR>:call WindowSwap#DoWindowSwap()<CR>
 nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
 nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
-
-" Rspec.vim mappings
-map <Leader>rt :call RunCurrentSpecFile()<CR>
-map <Leader>rs :call RunNearestSpec()<CR>
-map <Leader>rl :call RunLastSpec()<CR>
-map <Leader>ra :call RunAllSpecs()<CR>
-let g:rspec_command = "zeus rspec {spec}"
 
 " macvim tab navigation
 if has("gui_macvim")

@@ -69,7 +69,7 @@ radio() {
 merge-feature() {
   branch=`git_prompt_info | cut -d ":" -f2`
   echo $branch
-  git fetch && git checkout dev && git rebase && git checkout $branch &&  git rebase dev && git rebase -i dev && git push -f && git checkout dev && git merge $branch && git push origin :$branch && git branch -d $branch
+  git fetch && git checkout dev && git rebase && git checkout $branch &&  git rebase dev && git rebase -i dev && git push -f && git checkout dev && git merge $branch && git push && git push origin :$branch && git branch -d $branch
 }
 
 new-feature() {
