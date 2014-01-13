@@ -9,7 +9,6 @@ set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
 set noshowmode    " powerline shows the mode
 set incsearch     " do incremental searching
-"set hlsearch      " highlight searches (:noh to turn off)
 set ignorecase    " case insensitive searching
 set smartcase     " overrides ignorecase when pattern contains caps
 set scrolloff=2   " Show 3 lines of context around the cursor.
@@ -26,8 +25,7 @@ set guicursor+=a:blinkon0
 set history=1000
 set undofile
 set undodir=~/.vim/undo
-"set relativenumber
-set colorcolumn=80
+set autoread
 
 " Whitespace stuff
 set tabstop=2
@@ -50,7 +48,6 @@ call vundle#rc()
 
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
-Bundle 'gabrielpoca/vim-colorpack'
 Bundle 'gabrielpoca/ultisnips'
 Bundle 'scrooloose/nerdtree'
 Bundle 'tpope/vim-fugitive'
@@ -65,26 +62,25 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'tpope/vim-rails'
 Bundle 'slim-template/vim-slim'
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'noahfrederick/vim-hemisu'
 Bundle 'rking/ag.vim'
-Bundle "pangloss/vim-javascript"
-Bundle "stefanoverna/vim-i18n"
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-vividchalk'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'bling/vim-airline'
-Bundle 'guns/vim-clojure-static'
+Bundle 'gabrielpoca/vim-colorpack'
+Bundle 'chriskempson/base16-vim'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'vim-scripts/JavaScript-Indent'
 
 filetype plugin indent on     " required!
-
 
 " use ru files like ruby
 au BufRead,BufNewFile *.ru setfiletype ruby
 
 " Color scheme
-set t_Co=256
-colorscheme Tomorrow
+set t_Co=16
+set background=dark
+colorscheme base16-default
 
 " Clipboard
 set clipboard=unnamed
@@ -106,7 +102,8 @@ let g:airline_powerline_fonts = 1
 " ctrlp plugin
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip  "MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
+set wildignore+=*/platforms/android/*,*/platforms/ios/*,*/bower_components/*
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_dont_split = 'nerdtree'
 let g:multiedit_nomappings = 1
@@ -127,9 +124,6 @@ let g:html5_rdfa_attributes_complete = 0
 
 " disable folding
 let g:vim_markdown_folding_disabled=1
-
-" moves selected string to i18n
-vmap <Leader>z :call I18nTranslateString()<CR>
 
 " indent file
 map <leader>fi mzgg=G`z<CR>
@@ -168,12 +162,8 @@ map <leader>v <C-w>v
 map <silent> <leader><cr> :noh<cr>
 
 " make + beahve like :
+nnoremap . :
 nnoremap + :
-
-let g:windowswap_map_keys = 0 "prevent default bindings
-nnoremap <silent> <leader>fs :wincmd l<CR>:call WindowSwap#MarkWindowSwap()<CR>:wincmd h<CR>:call WindowSwap#DoWindowSwap()<CR>
-nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
-nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
 
 " macvim tab navigation
 if has("gui_macvim")
@@ -187,6 +177,27 @@ if has("gui_macvim")
   map <D-8> :tabfirst<Cr>8gt
   map <D-9> :tabfirst<Cr>9gt
 endif
+
+" Rails.vim custom navigation
+" https://gist.github.com/jsteiner/5556217
+let g:rails_gem_projections = {
+      \ "draper": {
+      \   "app/decorators/*_decorator.rb": {
+      \     "command": "decorator",
+      \     "affinity": "model",
+      \     "test": "spec/decorators/%s_spec.rb",
+      \     "related": "app/models/%s.rb",
+      \     "template": "class %SDecorator < Draper::Decorator\nend"
+      \   }
+      \ }}
+
+let g:rails_projections = {
+      \ "app/presenters/*_presenter.rb": {
+      \   "command": "presenter",
+      \   "affinity": "model",
+      \   "test": "spec/presenters/%s_spec.rb",
+      \   "related": "app/models/%s.rb"
+      \ }}
 
 " close all hidden buffers
 function! Wipeout()

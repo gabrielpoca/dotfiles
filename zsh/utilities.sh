@@ -84,3 +84,12 @@ new-feature() {
   branch="$@"
   git checkout dev && git fetch && git rebase && git branch $branch && git checkout $branch
 }
+
+rebase() {
+  branch=`git_prompt_info | cut -d ":" -f2`
+  git checkout dev && git rebase && git checkout $branch && git rebase dev
+}
+
+compile-blog() {
+  rake jekyll:compile && g checkout master && rm -rf about* assets blog favicon images index.html && mv _site/* . && rm -rf _site
+}
