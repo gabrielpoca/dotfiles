@@ -74,6 +74,17 @@ radio() {
   fi
 }
 
+merge-feature-master() {
+  branch=`git_prompt_info | cut -d ":" -f2`
+  echo $branch
+  git fetch && git checkout master && git rebase && git checkout $branch &&  git rebase master && git rebase -i master && git push -f && git checkout master && git merge $branch && git push && git push origin :$branch && git branch -d $branch
+}
+
+new-feature-master() {
+  branch="$@"
+  git checkout master && git fetch && git rebase && git branch $branch && git checkout $branch
+}
+
 merge-feature() {
   branch=`git_prompt_info | cut -d ":" -f2`
   echo $branch
@@ -88,6 +99,11 @@ new-feature() {
 rebase() {
   branch=`git_prompt_info | cut -d ":" -f2`
   git checkout dev && git rebase && git checkout $branch && git rebase dev
+}
+
+rebase-master() {
+  branch=`git_prompt_info | cut -d ":" -f2`
+  git checkout master && git rebase && git checkout $branch && git rebase master
 }
 
 compile-blog() {

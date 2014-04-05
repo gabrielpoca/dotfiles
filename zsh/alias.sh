@@ -1,9 +1,10 @@
 # Git
 ## source http://coderwall.com/filipekiss
-alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 alias g="git"
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 alias gc="git checkout"
 alias ga="git add"
+alias gd="git diff"
 alias gco="git commit -m"
 alias gcom="git commit -a -m"
 alias gs="git status"
@@ -12,6 +13,7 @@ alias gp="git push"
 alias gf="git fetch"
 
 # Navigation
+alias .....='cd ../../../..'
 alias ....='cd ../../..'
 alias ...='cd ../..'
 alias ..='cd ..'
@@ -25,14 +27,17 @@ alias sc='spring rails c'
 alias ss='spring rails s'
 alias sr='spring rake'
 
-alias mvim="reattach-to-user-namespace mvim"
+#alias vim="reattach-to-user-namespace vim"
+#alias mvim="reattach-to-user-namespace /usr/local/Cellar/macvim/7.4-7/MacVim.app/Contents/MacOS/Vim"
+#alias vim="reattach-to-user-namespace /usr/local/Cellar/macvim/7.4-72/MacVim.app/Contents/MacOS/Vim"
+#alias vi="reattach-to-user-namespace /usr/local/Cellar/macvim/7.4-72/MacVim.app/Contents/MacOS/Vim"
 
 # Detect which `ls` flavor is in use
-# if ls --color > /dev/null 2>&1; then # GNU `ls`
-    # colorflag="--color"
-# else # OS X `ls`
-    colorflag="-G"
-# fi
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+  colorflag="--color"
+else # OS X `ls`
+  colorflag="-G"
+fi
 
 alias l="ls -l ${colorflag}"
 alias la="ls -la ${colorflag}"

@@ -1,4 +1,4 @@
-let mapleader = ","
+let mapleader = "\<Space>"
 
 set nocompatible
 set nobackup
@@ -35,6 +35,9 @@ set expandtab
 set shiftround
 set list listchars=tab:->,trail:·
 
+" http://superuser.com/questions/244040/how-do-i-change-until-the-next-underscore-in-vim/244070#244070
+" set iskeyword-=_
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
@@ -57,7 +60,6 @@ Bundle 'othree/html5.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'danro/rename.vim'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'tpope/vim-cucumber'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'tpope/vim-rails'
 Bundle 'slim-template/vim-slim'
@@ -71,6 +73,14 @@ Bundle 'gabrielpoca/vim-colorpack'
 Bundle 'chriskempson/base16-vim'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'vim-scripts/JavaScript-Indent'
+Bundle 'nelstrom/vim-visual-star-search'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'AndrewRadev/splitjoin.vim'
+Bundle 'AndrewRadev/writable_search.vim'
+Bundle 'gcmt/wildfire.vim'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
 
 filetype plugin indent on     " required!
 
@@ -79,7 +89,7 @@ au BufRead,BufNewFile *.ru setfiletype ruby
 
 " Color scheme
 set t_Co=16
-set background=dark
+set background=light
 colorscheme base16-default
 
 " Clipboard
@@ -96,21 +106,33 @@ else
   "set lazyredraw " Wait to redraw
 endif
 
+" Rspec cofiguration
+let g:rspec_runner = "os_x_iterm"
+let g:rspec_command = "!spring rspec -fd {spec}"
+map <Leader>r :call RunCurrentSpecFile()<CR>
+map <Leader>tn :call RunNearestSpec()<CR>
+map <Leader>tl :call RunLastSpec()<CR>
+map <Leader>ta :call RunAllSpecs()<CR>
+
 " powerline
 let g:airline_powerline_fonts = 1
+"let g:airline_theme='powerlineish'
+"let g:airline_left_sep=''
+"let g:airline_right_sep=''
+"let g:airline_section_z=''
 
 " ctrlp plugin
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_working_path_mode = 'ar'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
 set wildignore+=*/platforms/android/*,*/platforms/ios/*,*/bower_components/*
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_dont_split = 'nerdtree'
 let g:multiedit_nomappings = 1
-let g:ctrlp_use_caching = 1
+let g:ctrlp_use_caching = 0
 map <leader>bo :CtrlPBuffer<CR>
-imap <leader>bo <Esc>:CtrlPBuffer<CR>
-nmap <leader>bo <Esc>:CtrlPBuffer<CR>
+" Testing command
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 
 " NERDTree configuration
 let NERDTreeWinPos='left'
@@ -122,11 +144,15 @@ let g:html5_microdata_attributes_complete = 0
 let g:html5_aria_attributes_complete = 0
 let g:html5_rdfa_attributes_complete = 0
 
+" Gist
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+
 " disable folding
 let g:vim_markdown_folding_disabled=1
 
 " indent file
-map <leader>fi mzgg=G`z<CR>
+map <leader>fi mzgg=G`z
 
 " change all commits to squash except for the first
 map <Leader>prs mzggjvG$:s/^pick/s<CR>
