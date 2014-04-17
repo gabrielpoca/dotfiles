@@ -21,6 +21,7 @@ set mouse=a
 set ttyfast
 set ttymouse=xterm2
 set number
+"set relativenumber
 set guicursor+=a:blinkon0
 set history=1000
 set undofile
@@ -93,22 +94,22 @@ set background=light
 colorscheme base16-default
 
 " Clipboard
-set clipboard=unnamed
 
 if has("gui_running")
   set guioptions=egmrt
   set guioptions-=r
-  set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-  set bg=light
+  set guifont=Inconsolata\ for\ Powerline:h14
+  set bg=dark
   set vb
-  colorscheme Tomorrow
+  colorscheme base16-flat
 else
+  set clipboard=unnamed
   "set lazyredraw " Wait to redraw
 endif
 
 " Rspec cofiguration
 let g:rspec_runner = "os_x_iterm"
-let g:rspec_command = "!spring rspec -fd {spec}"
+let g:rspec_command = "!rspec -fd {spec}"
 map <Leader>r :call RunCurrentSpecFile()<CR>
 map <Leader>tn :call RunNearestSpec()<CR>
 map <Leader>tl :call RunLastSpec()<CR>
