@@ -3,12 +3,9 @@
   email = gabrielpoca@gmail.com
   signingkey = FF6BE58E
 [push]
-  default = upstream
+  default = current
 [color]
-  branch = auto
-  diff = auto
-  status = auto
-  ui = auto
+  ui = true
 [alias]
   a = add
   aa = add -a
@@ -17,7 +14,6 @@
   c = checkout
   cb = checkout -b
   co = commit
-  conflicts = !git ls-files -u | cut -f 2 | sort -u
   f = fetch
   p = push
   r = rebase
@@ -26,10 +22,5 @@
 [core]
   excludesfile = ~/.gitignore.local
   editor = vim
-[merge "gemfilelock"]
-  name = relocks the gemfile.lock
-  driver = bundle lock
-[include]
-  path = .gitconfig
 [github]
   user = gabrielpoca
