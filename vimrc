@@ -90,7 +90,7 @@ au BufRead,BufNewFile *.ru setfiletype ruby
 
 " Color scheme
 set t_Co=16
-set background=light
+set background=dark
 colorscheme base16-default
 
 " Clipboard
