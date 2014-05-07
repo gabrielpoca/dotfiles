@@ -19,6 +19,7 @@ set splitright
 set nofoldenable
 set mouse=a
 set ttyfast
+set ttyscroll=3   " testing, should make it faster when scrolling is slow.
 set ttymouse=xterm2
 set number
 "set relativenumber
@@ -58,10 +59,8 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'othree/html5.vim'
-Bundle 'mileszs/ack.vim'
 Bundle 'danro/rename.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'Lokaltog/vim-easymotion'
+Bundle 'gabrielpoca/vim-coffee-script'
 Bundle 'tpope/vim-rails'
 Bundle 'slim-template/vim-slim'
 Bundle 'altercation/vim-colors-solarized'
@@ -82,19 +81,25 @@ Bundle 'gcmt/wildfire.vim'
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
+Bundle 'rking/ag.vim'
 
 filetype plugin indent on     " required!
+
+" don't render italic, bold, links in HTML
+let html_no_rendering=1
 
 " use ru files like ruby
 au BufRead,BufNewFile *.ru setfiletype ruby
 
-" Color scheme
+" color scheme
 set t_Co=16
-set background=dark
+set background=light
 colorscheme base16-default
 
-" Clipboard
+" clipboard
+set clipboard=unnamed
 
+" for macvim
 if has("gui_running")
   set guioptions=egmrt
   set guioptions-=r
@@ -103,11 +108,9 @@ if has("gui_running")
   set vb
   colorscheme base16-flat
 else
-  set clipboard=unnamed
-  "set lazyredraw " Wait to redraw
 endif
 
-" Rspec cofiguration
+" rspec cofiguration
 let g:rspec_runner = "os_x_iterm"
 let g:rspec_command = "!rspec -fd {spec}"
 map <Leader>r :call RunCurrentSpecFile()<CR>

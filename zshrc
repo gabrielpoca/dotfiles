@@ -21,7 +21,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(tmux, git, rails, ruby, osx, brew, battery)
-plugins=(tmux, rails, ruby, osx, brew)
+plugins=(tmux, rails, ruby, git)
 
 source $ZSH/oh-my-zsh.sh
 source $CUSTOM_LOAD/osx.sh
@@ -30,7 +30,6 @@ source $CUSTOM_LOAD/utilities.sh
 source $CUSTOM_LOAD/functions.sh
 source $CUSTOM_LOAD/shortcuts.sh
 source $CUSTOM_LOAD/configuration.sh
-source $CUSTOM_LOAD/marks.sh
 
 # Customize to your needs...
 export PATH=$PATH:/usr/local/bin:/usr/local/heroku/bin:/Users/gabriel/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/usr/local/sbin:/Users/gabriel/.android-sdk/platform-tools:/Users/gabriel/.android-sdk/tools
