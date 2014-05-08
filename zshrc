@@ -31,4 +31,4 @@ for file in $CUSTOM_PATH/*.zsh; do
 done
 
 # Customize to your needs...
-export PATH=$PATH:/usr/local/bin:/usr/local/heroku/bin:/Users/gabriel/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/usr/local/sbin:/Users/gabriel/.android-sdk/platform-tools:/Users/gabriel/.android-sdk/tools
+export PATH=$PATH:/usr/local/bin:/usr/local/heroku/bin:/Users/gabriel/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/usr/local/sbin:$HOME/.bin

@@ -1,5 +1,5 @@
 # Play an alarm file once your internet connection returns.
-conf wait_for_net() {
+wait_for_net() {
   until ping -W1 -c1 8.8.8.8; do sleep 5; done && afplay ~/alarm.mp3
 }
 
@@ -72,38 +72,6 @@ radio() {
   else
     echo "Radio does not exist!"
   fi
-}
-
-merge-feature-master() {
-  branch=`git rev-parse --abbrev-ref HEAD`
-  echo $branch
-  git fetch && git checkout master && git rebase && git checkout $branch &&  git rebase master && git rebase -i master && git push -f && git checkout master && git merge $branch && git push && git push origin :$branch && git branch -d $branch
-}
-
-new-feature-master() {
-  branch="$@"
-  git checkout master && git fetch && git rebase && git branch $branch && git checkout $branch
-}
-
-merge-feature() {
-  branch=`git_prompt_info | cut -d ":" -f2`
-  echo $branch
-  git fetch && git checkout dev && git rebase && git checkout $branch &&  git rebase dev && git rebase -i dev && git push -f && git checkout dev && git merge $branch && git push && git push origin :$branch && git branch -d $branch
-}
-
-new-feature() {
-  branch="$@"
-  git checkout dev && git fetch && git rebase && git branch $branch && git checkout $branch
-}
-
-rebase() {
-  branch=`git_prompt_info | cut -d ":" -f2`
-  git checkout dev && git rebase && git checkout $branch && git rebase dev
-}
-
-rebase-master() {
-  branch=`git_prompt_info | cut -d ":" -f2`
-  git checkout master && git rebase && git checkout $branch && git rebase master
 }
 
 compile-blog() {
