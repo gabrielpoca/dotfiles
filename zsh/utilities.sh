@@ -75,7 +75,7 @@ radio() {
 }
 
 merge-feature-master() {
-  branch=`git_prompt_info | cut -d ":" -f2`
+  branch=`git rev-parse --abbrev-ref HEAD`
   echo $branch
   git fetch && git checkout master && git rebase && git checkout $branch &&  git rebase master && git rebase -i master && git push -f && git checkout master && git merge $branch && git push && git push origin :$branch && git branch -d $branch
 }

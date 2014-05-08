@@ -26,11 +26,6 @@ alias sc='spring rails c'
 alias ss='spring rails s'
 alias sr='spring rake'
 
-#alias vim="reattach-to-user-namespace vim"
-#alias mvim="reattach-to-user-namespace /usr/local/Cellar/macvim/7.4-7/MacVim.app/Contents/MacOS/Vim"
-#alias vim="reattach-to-user-namespace /usr/local/Cellar/macvim/7.4-72/MacVim.app/Contents/MacOS/Vim"
-#alias vi="reattach-to-user-namespace /usr/local/Cellar/macvim/7.4-72/MacVim.app/Contents/MacOS/Vim"
-
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
   colorflag="--color"

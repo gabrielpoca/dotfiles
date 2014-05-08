@@ -81,7 +81,6 @@ Bundle 'gcmt/wildfire.vim'
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
-Bundle 'rking/ag.vim'
 
 filetype plugin indent on     " required!
 
