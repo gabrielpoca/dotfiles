@@ -5,6 +5,10 @@ ZSH=$HOME/.oh-my-zsh
 # Path to my configurations
 CUSTOM_PATH=$HOME/.zsh
 
+# lang
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+
 # Disable shared history
 unsetopt share_history
 
@@ -20,8 +24,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-#plugins=(tmux, git, rails, ruby, osx, brew, battery)
-plugins=(tmux, github, rails4, ruby, git)
+plugins=(github, rails4, ruby, git, zsh-syntax-highlighting, tmux)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -30,5 +33,5 @@ for file in $CUSTOM_PATH/*.zsh; do
   source "$file"
 done
 
-# Customize to your needs...
-export PATH=$PATH:/usr/local/bin:/usr/local/heroku/bin:/Users/gabriel/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/usr/local/sbin:$HOME/.bin
+# Customize to your needs.
+export PATH=$PATH:/usr/local/bin:/usr/local/heroku/bin:/Users/gabriel/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:/usr/local/sbin:$HOME/.bin:$HOME/.android-sdk/platform-tools:$HOME/.android-sdk/tools

@@ -1,3 +1,3 @@
 # Shortcuts
-alias GB='cd ~/GroupBuddies'
-alias P='cd ~/Projects'
+alias GB='cd ~/groupbuddies'
+alias P='cd ~/projects'

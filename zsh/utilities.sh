@@ -74,6 +74,14 @@ radio() {
   fi
 }
 
-compile-blog() {
-  rake jekyll:compile && g checkout master && rm -rf about* assets blog favicon images index.html && mv _site/* . && rm -rf _site
+f-new() {
+  new_branch="$1"
+  source_branch=${2:-master}
+  git checkout $source_branch && git fetch && git rebase && git branch $new_branch && git checkout $new_branch
+}
+
+f-merge() {
+  branch=`git branch | sed -n '\/* /s///p'`
+  destiny_branch=${1:-master}
+  git fetch && git checkout $destiny_branch && git rebase && git checkout $branch &&  git rebase $destiny_branch && git rebase -i $destiny_branch && git push -f && git checkout $destiny_branch && git merge $branch && git push && git push origin :$branch && git branch -d $branch
 }
