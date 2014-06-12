@@ -1,3 +1,5 @@
+set shell=/bin/bash " required for vundle with fish
+
 let mapleader = "\<Space>"
 
 set nocompatible
@@ -49,39 +51,40 @@ endif
 filetype off  " required by vundle
 
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call vundle#begin()
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-Bundle 'gabrielpoca/ultisnips'
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-fugitive'
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'othree/html5.vim'
-Bundle 'danro/rename.vim'
-Bundle 'gabrielpoca/vim-coffee-script'
-Bundle 'tpope/vim-rails'
-Bundle 'slim-template/vim-slim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'rking/ag.vim'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-endwise'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'bling/vim-airline'
-Bundle 'gabrielpoca/vim-colorpack'
-Bundle 'chriskempson/base16-vim'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'vim-scripts/JavaScript-Indent'
-Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'AndrewRadev/splitjoin.vim'
-Bundle 'AndrewRadev/writable_search.vim'
-Bundle 'gcmt/wildfire.vim'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/gist-vim'
+Plugin 'gmarik/vundle'
+Plugin 'gabrielpoca/ultisnips'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'othree/html5.vim'
+Plugin 'danro/rename.vim'
+Plugin 'gabrielpoca/vim-coffee-script'
+Plugin 'tpope/vim-rails'
+Plugin 'slim-template/vim-slim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'rking/ag.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-endwise'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'bling/vim-airline'
+Plugin 'gabrielpoca/vim-colorpack'
+Plugin 'chriskempson/base16-vim'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'vim-scripts/JavaScript-Indent'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'AndrewRadev/writable_search.vim'
+Plugin 'gcmt/wildfire.vim'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'mattn/webapi-vim'
+Plugin 'mattn/gist-vim'
 
+call vundle#end()
 filetype plugin indent on     " required!
 
 " don't render italic, bold, links in HTML
