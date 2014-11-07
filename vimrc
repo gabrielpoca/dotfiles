@@ -23,8 +23,8 @@ set mouse=a
 set ttyfast
 set ttyscroll=3   " testing, should make it faster when scrolling is slow.
 set ttymouse=xterm2
+set relativenumber
 set number
-"set relativenumber
 set guicursor+=a:blinkon0
 set history=1000
 set undofile
@@ -37,10 +37,15 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set shiftround
-set list listchars=tab:->,trail:·
+" set list listchars=tab:->,trail:·
+
+
+" Per project .vimrc
+set exrc
+set secure 
 
 " http://superuser.com/questions/244040/how-do-i-change-until-the-next-underscore-in-vim/244070#244070
-" set iskeyword-=_
+set iskeyword-=-
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -55,13 +60,11 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 Plugin 'gmarik/vundle'
-Plugin 'gabrielpoca/ultisnips'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'othree/html5.vim'
-Plugin 'danro/rename.vim'
 Plugin 'gabrielpoca/vim-coffee-script'
 Plugin 'tpope/vim-rails'
 Plugin 'slim-template/vim-slim'
@@ -78,11 +81,21 @@ Plugin 'vim-scripts/JavaScript-Indent'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'AndrewRadev/writable_search.vim'
 Plugin 'gcmt/wildfire.vim'
-Plugin 'thoughtbot/vim-rspec'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'duff/vim-scratch'
+Plugin 'mattn/emmet-vim'
+Plugin 'godlygeek/tabular'
+Plugin 'wting/rust.vim'
+Plugin 'elzr/vim-json'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'Shougo/neocomplcache.vim'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'rizzatti/dash.vim'
+Plugin 'zerowidth/vim-copy-as-rtf'
 
 call vundle#end()
 filetype plugin indent on     " required!
@@ -109,16 +122,7 @@ if has("gui_running")
   set bg=dark
   set vb
   colorscheme base16-flat
-else
 endif
-
-" rspec cofiguration
-let g:rspec_runner = "os_x_iterm"
-let g:rspec_command = "!rspec -fd {spec}"
-map <Leader>r :call RunCurrentSpecFile()<CR>
-map <Leader>tn :call RunNearestSpec()<CR>
-map <Leader>tl :call RunLastSpec()<CR>
-map <Leader>ta :call RunAllSpecs()<CR>
 
 " powerline
 let g:airline_powerline_fonts = 1
@@ -153,6 +157,33 @@ let g:html5_rdfa_attributes_complete = 0
 " Gist
 let g:gist_detect_filetype = 1
 let g:gist_open_browser_after_post = 1
+
+" Neocomplete
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Neosnippet
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 " disable folding
 let g:vim_markdown_folding_disabled=1
@@ -192,6 +223,9 @@ map <leader>v <C-w>v
 
 " Hide highlighted terms
 map <silent> <leader><cr> :noh<cr>
+
+" Paste in paste mode
+map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 
 " make + beahve like :
 nnoremap . :
@@ -264,3 +298,4 @@ function! Wipeout()
     execute 'tabnext' l:currentTab
   endtry
 endfunction
+
