@@ -96,6 +96,10 @@ Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'rizzatti/dash.vim'
 Plugin 'zerowidth/vim-copy-as-rtf'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'jgdavey/tslime.vim'
+Plugin 'henrik/vim-qargs'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 filetype plugin indent on     " required!
@@ -126,7 +130,7 @@ endif
 
 " powerline
 let g:airline_powerline_fonts = 1
-"let g:airline_theme='powerlineish'
+let g:airline_theme='tomorrow'
 "let g:airline_left_sep=''
 "let g:airline_right_sep=''
 "let g:airline_section_z=''
@@ -210,6 +214,13 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
+" Rspec
+let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+
 " Toogle NERDTree
 map <silent> nt :NERDTreeToggle<cr>
 map <silent> gn :NERDTreeFocus<cr>
@@ -231,18 +242,9 @@ map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 nnoremap . :
 nnoremap + :
 
-" macvim tab navigation
-if has("gui_macvim")
-  map <D-1> :tabfirst<Cr>
-  map <D-2> :tabfirst<Cr>gt
-  map <D-3> :tabfirst<Cr>3gt
-  map <D-4> :tabfirst<Cr>4gt
-  map <D-5> :tabfirst<Cr>5gt
-  map <D-6> :tabfirst<Cr>6gt
-  map <D-7> :tabfirst<Cr>7gt
-  map <D-8> :tabfirst<Cr>8gt
-  map <D-9> :tabfirst<Cr>9gt
-endif
+" make <leader>o and <leader>O add new line without going to insert mode
+map <silent> <leader>o :put =''<cr>
+map <silent> <leader>O :put! =''<cr>
 
 " Rails.vim custom navigation
 " https://gist.github.com/jsteiner/5556217
@@ -298,4 +300,3 @@ function! Wipeout()
     execute 'tabnext' l:currentTab
   endtry
 endfunction
-

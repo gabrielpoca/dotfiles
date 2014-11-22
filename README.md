@@ -6,15 +6,11 @@ This project contains my personal dotfiles.
 
 Clone:
 
-    git@github.com:groupbuddies/dotfiles.git
-
-Install stuff I need:
-
-    brew bundle dotfiles/Brewfile
+    git@github.com:gabrielpoca/dotfiles.git
 
 Install dotfiles:
 
-    rcup -d dotfiles -x README.md -x Brewfile -x install.sh
+    rcup -d dotfiles -x README.md
 
 Install [TPM](https://github.com/tmux-plugins/tpm)
 
