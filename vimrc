@@ -18,6 +18,7 @@ set laststatus=2  " Always display the status line
 set encoding=utf-8
 set backspace=indent,eol,start
 set splitright
+set splitbelow
 set nofoldenable
 set mouse=a
 set ttyfast
@@ -100,6 +101,9 @@ Plugin 'thoughtbot/vim-rspec'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'henrik/vim-qargs'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'vim-scripts/greplace.vim'
+Plugin 'vim-ruby/vim-ruby'
 
 call vundle#end()
 filetype plugin indent on     " required!
@@ -113,20 +117,11 @@ au BufRead,BufNewFile *.ru setfiletype ruby
 " color scheme
 set t_Co=16
 set background=dark
+"let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-default
 
 " clipboard
 set clipboard=unnamed
-
-" for macvim
-if has("gui_running")
-  set guioptions=egmrt
-  set guioptions-=r
-  set guifont=Inconsolata\ for\ Powerline:h14
-  set bg=dark
-  set vb
-  colorscheme base16-flat
-endif
 
 " powerline
 let g:airline_powerline_fonts = 1
