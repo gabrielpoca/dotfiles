@@ -1,0 +1,26 @@
+#!/bin/sh
+
+current=`git branch | sed -n '\/* /s///p'`
+destiny=${1:-master}
+
+# 1. Update destiny
+git fetch
+git checkout $destiny
+[[ $? == 0 ]] || exit "failed to switch to $destiny"
+git rebase
+
+# 2. rebase PR branch
+git checkout $current
+git rebase $destiny
+[[ $? == 0 ]] || exit "failed to rebase from $destiny"
+git rebase -i $destiny
+
+# 3. merge
+git push -f
+git checkout $destiny
+git merge --ff-only $current
+git push
+
+# 4. remove branch
+git push origin :$current
+git branch -d $current

@@ -38,7 +38,9 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set shiftround
-" set list listchars=tab:->,trail:·
+set list listchars=tab:->,trail:·
+
+" common misspelled words
 
 
 " Per project .vimrc
@@ -69,34 +71,29 @@ Plugin 'othree/html5.vim'
 Plugin 'gabrielpoca/vim-coffee-script'
 Plugin 'tpope/vim-rails'
 Plugin 'slim-template/vim-slim'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-endwise'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'bling/vim-airline'
 Plugin 'gabrielpoca/vim-colorpack'
 Plugin 'chriskempson/base16-vim'
+Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
-Plugin 'vim-scripts/JavaScript-Indent'
-Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'moll/vim-node'
+Plugin 'bronson/vim-visual-star-search'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'mattn/webapi-vim'
 Plugin 'mattn/gist-vim'
-Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'juvenn/mustache.vim'
 Plugin 'duff/vim-scratch'
 Plugin 'mattn/emmet-vim'
 Plugin 'godlygeek/tabular'
-Plugin 'wting/rust.vim'
-Plugin 'elzr/vim-json'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'Shougo/neocomplcache.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
-Plugin 'rizzatti/dash.vim'
-Plugin 'zerowidth/vim-copy-as-rtf'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'henrik/vim-qargs'
@@ -104,20 +101,25 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'vim-scripts/greplace.vim'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'junegunn/goyo.vim'
+Plugin 'amix/vim-zenroom2'
 
 call vundle#end()
 filetype plugin indent on     " required!
 
 " don't render italic, bold, links in HTML
-let html_no_rendering=1
+"let html_no_rendering=1
 
 " use ru files like ruby
 au BufRead,BufNewFile *.ru setfiletype ruby
 
+" use md files like markdown
+au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,README.md  setf markdown
+
 " color scheme
 set t_Co=16
 set background=dark
-"let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-default
 
 " clipboard
@@ -126,9 +128,6 @@ set clipboard=unnamed
 " powerline
 let g:airline_powerline_fonts = 1
 let g:airline_theme='tomorrow'
-"let g:airline_left_sep=''
-"let g:airline_right_sep=''
-"let g:airline_section_z=''
 
 " ctrlp plugin
 let g:ctrlp_map = '<c-p>'
@@ -184,12 +183,6 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
-" disable folding
-let g:vim_markdown_folding_disabled=1
-
-" indent file
-map <leader>fi mzgg=G`z
-
 " change all commits to squash except for the first
 map <Leader>prs mzggjvG$:s/^pick/s<CR>
 
@@ -241,26 +234,50 @@ nnoremap + :
 map <silent> <leader>o :put =''<cr>
 map <silent> <leader>O :put! =''<cr>
 
-" Rails.vim custom navigation
-" https://gist.github.com/jsteiner/5556217
-let g:rails_gem_projections = {
-      \ "draper": {
-      \   "app/decorators/*_decorator.rb": {
-      \     "command": "decorator",
-      \     "affinity": "model",
-      \     "test": "spec/decorators/%s_spec.rb",
-      \     "related": "app/models/%s.rb",
-      \     "template": "class %SDecorator < Draper::Decorator\nend"
-      \   }
-      \ }}
+" zen mode
+nnoremap <silent> <leader>z :call Zenmode()<cr>
 
-let g:rails_projections = {
-      \ "app/presenters/*_presenter.rb": {
-      \   "command": "presenter",
-      \   "affinity": "model",
-      \   "test": "spec/presenters/%s_spec.rb",
-      \   "related": "app/models/%s.rb"
-      \ }}
+function! Zenmode()
+  execute ':Goyo'
+endfunction
+
+" spel check
+nnoremap <silent> <leader>len :call LanguageEN()<cr>
+nnoremap <silent> <leader>lpt :call LanguagePT()<cr>
+
+function! LanguageEN()
+  setlocal spell spelllang=en_us
+endfunction
+
+function! LanguagePT()
+  setlocal spell spelllang=pt_PT
+endfunction
+
+" indent files
+" dont' forget to run:
+"   npm install -g esformatter
+nnoremap <silent> <leader>i :call Format()<cr>
+
+function! Format()
+  " Preparation: save last search, and cursor position.
+  let l:win_view = winsaveview()
+  let l:last_search = getreg('/')
+  let fileWorkingDirectory = expand('%:p:h')
+  let currentWorkingDirectory = getcwd()
+  execute ':lcd' . fileWorkingDirectory
+  "execute ':silent normal! gg="G<cr>"'
+  execute ':silent' . '%!esformatter'
+  if v:shell_error
+    undo
+    "echo "esformatter error, using builtin vim formatter"
+    " use internal formatting command
+    execute ":silent normal! gg=G<cr>"
+  endif
+  " Clean up: restore previous search history, and cursor position
+  execute ':lcd' . currentWorkingDirectory
+  call winrestview(l:win_view)
+  call setreg('/', l:last_search)
+endfunction
 
 " close all hidden buffers
 function! Wipeout()
