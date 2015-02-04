@@ -6,8 +6,7 @@ set nocompatible
 set nobackup
 set nowritebackup
 set noswapfile
-set history=50
-set ruler         " show the cursor position all the time
+set hlsearch      " highlight search
 set showcmd       " display incomplete commands
 set noshowmode    " powerline shows the mode
 set incsearch     " do incremental searching
@@ -38,10 +37,7 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set shiftround
-set list listchars=tab:->,trail:·
-
-" common misspelled words
-
+"set list listchars=tab:->,trail:·
 
 " Per project .vimrc
 set exrc
@@ -75,7 +71,6 @@ Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-endwise'
 Plugin 'bling/vim-airline'
-Plugin 'gabrielpoca/vim-colorpack'
 Plugin 'chriskempson/base16-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jelera/vim-javascript-syntax'
@@ -104,18 +99,14 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
+Plugin 'nicholaides/words-to-avoid.vim'
+Plugin 'gabrielpoca/vim-language-shortcuts'
 
 call vundle#end()
 filetype plugin indent on     " required!
 
 " don't render italic, bold, links in HTML
-"let html_no_rendering=1
-
-" use ru files like ruby
-au BufRead,BufNewFile *.ru setfiletype ruby
-
-" use md files like markdown
-au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,README.md  setf markdown
+let html_no_rendering=1
 
 " color scheme
 set t_Co=16
@@ -127,18 +118,18 @@ set clipboard=unnamed
 
 " powerline
 let g:airline_powerline_fonts = 1
-let g:airline_theme='tomorrow'
+let g:airline_theme='base16'
 
 " ctrlp plugin
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode = 'ar'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/bower_components/*
 set wildignore+=*/platforms/android/*,*/platforms/ios/*,*/bower_components/*
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_dont_split = 'nerdtree'
 let g:multiedit_nomappings = 1
 let g:ctrlp_use_caching = 0
-map <leader>bo :CtrlPBuffer<CR>
+
 " Testing command
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 
@@ -168,6 +159,9 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd BufRead,BufNewFile *.es6 setfiletype javascript
+au BufRead,BufNewFile *.ru setfiletype ruby
+au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md  setf markdown
 
 " Neosnippet
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -183,77 +177,67 @@ if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
 
+" COMMANDS
+" -------------------------------------------------------------------
+
+" NERDTREE
+map <silent> nt :NERDTreeToggle<cr>
+map <silent> gn :NERDTreeFocus<cr>
+
+" PULL REQUEST
 " change all commits to squash except for the first
 map <Leader>prs mzggjvG$:s/^pick/s<CR>
 
+" SAVE
 " Use ctrl-s to save in any mode
 map <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>
 nmap <c-s> <Esc>:w<CR>
 
-" fugitive shortcuts
-noremap <leader>gb :Gblame<CR>
-noremap <leader>gs :Gstatus<CR>
-noremap <leader>gp :Git push<CR>
-
+" SPLIT
 " move to split
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
-" Rspec
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
-
-" Toogle NERDTree
-map <silent> nt :NERDTreeToggle<cr>
-map <silent> gn :NERDTreeFocus<cr>
-
-" Change background
+" BACKGROUND
 map <silent> <leader>bd :set background=dark<cr>
 map <silent> <leader>bl :set background=light<cr>
 
-" simple vertical splits
-map <leader>v <C-w>v
-
+" SEARCH
 " Hide highlighted terms
 map <silent> <leader><cr> :noh<cr>
 
 " Paste in paste mode
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 
-" make + beahve like :
-nnoremap . :
-nnoremap + :
+" make ; beahve like :
+nnoremap , :
 
-" make <leader>o and <leader>O add new line without going to insert mode
-map <silent> <leader>o :put =''<cr>
-map <silent> <leader>O :put! =''<cr>
+" move to end and begining of line
+nnoremap H 0
+nnoremap L $
 
-" zen mode
+" open TIL file
+command TIL tabe~/Google\ Drive/TIL.markdown
+
+" FUNCTIONS
+" ----------------------------------------------------------
+
+" ZENMODE
 nnoremap <silent> <leader>z :call Zenmode()<cr>
 
 function! Zenmode()
   execute ':Goyo'
-endfunction
+  set wrap
+  set linebreak()
+  set nolist
+  call MatchTechWordsToAvoid()
+  call LanguageEN()
+endfunctio
 
-" spel check
-nnoremap <silent> <leader>len :call LanguageEN()<cr>
-nnoremap <silent> <leader>lpt :call LanguagePT()<cr>
-
-function! LanguageEN()
-  setlocal spell spelllang=en_us
-endfunction
-
-function! LanguagePT()
-  setlocal spell spelllang=pt_PT
-endfunction
-
-" indent files
+" INDENT
 " dont' forget to run:
 "   npm install -g esformatter
 nnoremap <silent> <leader>i :call Format()<cr>
@@ -277,38 +261,4 @@ function! Format()
   execute ':lcd' . currentWorkingDirectory
   call winrestview(l:win_view)
   call setreg('/', l:last_search)
-endfunction
-
-" close all hidden buffers
-function! Wipeout()
-  " list of *all* buffer numbers
-  let l:buffers = range(1, bufnr('$'))
-
-  " what tab page are we in?
-  let l:currentTab = tabpagenr()
-  try
-    " go through all tab pages
-    let l:tab = 0
-    while l:tab < tabpagenr('$')
-      let l:tab += 1
-
-      " go through all windows
-      let l:win = 0
-      while l:win < winnr('$')
-        let l:win += 1
-        " whatever buffer is in this window in this tab, remove it from
-        " l:buffers list
-        let l:thisbuf = winbufnr(l:win)
-        call remove(l:buffers, index(l:buffers, l:thisbuf))
-      endwhile
-    endwhile
-
-    " if there are any buffers left, delete them
-    if len(l:buffers)
-      execute 'bwipeout' join(l:buffers)
-    endif
-  finally
-    " go back to our original tab page
-    execute 'tabnext' l:currentTab
-  endtry
 endfunction
