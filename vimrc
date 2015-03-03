@@ -7,12 +7,12 @@ set nobackup
 set nowritebackup
 set noswapfile
 set hlsearch      " highlight search
-set showcmd       " display incomplete commands
+set noshowcmd     " show (partial) command in the last line of the screen
 set noshowmode    " powerline shows the mode
 set incsearch     " do incremental searching
 set ignorecase    " case insensitive searching
 set smartcase     " overrides ignorecase when pattern contains caps
-set scrolloff=2   " Show 3 lines of context around the cursor.
+set scrolloff=6   " Show 3 lines of context around the cursor.
 set laststatus=2  " Always display the status line
 set encoding=utf-8
 set backspace=indent,eol,start
@@ -22,14 +22,18 @@ set nofoldenable
 set mouse=a
 set ttyfast
 set ttyscroll=3   " testing, should make it faster when scrolling is slow.
+set lazyredraw    " to avoid scrolling problems
 set ttymouse=xterm2
-set relativenumber
 set number
+"set relativenumber
 set guicursor+=a:blinkon0
 set history=1000
 set undofile
 set undodir=~/.vim/undo
 set autoread
+set gdefault      " apply g on replace operations
+set complete-=i   " Searching includes can be slow
+set iskeyword-=-
 
 " Whitespace stuff
 set tabstop=2
@@ -43,8 +47,6 @@ set shiftround
 set exrc
 set secure 
 
-" http://superuser.com/questions/244040/how-do-i-change-until-the-next-underscore-in-vim/244070#244070
-set iskeyword-=-
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
@@ -92,7 +94,7 @@ Plugin 'Shougo/neosnippet-snippets'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'jgdavey/tslime.vim'
 Plugin 'henrik/vim-qargs'
-Plugin 'airblade/vim-gitgutter'
+"Plugin 'airblade/vim-gitgutter'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'vim-scripts/greplace.vim'
 Plugin 'vim-ruby/vim-ruby'
@@ -101,6 +103,9 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'amix/vim-zenroom2'
 Plugin 'nicholaides/words-to-avoid.vim'
 Plugin 'gabrielpoca/vim-language-shortcuts'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 filetype plugin indent on     " required!
@@ -109,9 +114,19 @@ filetype plugin indent on     " required!
 let html_no_rendering=1
 
 " color scheme
-set t_Co=16
-set background=dark
-colorscheme base16-default
+let g:solarized_termtrans = 16
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+set background=light
+set t_ut=
+colorscheme solarized
+
+"set background=light
+"set t_Co=16
+"colorscheme base16-default
+"
+"let g:hybrid_use_iTerm_colors = 1
+"colorscheme hybrid
 
 " clipboard
 set clipboard=unnamed
@@ -119,6 +134,7 @@ set clipboard=unnamed
 " powerline
 let g:airline_powerline_fonts = 1
 let g:airline_theme='base16'
+let g:airline_section_z=''
 
 " ctrlp plugin
 let g:ctrlp_map = '<c-p>'
@@ -215,12 +231,29 @@ map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 " make ; beahve like :
 nnoremap , :
 
+" maps jk to esc
+inoremap jk <esc>
+
 " move to end and begining of line
 nnoremap H 0
 nnoremap L $
 
 " open TIL file
 command TIL tabe~/Google\ Drive/TIL.markdown
+
+
+" MACVIM
+" ---------------------------------------------------------
+
+if has("gui_running")
+  "colorscheme base16-ashes
+  set guifont=Ubuntu\ Mono\ derivative\ Powerline\ Plus\ Nerd\ File\ Types:h14
+  set guioptions=egmrt
+  set guioptions-=r
+  set noeb vb t_vb=
+else
+  set synmaxcol=128
+endif
 
 " FUNCTIONS
 " ----------------------------------------------------------
@@ -231,7 +264,7 @@ nnoremap <silent> <leader>z :call Zenmode()<cr>
 function! Zenmode()
   execute ':Goyo'
   set wrap
-  set linebreak()
+  set linebreak
   set nolist
   call MatchTechWordsToAvoid()
   call LanguageEN()
