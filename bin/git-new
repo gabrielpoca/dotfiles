@@ -1,0 +1,12 @@
+#!/bin/sh
+
+new_branch="$1"
+source_branch=${2:-master}
+
+git checkout $source_branch
+git fetch
+git rebase
+[[ $? == 0 ]] || exit "failed to switch to $destiny"
+git branch $new_branch
+[[ $? == 0 ]] || exit "failed to switch to $destiny"
+git checkout $new_branch
