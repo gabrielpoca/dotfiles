@@ -66,6 +66,7 @@ Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdtree'
 
 Plugin 'Lokaltog/vim-easymotion'
+Plugin 'tpope/vim-projectionist'
 Plugin 'bronson/vim-visual-star-search'
 Plugin 'gcmt/wildfire.vim'
 Plugin 'godlygeek/tabular'
@@ -86,13 +87,12 @@ Plugin 'scrooloose/syntastic'
 Plugin 'slim-template/vim-slim'
 Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'marijnh/tern_for_vim'
 
-
-Plugin 'Shougo/neocomplcache.vim'
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'honza/vim-snippets'
+Plugin 'marijnh/tern_for_vim'
 
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'scrooloose/nerdcommenter'
@@ -118,7 +118,6 @@ Plugin 'nicholaides/words-to-avoid.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 Plugin 'w0ng/vim-hybrid'
-Plugin 'skammer/vim-css-color'
 Plugin 'luochen1990/rainbow'
 
 call vundle#end()
@@ -159,8 +158,8 @@ let g:jsx_ext_required = 0
 let rainbow_colors = ['214','160','DarkGreen','DarkBlue','DarkRed']
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-\   'ctermfgs': rainbow_colors
-\}
+      \   'ctermfgs': rainbow_colors
+      \}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""a
 " => syntastic
@@ -225,21 +224,55 @@ let g:gist_open_browser_after_post = 1
 " => Neocomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Disable AutoComplPop.
+set completeopt-=preview
 let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 1
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-autocmd BufRead,BufNewFile *.es6 setfiletype javascript
-autocmd FileType css,scss,sass setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType javascript syntax clear jsFuncBlock
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-au BufRead,BufNewFile *.ru setfiletype ruby
-au BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md  setf markdown
+if !exists('g:neocomplete#keyword_patterns')
+  let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+if !exists('g:neocomplete#sources#omni#functions')
+  let g:neocomplete#sources#omni#functions = {}
+endif
+
+let g:neocomplete#sources#omni#functions.javascript = 'tern#Complete'
+let g:neocomplete#sources#omni#input_patterns.javascript = '\h\w*\|[^. \t]\.\w*'
+
+let g:tern#is_show_argument_hints_enabled = 0
+let g:tern_show_signature_in_pum = 1
+let g:tern_map_keys = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Neosnippet
@@ -249,15 +282,29 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: pumvisible() ? "\<C-n>" : "\<TAB>"
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: "\<TAB>"
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
 
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+  set conceallevel=2 concealcursor=niv
 endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => OMNI
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufRead,BufNewFile *.es6 setfiletype javascript
+autocmd FileType css,scss,sass setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+autocmd FileType javascript syntax clear jsFuncBlock
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd BufRead,BufNewFile *.ru setfiletype ruby
+autocmd BufNewFile,BufRead *.markdown,*.mdown,*.mkd,*.mkdn,*.md  setf markdown
 
 " -------------------------------------------------------------------
 " -------------------------------------------------------------------
@@ -273,6 +320,12 @@ map <Leader>rl :VimuxRunLastCommand<CR>
 map <Leader>ri :VimuxInspectRunner<CR>
 map <Leader>rx :VimuxCloseRunner<CR>
 map <Leader>rs :VimuxInspectRunner<CR>
+
+" TERN
+map <Leader>td :TernDef
+map <Leader>tt :TernDefPreview
+map <Leader>tr :TernRefs
+map <Leader>te :TernRename
 
 " PULL REQUEST
 " change all commits to squash except for the first
