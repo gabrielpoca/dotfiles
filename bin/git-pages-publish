@@ -1,0 +1,14 @@
+#!/bin/sh
+
+current=`git branch | sed -n '\/* /s///p'`
+destiny=${1:-master}
+
+git branch -D $destiny
+git checkout -b $destiny
+ls | grep -v '_site' | xargs rm -rf
+mv _site/* .
+rm -rf _site
+git add .
+git commit -m 'New build'
+git push -f
+git checkout $current
