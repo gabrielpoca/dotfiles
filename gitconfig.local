@@ -1,7 +1,6 @@
 [user]
   name = Gabriel Poça
   email = gabrielpoca@gmail.com
-  signingkey = FF6BE58E
 [push]
   default = current
 [color]
