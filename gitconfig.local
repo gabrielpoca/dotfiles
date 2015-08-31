@@ -21,6 +21,5 @@
   s = status
 [core]
   excludesfile = ~/.gitignore.local
-  editor = vim
 [github]
   user = gabrielpoca
