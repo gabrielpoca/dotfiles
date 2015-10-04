@@ -8,7 +8,11 @@ antigen bundle cp
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom
+antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-git
+antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-config
+antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-dir
+antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-tmux
+antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-apps
 
 antigen theme robbyrussell
 
