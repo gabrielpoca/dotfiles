@@ -18,6 +18,7 @@
   r = rebase
   rc = rebase --continue
   s = status
+  d = diff
 [core]
   excludesfile = ~/.gitignore.local
 [github]
