@@ -169,10 +169,6 @@ nnoremap <expr> <silent> f Quick_scope_selective('f')
 nnoremap <expr> <silent> F Quick_scope_selective('F')
 nnoremap <expr> <silent> t Quick_scope_selective('t')
 nnoremap <expr> <silent> T Quick_scope_selective('T')
-vnoremap <expr> <silent> f Quick_scope_selective('f')
-vnoremap <expr> <silent> F Quick_scope_selective('F')
-vnoremap <expr> <silent> t Quick_scope_selective('t')
-vnoremap <expr> <silent> T Quick_scope_selective('T')
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
