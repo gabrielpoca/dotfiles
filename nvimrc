@@ -57,6 +57,7 @@ Plug 'Valloric/MatchTagAlways'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 Plug 'benekastah/neomake'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'gcmt/wildfire.vim'
 Plug 'godlygeek/tabular'
 Plug 'kien/ctrlp.vim'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
@@ -65,15 +66,21 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
+Plug 'unblevable/quick-scope'
 
 Plug 'bling/vim-airline'
 Plug 'scwood/vim-hybrid'
+Plug 'tpope/vim-sleuth'
+Plug 'akmassey/vim-codeschool'
 
 Plug 'Slava/vim-spacebars'
+Plug 'groenewege/vim-less'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'mxw/vim-jsx'
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'othree/yajs.vim'
+Plug 'pangloss/vim-javascript'
 
 call plug#end()
 
@@ -124,6 +131,10 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 let g:used_javascript_libs = 'underscore,jquery,chai,handlebars'
 
 
+" => AG
+nnoremap <leader>f  :Ag
+
+
 " => Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_css_enabled_makers = ['scss_lint']
@@ -153,3 +164,44 @@ nmap <leader>l :bnext<CR>
 nmap <leader>h :bprevious<CR>
 nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
+
+
+" => Spell
+autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd FileType gitcommit setlocal spell
+set complete+=kspell
+
+
+" => Command Maps
+nnoremap H 0
+nnoremap L $
+inoremap jk <esc>
+
+
+" => QuickScope
+" Insert into your .vimrc after quick-scope is loaded.
+" Obviously depends on <https://github.com/unblevable/quick-scope> being installed.
+
+function! Quick_scope_selective(movement)
+  let needs_disabling = 0
+  if !g:qs_enable
+    QuickScopeToggle
+    redraw
+    let needs_disabling = 1
+  endif
+
+  let letter = nr2char(getchar())
+
+  if needs_disabling
+    QuickScopeToggle
+  endif
+
+  return a:movement . letter
+endfunction
+
+let g:qs_enable = 0
+
+nnoremap <expr> <silent> f Quick_scope_selective('f')
+nnoremap <expr> <silent> F Quick_scope_selective('F')
+nnoremap <expr> <silent> t Quick_scope_selective('t')
+nnoremap <expr> <silent> T Quick_scope_selective('T')
