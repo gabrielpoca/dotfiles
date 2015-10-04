@@ -4,14 +4,16 @@ This project contains my personal dotfiles.
 
 ## Install
 
-Clone:
+Clone the repository:
 
     git@github.com:gabrielpoca/dotfiles.git
 
-Install dotfiles:
+Run the installation script:
 
-    rcup -d dotfiles -x README.md
+    ./install.sh
 
-Install [TPM](https://github.com/tmux-plugins/tpm)
 
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+Final steps:
+
+* Update the .zshrc file.
+* Install zsh, tmux and hub.
