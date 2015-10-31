@@ -23,3 +23,5 @@
   excludesfile = ~/.gitignore.local
 [github]
   user = gabrielpoca
+[commit]
+  template = ~/.gitmessage

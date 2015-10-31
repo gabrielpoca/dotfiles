@@ -2,7 +2,7 @@
 
 current_dir=$(pwd)
 
-files="gitconfig.local gitignore.local nvimrc rspec tmux.conf zshrc.local"
+files="gitconfig.local gitmessage gitignore.local nvimrc rspec tmux.conf zshrc.local"
 
 echo "installing dotfiles"
 for file in $files; do
