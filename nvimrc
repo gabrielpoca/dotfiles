@@ -50,37 +50,62 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
+" move in wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+" terminal
+autocmd TermOpen * set bufhidden=hide
+tnoremap <Leader>e <C-\><C-n> 
+nmap <silent> <leader>gs :terminal tig status<CR>
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'digitaltoad/vim-jade'
+Plug 'luochen1990/rainbow'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'Olical/vim-enmasse'
+Plug 'SirVer/ultisnips'
+Plug 'Slava/vim-spacebars'
 Plug 'Valloric/MatchTagAlways'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'akmassey/vim-codeschool'
 Plug 'benekastah/neomake'
+Plug 'bling/vim-airline'
+Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'dkprice/vim-easygrep'
+Plug 'easymotion/vim-easymotion'
+Plug 'einars/js-beautify'
+Plug 'elixir-lang/vim-elixir'
+Plug 'gabrielpoca/vim-snippets'
 Plug 'gcmt/wildfire.vim'
+Plug 'guns/vim-clojure-static'
 Plug 'godlygeek/tabular'
+Plug 'groenewege/vim-less'
+Plug 'hail2u/vim-css3-syntax'
 Plug 'kien/ctrlp.vim'
+Plug 'maksimr/vim-jsbeautify'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+Plug 'morhetz/gruvbox'
+Plug 'mxw/vim-jsx'
+Plug 'othree/html5.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'scwood/vim-hybrid'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tomasr/molokai'
+Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'unblevable/quick-scope'
-
-Plug 'bling/vim-airline'
-Plug 'scwood/vim-hybrid'
-Plug 'tpope/vim-sleuth'
-Plug 'akmassey/vim-codeschool'
-
-Plug 'Slava/vim-spacebars'
-Plug 'groenewege/vim-less'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'mxw/vim-jsx'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'pangloss/vim-javascript'
+Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
 
 call plug#end()
 
@@ -88,15 +113,25 @@ call plug#end()
 set laststatus=2
 set ttimeoutlen=50
 let g:airline_powerline_fonts = 1
-let g:airline_theme= 'simple'
+let g:airline_theme = 'simple'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
 
+" => Rainbow
+let g:rainbow_active = 1 
+
+
 " => TernJS
-let tern#is_show_argument_hints_enabled = 0
-let tern_show_signature_in_pum = 0
+let tern_is_show_argument_hints_enabled = 0
+let tern_show_signature_in_pum = 1
 let tern_map_keys = 0
+" disable autopreview window
+autocmd BufEnter * set completeopt-=preview
+
+
+" => JSX
+let g:jsx_ext_required = 0
 
 
 " => YCM
@@ -137,21 +172,26 @@ nnoremap <leader>f  :Ag
 
 " => Neomake
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_css_enabled_makers = ['scss_lint']
+let g:neomake_css_enabled_makers = []
 autocmd! BufWritePost * Neomake
 
 
 " => Theme
-let g:hybrid_use_Xresources = 1
-colorscheme hybrid
+let g:rehash256 = 1
+colorscheme molokai
 
 
 " => NERDTree
-let NERDTreeWinPos='left'
+let NERDTreeWinPos='right'
 let g:nerdtree_tabs_smart_startup_focus = 2
 let g:nerdtree_tabs_open_on_gui_startup = 0
 map <silent> <Leader>n :NERDTreeToggle<cr>
+map <silent> <Leader>f :NERDTreeFind<cr>
 map <silent> <Leader>k :NERDTreeFocus<cr>
+
+
+" => UltiSnips
+let g:UltiSnipsExpandTrigger="<c-b>"
 
 
 " => Pull Request
@@ -175,7 +215,6 @@ set complete+=kspell
 " => Command Maps
 nnoremap H 0
 nnoremap L $
-inoremap jk <esc>
 
 
 " => QuickScope
