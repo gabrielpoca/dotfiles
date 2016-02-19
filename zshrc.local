@@ -8,17 +8,13 @@ antigen bundle cp
 
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-git
-antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-config
-antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-dir
-antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-tmux
-antigen bundle https://github.com/gabrielpoca/oh-my-zsh-custom plugins/my-apps
+antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/git
+antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/settings
+antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/fs
+antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/tmux
+antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/vim
+antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/fn
 
 antigen theme robbyrussell
 
 antigen apply
-
-export EDITOR=nvim
-export LC_ALL=en_US.UTF-8
-export LC_CTYPE="en_US.UTF-8"
-export TERM=xterm-256color

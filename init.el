@@ -71,7 +71,7 @@
 
 
 (use-package
-  atom-dark-theme
+  color-theme-sanityinc-tomorrow
   :ensure t
   :config
   (global-hl-line-mode 0)
@@ -127,13 +127,13 @@
 
 
 (use-package
-  smart-mode-line
+  spaceline
   :ensure t
   :config
-  (sml/setup)
-  (sml/apply-theme 'dark)
-  (setq sml/shorten-directory t)
-  (setq sml/shorten-modes t))
+  (require 'spaceline-config)
+  (spaceline-toggle-evil-state-on)
+  (spaceline-toggle-minor-modes-off)
+  (spaceline-spacemacs-theme))
 
 
 (use-package
@@ -309,11 +309,13 @@
   (define-key helm-map (kbd "<escape>") 'keyboard-escape-quit)
   (helm-projectile-on))
 
+
 (use-package
   evil-rails
   :ensure t
   :ensure evil
   :ensure projectile)
+
 
 (use-package
   evil
@@ -337,11 +339,13 @@
   (define-key evil-normal-state-map (kbd "C-s") 'save-and-normal)
   (define-key evil-normal-state-map (kbd "RET") 'er/expand-region))
 
+
 (use-package
   evil-jumper
   :ensure t
   :config
   (global-evil-jumper-mode t))
+
 
 (use-package
   company
@@ -349,6 +353,7 @@
   :diminish company ""
   :config
   (add-hook 'after-init-hook 'global-company-mode))
+
 
 (use-package
   company-tern
@@ -358,11 +363,13 @@
   :config
   (add-to-list 'company-backends 'company-tern))
 
+
 (use-package
   evil-visualstar
   :ensure t
   :config
   (global-evil-visualstar-mode))
+
 
 ;; use web-mode for .jsx files
 (use-package
@@ -371,6 +378,7 @@
   :diminish web-mode ""
   :config
   (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode)))
+
 
 (use-package
   magit
@@ -384,12 +392,14 @@
     evil-magit
     :ensure t))
 
+
 (use-package
   magit-gh-pulls
   :ensure t
   :ensure magit
   :config
   (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
+
 
 (use-package
   js2-mode
@@ -400,6 +410,7 @@
   (setq js2-basic-offset 2)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode)))
+
 
 (use-package
   evil-nerd-commenter
@@ -416,11 +427,13 @@
     "cv" 'evilnc-toggle-invert-comment-line-by-line
     "\\" 'evilnc-comment-operator))
 
+
 (use-package
   evil-matchit
   :ensure t
   :config
   (global-evil-matchit-mode 1))
+
 
 ;; http://www.flycheck.org/manual/latest/index.html
 (use-package

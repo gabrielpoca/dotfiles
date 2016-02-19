@@ -4,8 +4,8 @@ current_dir=$(pwd)
 
 files="gitconfig.local gitmessage gitignore.local nvimrc rspec tmux.conf zshrc.local"
 
-echo "installing dotfiles"
 for file in $files; do
+  echo "installing $file"
   if [ ! -e ~/.$file ]; then
     ln -s $current_dir/$file ~/.$file
   fi
@@ -21,6 +21,13 @@ if [ ! -f ~/.zshrc ]; then
 source ~/dotfiles/antigen/antigen.zsh\n
 source ~/.zshrc.local"
   echo $file > ~/.zshrc
+fi
+
+echo "installing init.el"
+mkdir -p ~/.emacs.d
+if [ ! -f ~/.emacs.d/init.el ]; then
+  cp init.el ~/.emacs.d/init.el
+  touch ~/.emacs.d/custom.el
 fi
 
 echo "complete, don't forget to update the .zshrc"

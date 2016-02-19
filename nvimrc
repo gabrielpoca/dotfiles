@@ -32,8 +32,9 @@ set gdefault
 set magic
 
 nnoremap <silent> <leader><cr> :nohlsearch<CR><C-L>
-nnoremap Q :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 imap ii <Esc>
+imap jj <Esc>
+imap jk <Esc>
 
 " copy to system clipboard
 set clipboard=unnamed
@@ -57,43 +58,45 @@ nnoremap k gk
 " terminal
 autocmd TermOpen * set bufhidden=hide
 tnoremap <Leader>e <C-\><C-n> 
+tnoremap <Leader>jk <C-\><C-n> 
+tnoremap <Leader>jj <C-\><C-n> 
 nmap <silent> <leader>gs :terminal tig status<CR>
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'kassio/neoterm'
+
+Plug 'rking/ag.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'reedes/vim-pencil'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'digitaltoad/vim-jade'
-Plug 'luochen1990/rainbow'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'Olical/vim-enmasse'
-Plug 'SirVer/ultisnips'
 Plug 'Slava/vim-spacebars'
 Plug 'Valloric/MatchTagAlways'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
-Plug 'akmassey/vim-codeschool'
 Plug 'benekastah/neomake'
-Plug 'bling/vim-airline'
 Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'digitaltoad/vim-jade'
 Plug 'dkprice/vim-easygrep'
 Plug 'easymotion/vim-easymotion'
 Plug 'einars/js-beautify'
-Plug 'elixir-lang/vim-elixir'
+Plug 'embear/vim-localvimrc'
 Plug 'gabrielpoca/vim-snippets'
+Plug 'gavocanov/vim-js-indent'
 Plug 'gcmt/wildfire.vim'
-Plug 'guns/vim-clojure-static'
 Plug 'godlygeek/tabular'
-Plug 'groenewege/vim-less'
+Plug 'guns/vim-clojure-static'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'luochen1990/rainbow'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-Plug 'morhetz/gruvbox'
 Plug 'mxw/vim-jsx'
 Plug 'othree/html5.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/yajs.vim'
 Plug 'pangloss/vim-javascript'
-Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'scwood/vim-hybrid'
@@ -102,10 +105,12 @@ Plug 'tomasr/molokai'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-rails'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'unblevable/quick-scope'
-Plug 'zenorocha/dracula-theme', {'rtp': 'vim/'}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
 
@@ -116,6 +121,10 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'simple'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+
+
+" => Ag
+nnoremap <leader>q :Ag<SPACE>
 
 
 " => Rainbow
@@ -143,6 +152,7 @@ let g:ycm_semantic_triggers = {
 " => CtrlP
 nmap <leader>o :CtrlPBuffer<cr>
 nmap <leader>p :CtrlP<cr>
+nmap <leader>i :CtrlPMRU<cr>
 let g:ctrlp_working_path_mode = 'ar'
 let g:ctrlp_dont_split = 'nerdtree'
 let g:ctrlp_use_caching = 0
@@ -167,7 +177,7 @@ let g:used_javascript_libs = 'underscore,jquery,chai,handlebars'
 
 
 " => AG
-nnoremap <leader>f  :Ag
+nnoremap <leader>g :Ag
 
 
 " => Neomake
@@ -188,10 +198,6 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 map <silent> <Leader>n :NERDTreeToggle<cr>
 map <silent> <Leader>f :NERDTreeFind<cr>
 map <silent> <Leader>k :NERDTreeFocus<cr>
-
-
-" => UltiSnips
-let g:UltiSnipsExpandTrigger="<c-b>"
 
 
 " => Pull Request
