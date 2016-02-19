@@ -1,6 +1,6 @@
 # Play an alarm file once your internet connection returns.
 wait_for_net() {
-  until ping -W1 -c1 8.8.8.8; do sleep 5; done && afplay ~/alarm.mp3
+  until ping -W1 -c1 8.8.8.8; do sleep 5; done && radio 3
 }
 
 # listen to radio
@@ -9,14 +9,8 @@ radio() {
     mplayer mms://rdp.oninet.pt/antena3
   elif [ "$@" == "1" ]; then
     mplayer mms://195.245.168.21/antena1
-  elif [ "$@" == "uminho" ]; then
-    mplayer mms://stream.radio.com.pt/ROLI-ENC-098
-  elif [ "$@" == "comercial" ]; then
-    mplayer http://195.23.102.196/comercialcbr96
-  elif [ "$@" == "m80" ]; then
-    mplayer mms://195.23.102.196/m80cbr96
   else
-    echo "Radio does not exist!"
+    echo "Radio \"$1\" not recognized"
   fi
 }
 
@@ -55,13 +49,12 @@ decrypt-folder() {
   gpg -d ${1} | tar xz
 }
 
-# quick go to configuration
 conf() {
   case $1 in
-    bash) nvim ~/.bashrc ;;
     vim)  nvim ~/.config/nvim/init.vim ;;
     tmux) nvim ~/.tmux.conf;;
     zsh)  nvim ~/.zshrc;;
     ssh)  nvim ~/.ssh/config;;
+    *)    echo "\`$1': unrecognized application file" ;;
   esac
 }
