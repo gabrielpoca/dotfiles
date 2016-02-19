@@ -2,7 +2,7 @@
 
 current_dir=$(pwd)
 
-files="gitconfig.local gitmessage gitignore.local nvimrc rspec tmux.conf zshrc.local"
+files="gitconfig.local gitmessage gitignore.local rspec tmux.conf zshrc.local"
 
 for file in $files; do
   echo "installing $file"
@@ -11,16 +11,18 @@ for file in $files; do
   fi
 done
 
+echo "installing nvimrc"
+mkdir -p ~/.config/nvim
+ln -s $current_dir/nvimrc ~/.config/nvim/init.vim
+
 echo "installing vim-plug"
 curl -fLo ~/.nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 echo "installing zshrc"
+git clone git@github.com:zsh-users/antigen.git ~/.antigen-repo
 if [ ! -f ~/.zshrc ]; then
-  file="
-source ~/dotfiles/antigen/antigen.zsh\n
-source ~/.zshrc.local"
-  echo $file > ~/.zshrc
+  cp zshrc ~/.zshrc
 fi
 
 echo "installing init.el"

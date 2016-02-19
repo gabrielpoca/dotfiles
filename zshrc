@@ -1,2 +1,2 @@
-source ~/dotfiles/antigen/antigen.zsh
+source ~/.antigen-repo/antigen.zsh
 source ~/.zshrc.local
