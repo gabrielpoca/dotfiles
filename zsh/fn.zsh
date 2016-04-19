@@ -58,3 +58,5 @@ conf() {
     *)    echo "\`$1': unrecognized application file" ;;
   esac
 }
+
+function f() { "$@" | fzf }

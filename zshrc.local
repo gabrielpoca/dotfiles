@@ -1,20 +1,12 @@
 antigen use oh-my-zsh
 
-antigen bundle git
 antigen bundle heroku
-antigen bundle command-not-found
-antigen bundle tmux 
 antigen bundle cp 
 
+antigen bundle gabrielpoca/dotfiles --loc=zsh/plugin.zsh
+
+antigen theme muse
+
 antigen bundle zsh-users/zsh-syntax-highlighting
-
-antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/git
-antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/settings
-antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/fs
-antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/tmux
-antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/vim
-antigen bundle https://github.com/gabrielpoca/dotfiles zsh-plugins/fn
-
-antigen theme robbyrussell
 
 antigen apply
