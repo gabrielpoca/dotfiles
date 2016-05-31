@@ -13,6 +13,7 @@ git rebase
 git checkout $current
 git rebase $destiny
 [[ $? == 0 ]] || exit "failed to rebase from $destiny"
+git pr-description $current | pbcopy || true
 git rebase -i $destiny
 
 # 3. merge

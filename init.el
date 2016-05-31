@@ -3,6 +3,9 @@
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 
+;; Disable line wrap
+(setq-default truncate-lines 0)
+
 ;; Hide splash screen
 (setq inhibit-startup-message t)
 
@@ -35,8 +38,7 @@
 
 (provide 'prelude-packages)
 
-(eval-when-compile
-  (require 'use-package))
+(eval-when-compile (require 'use-package))
 (require 'diminish)
 (require 'bind-key)
 
@@ -89,6 +91,21 @@
   :diminish projectile-rails-mode ""
   :config
   (add-hook 'projectile-mode-hook 'projectile-rails-on))
+
+
+(use-package rvm
+  :ensure t
+  :config
+  (add-hook 'ruby-mode-hook
+            (lambda () (rvm-activate-corresponding-ruby))))
+
+(use-package rspec-mode
+  :ensure)
+
+(use-package undo-tree
+  :config
+  (setq undo-tree-auto-save-history t)
+  (global-undo-tree-mode t))
 
 
 (use-package
@@ -147,7 +164,7 @@
   (setq projectile-switch-project-action 'neotree-projectile-action)
   (setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target$\\|^pom\\.*")
   (setq neo-window-width 32
-        neo-window-position 'left
+        neo-window-position 'right
         neo-create-file-auto-open t
         neo-banner-message nil
         neo-mode-line-type 'neotree
@@ -291,6 +308,12 @@
   :ensure evil-leader
   :diminish helm ""
   :config
+  (defun helm-buffer-face-mode ()
+    "Helm buffer face"
+    (interactive)
+    (setq line-spacing 2)
+    (buffer-face-set '(:family "Inconsolata-dz" :height 150)))
+  (add-hook 'helm-update-hook 'helm-buffer-face-mode)
   (evil-leader/set-key
     "b" 'helm-buffers-list)
   (helm-mode 1))
@@ -336,6 +359,7 @@
   (global-set-key (kbd "C-k") 'windmove-up)
   (global-set-key (kbd "C-j") 'windmove-down)
   (define-key evil-insert-state-map (kbd "C-s") 'save-and-normal)
+  (define-key evil-insert-state-map (kbd "C-c") 'normal-mode)
   (define-key evil-normal-state-map (kbd "C-s") 'save-and-normal)
   (define-key evil-normal-state-map (kbd "RET") 'er/expand-region))
 
@@ -394,14 +418,6 @@
 
 
 (use-package
-  magit-gh-pulls
-  :ensure t
-  :ensure magit
-  :config
-  (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
-
-
-(use-package
   js2-mode
   :ensure t
   :diminish js2-mode ""
@@ -409,6 +425,7 @@
   (js2-mode-hide-warnings-and-errors)
   (setq js2-basic-offset 2)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode)))
 
 
@@ -450,7 +467,7 @@
   ;; disable jshint since we prefer eslint checking
   (setq-default flycheck-disabled-checkers
     (append flycheck-disabled-checkers
-      '(javascript-jshint html-tidy)))
+      '(javascript-jshint html-tidy emacs-lisp-checkdoc)))
   ;; use eslint with web-mode for jsx files
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   ;; customize flycheck temp file prefix

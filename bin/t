@@ -1,3 +1,15 @@
 #!/bin/bash
 
-rvm 2.3.0 exec t $@
+if [ "$1" = "tmux" ]
+then
+  if [[ `t n 2> /dev/null` =~ \@[a-zA-Z]* ]]
+  then
+    project=`t n | grep '\@[a-zA-Z]*' -o`
+    echo "#[fg=green]$project#[default]"
+  else
+    echo "#[fg=red]Timetrap not running#[default]"
+    exit 1
+  fi
+else
+  rvm 2.3.0 exec t $@
+fi
