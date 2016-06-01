@@ -1,8 +1,5 @@
 antigen use oh-my-zsh
 
-antigen bundle heroku
-antigen bundle cp 
-
 antigen bundle gabrielpoca/dotfiles --loc=zsh/plugin.zsh
 
 antigen theme muse

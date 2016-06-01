@@ -3,6 +3,11 @@ wait_for_net() {
   until ping -W1 -c1 8.8.8.8; do sleep 5; done && radio 3
 }
 
+# Waiting for the CI and ouput the result
+wait_for_ci() {
+  while [ "$(git ci-status)" == "pending" ]; do sleep 4; done; git ci-status
+}
+
 # listen to radio
 radio() {
   if [ "$@" == "3" ]; then
@@ -57,6 +62,10 @@ conf() {
     ssh)  nvim ~/.ssh/config;;
     *)    echo "\`$1': unrecognized application file" ;;
   esac
+}
+
+color() {
+  for i in {0..255} ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done;
 }
 
 function f() { "$@" | fzf }
