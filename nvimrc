@@ -136,8 +136,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#formatter = 'folder'
 
 " => Fold
-set foldmethod=syntax
-set foldlevelstart=1
+"set foldmethod=syntax
+"set foldlevelstart=1
 
 " => Ultisnippets
 let g:UltiSnipsExpandTrigger="<c-k>"
@@ -151,6 +151,9 @@ let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = 0  " This do disable full signature type on autocomplete
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
+
+" => Localvimrc
+let g:localvimrc_whitelist=['/Users/gabriel/subvisual', '/Users/gabriel/projects']
 
 " => Asciidoc
 autocmd FileType adoc set tw=79|set wrap|set linebreak|set nolist
@@ -220,7 +223,7 @@ set termguicolors
 set background=dark
 colorscheme base16-default-dark
 hi LineNr guibg=bg
-set foldcolumn=2
+"set foldcolumn=2
 hi foldcolumn guibg=bg
 hi VertSplit guibg=bg guifg=bg
 
@@ -228,7 +231,6 @@ hi VertSplit guibg=bg guifg=bg
 let vimple_init_vn = 0
 
 " => NERDTree
-let NERDTreeWinPos='right'
 let g:nerdtree_tabs_smart_startup_focus = 2
 let g:nerdtree_tabs_open_on_gui_startup = 0
 "let NERDTreeHijackNetrw=1
