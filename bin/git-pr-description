@@ -1,4 +1,4 @@
-#!/Users/gabriel/.rvm/rubies/ruby-2.3.0/bin/ruby
+#!/Users/gabriel/.rvm/rubies/ruby-2.3.1/bin/ruby
 
 require "octokit"
 require "git"

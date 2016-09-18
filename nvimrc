@@ -41,8 +41,8 @@ set clipboard=unnamed
 
 " save shortcuts
 map <c-s> :w<CR>
-imap <c-s> <Esc>:w<CR>
-nmap <c-s> <Esc>:w<CR>
+imap <silent> <c-s> <Esc>:w<CR>
+nmap <silent> <c-s> <Esc>:w<CR>
 
 " pane navigation shortcuts
 nmap <BS> <C-W>h
@@ -202,6 +202,7 @@ nmap <leader>p :Files<cr>
 nmap <leader>q :Ag<cr>
 inoremap <C-p> <Esc>:Files<cr>
 nnoremap <C-p> :Files<cr>
+let g:fzf_tags_command = '/usr/local/Cellar/ctags/5.8_1/bin/ctags'
 
 " => JavaScript
 autocmd BufRead,BufNewFile *.es6 setfiletype javascript
@@ -221,11 +222,12 @@ set termguicolors
 "colorscheme molokai
 "let g:rehash256 = 1
 set background=dark
-colorscheme base16-default-dark
-hi LineNr guibg=bg
+"colorscheme base16-default-dark
+"hi LineNr guibg=bg
 "set foldcolumn=2
-hi foldcolumn guibg=bg
-hi VertSplit guibg=bg guifg=bg
+"hi foldcolumn guibg=bg
+"hi VertSplit guibg=bg guifg=bg
+colorscheme hybrid
 
 " => Vimple
 let vimple_init_vn = 0

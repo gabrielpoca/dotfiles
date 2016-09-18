@@ -1,5 +1,4 @@
-# term
-export TERM=xterm-256color
+export TERM=screen-256color
 
 # check latex file
 alias check="aspell --lang=pt_pt --mode=tex check"

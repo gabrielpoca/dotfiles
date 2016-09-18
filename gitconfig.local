@@ -20,7 +20,7 @@
   s = status
   d = diff
 [core]
-  excludesfile = ~/.gitignore.local
+  excludesfile = ~/.gitignore
 [github]
   user = gabrielpoca
 [commit]

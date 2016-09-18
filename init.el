@@ -416,6 +416,10 @@
     evil-magit
     :ensure t))
 
+(use-package
+  mocha
+  :ensure t
+  :diminish mocha "")
 
 (use-package
   js2-mode
