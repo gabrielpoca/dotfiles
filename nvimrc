@@ -213,7 +213,8 @@ autocmd FileType javascript setl suffixesadd=.js,.json,.html
 let g:used_javascript_libs = 'underscore,jquery,chai,handlebars'
 
 " => Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['standard']
+let g:neomake_jsx_enabled_makers = ['standard']
 let g:neomake_css_enabled_makers = []
 autocmd! BufWritePost * Neomake
 

@@ -1,3 +1,5 @@
+DISABLE_AUTO_TITLE=true
+
 alias tmux="tmux -u"
 alias ta='tmux -u attach -t'
 alias ts='tmux -u new-session -s'
