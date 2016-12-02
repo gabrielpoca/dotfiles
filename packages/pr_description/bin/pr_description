@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-require "pr_description"
-
-PrDescription::Download.new(ARGV[0]).call
