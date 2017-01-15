@@ -31,6 +31,7 @@ set smartcase
 set incsearch
 set gdefault
 set magic
+set inccommand=nosplit
 
 nnoremap <silent> <leader><cr> :nohlsearch<CR><C-L>
 imap ii <Esc>
@@ -67,25 +68,20 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'leafgarland/typescript-vim'
-Plug 'ElmCast/elm-vim'
-
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Olical/vim-enmasse'
-Plug 'Raimondi/VimRegStyle'
+Plug 'sheerun/vim-polyglot'
+Plug 'chriskempson/base16-vim'
+Plug 'gabrielelana/vim-markdown'
+
+Plug 'jreybert/vimagit'
+Plug 'ap/vim-buftabline'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/MatchTagAlways'
 Plug 'benekastah/neomake'
-Plug 'chriskempson/base16-vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'dahu/Asif'
-Plug 'dahu/vim-asciidoc'
-Plug 'dahu/vimple'
-Plug 'digitaltoad/vim-jade'
-Plug 'dkprice/vim-easygrep'
 Plug 'easymotion/vim-easymotion'
-Plug 'elixir-lang/vim-elixir'
 Plug 'embear/vim-localvimrc'
 Plug 'gabrielpoca/vim-snippets'
 Plug 'gcmt/wildfire.vim'
@@ -93,67 +89,68 @@ Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm'
-Plug 'othree/html5.vim'
-Plug 'schickling/vim-bufonly'
+"Plug 'othree/html5.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'scwood/vim-hybrid'
+Plug 'morhetz/gruvbox'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tomasr/molokai'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-rails'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'xolox/vim-misc'
 Plug 'derekprior/vim-trimmer'
 Plug 'duggiefresh/vim-easydir'
 
+Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby', 'do': 'gem install neovim' }
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+
+"Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
+
+Plug 'jaawerth/nrun.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': ['javascript', 'javascript.jsx'] }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
 
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
-
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
 
 Plug 'gabrielpoca/dotfiles', { 'rtp': 'vim/gabrielpoca' }
 
 call plug#end()
-
-" => Airline
-set laststatus=2
-set ttimeoutlen=50
-let g:airline_powerline_fonts = 1
-let g:airline_theme = 'simple'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#formatter = 'folder'
-
-" => Fold
-"set foldmethod=syntax
-"set foldlevelstart=1
 
 " => Ultisnippets
 let g:UltiSnipsExpandTrigger="<c-k>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+" => Alchemist
+let g:alchemist_tag_disable = 1
+
+" => Polyglot
+let g:polyglot_disabled = ['js', 'jsx', 'md', 'markdown']
+
 " => Deoplete
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 0
+let g:deoplete#max_list = 20
+let g:deoplete#auto_complete_delay = 100
+
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = 0  " This do disable full signature type on autocomplete
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
 
 " => Localvimrc
-let g:localvimrc_whitelist=['/Users/gabriel/subvisual', '/Users/gabriel/projects']
+let g:localvimrc_whitelist=['/Users/gabriel/subvisual', '/Users/gabriel/groupbuddes', '/Users/gabriel/projects']
 
 " => Asciidoc
 autocmd FileType adoc set tw=79|set wrap|set linebreak|set nolist
@@ -199,10 +196,13 @@ let g:jsx_ext_required = 0
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(blue)%C(bold)%cr%C(white)"'
 nmap <leader>o :Buffers<cr>
 nmap <leader>p :Files<cr>
-nmap <leader>q :Ag<cr>
 inoremap <C-p> <Esc>:Files<cr>
 nnoremap <C-p> :Files<cr>
-let g:fzf_tags_command = '/usr/local/Cellar/ctags/5.8_1/bin/ctags'
+let g:fzf_tags_command = '/usr/local/bin/ctags'
+
+" => Gutentag
+let g:gutentags_ctags_executable='/usr/local/bin/ctags'
+let g:gutentags_exclude=['*.js','*.jsx']
 
 " => JavaScript
 autocmd BufRead,BufNewFile *.es6 setfiletype javascript
@@ -213,22 +213,47 @@ autocmd FileType javascript setl suffixesadd=.js,.json,.html
 let g:used_javascript_libs = 'underscore,jquery,chai,handlebars'
 
 " => Neomake
-let g:neomake_javascript_enabled_makers = ['standard']
-let g:neomake_jsx_enabled_makers = ['standard']
+"let g:neomake_elixir_mix_maker = {
+      "\ 'exe' : 'mix',
+      "\ 'args': ['compile', '--warnings-as-errors'],
+      "\ 'cwd': getcwd(),
+      "\ 'errorformat':
+      "\ '** %s %f:%l: %m,' .
+      "\ '%f:%l: warning: %m'
+      "\ }
+"let g:neomake_elixir_enabled_makers = ['elixir']
+"let g:neomake_elixir_elixir_maker = {
+      "\ 'exe': 'elixirc',
+      "\ 'args': [
+        "\ '--ignore-module-conflict', '--warnings-as-errors',
+        "\ '--app', 'mix', '--app', 'ex_unit',
+        "\ '-o', '$TMPDIR', '%:p'
+      "\ ],
+      "\ 'errorformat':
+          "\ '%E** %s %f:%l: %m,' .
+          "\ '%W%f:%l'
+      "\ }
+
+let g:neomake_elixir_mix_maker = []
+let g:neomake_elixir_enabled_makers = []
 let g:neomake_css_enabled_makers = []
-autocmd! BufWritePost * Neomake
+let g:neomake_place_signs_at_once = 1
+
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+
+au BufEnter *.js let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
+au BufEnter *.jsx let b:neomake_jsx_eslint_exe = nrun#Which('eslint')
+
+autocmd! BufWinEnter,BufWritePost * Neomake
 
 " => Theme
 set termguicolors
-"colorscheme molokai
-"let g:rehash256 = 1
-set background=dark
-"colorscheme base16-default-dark
-"hi LineNr guibg=bg
-"set foldcolumn=2
-"hi foldcolumn guibg=bg
-"hi VertSplit guibg=bg guifg=bg
-colorscheme hybrid
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+hi FoldColumn guibg=bg
 
 " => Vimple
 let vimple_init_vn = 0
@@ -261,6 +286,24 @@ call NERDTreeHighlightFile('jsx', 'Red', 'none', '#ffa500', 'none')
 call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', 'none')
 call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', 'none')
 
+" Write Mode
+function! WriteMode()
+  setlocal columns=100
+  setlocal foldcolumn=10
+  setlocal formatoptions=antq
+  setlocal indentexpr=
+  setlocal noautoindent
+  setlocal nocindent
+  setlocal nonumber
+  setlocal norelativenumber
+  setlocal nosmartindent
+  setlocal textwidth=80
+  setlocal wrapmargin=0
+  setlocal nolist
+  setlocal linebreak
+  setlocal wrap
+endfunction
+
 " => Pull Request
 " change all commits to squash except for the first
 map <Leader>rs mzggjvG$:s/^pick/s<CR>
@@ -270,6 +313,7 @@ map <leader>rd :r !git pr-description<CR>
 nmap <leader>l :bnext<CR>
 nmap <leader>h :bprevious<CR>
 nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <C-q> :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
 " => Spell
