@@ -50,6 +50,10 @@
 
 (load custom-file)
 
+;; enable gpg
+(require 'epa-file)
+(epa-file-enable)
+
 (setq-default indent-tabs-mode nil)
 (setq ring-bell-function 'ignore)
 (setq backup-directory-alist `(("." . "~/.emacs.d/.saves")))
@@ -71,7 +75,6 @@
 
 (eval-after-load "undo-tree" '(diminish 'undo-tree-mode))
 
-
 (use-package
   color-theme-sanityinc-tomorrow
   :ensure t
@@ -82,16 +85,14 @@
   (custom-set-faces '(linum ((t (:background "#1d1f21")))))
   (fringe-mode '(20 . 0))
   (setq-default line-spacing 2)
-  (setq initial-frame-alist '((font . "Inconsolata-dz-15")))
-  (setq default-frame-alist '((font . "Inconsolata-dz-15"))))
-
+  (set-face-attribute 'default nil :family "Source Code Pro for Powerline")
+  (set-face-attribute 'default nil :height 150))
 
 (use-package
   projectile-rails
   :diminish projectile-rails-mode ""
   :config
   (add-hook 'projectile-mode-hook 'projectile-rails-on))
-
 
 (use-package rvm
   :ensure t
@@ -107,14 +108,12 @@
   (setq undo-tree-auto-save-history t)
   (global-undo-tree-mode t))
 
-
 (use-package
   rainbow-delimiters
   :ensure t
   :diminish rainbow-mode ""
   :config
   (add-hook 'js2-mode-hook #'rainbow-delimiters-mode))
-
 
 (use-package
   scss-mode
@@ -123,13 +122,11 @@
   :config
   (setq css-indent-offset 2))
 
-
 (use-package
   paren
   :config
   (setq show-paren-delay 0)
   (add-hook 'prog-mode-hook 'show-paren-mode))
-
 
 (use-package
   linum-relative
@@ -142,7 +139,6 @@
   (add-hook 'prog-mode-hook 'line-number-mode t)
   (add-hook 'prog-mode-hook 'column-number-mode t))
 
-
 (use-package
   spaceline
   :ensure t
@@ -151,7 +147,6 @@
   (spaceline-toggle-evil-state-on)
   (spaceline-toggle-minor-modes-off)
   (spaceline-spacemacs-theme))
-
 
 (use-package
   neotree
@@ -164,7 +159,7 @@
   (setq projectile-switch-project-action 'neotree-projectile-action)
   (setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target$\\|^pom\\.*")
   (setq neo-window-width 32
-        neo-window-position 'right
+        neo-window-position 'left
         neo-create-file-auto-open t
         neo-banner-message nil
         neo-mode-line-type 'neotree
@@ -257,7 +252,6 @@
             (lambda ()
               (visual-line-mode -1))))
 
-
 (use-package
   evil-leader
   :ensure t
@@ -265,31 +259,26 @@
   (evil-leader/set-leader "<SPC>")
   (global-evil-leader-mode))
 
-
 (use-package
   evil-mc
   :ensure t
   :config
   (global-evil-mc-mode  1))
 
-
 (use-package
   markdown-mode
   :diminish markdown-mode ""
   :ensure t)
 
-
 (use-package
   rainbow-mode
   :ensure t)
-
 
 (use-package
   rainbow-delimiters
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-
 
 (use-package
   projectile
@@ -300,7 +289,6 @@
   (projectile-global-mode)
   (setq projectile-completion-system 'helm)
   (helm-projectile-on))
-
 
 (use-package
   helm
@@ -318,13 +306,14 @@
     "b" 'helm-buffers-list)
   (helm-mode 1))
 
-
 (use-package
   helm-projectile
   :ensure t
+  :ensure evil-leader
   :diminish helm-projectile ""
   :config
   (global-set-key (kbd "M-x") 'helm-M-x)
+  (evil-leader/set-key "p" 'helm-projectile-find-file)
   (define-key helm-map (kbd "C-j") 'helm-next-line)
   (define-key helm-map (kbd "C-k") 'helm-previous-line)
   (define-key helm-map (kbd "C-<SPC>") 'helm-toggle-visible-mark)
@@ -332,13 +321,20 @@
   (define-key helm-map (kbd "<escape>") 'keyboard-escape-quit)
   (helm-projectile-on))
 
-
 (use-package
   evil-rails
   :ensure t
   :ensure evil
   :ensure projectile)
 
+(use-package
+  evil-escape
+  :ensure evil
+  :ensure t
+  :config
+  (evil-escape-mode)
+  (global-set-key (kbd "C-c C-g") 'evil-escape)
+  (setq-default evil-escape-key-sequence "jk"))
 
 (use-package
   evil
@@ -359,17 +355,9 @@
   (global-set-key (kbd "C-k") 'windmove-up)
   (global-set-key (kbd "C-j") 'windmove-down)
   (define-key evil-insert-state-map (kbd "C-s") 'save-and-normal)
-  (define-key evil-insert-state-map (kbd "C-c") 'normal-mode)
+  ;;(define-key evil-insert-state-map (kbd "C-c") 'normal-mode)
   (define-key evil-normal-state-map (kbd "C-s") 'save-and-normal)
   (define-key evil-normal-state-map (kbd "RET") 'er/expand-region))
-
-
-(use-package
-  evil-jumper
-  :ensure t
-  :config
-  (global-evil-jumper-mode t))
-
 
 (use-package
   company
@@ -377,7 +365,6 @@
   :diminish company ""
   :config
   (add-hook 'after-init-hook 'global-company-mode))
-
 
 (use-package
   company-tern
@@ -387,13 +374,11 @@
   :config
   (add-to-list 'company-backends 'company-tern))
 
-
 (use-package
   evil-visualstar
   :ensure t
   :config
   (global-evil-visualstar-mode))
-
 
 ;; use web-mode for .jsx files
 (use-package
@@ -403,7 +388,6 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode)))
 
-
 (use-package
   magit
   :ensure t
@@ -411,7 +395,6 @@
   :diminish magit ""
   :config
   (evil-leader/set-key "gs" 'magit-status)
-  (evil-leader/set-key "p" 'helm-projectile-find-file)
   (use-package
     evil-magit
     :ensure t))
@@ -432,7 +415,6 @@
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
   (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode)))
 
-
 (use-package
   evil-nerd-commenter
   :ensure t
@@ -448,13 +430,11 @@
     "cv" 'evilnc-toggle-invert-comment-line-by-line
     "\\" 'evilnc-comment-operator))
 
-
 (use-package
   evil-matchit
   :ensure t
   :config
   (global-evil-matchit-mode 1))
-
 
 ;; http://www.flycheck.org/manual/latest/index.html
 (use-package

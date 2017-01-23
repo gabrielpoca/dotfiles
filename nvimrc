@@ -72,12 +72,13 @@ Plug 'Olical/vim-enmasse'
 Plug 'sheerun/vim-polyglot'
 Plug 'chriskempson/base16-vim'
 Plug 'gabrielelana/vim-markdown'
+Plug 'jamessan/vim-gnupg'
 
 Plug 'jreybert/vimagit'
 Plug 'ap/vim-buftabline'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'benekastah/neomake'
 Plug 'christoomey/vim-tmux-navigator'
@@ -106,7 +107,6 @@ Plug 'duggiefresh/vim-easydir'
 Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby', 'do': 'gem install neovim' }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 
-"Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
@@ -130,11 +130,14 @@ let g:UltiSnipsExpandTrigger="<c-k>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+" => Trimmer
+let g:trimmer_blacklist = ['markdown', 'md', 'make']
+
 " => Alchemist
 let g:alchemist_tag_disable = 1
 
 " => Polyglot
-let g:polyglot_disabled = ['js', 'jsx', 'md', 'markdown']
+let g:polyglot_disabled = ['js', 'jsx', 'markdown']
 
 " => Deoplete
 let g:deoplete#file#enable_buffer_path = 1
@@ -142,6 +145,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 0
 let g:deoplete#max_list = 20
 let g:deoplete#auto_complete_delay = 100
+let g:tmuxcomplete#trigger = ''
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 let g:tern_request_timeout = 1
@@ -150,7 +154,7 @@ let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
 
 " => Localvimrc
-let g:localvimrc_whitelist=['/Users/gabriel/subvisual', '/Users/gabriel/groupbuddes', '/Users/gabriel/projects']
+let g:localvimrc_whitelist=['/Users/gabriel/subvisual', '/Users/gabriel/groupbuddies', '/Users/gabriel/projects']
 
 " => Asciidoc
 autocmd FileType adoc set tw=79|set wrap|set linebreak|set nolist
@@ -302,6 +306,8 @@ function! WriteMode()
   setlocal nolist
   setlocal linebreak
   setlocal wrap
+  map j gj
+  map k gk
 endfunction
 
 " => Pull Request
