@@ -1,0 +1,37 @@
+kwmc config padding 15 15 15 15
+kwmc config gap 15 15
+
+kwmc config tiling monocle
+kwmc config float-non-resizable on
+kwmc config lock-to-container on
+kwmc config focus-follows-mouse off
+kwmc config standby-on-float on
+kwmc config center-on-float on
+
+kwmc config mouse-follows-focus on
+kwmc config mouse-drag on
+kwmc config mouse-drag mod shift+ctrl
+
+kwmc config cycle-focus on
+
+kwmc config split-ratio 0.5
+
+kwmc config spawn right
+
+kwmc rule owner="Slack" properties={space="1"}
+kwmc rule owner="iTerm2" properties={role="AXDialog",space="1"}
+kwmc rule owner="Zeplin" properties={space="1"}
+
+kwmc rule owner="Spotify" properties={space="2"}
+kwmc rule owner="Telegram" properties={float="true",space="2"}
+kwmc rule owner="Caprine" properties={float="true",space="2"}
+kwmc rule owner="Stremio" properties={role="AXDialog",float="true",space="2"}
+
+kwmc rule owner="Finder" properties={float="true"}
+
+kwmc config border focused off
+kwmc config border focused size 3
+kwmc config border focused color 0xFF1E2832
+kwmc config border focused radius 4
+
+kwmc config border marked off
