@@ -52,6 +52,7 @@
 
 ;; enable gpg
 (require 'epa-file)
+(add-to-list 'exec-path "/usr/local/bin")
 (epa-file-enable)
 
 (setq-default indent-tabs-mode nil)
@@ -69,10 +70,6 @@
 (setq-default scroll-up-aggressively 0.01
 	      scroll-down-aggressively 0.01)
 
-(add-to-list 'load-path "~/.tern/emacs/")
-(autoload 'tern-mode "tern.el" nil t)
-(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-
 (eval-after-load "undo-tree" '(diminish 'undo-tree-mode))
 
 (use-package
@@ -88,39 +85,11 @@
   (set-face-attribute 'default nil :family "Source Code Pro for Powerline")
   (set-face-attribute 'default nil :height 150))
 
-(use-package
-  projectile-rails
-  :diminish projectile-rails-mode ""
-  :config
-  (add-hook 'projectile-mode-hook 'projectile-rails-on))
-
-(use-package rvm
-  :ensure t
-  :config
-  (add-hook 'ruby-mode-hook
-            (lambda () (rvm-activate-corresponding-ruby))))
-
-(use-package rspec-mode
-  :ensure)
-
 (use-package undo-tree
   :config
   (setq undo-tree-auto-save-history t)
-  (global-undo-tree-mode t))
-
-(use-package
-  rainbow-delimiters
-  :ensure t
-  :diminish rainbow-mode ""
-  :config
-  (add-hook 'js2-mode-hook #'rainbow-delimiters-mode))
-
-(use-package
-  scss-mode
-  :ensure t
-  :diminish scss-mode ""
-  :config
-  (setq css-indent-offset 2))
+  (setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/.undo/")))
+  (global-undo-tree-mode))
 
 (use-package
   paren
@@ -140,6 +109,18 @@
   (add-hook 'prog-mode-hook 'column-number-mode t))
 
 (use-package
+  langtool
+  :ensure t
+  :config
+  (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/3.6/libexec/languagetool-commandline.jar"
+        langtool-java-bin "/usr/bin/java"
+        langtool-mother-tongue "nl"
+        langtool-disabled-rules '("WHITESPACE_RULE"
+                                  "EN_UNPAIRED_BRACKETS"
+                                  "COMMA_PARENTHESIS_WHITESPACE"
+                                  "EN_QUOTES")))
+
+(use-package
   spaceline
   :ensure t
   :config
@@ -147,110 +128,6 @@
   (spaceline-toggle-evil-state-on)
   (spaceline-toggle-minor-modes-off)
   (spaceline-spacemacs-theme))
-
-(use-package
-  neotree
-  :ensure t
-  :ensure evil
-  :ensure projectile
-  :ensure evil-leader
-  :diminish neotree ""
-  :config
-  (setq projectile-switch-project-action 'neotree-projectile-action)
-  (setq neo-hidden-files-regexp "^\\.\\|~$\\|^#.*#$\\|^target$\\|^pom\\.*")
-  (setq neo-window-width 32
-        neo-window-position 'left
-        neo-create-file-auto-open t
-        neo-banner-message nil
-        neo-mode-line-type 'neotree
-        neo-smart-open t
-        neo-dont-be-alone t
-        neo-persist-show nil
-        neo-keymap-style 'concise
-        neo-theme 'nerd
-        neo-auto-indent-point t)
-
-  (defun neotree-copy-file ()
-    "Copy a file."
-    (interactive)
-    (let* ((current-path (neo-buffer--get-filename-current-line))
-           (msg (format "Copy [%s] to: "
-                        (neo-path--file-short-name current-path)))
-           (to-path (read-file-name msg (file-name-directory current-path))))
-      (dired-copy-file current-path to-path t))
-    (neo-buffer--refresh t))
-
-  (defun neotree-expand-or-open ()
-    "Collapse a neotree node."
-    (interactive)
-    (let ((node (neo-buffer--get-filename-current-line)))
-      (when node
-        (if (file-directory-p node)
-            (progn
-              (neo-buffer--set-expand node t)
-              (neo-buffer--refresh t)
-              (when neo-auto-indent-point
-                (next-line)
-                (neo-point-auto-indent)))
-          (call-interactively 'neotree-enter)))))
-
-  (defun neotree-collapse ()
-    "Collapse a neotree node."
-    (interactive)
-    (let ((node (neo-buffer--get-filename-current-line)))
-      (when node
-        (when (file-directory-p node)
-          (neo-buffer--set-expand node nil)
-          (neo-buffer--refresh t))
-        (when neo-auto-indent-point
-          (neo-point-auto-indent)))))
-
-  (defun neotree-collapse-or-up ()
-    "Collapse an expanded directory node or go to the parent node."
-    (interactive)
-    (let ((node (neo-buffer--get-filename-current-line)))
-      (when node
-        (if (file-directory-p node)
-            (if (neo-buffer--expanded-node-p node)
-                (neotree-collapse)
-              (neotree-select-up-node))
-          (neotree-select-up-node)))))
-
-  (defun neotree-find-project-root ()
-    (interactive)
-    (if (neo-global--window-exists-p)
-        (neotree-hide)
-      (neotree-find (projectile-project-root))))
-
-  (defun neotree-key-bindings ()
-    "Set the key bindings for a neotree buffer."
-    (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-stretch-toggle)
-    (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-    (define-key evil-normal-state-local-map (kbd "o") 'neotree-enter)
-    (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-    (define-key evil-normal-state-local-map (kbd "R") 'neotree-refresh)
-
-    (define-key evil-normal-state-local-map (kbd "gg") 'evil-goto-first-line)
-    (define-key evil-normal-state-local-map (kbd "?") 'evil-search-backward)
-    (define-key evil-normal-state-local-map (kbd "n") 'evil-search-next)
-    (define-key evil-normal-state-local-map (kbd "N") 'evil-search-previous)
-
-    (define-key evil-normal-state-local-map (kbd "ma") 'neotree-create-node)
-    (define-key evil-normal-state-local-map (kbd "mc") 'neotree-copy-file)
-    (define-key evil-normal-state-local-map (kbd "md") 'neotree-delete-node)
-    (define-key evil-normal-state-local-map (kbd "mm") 'neotree-rename-node)
-
-    (define-key evil-normal-state-local-map (kbd "i") 'neotree-enter-horizontal-split)
-    (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
-    (define-key evil-normal-state-local-map (kbd "C-l") 'evil-window-right))
-
-  (evil-leader/set-key "n" 'neotree-find-project-root)
-  (evil-leader/set-key "k" 'neotree-show)
-
-  (add-hook 'neotree-mode-hook 'neotree-key-bindings)
-  (add-hook 'neotree-mode-hook
-            (lambda ()
-              (visual-line-mode -1))))
 
 (use-package
   evil-leader
@@ -271,61 +148,48 @@
   :ensure t)
 
 (use-package
-  rainbow-mode
-  :ensure t)
+  ivy
+  :ensure t
+  :diminish (ivy-mode . "")
+  :init (ivy-mode 1)
+  :bind (:map ivy-mode-map
+              ("C-j" . ivy-next-line)
+              ("C-k" . ivy-previous-line)
+              ("C-?" . ivy-help)
+              ("<escape>" . keyboard-escape-quit))
+  :config
+  (setq ivy-use-virtual-buffers t)   ; extend searching to bookmarks and …
+  (setq ivy-height 20)               ; set height of the ivy window
+  (setq ivy-count-format "(%d/%d) ") ; count format, from the ivy help page
+  )
 
 (use-package
-  rainbow-delimiters
+  counsel
   :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  :bind*                           ; load counsel when pressed
+  (("M-x"     . counsel-M-x)       ; M-x use counsel
+   ("C-x C-f" . counsel-find-file) ; C-x C-f use counsel-find-file
+   ("C-x C-r" . counsel-recentf)   ; search recently edited files
+   ("C-c f"   . counsel-git)       ; search for files in git repo
+   ("C-c s"   . counsel-git-grep)  ; search for regexp in git repo
+   ("C-c /"   . counsel-ag)        ; search for regexp in git repo using ag
+   ("C-c l"   . counsel-locate))   ; search for files or else using locate
+  )
 
 (use-package
   projectile
   :ensure t
-  :ensure helm
   :diminish projectile-mode ""
   :config
-  (projectile-global-mode)
-  (setq projectile-completion-system 'helm)
-  (helm-projectile-on))
+  (projectile-global-mode))
 
 (use-package
-  helm
+  counsel-projectile
   :ensure t
-  :ensure evil-leader
-  :diminish helm ""
+  :ensure counsel
+  :ensure projectile
   :config
-  (defun helm-buffer-face-mode ()
-    "Helm buffer face"
-    (interactive)
-    (setq line-spacing 2)
-    (buffer-face-set '(:family "Inconsolata-dz" :height 150)))
-  (add-hook 'helm-update-hook 'helm-buffer-face-mode)
-  (evil-leader/set-key
-    "b" 'helm-buffers-list)
-  (helm-mode 1))
-
-(use-package
-  helm-projectile
-  :ensure t
-  :ensure evil-leader
-  :diminish helm-projectile ""
-  :config
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (evil-leader/set-key "p" 'helm-projectile-find-file)
-  (define-key helm-map (kbd "C-j") 'helm-next-line)
-  (define-key helm-map (kbd "C-k") 'helm-previous-line)
-  (define-key helm-map (kbd "C-<SPC>") 'helm-toggle-visible-mark)
-  (define-key helm-map (kbd "C-?") 'helm-help)
-  (define-key helm-map (kbd "<escape>") 'keyboard-escape-quit)
-  (helm-projectile-on))
-
-(use-package
-  evil-rails
-  :ensure t
-  :ensure evil
-  :ensure projectile)
+  (counsel-projectile-on))
 
 (use-package
   evil-escape
@@ -350,12 +214,11 @@
     (save-buffer)
     (evil-normal-state))
 
-  (global-set-key (kbd "C-h") 'windmove-left)
-  (global-set-key (kbd "C-l") 'windmove-right)
-  (global-set-key (kbd "C-k") 'windmove-up)
-  (global-set-key (kbd "C-j") 'windmove-down)
+  (define-key evil-normal-state-map (kbd "C-h") 'windmove-left)
+  (define-key evil-normal-state-map (kbd "C-l") 'windmove-right)
+  (define-key evil-normal-state-map (kbd "C-k") 'windmove-up)
+  (define-key evil-normal-state-map (kbd "C-j") 'windmove-down)
   (define-key evil-insert-state-map (kbd "C-s") 'save-and-normal)
-  ;;(define-key evil-insert-state-map (kbd "C-c") 'normal-mode)
   (define-key evil-normal-state-map (kbd "C-s") 'save-and-normal)
   (define-key evil-normal-state-map (kbd "RET") 'er/expand-region))
 
@@ -367,26 +230,10 @@
   (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package
-  company-tern
-  :ensure t
-  :ensure company
-  :diminish tern-mode ""
-  :config
-  (add-to-list 'company-backends 'company-tern))
-
-(use-package
   evil-visualstar
   :ensure t
   :config
   (global-evil-visualstar-mode))
-
-;; use web-mode for .jsx files
-(use-package
-  web-mode
-  :ensure t
-  :diminish web-mode ""
-  :config
-  (add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode)))
 
 (use-package
   magit
@@ -398,22 +245,6 @@
   (use-package
     evil-magit
     :ensure t))
-
-(use-package
-  mocha
-  :ensure t
-  :diminish mocha "")
-
-(use-package
-  js2-mode
-  :ensure t
-  :diminish js2-mode ""
-  :config
-  (js2-mode-hide-warnings-and-errors)
-  (setq js2-basic-offset 2)
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-mode))
-  (add-to-list 'auto-mode-alist '("\\.es6\\'" . js2-mode)))
 
 (use-package
   evil-nerd-commenter
@@ -435,40 +266,3 @@
   :ensure t
   :config
   (global-evil-matchit-mode 1))
-
-;; http://www.flycheck.org/manual/latest/index.html
-(use-package
-  flycheck
-  :ensure t
-  :ensure js2-mode
-  :ensure json-mode
-  :ensure web-mode
-  :ensure exec-path-from-shell
-  :diminish flycheck-mode ""
-  :config
-  ;; turn on flychecking globally
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-  ;; disable jshint since we prefer eslint checking
-  (setq-default flycheck-disabled-checkers
-    (append flycheck-disabled-checkers
-      '(javascript-jshint html-tidy emacs-lisp-checkdoc)))
-  ;; use eslint with web-mode for jsx files
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  ;; customize flycheck temp file prefix
-  (setq-default flycheck-temp-prefix ".flycheck")
-  ;; disable json-jsonlist checking for json files
-  (setq-default flycheck-disabled-checkers
-    (append flycheck-disabled-checkers
-      '(json-jsonlist)))
-
-  ;; https://github.com/purcell/exec-path-from-shell
-  ;; only need exec-path-from-shell on OSX
-  ;; this hopefully sets up path and other vars better
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize))
-
-  (defadvice web-mode-highlight-part (around tweak-jsx activate)
-    (if (equal web-mode-content-type "jsx")
-      (let ((web-mode-enable-part-face nil))
-        ad-do-it)
-      ad-do-it)))

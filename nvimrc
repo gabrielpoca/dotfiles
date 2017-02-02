@@ -42,7 +42,6 @@ set clipboard=unnamed
 
 " save shortcuts
 map <c-s> :w<CR>
-imap <silent> <c-s> <Esc>:w<CR>
 nmap <silent> <c-s> <Esc>:w<CR>
 
 " pane navigation shortcuts
@@ -68,11 +67,20 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'altercation/vim-colors-solarized'
+
 Plug 'Olical/vim-enmasse'
 Plug 'sheerun/vim-polyglot'
 Plug 'chriskempson/base16-vim'
 Plug 'gabrielelana/vim-markdown'
 Plug 'jamessan/vim-gnupg'
+Plug 'vimwiki/vimwiki'
+Plug 'rhysd/vim-grammarous'
+Plug 'beloglazov/vim-online-thesaurus'
+
+Plug 'vim-scripts/utl.vim' " dependecy for vim-orgmode
+Plug 'tpope/vim-speeddating' " dependecy for vim-orgmode
+Plug 'jceb/vim-orgmode'
 
 Plug 'jreybert/vimagit'
 Plug 'ap/vim-buftabline'
@@ -161,6 +169,20 @@ autocmd FileType adoc set tw=79|set wrap|set linebreak|set nolist
 
 " => Rainbow
 let g:rainbow_active = 1
+
+" => VimWiki
+let g:vimwiki_list = [{'path': '~/groupbuddies/wiki/'},{'path': '~/projects/wiki/'}]
+let g:vimwiki_folding='expr'
+
+" Transparent editing of gpg encrypted files. Adapted from Wouter Hanegraaff
+augroup encrypted
+  au!
+  autocmd BufReadPre,FileReadPre *.gpg.wiki set viminfo=
+  autocmd BufReadPre,FileReadPre *.gpg.wiki set noswapfile noundofile nobackup
+  autocmd BufReadPost,FileReadPost *.gpg.wiki '[,']!gpg2 --no-tty -d 2> /dev/null
+  autocmd BufWritePre,FileWritePre *.gpg.wiki '[,']!gpg2 --default-recipient-self -ae 2>/dev/null
+  autocmd BufWritePost,FileWritePost *.gpg.wiki u
+augroup END
 
 " => TernJS
 let tern_is_show_argument_hints_enabled = 1
@@ -252,12 +274,15 @@ au BufEnter *.jsx let b:neomake_jsx_eslint_exe = nrun#Which('eslint')
 autocmd! BufWinEnter,BufWritePost * Neomake
 
 " => Theme
-set termguicolors
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+"set termguicolors
+"let g:onedark_termcolors=256
+"if filereadable(expand("~/.vimrc_background"))
+  "let base16colorspace=256
+  "source ~/.vimrc_background
+"endif
+colorscheme base16-ocean
 hi FoldColumn guibg=bg
+hi FoldColumn ctermbg=bg
 
 " => Vimple
 let vimple_init_vn = 0
@@ -292,23 +317,27 @@ call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', 'none')
 
 " Write Mode
 function! WriteMode()
-  setlocal columns=100
-  setlocal foldcolumn=10
-  setlocal formatoptions=antq
-  setlocal indentexpr=
-  setlocal noautoindent
-  setlocal nocindent
+  set complete+=s
+  set formatprg=par
+  setlocal foldcolumn=8
+  setlocal formatoptions=1
+  setlocal linebreak
+  setlocal noexpandtab
   setlocal nonumber
   setlocal norelativenumber
-  setlocal nosmartindent
-  setlocal textwidth=80
-  setlocal wrapmargin=0
-  setlocal nolist
-  setlocal linebreak
   setlocal wrap
+  highlight FoldColumn guifg=bg
   map j gj
   map k gk
 endfunction
+
+com! WM call WriteMode()
+
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave,BufLeave,WinLeave *.wiki mkview
+  autocmd BufWinEnter *.wiki silent loadview
+augroup END
 
 " => Pull Request
 " change all commits to squash except for the first
