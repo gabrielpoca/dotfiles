@@ -8,7 +8,9 @@ FILES = [
   ['.gitmessage', 'gitmessage'],
   ['.rspec', 'rspec'],
   ['.tmux.conf', 'tmux.conf'],
-  ['.zshrc.local', 'zshrc.local']
+  ['.zshrc.local', 'zshrc.local'],
+  ['.kwm/kwmrc', 'kwmrc'],
+  ['.khdrc', 'khdrc']
 ].freeze
 
 FILES.each do |dest_file, file|
