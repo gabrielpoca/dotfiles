@@ -1,0 +1,23 @@
+{
+  "hotkey": "cmd+enter",
+  "theme": "singuerinc/zazu-clean-theme",
+  "disableAnalytics": "true",
+  "plugins": [
+    "gabrielpoca/zazu-github-repos",
+    "tinytacoteam/zazu-package-manager",
+    "tinytacoteam/zazu-template",
+    "blakek/zazu-emoj",
+    "jgoday/zazu-dev-doc",
+    "gabrielpoca/zazu-caniuse",
+    {
+      "name": "tinytacoteam/zazu-file-finder",
+      "variables": {
+        "append": true,
+        "directories": {
+          "filePath": [],
+          "appPath": ["/Applications", "~/Applications"]
+        }
+      }
+    }
+  ]
+}
