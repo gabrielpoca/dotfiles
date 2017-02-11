@@ -3,8 +3,8 @@
 require 'fileutils'
 
 FILES = [
-  ['.gitconfig.local', 'gitconfig.local'],
-  ['.gitignore.local', 'gitignore.local'],
+  ['.gitconfig', 'gitconfig'],
+  ['.gitignore', 'gitignore'],
   ['.gitmessage', 'gitmessage'],
   ['.rspec', 'rspec'],
   ['.tmux.conf', 'tmux.conf'],

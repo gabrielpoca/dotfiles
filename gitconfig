@@ -1,0 +1,29 @@
+[init]
+[user]
+  name = Gabriel Poça
+  email = gabrielpoca@gmail.com
+[push]
+  default = current
+[color]
+  ui = true
+[core]
+  excludesfile = ~/.gitignore
+  editor = nvim
+[github]
+  user = gabrielpoca
+[commit]
+  template = ~/.gitcommit
+[alias]
+  a = add
+  b = branch
+  c = checkout
+  cb = checkout -b
+  co = commit
+  conflicts = diff --name-only --diff-filter=U
+  d = diff
+  f = fetch
+  lg = log --color --graph --date=short --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(blue)[%an]%Creset' --abbrev-commit
+  p = push
+  r = rebase
+  rc = rebase --continue
+  s = status

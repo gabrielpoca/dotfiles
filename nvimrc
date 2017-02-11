@@ -33,6 +33,8 @@ set gdefault
 set magic
 set inccommand=nosplit
 
+set dictionary+=/usr/share/dict/words
+
 nnoremap <silent> <leader><cr> :nohlsearch<CR><C-L>
 imap ii <Esc>
 imap jk <Esc>
@@ -284,9 +286,6 @@ colorscheme base16-ocean
 hi FoldColumn guibg=bg
 hi FoldColumn ctermbg=bg
 
-" => Vimple
-let vimple_init_vn = 0
-
 " => NERDTree
 let g:nerdtree_tabs_smart_startup_focus = 2
 let g:nerdtree_tabs_open_on_gui_startup = 0
@@ -315,12 +314,12 @@ call NERDTreeHighlightFile('jsx', 'Red', 'none', '#ffa500', 'none')
 call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', 'none')
 call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', 'none')
 
-" Write Mode
+" => Write Mode
 function! WriteMode()
-  set complete+=s
-  set formatprg=par
+  setlocal complete+=kspell
   setlocal foldcolumn=8
-  setlocal formatoptions=1
+  setlocal formatoptions=tn
+  setlocal formatprg=par
   setlocal linebreak
   setlocal noexpandtab
   setlocal nonumber
@@ -352,10 +351,5 @@ nmap <C-q> :bp <BAR> bd #<CR>
 nmap <leader>bl :ls<CR>
 
 " => Spell
-autocmd BufRead,BufNewFile *.md setlocal spell
-autocmd FileType gitcommit setlocal spell
-set complete+=kspell
-
-" => Command Maps
-nnoremap H 0
-nnoremap L $
+autocmd BufRead,BufNewFile *.md setlocal complete+=kspell spell
+autocmd FileType gitcommit setlocal complete+=kspell spell
