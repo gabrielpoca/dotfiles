@@ -69,8 +69,6 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'altercation/vim-colors-solarized'
-
 Plug 'Olical/vim-enmasse'
 Plug 'sheerun/vim-polyglot'
 Plug 'chriskempson/base16-vim'
@@ -276,15 +274,10 @@ au BufEnter *.jsx let b:neomake_jsx_eslint_exe = nrun#Which('eslint')
 autocmd! BufWinEnter,BufWritePost * Neomake
 
 " => Theme
-"set termguicolors
-"let g:onedark_termcolors=256
-"if filereadable(expand("~/.vimrc_background"))
-  "let base16colorspace=256
-  "source ~/.vimrc_background
-"endif
-colorscheme base16-ocean
-hi FoldColumn guibg=bg
-hi FoldColumn ctermbg=bg
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
 " => NERDTree
 let g:nerdtree_tabs_smart_startup_focus = 2

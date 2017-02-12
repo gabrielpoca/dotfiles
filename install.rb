@@ -11,6 +11,7 @@ FILES = [
   ['.zshrc.local', 'zshrc.local'],
   ['.kwm/kwmrc', 'kwmrc'],
   ['.zazurc.json', 'zazurc.json'],
+  ['.config/nvim/init.vim', 'nvimrc'],
   ['.khdrc', 'khdrc']
 ].freeze
 
@@ -26,26 +27,20 @@ FILES.each do |dest_file, file|
   FileUtils.ln_s source_file, dest_file
 end
 
-unless File.exist?(File.join(Dir.home, '.nvim/autoload/plug.vim'))
+unless File.exist?(File.join(Dir.home, '.local/share/nvim/site/autoload/plug.vim'))
   puts 'Installing plug.vim'
-  system 'curl -fLo ~/.nvim/autoload/plug.vim --create-dirs \
+  system 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 end
 
-unless File.exist?(File.join(Dir.home, '.nvim/autoload/plug.vim'))
-  puts 'Installing plug.vim'
-  system "curl -fLo ~/.nvim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-end
-
-unless File.directory?(File.join(Dir.home, '.antigen-repo'))
+unless File.directory?(File.join(Dir.home, '.antigen'))
   puts 'Installing antigen'
-  system 'git clone git@github.com:zsh-users/antigen.git ~/.antigen-repo'
+  system 'git clone git@github.com:zsh-users/antigen.git ~/.antigen'
 end
 
 unless File.file?(File.join(Dir.home, '.zshrc'))
   puts 'Installin zshrc'
-  File.cp 'zshrc', File.join(Dir.home, '.zshrc')
+  FileUtils.cp 'zshrc', File.join(Dir.home, '.zshrc')
 end
 
 unless system('type "brew" > /dev/null')

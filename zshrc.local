@@ -1,9 +1,15 @@
+# load custon binaries
+export PATH="$PATH:$HOME/.dotfiles/bin"
+
+# load antigen
+source "$HOME/.antigen/antigen.zsh"
+
+# load custom zsh
+source "$HOME/.dotfiles/zsh/plugin.zsh"
+
+# antigen plugins
 antigen use oh-my-zsh
-
-antigen bundle gabrielpoca/dotfiles --loc=zsh/plugin.zsh
-
 antigen theme muse
-
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen apply

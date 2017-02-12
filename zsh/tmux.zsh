@@ -1,8 +1,6 @@
 DISABLE_AUTO_TITLE=true
 
-alias tmux="tmux -u"
-alias ta='tmux -u attach -t'
-alias ts='tmux -u new-session -s'
-alias tl='tmux -u list-sessions'
-alias tksv='tmux -u kill-server'
-alias tkss='tmux -u kill-session -t'
+alias tmux="tmux"
+alias ta='tmux attach -t'
+alias ts='tmux new-session -s'
+alias tl='tmux list-sessions'
