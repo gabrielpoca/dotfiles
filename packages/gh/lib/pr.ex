@@ -18,7 +18,7 @@ defmodule GH.PR do
   end
 
   defp filters(repo, owner) do
-    %{head: "#{owner}/#{GH.Git.current_branch(repo)}"}
+    %{head: "#{owner}:#{GH.Git.current_branch(repo)}"}
   end
 
   def github_client do
