@@ -7,8 +7,8 @@ set nowritebackup
 set undodir=~/.vim/undo
 set undofile
 
-set number
 set rnu
+set nu
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -69,21 +69,8 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'Olical/vim-enmasse'
-Plug 'sheerun/vim-polyglot'
-Plug 'chriskempson/base16-vim'
-Plug 'gabrielelana/vim-markdown'
-Plug 'jamessan/vim-gnupg'
-Plug 'vimwiki/vimwiki'
-Plug 'rhysd/vim-grammarous'
-Plug 'beloglazov/vim-online-thesaurus'
-
-Plug 'vim-scripts/utl.vim' " dependecy for vim-orgmode
-Plug 'tpope/vim-speeddating' " dependecy for vim-orgmode
-Plug 'jceb/vim-orgmode'
-
+" => Writing
 Plug 'jreybert/vimagit'
-Plug 'ap/vim-buftabline'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -98,11 +85,10 @@ Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm'
-"Plug 'othree/html5.vim'
+Plug 'janko-m/vim-test'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'scwood/vim-hybrid'
-Plug 'morhetz/gruvbox'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -125,6 +111,7 @@ Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': ['javascr
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'prettier/prettier', { 'for': ['javascript', 'javascript.jsx'] }
 
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
 Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
@@ -133,13 +120,10 @@ Plug 'gabrielpoca/dotfiles', { 'rtp': 'vim/gabrielpoca' }
 
 call plug#end()
 
-" => Ultisnippets
-let g:UltiSnipsExpandTrigger="<c-k>"
+" => UltiSnipps
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" => Trimmer
-let g:trimmer_blacklist = ['markdown', 'md', 'make']
 
 " => Alchemist
 let g:alchemist_tag_disable = 1
@@ -153,26 +137,12 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 0
 let g:deoplete#max_list = 20
 let g:deoplete#auto_complete_delay = 100
-let g:tmuxcomplete#trigger = ''
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 let g:tern_request_timeout = 1
 let g:tern_show_signature_in_pum = 0  " This do disable full signature type on autocomplete
 let g:tern#command = ["tern"]
 let g:tern#arguments = ["--persistent"]
-
-" => Localvimrc
-let g:localvimrc_whitelist=['/Users/gabriel/subvisual', '/Users/gabriel/groupbuddies', '/Users/gabriel/projects']
-
-" => Asciidoc
-autocmd FileType adoc set tw=79|set wrap|set linebreak|set nolist
-
-" => Rainbow
-let g:rainbow_active = 1
-
-" => VimWiki
-let g:vimwiki_list = [{'path': '~/groupbuddies/wiki/'},{'path': '~/projects/wiki/'}]
-let g:vimwiki_folding='expr'
 
 " Transparent editing of gpg encrypted files. Adapted from Wouter Hanegraaff
 augroup encrypted
@@ -191,6 +161,15 @@ let tern_map_keys = 1
 " disable autopreview window
 autocmd BufEnter * set completeopt-=preview
 
+" => vim-test
+let test#strategy = "neoterm"
+let g:test#preserve_screen = 1
+
+nnoremap <silent> <leader>ra :TestSuite<cr>
+nnoremap <silent> <leader>rt :TestFile<cr>
+nnoremap <silent> <leader>rr :TestNearest<cr>
+nnoremap <silent> <leader>rl :TestLast<cr>
+
 " => Neoterm
 let g:neoterm_shell = 'zsh'
 let g:neoterm_position = 'verical'
@@ -198,17 +177,12 @@ let g:neoterm_automap_keys = 'tt'
 nnoremap <silent> <f10> :TREPLSendFile<cr>
 nnoremap <silent> <leader>ts :TREPLSend<cr>
 vnoremap <silent> <leader>ts :TREPLSend<cr>
-" run set test lib
-nnoremap <silent> <leader>ra :call neoterm#test#run('all')<cr>
-nnoremap <silent> <leader>rt :call neoterm#test#run('file')<cr>
-nnoremap <silent> <leader>rr :call neoterm#test#run('current')<cr>
-nnoremap <silent> <leader>rl :call neoterm#test#rerun()<cr>
 " hide/close terminal
 nnoremap <silent> <leader>th :call neoterm#close()<cr>
 " clear terminal
 nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
 " kills the current job (send a <c-c>)
-nnoremap <silent> <leader>tc :call neoterm#kill()<cr>
+nnoremap <silent> <leader>tk :call neoterm#kill()<cr>
 
 " Git commands
 command! -nargs=+ Tg :T git <args>
@@ -224,13 +198,16 @@ nmap <leader>o :Buffers<cr>
 nmap <leader>p :Files<cr>
 inoremap <C-p> <Esc>:Files<cr>
 nnoremap <C-p> :Files<cr>
+" search word under cursor
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 let g:fzf_tags_command = '/usr/local/bin/ctags'
 
 " => Gutentag
 let g:gutentags_ctags_executable='/usr/local/bin/ctags'
-let g:gutentags_exclude=['*.js','*.jsx']
+let g:gutentags_ctags_exclude=['*.js','*.jsx']
 
 " => JavaScript
+autocmd FileType javascript set formatprg=prettier\ --stdin
 autocmd BufRead,BufNewFile *.es6 setfiletype javascript
 autocmd BufRead,BufNewFile *.jsx setfiletype javascript
 " https://www.reddit.com/r/vim/comments/4kjgmz/weekly_vim_tips_and_tricks_thread_11/d3g6l8y
@@ -267,6 +244,13 @@ let g:neomake_place_signs_at_once = 1
 
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_markdown_enabled_makers = ['proselint']
+
+let g:neomake_prose_maker = {
+  \ 'exe': 'proselint',
+  \ 'args': ['%:p'],
+  \ 'errorformat': '%f:%l:%c:%m',
+  \ }
 
 au BufEnter *.js let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
 au BufEnter *.jsx let b:neomake_jsx_eslint_exe = nrun#Which('eslint')
@@ -274,10 +258,13 @@ au BufEnter *.jsx let b:neomake_jsx_eslint_exe = nrun#Which('eslint')
 autocmd! BufWinEnter,BufWritePost * Neomake
 
 " => Theme
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
+"if filereadable(expand("~/.vimrc_background"))
+  "let base16colorspace=256
+  "source ~/.vimrc_background
+"endif
+set background=dark
+colorscheme hybrid
+hi FoldColumn ctermbg=none
 
 " => NERDTree
 let g:nerdtree_tabs_smart_startup_focus = 2
@@ -309,18 +296,13 @@ call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', 'none')
 
 " => Write Mode
 function! WriteMode()
-  setlocal complete+=kspell
-  setlocal foldcolumn=8
-  setlocal formatoptions=tn
-  setlocal formatprg=par
-  setlocal linebreak
-  setlocal noexpandtab
   setlocal nonumber
   setlocal norelativenumber
-  setlocal wrap
-  highlight FoldColumn guifg=bg
-  map j gj
-  map k gk
+  setlocal complete+=kspell
+  setlocal foldcolumn=10
+  UniCycleOn
+  HardPencil
+  Voom markdown
 endfunction
 
 com! WM call WriteMode()
@@ -331,10 +313,13 @@ augroup remember_folds
   autocmd BufWinEnter *.wiki silent loadview
 augroup END
 
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
 " => Pull Request
 " change all commits to squash except for the first
-map <Leader>rs mzggjvG$:s/^pick/s<CR>
-map <leader>rd :r !git pr-description<CR>
+map <Leader>gs mzggjvG$:s/^pick/s<CR>
+map <leader>gd :r !git pr-description<CR>
 
 " => Buffers
 nmap <leader>l :bnext<CR>
