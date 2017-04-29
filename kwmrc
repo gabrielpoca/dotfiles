@@ -29,9 +29,9 @@ kwmc rule owner="Stremio" properties={role="AXDialog",float="true",space="2"}
 
 kwmc rule owner="Finder" properties={float="true"}
 
-kwmc config border focused off
+kwmc config border focused on
 kwmc config border focused size 3
-kwmc config border focused color 0xFF1E2832
-kwmc config border focused radius 4
+kwmc config border focused color 0xFF660066
+kwmc config border focused radius 5
 
 kwmc config border marked off

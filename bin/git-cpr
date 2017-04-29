@@ -3,25 +3,32 @@
 current=`git branch | sed -n '\/* /s///p'`
 destiny=${1:-master}
 
-# 1. Update destiny
+# 1. Chck if CI is failing
+if [[ "$1" != "-f" ]];
+then
+  cistatus=`hub ci-status`
+  [[ $cistatus == "success" ]] || (echo "CI is failing for branch $current" && exit 1)
+fi
+
+# 2. Update destiny
 git fetch
 git checkout $destiny
-[[ $? == 0 ]] || exit "failed to switch to $destiny"
+[[ $? == 0 ]] || (echo "failed to switch to $destiny" && exit 1)
 git rebase
 
-# 2. rebase PR branch
+# 3. rebase PR branch
 git checkout $current
 git rebase $destiny
-[[ $? == 0 ]] || exit "failed to rebase from $destiny"
+[[ $? == 0 ]] || (echo "failed to rebase from $destiny" && exit 1)
 git pr-description $current | pbcopy || true
 git rebase -i $destiny
 
-# 3. merge
+# 4. merge
 git push -f
 git checkout $destiny
 git merge --ff-only $current
 git push
 
-# 4. remove branch
+# 5. remove branch
 git push origin :$current
 git branch -d $current

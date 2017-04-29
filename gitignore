@@ -17,3 +17,6 @@ provision.retry
 tags
 tags.*
 tmp/**/*
+node_modules
+.textlintrc
+.lvimrc

@@ -4,8 +4,9 @@ require 'fileutils'
 
 FILES = [
   ['.gitconfig', 'gitconfig'],
+  ['.gitattributes', 'gitattributes'],
   ['.gitignore', 'gitignore'],
-  ['.gitmessage', 'gitmessage'],
+  ['.gitcommit', 'gitcommit'],
   ['.rspec', 'rspec'],
   ['.tmux.conf', 'tmux.conf'],
   ['.zshrc.local', 'zshrc.local'],

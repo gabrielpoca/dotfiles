@@ -5,7 +5,7 @@ wait_for_net() {
 
 # Waiting for the CI and ouput the result
 wait_for_ci() {
-  while [ "$(git ci-status)" == "pending" ]; do sleep 4; done; git ci-status
+  while [ "$(git ci-status)" == "pending" ]; do sleep 4; done; echo "CI finished with status $(git ci-status)"
 }
 
 # listen to radio
@@ -64,7 +64,7 @@ conf() {
   esac
 }
 
-color() {
+list_colors() {
   for i in {0..255} ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done;
 }
 

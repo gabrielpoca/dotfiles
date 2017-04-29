@@ -1,5 +1,5 @@
-alias vi="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
-alias vim="NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim"
+alias vi="nvim"
+alias vim="nvim"
 
 # for ctrl save on vim
 stty stop '' -ixoff

@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+sessions=`tmux list-sessions | cut -d : -f 1`
+folder=`basename $PWD`
+
+if [[ ! "$sessions" =~ "$folder" ]]; then
+  tmux new -s $folder -d
+  tmux new-window -t $folder
+fi
+
+tmux attach -t $folder

@@ -1,23 +1,26 @@
 {
   "hotkey": "cmd+enter",
-  "theme": "singuerinc/zazu-clean-theme",
+  "theme": "danielbayerlein/zazu-simple-theme",
   "disableAnalytics": "true",
   "plugins": [
-    "gabrielpoca/zazu-github-repos",
     "tinytacoteam/zazu-package-manager",
-    "tinytacoteam/zazu-template",
-    "blakek/zazu-emoj",
-    "jgoday/zazu-dev-doc",
     "gabrielpoca/zazu-caniuse",
+    "gabrielpoca/zazu-github-repos",
+    "tinytacoteam/zazu-template",
     {
       "name": "tinytacoteam/zazu-file-finder",
       "variables": {
         "append": true,
         "directories": {
           "filePath": [],
-          "appPath": ["/Applications", "~/Applications"]
+          "appPath": [
+            "/Applications",
+            "~/Applications"
+          ]
         }
       }
-    }
+    },
+    "chrishelgert/zazu-fkill",
+    "iansinnott/zazu-emoji"
   ]
 }
