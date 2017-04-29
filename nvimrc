@@ -32,6 +32,7 @@ set incsearch
 set gdefault
 set magic
 set inccommand=nosplit
+set completeopt+=noselect,menu,preview
 
 set dictionary+=/usr/share/dict/words
 
@@ -59,9 +60,7 @@ nnoremap k gk
 
 " terminal
 autocmd TermOpen * set bufhidden=hide
-tnoremap <Leader>e <C-\><C-n>
-tnoremap <Leader>jk <C-\><C-n>
-tnoremap <Leader>jj <C-\><C-n>
+tnoremap <C-e> <C-\><C-n>
 
 function! DoRemote(arg)
   UpdateRemotePlugins
@@ -70,10 +69,18 @@ endfunction
 call plug#begin('~/.vim/plugged')
 
 " => Writing
-Plug 'jreybert/vimagit'
+Plug 'vimwiki/vimwiki'
+Plug 'rhysd/vim-grammarous'
+Plug 'beloglazov/vim-online-thesaurus'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'reedes/vim-pencil'
+Plug 'vim-voom/VOoM'
+
+Plug 'Olical/vim-enmasse'
+Plug 'sheerun/vim-polyglot'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'benekastah/neomake'
 Plug 'christoomey/vim-tmux-navigator'
@@ -88,42 +95,79 @@ Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'scwood/vim-hybrid'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'derekprior/vim-trimmer'
 Plug 'duggiefresh/vim-easydir'
+Plug 'sbdchd/neoformat'
 
-Plug 'fishbullet/deoplete-ruby', { 'for': 'ruby', 'do': 'gem install neovim' }
+Plug 'chriskempson/base16-vim'
+Plug 'scwood/vim-hybrid'
+Plug 'rakr/vim-one'
+Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
-
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
+Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
 
+" Complete
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --all' }
+
+" TypeScript
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
+
+" JavaScript
 Plug 'jaawerth/nrun.vim', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'marijnh/tern_for_vim', { 'do': 'npm install', 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': ['javascript', 'javascript.jsx'] }
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'prettier/prettier', { 'for': ['javascript', 'javascript.jsx'] }
-
-Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
-Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
 
 Plug 'gabrielpoca/dotfiles', { 'rtp': 'vim/gabrielpoca' }
 
 call plug#end()
 
+
+" => JavaScript
+let g:tern#arguments = ["--persistent"]
+let g:tern#command = ["tern"]
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = 0 " This do disable full signature type on autocomplete
+let tern_is_show_argument_hints_enabled = 1
+let tern_map_keys = 1
+let tern_show_signature_in_pum = 1
+let g:jsx_ext_required = 0
+
+function! neoformat#formatters#javascript#prettier() abort
+  return {
+        \ 'exe': 'prettier',
+        \ 'args': ['--stdin', '--single-quote', '--trailing-comma es5'],
+        \ 'stdin': 1,
+        \ }
+endfunction
+
+autocmd BufRead,BufNewFile *.es6 setfiletype javascript
+autocmd BufRead,BufNewFile *.jsx setfiletype javascript
+autocmd FileType javascript setlocal completeopt-=preview
+autocmd FileType javascript set formatprg=prettier\ --stdin
+autocmd FileType javascript set suffixesadd=.js,.json,.html,.jsx
+"autocmd! BufWritePre *.js Neoformat prettier " run prettier on save
+
+let g:ycm_server_python_interpreter = '/usr/local/bin/python'
+
 " => UltiSnipps
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:python2_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+" => Trimmer
+let g:trimmer_blacklist = ['markdown', 'md', 'make']
 
 " => Alchemist
 let g:alchemist_tag_disable = 1
@@ -131,37 +175,27 @@ let g:alchemist_tag_disable = 1
 " => Polyglot
 let g:polyglot_disabled = ['js', 'jsx', 'markdown']
 
-" => Deoplete
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 0
-let g:deoplete#max_list = 20
-let g:deoplete#auto_complete_delay = 100
+" => Localvimrc
+let g:localvimrc_whitelist=['/Users/gabriel/Projects/.*']
+let g:localvimrc_sandbox=0
 
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = 0  " This do disable full signature type on autocomplete
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
+" => Neoformat
+let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim = 1
 
-" Transparent editing of gpg encrypted files. Adapted from Wouter Hanegraaff
-augroup encrypted
-  au!
-  autocmd BufReadPre,FileReadPre *.gpg.wiki set viminfo=
-  autocmd BufReadPre,FileReadPre *.gpg.wiki set noswapfile noundofile nobackup
-  autocmd BufReadPost,FileReadPost *.gpg.wiki '[,']!gpg2 --no-tty -d 2> /dev/null
-  autocmd BufWritePre,FileWritePre *.gpg.wiki '[,']!gpg2 --default-recipient-self -ae 2>/dev/null
-  autocmd BufWritePost,FileWritePost *.gpg.wiki u
-augroup END
+" => VimWiki
+let g:vimwiki_list = [
+      \ {'path': '~/Projects/wiki/', 'syntax': 'markdown', 'ext': '.md'},
+      \ {'path': '~/Projects/work_wiki/'}]
+let g:vimwiki_folding='expr'
 
-" => TernJS
-let tern_is_show_argument_hints_enabled = 1
-let tern_show_signature_in_pum = 1
-let tern_map_keys = 1
-" disable autopreview window
-autocmd BufEnter * set completeopt-=preview
+" => Typescript
+autocmd BufRead,BufNewFile *.ts,*.d.ts setlocal filetype=typescript
+autocmd BufRead,BufNewFile *.tsx setlocal filetype=typescript
+autocmd FileType typescript setlocal completeopt-=preview completeopt+=menu
+autocmd FileType typescript set suffixesadd=.js,.json,.html,.jsx,.ts,.tsx
 
-" => vim-test
+" => Test
 let test#strategy = "neoterm"
 let g:test#preserve_screen = 1
 
@@ -177,20 +211,9 @@ let g:neoterm_automap_keys = 'tt'
 nnoremap <silent> <f10> :TREPLSendFile<cr>
 nnoremap <silent> <leader>ts :TREPLSend<cr>
 vnoremap <silent> <leader>ts :TREPLSend<cr>
-" hide/close terminal
 nnoremap <silent> <leader>th :call neoterm#close()<cr>
-" clear terminal
 nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
-" kills the current job (send a <c-c>)
 nnoremap <silent> <leader>tk :call neoterm#kill()<cr>
-
-" Git commands
-command! -nargs=+ Tg :T git <args>
-command! Tig :T tig status
-nnoremap <silent> <leader>gs :Tig<cr>
-
-" => JSX
-let g:jsx_ext_required = 0
 
 " => FZF
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(blue)%C(bold)%cr%C(white)"'
@@ -206,45 +229,11 @@ let g:fzf_tags_command = '/usr/local/bin/ctags'
 let g:gutentags_ctags_executable='/usr/local/bin/ctags'
 let g:gutentags_ctags_exclude=['*.js','*.jsx']
 
-" => JavaScript
-autocmd FileType javascript set formatprg=prettier\ --stdin
-autocmd BufRead,BufNewFile *.es6 setfiletype javascript
-autocmd BufRead,BufNewFile *.jsx setfiletype javascript
-" https://www.reddit.com/r/vim/comments/4kjgmz/weekly_vim_tips_and_tricks_thread_11/d3g6l8y
-autocmd FileType javascript setl suffixesadd=.js,.json,.html
-"autocmd FileType javascript setlocal omnifunc=tern#Complete
-let g:used_javascript_libs = 'underscore,jquery,chai,handlebars'
-
 " => Neomake
-"let g:neomake_elixir_mix_maker = {
-      "\ 'exe' : 'mix',
-      "\ 'args': ['compile', '--warnings-as-errors'],
-      "\ 'cwd': getcwd(),
-      "\ 'errorformat':
-      "\ '** %s %f:%l: %m,' .
-      "\ '%f:%l: warning: %m'
-      "\ }
-"let g:neomake_elixir_enabled_makers = ['elixir']
-"let g:neomake_elixir_elixir_maker = {
-      "\ 'exe': 'elixirc',
-      "\ 'args': [
-        "\ '--ignore-module-conflict', '--warnings-as-errors',
-        "\ '--app', 'mix', '--app', 'ex_unit',
-        "\ '-o', '$TMPDIR', '%:p'
-      "\ ],
-      "\ 'errorformat':
-          "\ '%E** %s %f:%l: %m,' .
-          "\ '%W%f:%l'
-      "\ }
-
-let g:neomake_elixir_mix_maker = []
-let g:neomake_elixir_enabled_makers = []
-let g:neomake_css_enabled_makers = []
-let g:neomake_place_signs_at_once = 1
-
-let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_jsx_enabled_makers = ['eslint']
-let g:neomake_markdown_enabled_makers = ['proselint']
+let g:neomake_typescript_tslint_maker = {
+  \ 'args': ['%:p'],
+  \ 'errorformat': 'ERROR: %f[%l\, %c]: %m',
+  \ }
 
 let g:neomake_prose_maker = {
   \ 'exe': 'proselint',
@@ -252,29 +241,34 @@ let g:neomake_prose_maker = {
   \ 'errorformat': '%f:%l:%c:%m',
   \ }
 
+let g:neomake_css_enabled_makers = []
+let g:neomake_elixir_enabled_makers = []
+let g:neomake_elixir_mix_maker = []
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_markdown_enabled_makers = ['proselint']
+let g:neomake_place_signs_at_once = 1
+let g:neomake_tsx_enabled_makers = ['tslint']
+let g:neomake_typescript_enabled_makers = ['tslint']
+
 au BufEnter *.js let b:neomake_javascript_eslint_exe = nrun#Which('eslint')
 au BufEnter *.jsx let b:neomake_jsx_eslint_exe = nrun#Which('eslint')
 
 autocmd! BufWinEnter,BufWritePost * Neomake
 
-" => Theme
-"if filereadable(expand("~/.vimrc_background"))
-  "let base16colorspace=256
-  "source ~/.vimrc_background
-"endif
+" => Colors
+set termguicolors
+let g:one_allow_italics = 1
 set background=dark
-colorscheme hybrid
-hi FoldColumn ctermbg=none
+colorscheme one
 
 " => NERDTree
 let g:nerdtree_tabs_smart_startup_focus = 2
 let g:nerdtree_tabs_open_on_gui_startup = 0
-"let NERDTreeHijackNetrw=1
 map <silent> <Leader>n :NERDTreeToggle<cr>
 map <silent> <Leader>f :NERDTreeFind<cr>
 map <silent> <Leader>k :NERDTreeFocus<cr>
 
-"NERDTree File highlighting
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
 exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
@@ -300,7 +294,6 @@ function! WriteMode()
   setlocal norelativenumber
   setlocal complete+=kspell
   setlocal foldcolumn=10
-  UniCycleOn
   HardPencil
   Voom markdown
 endfunction
@@ -331,3 +324,14 @@ nmap <leader>bl :ls<CR>
 " => Spell
 autocmd BufRead,BufNewFile *.md setlocal complete+=kspell spell
 autocmd FileType gitcommit setlocal complete+=kspell spell
+
+" => Status Line
+set statusline=
+set statusline+=\  " Empty space
+set statusline+=%< " Where to truncate line
+set statusline+=%f " Path to the file in the buffer, as typed or relative to current directory
+set statusline+=%{&modified?'\ +':''}
+set statusline+=%{&readonly?'\ ':''}
+set statusline+=%= " Separation point between left and right aligned items
+set statusline+=\ %3p%% " Percentage through file in lines as in |CTRL-G|
+set statusline+=\  " Empty space
