@@ -31,7 +31,7 @@ kwmc rule owner="Finder" properties={float="true"}
 
 kwmc config border focused on
 kwmc config border focused size 3
-kwmc config border focused color 0xFF660066
+kwmc config border focused color 0xFF2152a0
 kwmc config border focused radius 5
 
 kwmc config border marked off

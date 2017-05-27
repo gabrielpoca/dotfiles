@@ -20,3 +20,4 @@ tmp/**/*
 node_modules
 .textlintrc
 .lvimrc
+.tern-project
