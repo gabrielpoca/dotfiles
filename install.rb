@@ -11,7 +11,6 @@ FILES = [
   ['.tmux.conf', 'tmux.conf'],
   ['.zshrc.local', 'zshrc.local'],
   ['.kwm/kwmrc', 'kwmrc'],
-  ['.zazurc.json', 'zazurc.json'],
   ['.config/nvim/init.vim', 'nvimrc'],
   ['.khdrc', 'khdrc']
 ].freeze
