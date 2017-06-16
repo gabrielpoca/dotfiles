@@ -50,4 +50,13 @@ unless system('type "brew" > /dev/null')
     https://raw.githubusercontent.com/Homebrew/install/master/install)'
 end
 
+terminfo = File.join(Dir.home, '.terminfo')
+unless File.directory?(terminfo)
+  FileUtils.mkdir_p terminfo
+  puts 'Installing terminfo'
+  system "tic -o #{terminfo} tmux.terminfo"
+  system "tic -o #{terminfo} tmux-256color.terminfo"
+  system "tic -o #{terminfo} xterm-256color.terminfo"
+end
+
 puts "Complete! Don't forget to update .zshrc"
