@@ -1,7 +1,8 @@
-folder="$(dirname "$0")"
+dir="$(dirname "$0")"
+completions="$(dirname "$0")/completions"
 
-for file in $folder/*; do
+for file in $dir/*; do
   ! [[ $file =~ 'plugin.zsh' ]] && source $file
 done
 
-fpath=($folder $fpath)
+fpath=($completions $fpath)
