@@ -54,16 +54,6 @@ decrypt-folder() {
   gpg -d ${1} | tar xz
 }
 
-conf() {
-  case $1 in
-    vim)  nvim ~/.config/nvim/init.vim ;;
-    tmux) nvim ~/.tmux.conf;;
-    zsh)  nvim ~/.zshrc;;
-    ssh)  nvim ~/.ssh/config;;
-    *)    echo "\`$1': unrecognized application file" ;;
-  esac
-}
-
 list_colors() {
   for i in {0..255} ; do printf "\x1b[38;5;${i}mcolour${i}\n"; done;
 }
