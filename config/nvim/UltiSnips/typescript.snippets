@@ -1,0 +1,37 @@
+priority -50
+
+snippet cl "console.log" b
+console.log(${1:"${2:value}"})
+endsnippet
+
+snippet log "console.log" b
+console.log(${1:"${2:value}"})
+endsnippet
+
+snippet deb "debugger" b
+debugger
+endsnippet
+
+snippet fun "function (fun)"
+function (${1:argument}) {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet () "() =>"
+(${1:arguments}) => {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet imp "import from"
+import ${1:variable} from '${2:package}'
+endsnippet
+
+snippet ir "import React"
+import * as React from 'react'
+endsnippet
+
+snippet il "import lodash"
+import * as _ from 'lodash'
+endsnippet

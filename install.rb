@@ -11,7 +11,6 @@ FILES = [
   ['.tmux.conf', 'tmux.conf'],
   ['.zshrc.local', 'zshrc.local'],
   ['.kwm/kwmrc', 'kwmrc'],
-  ['.config/nvim/init.vim', 'nvimrc'],
   ['.khdrc', 'khdrc']
 ].freeze
 
@@ -27,10 +26,15 @@ FILES.each do |dest_file, file|
   FileUtils.ln_s source_file, dest_file
 end
 
-unless File.exist?(File.join(Dir.home, '.local/share/nvim/site/autoload/plug.vim'))
-  puts 'Installing plug.vim'
-  system 'curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+unless File.exist?(File.join(Dir.home, '.config/nvim/init.vim'))
+  puts 'Installing nvim'
+
+  config_folder = File.join(Dir.home, '.config')
+  dotfiles_nvim = File.join(Dir.pwd, 'config/nvim')
+  home_nvim = File.join(Dir.home, '.config')
+
+  FileUtils.mkdir_p config_folder
+  FileUtils.ln_s dotfiles_nvim, home_nvim
 end
 
 unless File.directory?(File.join(Dir.home, '.antigen'))
