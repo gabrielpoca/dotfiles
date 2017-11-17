@@ -1,7 +1,3 @@
-"autocmd TermClose * bd!|q " quit when a terminal closes instead of showing exit code and waiting
-autocmd BufWinEnter,WinEnter term://* startinsert
-autocmd BufLeave term://* stopinsert
-autocmd TermOpen * set bufhidden=hide
 tnoremap <C-e> <C-\><C-n>
 
 " => Neoterm
@@ -13,3 +9,10 @@ vnoremap <silent> <leader>ts :TREPLSend<cr>
 nnoremap <silent> <leader>th :call neoterm#close()<cr>
 nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
 nnoremap <silent> <leader>tk :call neoterm#kill()<cr>
+
+" => Test
+let test#strategy = "neoterm"
+nnoremap <silent> <leader>ra :TestSuite<cr>
+nnoremap <silent> <leader>rt :TestFile<cr>
+nnoremap <silent> <leader>rr :TestNearest<cr>
+nnoremap <silent> <leader>rl :TestLast<cr>

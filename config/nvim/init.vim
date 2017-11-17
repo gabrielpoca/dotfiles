@@ -1,11 +1,11 @@
 let mapleader="\<SPACE>"
 
 so ~/.config/nvim/rc/plugins.vim
+so ~/.config/nvim/rc/ruby.vim
 so ~/.config/nvim/rc/javascript.vim
 so ~/.config/nvim/rc/typescript.vim
-so ~/.config/nvim/rc/wiki.vim
 so ~/.config/nvim/rc/colors.vim
-so ~/.config/nvim/rc/status.vim
+so ~/.config/nvim/rc/statusline.vim
 so ~/.config/nvim/rc/writing.vim
 so ~/.config/nvim/rc/tree.vim
 so ~/.config/nvim/rc/terminal.vim
@@ -43,9 +43,8 @@ set ignorecase
 set smartcase
 set incsearch
 set gdefault
-set magic
 set inccommand=nosplit
-set completeopt+=noselect,menu,preview
+set completeopt+=noselect,menuone,preview
 
 set dictionary+=/usr/share/dict/words
 
@@ -67,13 +66,33 @@ nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
+" location list shortcuts
+nnoremap <silent> <leader>ll :llast<CR>
+
 " move in wrapped lines
 nnoremap j gj
 nnoremap k gk
 
-" => YouCompleteMe
-let g:ycm_server_python_interpreter = '/usr/local/bin/python'
+" => Deoplete
+let g:deoplete#enable_at_startup = 1
 
+function Multiple_cursors_before()
+  let g:deoplete#disable_auto_complete = 1
+endfunction
+function Multiple_cursors_after()
+  let g:deoplete#disable_auto_complete = 0
+endfunction
+
+" => Languge Server Protocol
+set hidden
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+      \ 'javascript.jsx': ['/users/gabriel/.nvm/versions/node/v6.6.0/bin/javascript-typescript-stdio'],
+      \ }
+
+nnoremap <silent> <leader>lh :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <leader>lr :call LanguageClient_textDocument_rename()<CR>
 
 " => UltiSnipps
 let g:UltiSnipsExpandTrigger="<c-o>"
@@ -82,38 +101,19 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-
 " => Trimmer
-let g:trimmer_blacklist = ['markdown', 'md', 'make']
-
-
-" => Alchemist
-let g:alchemist_tag_disable = 1
-
+let g:trimmer_blacklist = ['markdown', 'md', 'make', 'vim']
 
 " => Polyglot
 let g:polyglot_disabled = ['js', 'jsx', 'markdown', 'ts', 'tsx']
-
 
 " => Localvimrc
 let g:localvimrc_whitelist=['/Users/gabriel/Projects/.*']
 let g:localvimrc_sandbox=0
 
-
 " => Neoformat
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim = 1
-
-
-" => Test
-let test#strategy = "neoterm"
-let g:test#preserve_screen = 1
-
-nnoremap <silent> <leader>ra :TestSuite<cr>
-nnoremap <silent> <leader>rt :TestFile<cr>
-nnoremap <silent> <leader>rr :TestNearest<cr>
-nnoremap <silent> <leader>rl :TestLast<cr>
-
 
 " => FZF
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(blue)%C(bold)%cr%C(white)"'
@@ -123,32 +123,24 @@ inoremap <C-p> <Esc>:Files<cr>
 nnoremap <C-p> :Files<cr>
 " search word under cursor
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
-let g:fzf_tags_command = '/usr/local/bin/ctags'
 
-
-" => Gutentag
-let g:gutentags_ctags_executable='/usr/local/bin/ctags'
-let g:gutentags_ctags_exclude=['*.js','*.jsx']
-
-
-" => Neomake
-let g:neomake_css_enabled_makers = []
-let g:neomake_elixir_enabled_makers = []
-let g:neomake_elixir_mix_maker = []
-let g:neomake_place_signs_at_once = 1
-
-autocmd! BufWinEnter,BufWritePost * Neomake
+" => ALE
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tslint'],
+\   'jsx': ['eslint'],
+\   'css': ['stylelint'],
+\   'scss': ['scsslint'],
+\   'elixir': ['credo'],
+\   'ruby': ['rubocop'],
+\   'html': [],
+\   'markdown': [],
+\}
 
 " => Pull Request
 " change all commits to squash except for the first
 map <Leader>gs mzggjvG$:s/^pick/s<CR>
 map <leader>gd :r !git pr-description<CR>
 
-
 " => Buffers
-nmap <leader>l :bnext<CR>
-nmap <leader>h :bprevious<CR>
-nmap <leader>bq :bp <BAR> bd #<CR>
 nmap <C-q> :bp <BAR> bd #<CR>
-nmap <leader>bl :ls<CR>
-

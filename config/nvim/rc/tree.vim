@@ -13,11 +13,6 @@ endfunction
 
 call NERDTreeHighlightFile('jade', 'green', 'none', 'green', 'none')
 call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', 'none')
-"call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', 'none')
-"call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', 'none')
-"call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', 'none')
-"call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', 'none')
-"call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', 'none')
 call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', 'none')
 call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', 'none')
 call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', 'none')
