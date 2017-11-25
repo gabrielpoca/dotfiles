@@ -21,3 +21,8 @@ node_modules
 .textlintrc
 .lvimrc
 .tern-project
+.dir-locals.el
+$TMPDIR/
+.projections.json
+MY_NOTES.md
+.vscode/
