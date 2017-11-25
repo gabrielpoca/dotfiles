@@ -6,7 +6,6 @@ so ~/.config/nvim/rc/javascript.vim
 so ~/.config/nvim/rc/typescript.vim
 so ~/.config/nvim/rc/colors.vim
 so ~/.config/nvim/rc/statusline.vim
-so ~/.config/nvim/rc/writing.vim
 so ~/.config/nvim/rc/tree.vim
 so ~/.config/nvim/rc/terminal.vim
 so ~/.config/nvim/rc/experiments.vim
