@@ -1,34 +1,40 @@
-#!/bin/sh
+#!/bin/zsh
+
+autoload colors; colors
 
 current=`git branch | sed -n '\/* /s///p'`
 destiny=${1:-master}
 
-# 1. Chck if CI is failing
-if [[ "$1" != "-f" ]];
+# 1. Check if CI is failing
+if [[ "$2" != "-f" && "$1" != "-f" ]];
 then
   cistatus=`hub ci-status`
-  [[ $cistatus == "success" ]] || (echo "CI is failing for branch $current" && exit 1)
+
+  if ! [[ $cistatus == "success" ]]; then
+    print -- CI is $bold_color$cistatus$reset_color for branch $current
+    exit 1
+  fi
 fi
 
 # 2. Update destiny
-git fetch
-git checkout $destiny
+git fetch -q
+git checkout $destiny -q
 [[ $? == 0 ]] || (echo "failed to switch to $destiny" && exit 1)
-git rebase
+git rebase -q
 
 # 3. rebase PR branch
-git checkout $current
-git rebase $destiny
+git checkout $current -q
+git rebase $destiny -q
 [[ $? == 0 ]] || (echo "failed to rebase from $destiny" && exit 1)
 git pr-description $current | pbcopy || true
 git rebase -i $destiny
 
 # 4. merge
-git push -f
-git checkout $destiny
+git push -f -q
+git checkout $destiny -q
 git merge --ff-only $current
 git push
 
 # 5. remove branch
-git push origin :$current
-git branch -d $current
+git push origin :$current -q
+git branch -d $current -q
