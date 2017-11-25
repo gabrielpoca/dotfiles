@@ -1,16 +1,17 @@
 tnoremap <C-e> <C-\><C-n>
+tnoremap jj <C-\><C-n>
+tnoremap jk <C-\><C-n>
 
-" => Neoterm
+" => neoterm
 let g:neoterm_shell = 'zsh'
 let g:neoterm_position = 'verical'
 let g:neoterm_automap_keys = 'tt'
-nnoremap <silent> <f10> :TREPLSendFile<cr>
 vnoremap <silent> <leader>ts :TREPLSend<cr>
 nnoremap <silent> <leader>th :call neoterm#close()<cr>
 nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
 nnoremap <silent> <leader>tk :call neoterm#kill()<cr>
 
-" => Test
+" => test
 let test#strategy = "neoterm"
 nnoremap <silent> <leader>ra :TestSuite<cr>
 nnoremap <silent> <leader>rt :TestFile<cr>

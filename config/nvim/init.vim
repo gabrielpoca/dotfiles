@@ -9,6 +9,7 @@ so ~/.config/nvim/rc/statusline.vim
 so ~/.config/nvim/rc/writing.vim
 so ~/.config/nvim/rc/tree.vim
 so ~/.config/nvim/rc/terminal.vim
+so ~/.config/nvim/rc/experiments.vim
 
 set autoread
 set nobackup
@@ -135,6 +136,13 @@ let g:ale_linters = {
 \   'ruby': ['rubocop'],
 \   'html': [],
 \   'markdown': [],
+\}
+
+let g:ale_javascript_prettier_options = '--stdin --single-quote  --no-semi'
+
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'css': ['stylelint'],
 \}
 
 " => Pull Request
