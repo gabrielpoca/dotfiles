@@ -38,6 +38,8 @@ endif
 set display+=lastline
 set nostartofline
 set synmaxcol=200
+set cursorline
+set cursorcolumn
 
 set ignorecase
 set smartcase
@@ -45,6 +47,7 @@ set incsearch
 set gdefault
 set inccommand=nosplit
 set completeopt+=noselect,menuone,preview
+set formatoptions+=j
 
 set dictionary+=/usr/share/dict/words
 
@@ -73,6 +76,9 @@ nnoremap <silent> <leader>ll :llast<CR>
 nnoremap j gj
 nnoremap k gk
 
+" disable match parens, it doesn't work well with alacritty
+let loaded_matchparen = 1
+
 " => Deoplete
 let g:deoplete#enable_at_startup = 1
 
@@ -82,6 +88,8 @@ endfunction
 function Multiple_cursors_after()
   let g:deoplete#disable_auto_complete = 0
 endfunction
+
+let g:deoplete#file#enable_buffer_path = 1
 
 " => Languge Server Protocol
 set hidden
@@ -124,6 +132,17 @@ nnoremap <C-p> :Files<cr>
 " search word under cursor
 nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
+" hide status line inside fzf
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
 " => ALE
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -137,10 +156,11 @@ let g:ale_linters = {
 \   'markdown': [],
 \}
 
-let g:ale_javascript_prettier_options = '--stdin --single-quote  --no-semi'
+let g:ale_javascript_prettier_options = '--single-quote --no-semi'
 
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
+\   'javascript.jsx': ['prettier'],
 \   'css': ['stylelint'],
 \}
 

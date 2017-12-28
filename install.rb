@@ -12,6 +12,11 @@ FILES = [
   ['.zshrc.local', 'zshrc.local'],
 ].freeze
 
+FOLDERS = [
+  ['.config/nvim', 'config/nvim'],
+  ['.config/alacritty', 'config/alacritty'],
+].freeze
+
 FILES.each do |dest_file, file|
   dest_file = File.join(Dir.home, dest_file)
   dest_folder = File.dirname(dest_file)
@@ -24,15 +29,12 @@ FILES.each do |dest_file, file|
   FileUtils.ln_s source_file, dest_file
 end
 
-unless File.exist?(File.join(Dir.home, '.config/nvim/init.vim'))
-  puts 'Installing nvim'
+FOLDERS.each do |dest_folder, folder|
+  next if File.exist?(File.join(Dir.home, dest_folder))
 
-  config_folder = File.join(Dir.home, '.config')
-  dotfiles_nvim = File.join(Dir.pwd, 'config/nvim')
-  home_nvim = File.join(Dir.home, '.config')
+  puts "Installing #{File.basename(folder)}"
 
-  FileUtils.mkdir_p config_folder
-  FileUtils.ln_s dotfiles_nvim, home_nvim
+  FileUtils.ln_s File.join(Dir.pwd, folder), File.join(Dir.home, dest_folder)
 end
 
 unless File.directory?(File.join(Dir.home, '.antigen'))
@@ -49,6 +51,18 @@ unless system('type "brew" > /dev/null')
   puts 'Installing homebrew'
   system 'curl -fsSL \
     https://raw.githubusercontent.com/Homebrew/install/master/install)'
+end
+
+unless system('which diff-so-fancy > /dev/null')
+  puts 'Installing diff-so-fancy'
+
+  system('brew install diff-so-fancy')
+end
+
+unless system('which reattach-to-user-namespace > /dev/null')
+  puts 'Installing reattach-to-user-namespace'
+
+  system('brew install reattach-to-user-namespace')
 end
 
 terminfo = File.join(Dir.home, '.terminfo')

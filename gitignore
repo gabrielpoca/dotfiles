@@ -26,3 +26,5 @@ $TMPDIR/
 .projections.json
 MY_NOTES.md
 .vscode/
+dump
+dump.sql

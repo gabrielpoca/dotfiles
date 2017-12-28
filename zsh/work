@@ -16,7 +16,11 @@ function work() {
       tmux new-window -t $folder
     fi
 
-    tmux attach -t $folder
+    if [ -n "$TMUX" ]; then
+      tmux switch-client -t $folder
+    else
+      tmux attach -t $folder
+    fi
   else
     echo "$project_folder does not exist"
   fi

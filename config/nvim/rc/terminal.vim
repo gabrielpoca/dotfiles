@@ -2,6 +2,8 @@ tnoremap <C-e> <C-\><C-n>
 tnoremap jj <C-\><C-n>
 tnoremap jk <C-\><C-n>
 
+au TermOpen * setlocal nonumber norelativenumber
+
 " => neoterm
 let g:neoterm_shell = 'zsh'
 let g:neoterm_position = 'verical'

@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'wincent/terminus'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Olical/vim-enmasse'
 Plug 'SirVer/ultisnips'
