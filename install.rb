@@ -47,6 +47,12 @@ unless File.file?(File.join(Dir.home, '.zshrc'))
   FileUtils.cp 'zshrc', File.join(Dir.home, '.zshrc')
 end
 
+unless File.file?(File.join(Dir.home, '.netrc'))
+  puts 'Installing .netrc'
+  FileUtils.cp 'netrc', File.join(Dir.home, '.netrc')
+  puts 'Do not forget to update .netrc'
+end
+
 unless system('type "brew" > /dev/null')
   puts 'Installing homebrew'
   system 'curl -fsSL \

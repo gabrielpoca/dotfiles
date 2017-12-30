@@ -1,11 +1,13 @@
 defmodule GH.PR do
   def description do
-    pr = pull_request
-    "#{pr["title"]}\n\n#{pr["body"]}"
+    case pull_request() do
+      nil -> "There isn't a pull request open for this branch"
+      pr -> "#{pr["title"]}\n\n#{pr["body"]}"
+    end
   end
 
   def url do
-    pull_request
+    pull_request()
     |> Map.get("html_url")
   end
 
@@ -13,7 +15,7 @@ defmodule GH.PR do
     repo = GH.Git.local_repo
     owner = GH.Git.owner(repo)
     repo_name = GH.Git.repo_name(repo)
-    Tentacat.Pulls.filter(owner, repo_name, filters(repo, owner), github_client)
+    Tentacat.Pulls.filter(owner, repo_name, filters(repo, owner), github_client())
     |> List.first
   end
 
