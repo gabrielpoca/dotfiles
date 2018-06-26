@@ -28,3 +28,4 @@ MY_NOTES.md
 .vscode/
 dump
 dump.sql
+.envrc

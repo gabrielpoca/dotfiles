@@ -1,3 +1,4 @@
+set laststatus=2
 set statusline=
 set statusline+=\  " Empty space
 set statusline+=%< " Where to truncate line

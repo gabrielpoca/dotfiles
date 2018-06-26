@@ -1,10 +1,11 @@
 let g:nerdtree_tabs_smart_startup_focus = 2
 let g:nerdtree_tabs_open_on_gui_startup = 0
 let g:NERDTreeWinPos = "right"
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeStatusline = "%{''}"
 
-nnoremap <silent> <leader>n :NERDTreeToggle<cr>
-nnoremap <silent> <leader>f :NERDTreeFind<cr>
-nnoremap <silent> <leader>k :NERDTreeFocus<cr>
+nnoremap <silent> <leader>nn :NERDTreeToggle<cr>
+nnoremap <silent> <leader>nf :NERDTreeFind<cr>
 
 function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg

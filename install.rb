@@ -71,6 +71,12 @@ unless system('which reattach-to-user-namespace > /dev/null')
   system('brew install reattach-to-user-namespace')
 end
 
+unless system('which direnv')
+  puts 'Installing direnv'
+
+  system('brew install direnv')
+end
+
 terminfo = File.join(Dir.home, '.terminfo')
 unless File.directory?(terminfo)
   FileUtils.mkdir_p terminfo

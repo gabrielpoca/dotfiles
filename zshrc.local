@@ -15,3 +15,5 @@ antigen bundle docker
 antigen bundle docker-compose
 
 antigen apply
+
+eval "$(direnv hook zsh)"
