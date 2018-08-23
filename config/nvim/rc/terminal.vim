@@ -4,7 +4,7 @@ tnoremap jk <C-\><C-n>
 au TermOpen * setlocal nonumber norelativenumber
 
 " => terminal
-let g:neoterm_default_mod = 'verical'
+let g:neoterm_default_mod = 'vertical'
 let g:neoterm_automap_keys = 'tt'
 let g:neoterm_fixedsize = 1
 let g:neoterm_size = 60
