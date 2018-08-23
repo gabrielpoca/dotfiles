@@ -29,3 +29,5 @@ MY_NOTES.md
 dump
 dump.sql
 .envrc
+.history/
+.elixir_ls/
