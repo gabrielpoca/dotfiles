@@ -4,16 +4,14 @@ export PATH="$PATH:$HOME/.dotfiles/bin"
 # load antigen
 source "$HOME/.antigen/antigen.zsh"
 
-# load custom zsh
-source "$HOME/.dotfiles/zsh/plugin.zsh"
-
 # antigen plugins
 antigen use oh-my-zsh
-antigen theme muse
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle docker
 antigen bundle docker-compose
-
 antigen apply
+
+# load custom zsh
+source "$HOME/.dotfiles/zsh/plugin.zsh"
 
 eval "$(direnv hook zsh)"
