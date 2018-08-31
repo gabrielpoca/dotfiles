@@ -27,6 +27,7 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Colors
 Plug 'scwood/vim-hybrid'
 Plug 'morhetz/gruvbox'
+Plug 'dracula/vim'
 
 " Languages
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
