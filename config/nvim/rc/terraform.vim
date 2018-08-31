@@ -4,18 +4,19 @@ function! TfDocForWordUnderCursor ()
   silent exec "!open ".url
 endfunction
 
-function! TfPlan() abort
-  let cd="cd ".expand('%:p:h')
-  call neoterm#do({ 'cmd': cd })
-  call neoterm#do({ 'cmd': 'terraform plan' })
+function TfCmd(filename, cmd)
+  if(isdirectory(a:filename))
+    let dir = strpart(a:filename, 0, strlen(a:filename) - 1)
+  else
+    let dir = a:filename
+  endif
+  let last_slash = strridx(dir, "/")
+  let dir = strpart(dir, 0, last_slash)
+
+  execute ":T (cd " . l:dir . " && terraform " . a:cmd . ")"
 endfunction
 
-function! TfInit() abort
-  let cd="cd ".expand('%:p:h')
-  call neoterm#do({ 'cmd': cd })
-  call neoterm#do({ 'cmd': 'terraform init' })
-endfunction
-
-autocmd FileType terraform nnoremap <silent> <leader>fp :call TfPlan()<cr>
-autocmd FileType terraform nnoremap <silent> <leader>fi :call TfInit()<cr>
-autocmd FileType terraform nnoremap <silent> <leader>dw :call TfDocForWordUnderCursor()<cr>
+autocmd FileType terraform nmap <silent> <leader>fi :call TfCmd(@%, "init")<CR>
+autocmd FileType terraform nmap <silent> <leader>fp :call TfCmd(@%, "plan")<CR>
+autocmd FileType terraform nmap <silent> <leader>fa :call TfCmd(@%, "apply")<CR>
+autocmd FileType terraform nmap <silent> <leader>dw :call TfDocForWordUnderCursor()<cr>
