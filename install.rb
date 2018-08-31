@@ -13,8 +13,7 @@ FILES = [
 ].freeze
 
 FOLDERS = [
-  ['.config/nvim', 'config/nvim'],
-  ['.config/alacritty', 'config/alacritty'],
+  ['.config/nvim', 'config/nvim']
 ].freeze
 
 FILES.each do |dest_file, file|
@@ -59,23 +58,7 @@ unless system('type "brew" > /dev/null')
     https://raw.githubusercontent.com/Homebrew/install/master/install)'
 end
 
-unless system('which diff-so-fancy > /dev/null')
-  puts 'Installing diff-so-fancy'
-
-  system('brew install diff-so-fancy')
-end
-
-unless system('which reattach-to-user-namespace > /dev/null')
-  puts 'Installing reattach-to-user-namespace'
-
-  system('brew install reattach-to-user-namespace')
-end
-
-unless system('which direnv')
-  puts 'Installing direnv'
-
-  system('brew install direnv')
-end
+system('brew install diff-so-fancy bat tldr ncdu reattach-to-user-namespace direnv')
 
 terminfo = File.join(Dir.home, '.terminfo')
 unless File.directory?(terminfo)
