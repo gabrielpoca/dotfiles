@@ -1,4 +1,4 @@
-function work() {
+function project() {
   if [ $# = 0 ]; then
     project_folder=$(pwd)
   else

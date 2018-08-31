@@ -6,3 +6,4 @@ for file in $dir/*; do
 done
 
 fpath=($completions $fpath)
+compinit
