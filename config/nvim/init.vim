@@ -1,9 +1,8 @@
 let mapleader="\<SPACE>"
 
 so ~/.config/nvim/rc/plugins.vim
-so ~/.config/nvim/rc/ruby.vim
 so ~/.config/nvim/rc/javascript.vim
-so ~/.config/nvim/rc/terraform.vim
+so ~/.config/nvim/rc/docker.vim
 so ~/.config/nvim/rc/colors.vim
 so ~/.config/nvim/rc/statusline.vim
 so ~/.config/nvim/rc/tree.vim

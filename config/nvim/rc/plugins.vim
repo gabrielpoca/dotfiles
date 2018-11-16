@@ -22,11 +22,8 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 
 " Colors
-Plug 'scwood/vim-hybrid'
-Plug 'morhetz/gruvbox'
 Plug 'dracula/vim'
 
 " Languages
@@ -45,7 +42,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " JavaScript
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
 Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
 " Ruby

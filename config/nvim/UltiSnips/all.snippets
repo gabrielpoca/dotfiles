@@ -1,7 +1,7 @@
 snippet _container_js "Container JavaScript" b
-import React, { Component } from 'react';
+import React from 'react'
 
-class $1 extends Component {
+class $1 extends React.Component {
 	render() {
 		$2
 	}
@@ -11,24 +11,10 @@ export default $1;
 endsnippet
 
 snippet _component_js "Component JavaScript" b
-import React, { Component } from 'react';
-import CSSModules from 'react-css-modules';
+import React from 'react'
+import styled from 'styled-components'
 
-import styles from './index.css';
-
-class $1 extends Component {
-	render() {
-		$2
-	}
-}
-endsnippet
-
-snippet _component_js_gatsby "Component JavaScript for Gatsby" b
-import React, { Component } from 'react'
-
-import './index.module.css'
-
-export default class $1 extends Component {
+class $1 extends React.Component {
 	render() {
 		$2
 	}

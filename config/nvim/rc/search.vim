@@ -9,8 +9,8 @@ nmap <leader>i :GFiles<cr>
 nnoremap <silent> <leader><cr> :nohlsearch<CR><C-L>
 
 " search word under cursor
-nnoremap <silent> <Leader>fw :Ag <C-R><C-W><CR>
-nnoremap <silent> <Leader>ff :Ag 
+nnoremap <silent> <Leader>fw :Rg <C-R><C-W><CR>
+nnoremap <silent> <Leader>ff :Rg 
 
 " hide status line inside fzf
 autocmd! FileType fzf

@@ -1,3 +1,4 @@
+setopt HIST_IGNORE_SPACE
 export TERM=screen-256color
 
 # check latex file

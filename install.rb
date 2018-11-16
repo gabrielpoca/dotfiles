@@ -10,6 +10,9 @@ FILES = [
   ['.rspec', 'rspec'],
   ['.tmux.conf', 'tmux.conf'],
   ['.zshrc.local', 'zshrc.local'],
+  ['.default-gems', 'asdf-default-gems'],
+  ['.default-npm-packages', 'asdf-default-npm-packages'],
+  ['.tool-versions', 'tool-versions'],
 ].freeze
 
 FOLDERS = [
@@ -34,11 +37,6 @@ FOLDERS.each do |dest_folder, folder|
   puts "Installing #{File.basename(folder)}"
 
   FileUtils.ln_s File.join(Dir.pwd, folder), File.join(Dir.home, dest_folder)
-end
-
-unless File.directory?(File.join(Dir.home, '.antigen'))
-  puts 'Installing antigen'
-  system 'git clone git@github.com:zsh-users/antigen.git ~/.antigen'
 end
 
 unless File.file?(File.join(Dir.home, '.zshrc'))

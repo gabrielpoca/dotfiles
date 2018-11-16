@@ -4,12 +4,12 @@ endfunction
 
 let g:ale_linters = {
       \   'javascript': ['eslint'],
-      \   'typescript': ['tslint'],
-      \   'jsx': ['eslint'],
-      \   'css': ['stylelint'],
-      \   'scss': ['stylelint'],
-      \   'elixir': ['credo'],
-      \   'ruby': ['rubocop'],
+      \   'typescript': [],
+      \   'jsx': [],
+      \   'css': [],
+      \   'scss': [],
+      \   'elixir': [],
+      \   'ruby': [],
       \   'html': [],
       \   'markdown': [],
       \}
