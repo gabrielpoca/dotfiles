@@ -67,3 +67,7 @@ fbr() {
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+
+mp3 () {
+	youtube-dl --ignore-errors -f bestaudio --extract-audio --audio-format wav --no-playlist --audio-quality 0 -o '~/Google Drive/Audio/Songs to Sample/%(title)s.%(ext)s' "$1"
+}
