@@ -3,3 +3,5 @@ yarn
 javascript-typescript-langserver
 prettier
 neovim
+yarn
+http-server
