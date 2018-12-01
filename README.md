@@ -10,10 +10,6 @@ Clone the repository:
 
 Run the installation script:
 
-    ./install.sh
+    ansible-playbook ansible/setup.yml -i ansible/hosts
 
-
-Final steps:
-
-* Update the .zshrc file.
-* Install zsh, tmux and hub.
+Finnaly, just update your .zshrc and .netrc.

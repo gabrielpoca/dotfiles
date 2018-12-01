@@ -4,8 +4,11 @@
     home_dir: "{{ ansible_env.HOME }}"
     dotfiles_dir: "{{ home_dir }}/.dotfiles"
     homebrew_packages:
+      - autoconf
+      - automake
       - bash
       - bat
+      - coreutils
       - diff-so-fancy
       - direnv
       - fzf
@@ -13,18 +16,43 @@
       - heroku/brew/heroku
       - hub
       - jq
+      - libtool
+      - libxslt
+      - libyaml
       - mplayer
       - ncdu
       - neovim
+      - openssl
+      - postgresql
+      - readline
       - reattach-to-user-namespace
       - tig
       - tldr
       - tmux
       - universal-ctags
+      - unixodbc
       - wget
       - youtube-dl
       - zsh
       - zsh-completions
+
+    homebrew_cask_packages:
+      - brave-browser
+      - caffeine
+      - etcher
+      - firefox
+      - flux
+      - font-fira-code
+      - github-desktop
+      - google-chrome
+      - iterm2
+      - licecap
+      - playonmac
+      - shiftit
+      - slack
+      - vagrant
+      - virtualbox
+      - vlc
 
   tasks:
   - name: link dotfiles
@@ -65,6 +93,32 @@
   - name: install homebrew
     include_tasks: "tasks/brew.yml"
     when: brew_found == False
+
+  - name: install homebrew cask packages
+    homebrew_cask:
+      name: "{{ homebrew_cask_packages }}"
+      state: present
+
+  - name: check if asdf exists
+    stat:
+      path: "{{ home_dir }}/.asdf"
+    register: asdf_found
+
+  - name: install asdf
+    shell: |
+      git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.1
+      echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
+      echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
+    when: asdf_found.stat.exists == False
+
+  - name: add asdf plugins
+    shell: |
+      asdf plugin-add nodejs
+      asdf plugin-add ruby
+      asdf plugin-add elixir
+      asdf plugin-add python
+      asdf plugin-add erlang
+    ignore_errors: yes
 
   - name: check if terminfo exists
     stat:
