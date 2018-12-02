@@ -2,7 +2,7 @@
 - hosts: local
   vars:
     home_dir: "{{ ansible_env.HOME }}"
-    dotfiles_dir: "{{ home_dir }}/.dotfiles"
+    dotfiles_dir: "{{ home_dir }}/Developer/dotfiles"
     homebrew_packages:
       - autoconf
       - automake
@@ -13,6 +13,7 @@
       - direnv
       - fzf
       - git
+      - gpg
       - heroku/brew/heroku
       - hub
       - jq
@@ -26,17 +27,20 @@
       - postgresql
       - readline
       - reattach-to-user-namespace
+      - ripgrep
+      - the_silver_searcher
       - tig
       - tldr
       - tmux
-      - universal-ctags
       - unixodbc
       - wget
       - youtube-dl
+      - zlib
       - zsh
       - zsh-completions
 
     homebrew_cask_packages:
+      - homebrew/cask-fonts/font-fira-code
       - brave-browser
       - caffeine
       - etcher
@@ -47,14 +51,19 @@
       - google-chrome
       - iterm2
       - licecap
+      - lulu
       - playonmac
       - shiftit
       - slack
+      - spectacle
       - vagrant
       - virtualbox
       - vlc
 
   tasks:
+  - name: create .config
+    file: path="{{ home_dir}}/.config" state=directory
+
   - name: link dotfiles
     file:
       src: "{{ dotfiles_dir}}/{{ item.src }}"
@@ -79,25 +88,17 @@
       src: "{{ dotfiles_dir }}/zshrc"
       dest: "{{ home_dir }}/.zshrc"
 
+  - name: make zsh the default shell
+    shell: chsh -s /bin/zsh
+
   - name: setup netrc
     include_tasks: "tasks/copy_file.yml"
     vars:
       src: "{{ dotfiles_dir }}/netrc"
       dest: "{{ home_dir }}/.netrc"
 
-  - name: check if brew exists
-    shell: command -v brew > /dev/null 2>&1
-    register: brew_found
-    ignore_errors: yes
-
   - name: install homebrew
     include_tasks: "tasks/brew.yml"
-    when: brew_found == False
-
-  - name: install homebrew cask packages
-    homebrew_cask:
-      name: "{{ homebrew_cask_packages }}"
-      state: present
 
   - name: check if asdf exists
     stat:
@@ -113,23 +114,21 @@
 
   - name: add asdf plugins
     shell: |
-      asdf plugin-add nodejs
-      asdf plugin-add ruby
-      asdf plugin-add elixir
-      asdf plugin-add python
-      asdf plugin-add erlang
+      asdf plugin-add nodejs || true
+      asdf plugin-add ruby || true
+      asdf plugin-add elixir || true
+      asdf plugin-add python || true
+      asdf plugin-add erlang || true
     ignore_errors: yes
-
-  - name: check if terminfo exists
-    stat:
-      path: "{{ home_dir }}/.terminfo"
-    register: terminfo_found
 
   - name: install terminfo
     shell: |
-      system "tic -o {{ home_dir }}/.terminfo tmux.terminfo"
-      system "tic -o {{ home_dir }}/.terminfo tmux-256color.terminfo"
-      system "tic -o {{ home_dir }}/.terminfo xterm-256color.terminfo"
-    when: terminfo_found.stat.exists == False
+      tic -x {{ dotfiles_dir }}/tmux.terminfo
+      tic -x {{ dotfiles_dir }}/tmux-256color.terminfo
+      tic -x {{ dotfiles_dir }}/xterm-256color.terminfo
 
   - debug: msg="All done! Don't forget to update .zshrc and .netrc"
+
+  - name: install TPM
+    shell: |
+      git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

@@ -16,10 +16,10 @@ let g:LanguageClient_diagnosticsList = "Location"
 let g:LanguageClient_hasSnippetSupport = 0
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
-      \ 'javascript': ['/Users/gabriel/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
-      \ 'typescript': ['/Users/gabriel/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
-      \ 'javascript.jsx': ['/Users/gabriel/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
-      \ 'elixir': ['/Users/gabriel/.elixir_ls/language_server.sh'],
+      \ 'javascript': ['/Users/gabrielpoca/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
+      \ 'typescript': ['/Users/gabrielpoca/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
+      \ 'javascript.jsx': ['/Users/gabrielpoca/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
+      \ 'elixir': ['/Users/gabrielpoca/.elixir_ls/language_server.sh'],
       \ }
 
 nnoremap <silent> <leader>lh :call LanguageClient_textDocument_hover()<CR>

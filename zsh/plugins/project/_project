@@ -1,6 +1,6 @@
 #compdef project
 _project() {
-  projects=($(ls ~/Projects))
+  projects=($(ls ~/Developer))
   _values 'projects' $projects
   return 0
 }

@@ -1,13 +1,20 @@
+  - name: check if brew exists
+    shell: command -v brew > /dev/null 2>&1
+    register: brew_found
+    ignore_errors: yes
+
   - name: install homebrew
     shell: |
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
-  - homebrew_tap:
-      name: universal-ctags/universal-ctags
-      state: present
+    when: brew_found == False
 
   - name: install homebrew package
     homebrew:
       name: "{{ homebrew_packages }}"
       state: present
       update_homebrew: yes
+
+  - name: install homebrew cask packages
+    homebrew_cask:
+      name: "{{ homebrew_cask_packages }}"
+      state: present

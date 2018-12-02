@@ -2,7 +2,7 @@ function project() {
   if [ $# = 0 ]; then
     project_folder=$(pwd)
   else
-    project_folder="/Users/gabriel/Projects/$1"
+    project_folder="/Users/gabrielpoca/Developer/$1"
   fi
 
   if [ -d $project_folder ]; then
