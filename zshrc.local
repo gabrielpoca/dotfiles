@@ -4,6 +4,7 @@ export ZSH="$HOME/Developer/dotfiles/oh-my-zsh"
 export ZSH_CUSTOM="$HOME/Developer/dotfiles/zsh"
 
 ZSH_THEME="spaceship"
+bindkey -M viins 'jk' vi-cmd-mode
 
 plugins=(
   project
@@ -12,6 +13,7 @@ plugins=(
   git
   docker
   docker-compose
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
