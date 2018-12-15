@@ -3,7 +3,7 @@ export PATH="$PATH:$HOME/Developer/dotfiles/bin"
 export ZSH="$HOME/Developer/dotfiles/oh-my-zsh"
 export ZSH_CUSTOM="$HOME/Developer/dotfiles/zsh"
 
-ZSH_THEME="gabriel"
+ZSH_THEME="spaceship"
 
 plugins=(
   project
@@ -15,6 +15,19 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+export SPACESHIP_PROMPT_ADD_NEWLINE=false
+export SPACESHIP_DIR_TRUNC=5
+export SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  dir           # Current directory section
+  git           # Git section (git_branch + git_status)
+  exec_time     # Execution time
+  line_sep      # Line break
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+  )
 
 eval "$(direnv hook zsh)"
 

@@ -1,0 +1,1 @@
+/Users/gabrielpoca/Developer/dotfiles/zsh/themes/spaceship-prompt/spaceship.zsh-theme
