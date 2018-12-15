@@ -25,6 +25,7 @@ Plug 'w0rp/ale'
 
 " Colors
 Plug 'dracula/vim'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 " Languages
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
