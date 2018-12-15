@@ -98,5 +98,5 @@ let g:trimmer_blacklist = ['markdown', 'md', 'make', 'vim']
 let g:polyglot_disabled = ['js', 'jsx', 'markdown', 'ts', 'tsx']
 
 " => localvimrc
-let g:localvimrc_whitelist=['/Users/gabrielpoca/Projects/.*']
+let g:localvimrc_whitelist=['/Users/gabrielpoca/Developer/.*']
 let g:localvimrc_sandbox=0
