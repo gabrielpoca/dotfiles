@@ -31,3 +31,4 @@ provision.retry
 tags
 tags.*
 tmp/**/*
+.terraform/

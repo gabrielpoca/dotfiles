@@ -1,7 +1,7 @@
 [init]
 [user]
-  name = Gabriel Poça
-  email = gabrielpoca@gmail.com
+	name = Gabriel Poça
+	email = gabrielpoca@gmail.com
 [push]
   default = current
 [color]
@@ -38,3 +38,8 @@
     end\n\
     File.open(%(%A), %(w)) {|f| f.write(b)}\n\
     exit 1 if b.include?(%(<)*%L)'"
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

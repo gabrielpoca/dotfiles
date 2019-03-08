@@ -1,6 +1,6 @@
 let g:nerdtree_tabs_smart_startup_focus = 2
 let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeStatusline = "%{''}"
 

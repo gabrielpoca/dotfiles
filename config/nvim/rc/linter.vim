@@ -3,7 +3,7 @@ function! DoTfFMT(buffer) abort
 endfunction
 
 let g:ale_linters = {
-      \   'javascript': ['eslint'],
+      \   'javascript': [],
       \   'typescript': [],
       \   'jsx': [],
       \   'css': [],

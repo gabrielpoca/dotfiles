@@ -7,7 +7,7 @@ au TermOpen * setlocal nonumber norelativenumber
 let g:neoterm_default_mod = 'vertical'
 let g:neoterm_automap_keys = 'tt'
 let g:neoterm_fixedsize = 1
-let g:neoterm_size = 60
+"let g:neoterm_size = 60
 let g:neoterm_autoscroll = 1
 
 nnoremap <silent> <leader>th :Ttoggle<cr>

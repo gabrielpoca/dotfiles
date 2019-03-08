@@ -18,7 +18,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-export SPACESHIP_PROMPT_ADD_NEWLINE=false
+#export SPACESHIP_PROMPT_ADD_NEWLINE=false
 export SPACESHIP_DIR_TRUNC=5
 export SPACESHIP_PROMPT_ORDER=(
   time          # Time stamps section

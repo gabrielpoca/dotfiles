@@ -10,18 +10,26 @@ function Multiple_cursors_after()
 endfunction
 
 let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#data_directory = '~/.cache/deoplete'
+call deoplete#custom#option('ignore_sources', {
+    \ 'vim': ['dictionary'],
+    \ 'elixir': ['dictionary'],
+    \ 'ruby': ['dictionary'],
+    \ 'javascript': ['dictionary'],
+    \ 'typescript': ['dictionary'],
+    \ })
 
 " => language client
 let g:LanguageClient_diagnosticsList = "Location"
 let g:LanguageClient_hasSnippetSupport = 0
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
-      \ 'javascript': ['/Users/gabrielpoca/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
-      \ 'typescript': ['/Users/gabrielpoca/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
-      \ 'javascript.jsx': ['/Users/gabrielpoca/.asdf/installs/nodejs/9.3.0/.npm/bin/javascript-typescript-stdio'],
+      \ 'javascript': ['/Users/gabrielpoca/.asdf/shims/javascript-typescript-stdio'],
+      \ 'typescript': ['/Users/gabrielpoca/.asdf/shims/javascript-typescript-stdio'],
       \ 'elixir': ['/Users/gabrielpoca/.elixir_ls/language_server.sh'],
       \ }
 
+nnoremap <silent> <leader>lm :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> <leader>lh :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <leader>lr :call LanguageClient_textDocument_rename()<CR>

@@ -40,7 +40,6 @@
       - zsh-completions
 
     homebrew_cask_packages:
-      - homebrew/cask-fonts/font-fira-code
       - brave-browser
       - caffeine
       - etcher
@@ -49,10 +48,12 @@
       - font-fira-code
       - github-desktop
       - google-chrome
+      - homebrew/cask-fonts/font-fira-code
       - iterm2
       - licecap
       - lulu
       - playonmac
+      - quicklook-json
       - shiftit
       - slack
       - spectacle

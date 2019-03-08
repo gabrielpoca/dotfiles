@@ -1,6 +1,7 @@
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(blue)%C(bold)%cr%C(white)"'
 
 " shortcuts
+nmap <leader>aa :A<cr>
 nmap <leader>o :Buffers<cr>
 nmap <leader>p :Files<cr>
 nmap <leader>i :GFiles<cr>

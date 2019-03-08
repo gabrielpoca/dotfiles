@@ -22,4 +22,6 @@ nmap <silent> <leader>fa :call TerraformCmd(@%, "apply")<CR>
 nmap <silent> <leader>fo :call TerraformCmd(@%, "output")<CR>
 nmap <silent> <leader>fr :call TerraformCmd(@%, "refresh")<CR>
 nmap <silent> <leader>fd :call TerraformCmd(@%, "destroy")<CR>
+nmap <silent> <leader>fy :T yes<CR>
+nmap <silent> <leader>fn :T no<CR>
 nmap <silent> <leader>dw :call TfDocForWordUnderCursor()<cr>
