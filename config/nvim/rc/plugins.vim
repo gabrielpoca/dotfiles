@@ -1,5 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
+Plug 'tidalcycles/vim-tidal'
+
 Plug 'wincent/terminus'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Olical/vim-enmasse'
@@ -23,28 +25,43 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 
+" GIT
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+
 " Colors
 Plug 'dracula/vim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
 " Languages
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+"Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
 Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
 
 " Autocomplete
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+function! InstallDeps(info)
+  if a:info.status == 'installed' || a:info.force
+    let extensions = ['coc-emmet',     \
+    'coc-highlight', \
+    'coc-css',       \
+    'coc-yaml',      \
+    'coc-ultisnips',  \
+    'coc-tsserver',  \
+    'coc-json',       \
+    'coc-emoji'       \
+    ]
+    call coc#util#install()
+    call coc#util#install_extension(extensions)
+  endif
+endfunction
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': function('InstallDeps')}
 
 " JavaScript
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
-Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['javascript', 'javascript.jsx'] }
 
 " Ruby
 Plug 'tpope/vim-rails', { 'for': 'ruby' }

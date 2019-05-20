@@ -4,4 +4,4 @@ function! DockerfileDocForWordUnderCursor ()
   silent exec "! open ".url
 endfunction
 
-autocmd FileType dockerfile nnoremap <silent> <leader>dw :call DockerfileDocForWordUnderCursor()<cr>
+autocmd FileType Dockerfile nnoremap <silent> <leader>dw :call DockerfileDocForWordUnderCursor()<cr>

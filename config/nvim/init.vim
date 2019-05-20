@@ -1,8 +1,7 @@
 let mapleader="\<SPACE>"
 
 so ~/.config/nvim/rc/plugins.vim
-so ~/.config/nvim/rc/javascript.vim
-so ~/.config/nvim/rc/docker.vim
+so ~/.config/nvim/rc/git.vim
 so ~/.config/nvim/rc/colors.vim
 so ~/.config/nvim/rc/statusline.vim
 so ~/.config/nvim/rc/tree.vim
@@ -74,15 +73,6 @@ nmap <silent> <C-l> :wincmd l<CR>
 
 " => buffer shortcuts
 nmap <C-q> :bp <BAR> bd #<CR>
-
-" location list shortcuts
-nnoremap <silent> <leader>ll :llast<CR>
-
-" change all commits to squash except for the first
-map <Leader>gs mzggjvG$:s/^pick/s<CR>
-
-" get the pull request's description
-map <leader>gd :r !git pr-description<CR>
 
 " move in wrapped lines
 nnoremap j gj

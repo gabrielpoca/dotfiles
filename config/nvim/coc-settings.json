@@ -1,0 +1,16 @@
+{
+  "suggest.noselect": false,
+  "suggest.preferCompleteThanJumpPlaceholder": true,
+  "diagnostic.enableMessage": "never",
+  "diagnostic.virtualText": true,
+  "diagnostic.errorSign": "X",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": ">>",
+  "diagnostic.hintSign": ">>",
+  "languageserver": {
+    "elixir": {
+      "command": "/Users/gabrielpoca/.elixir_ls/language_server.sh",
+      "filetypes": ["elixir", "eelixir"]
+    }
+  }
+}

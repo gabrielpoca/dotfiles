@@ -19,7 +19,7 @@ _color_light() {
 _color_dark() {
   _color_it2prof "Dark"
   _color_background "dark"
-  _color_colorscheme "dracula"
+  _color_colorscheme "nord"
 }
 
 color() {

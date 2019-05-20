@@ -1,41 +1,49 @@
-" => deoplete
-let g:deoplete#enable_at_startup = 1
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-function Multiple_cursors_before()
-  let g:deoplete#disable_auto_complete = 1
+" always show signcolumns
+set signcolumn=yes
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+
+" To make snippet completion work just like VSCode, add:
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
 endfunction
 
-function Multiple_cursors_after()
-  let g:deoplete#disable_auto_complete = 0
-endfunction
-
-let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#data_directory = '~/.cache/deoplete'
-call deoplete#custom#option('ignore_sources', {
-    \ 'vim': ['dictionary'],
-    \ 'elixir': ['dictionary'],
-    \ 'ruby': ['dictionary'],
-    \ 'javascript': ['dictionary'],
-    \ 'typescript': ['dictionary'],
-    \ })
-
-" => language client
-let g:LanguageClient_diagnosticsList = "Location"
-let g:LanguageClient_hasSnippetSupport = 0
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-      \ 'javascript': ['/Users/gabrielpoca/.asdf/shims/javascript-typescript-stdio'],
-      \ 'typescript': ['/Users/gabrielpoca/.asdf/shims/javascript-typescript-stdio'],
-      \ 'elixir': ['/Users/gabrielpoca/.elixir_ls/language_server.sh'],
-      \ }
-
-nnoremap <silent> <leader>lm :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> <leader>lh :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <leader>lr :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> <leader>ls :call LanguageClientRestart()<CR>
-
-" => UltiSnipps
-let g:UltiSnipsExpandTrigger="<c-o>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" Navigate diagnostics
+nnoremap <silent> <leader>lp <Plug>(coc-diagnostic-prev)
+nnoremap <silent> <leader>ln <Plug>(coc-diagnostic-next)
+" Show documentation in preview window
+nnoremap <silent> <leader>dw :call <SID>show_documentation()<CR>
+" Rename current word
+nnoremap <silent> <leader>lr <Plug>(coc-rename)
+" Fix autofix problem of current line
+nnoremap <silent> <leader>lf  <Plug>(coc-fix-current)
+" Show all diagnostics
+nnoremap <silent> <leader>ld  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <leader>le  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <leader>ls  :<C-u>CocList -I symbols<cr>
+" Resume latest coc list
+nnoremap <silent> <leader>lp  :<C-u>CocListResume<CR>

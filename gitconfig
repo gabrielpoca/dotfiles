@@ -23,7 +23,7 @@
   conflicts = diff --name-only --diff-filter=U
   d = diff
   f = fetch
-  lg = log --color --graph --date=short --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(blue)[%an]%Creset' --abbrev-commit
+  lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --graph --date=human
   p = push
   r = rebase
   rc = rebase --continue

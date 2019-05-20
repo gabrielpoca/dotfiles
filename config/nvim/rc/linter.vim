@@ -3,12 +3,12 @@ function! DoTfFMT(buffer) abort
 endfunction
 
 let g:ale_linters = {
-      \   'javascript': [],
+      \   'javascript': ['eslint'],
       \   'typescript': [],
-      \   'jsx': [],
+      \   'jsx': ['eslint'],
       \   'css': [],
       \   'scss': [],
-      \   'elixir': [],
+      \   'elixir': ['credo'],
       \   'ruby': [],
       \   'html': [],
       \   'markdown': [],
@@ -16,7 +16,8 @@ let g:ale_linters = {
 
 let g:ale_fix_on_save = 1
 
-let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5 --prose-wrap always'
+"let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5 --prose-wrap always'
+let g:ale_javascript_prettier_use_local_config = 1
 
 let g:ale_fixers = {
       \   'markdown': ['prettier'],
