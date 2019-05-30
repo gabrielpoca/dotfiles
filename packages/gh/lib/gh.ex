@@ -1,2 +1,0 @@
-defmodule GH do
-end
