@@ -98,6 +98,51 @@ fn pull_request_open() -> Result<(), String> {
     return Ok(());
 }
 
+fn tmux_ci_status() -> Result<(), String> {
+    let output = Command::new("tmux")
+        .arg("display-message")
+        .arg("-p")
+        .arg("-F")
+        .arg("\"#{pane_current_path}\"")
+        .output()
+        .unwrap();
+
+    let stdout = output.stdout;
+
+    unsafe {
+        let path = String::from_utf8_unchecked(stdout).trim().replace("\"", "");
+
+        if path.is_empty() {
+            return Ok(());
+        }
+
+        let output = Command::new("hub")
+            .current_dir(path)
+            .arg("ci-status")
+            .output()
+            .unwrap();
+
+        let stdout = output.stdout;
+        let status = String::from_utf8_unchecked(stdout).trim().replace("\"", "");
+
+        if status.is_empty() {
+            return Ok(());
+        }
+
+        if status == "no status" {
+            return Ok(());
+        }
+
+        if status == "success" {
+            return Ok(());
+        }
+
+        println!("ci status is {}", status);
+    }
+
+    return Ok(());
+}
+
 fn main() {
     let matches = App::new("GH")
         .about("Personal git helpers")
@@ -110,6 +155,10 @@ fn main() {
             SubCommand::with_name("pr-open")
             .about("If there is a PR from this branch, open it in the browser")
         )
+        .subcommand(
+            SubCommand::with_name("tmux-ci-status")
+            .about("Print the ci status for the current tmux pane")
+        )
         .get_matches();
 
 
@@ -121,6 +170,11 @@ fn main() {
         },
         Some("pr-open") => {
             if let Err(e) = pull_request_open() {
+                println!("{}", e);
+            }
+        },
+        Some("tmux-ci-status") => {
+            if let Err(e) = tmux_ci_status() {
                 println!("{}", e);
             }
         },
