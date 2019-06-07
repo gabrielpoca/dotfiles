@@ -69,5 +69,13 @@ fbr() {
 }
 
 mp3 () {
-	youtube-dl --ignore-errors -f bestaudio --extract-audio --audio-format wav --no-playlist --audio-quality 0 -o '~/Google Drive/Audio/Songs to Sample/%(title)s.%(ext)s' "$1"
+	youtube-dl --ignore-errors -f bestaudio --extract-audio --audio-format wav --no-playlist --audio-quality 0 -o '~/Music/Ableton/User Library/Personal/Youtube to Sample/%(title)s.%(ext)s' "$1"
+}
+
+# fd - cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
 }
