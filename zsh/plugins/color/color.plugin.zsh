@@ -30,6 +30,8 @@ color() {
   esac
 }
 
-if [ ! -n "$TMUX" ]; then
-	_color_dark
-fi
+# this is not working with VIM right now
+#
+#if [ ! -n "$TMUX" ]; then
+	#_color_dark
+#fi

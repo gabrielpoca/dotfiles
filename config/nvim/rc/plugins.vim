@@ -30,9 +30,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 
 " Colors
-Plug 'dracula/vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'morhetz/gruvbox'
 
 " Languages
 "Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
