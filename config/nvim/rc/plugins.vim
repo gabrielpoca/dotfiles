@@ -1,7 +1,5 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'tidalcycles/vim-tidal'
-
 Plug 'wincent/terminus'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Olical/vim-enmasse'
