@@ -9,7 +9,7 @@ function project() {
     cd $project_folder
     sessions=`tmux list-sessions | cut -d : -f 1`
     folder=`basename $PWD`
-    folder=${folder#.} # remove leading "." to have a valid tmux session name
+    folder=${folder/\./_} # replace "." with "_"
 
     if [[ ! "$sessions" =~ "$folder" ]]; then
       tmux new -s $folder -d
