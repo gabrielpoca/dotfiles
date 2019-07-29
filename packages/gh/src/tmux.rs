@@ -35,11 +35,7 @@ pub fn ci_status() -> Result<(), String> {
             return Ok(());
         }
 
-        if status == "success" {
-            return Ok(());
-        }
-
-        println!("ci status is {}", status);
+        println!("ᚳ {}", status);
     }
 
     return Ok(());

@@ -39,8 +39,8 @@ fn pull_requests_for_current_branch() -> Result<PullRequest, String> {
     let pulls = json.unwrap();
     if pulls[0] == Value::Null {
         return Err(format!(
-                "Cannot find pull request for branch {}",
-                current_branch
+            "Cannot find pull request for branch {}",
+            current_branch
         ));
     } else {
         let pull_request = PullRequest {
@@ -72,16 +72,16 @@ fn main() {
         .author("Gabriel Poca")
         .subcommand(
             SubCommand::with_name("pr-description")
-            .about("If there is a PR from this branch, output its title and body"),
-            )
+                .about("If there is a PR from this branch, output its title and body"),
+        )
         .subcommand(
             SubCommand::with_name("pr-open")
-            .about("If there is a PR from this branch, open it in the browser"),
-            )
+                .about("If there is a PR from this branch, open it in the browser"),
+        )
         .subcommand(
             SubCommand::with_name("tmux-ci-status")
-            .about("Print the ci status for the current tmux pane"),
-            )
+                .about("Print the ci status for the current tmux pane"),
+        )
         .get_matches();
 
     match matches.subcommand_name() {
