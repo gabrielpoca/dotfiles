@@ -26,3 +26,13 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+let g:projectionist_heuristics = {
+      \ "package.json": {
+      \   'src/*.js': {'alternate': '{}.test.js', 'type': 'source'},
+      \   'src/*.test.js': {'alternate': 'src/{}.js', 'type': 'test'}
+      \ },
+      \ "mix.exs": {
+      \   'lib/*.ex': {'alternate': 'test/{}_test.exs', 'type': 'source'},
+      \   'test/*_test.exs': {'alternate': 'lib/{}.ex', 'type': 'test'}
+      \ }}
