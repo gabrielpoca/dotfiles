@@ -1,3 +1,6 @@
+" Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
 " open alternate file defined in vim-projectionist
 nmap <leader>fa :A<cr>
 nmap <leader>fv :AV<cr>
@@ -22,10 +25,15 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " insert mode completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
+inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+
 
 let g:projectionist_heuristics = {
       \ "package.json": {
