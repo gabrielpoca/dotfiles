@@ -85,3 +85,27 @@ dcleanup(){
     docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
     docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
 }
+
+cron_update_vim_plug() {
+  file="/tmp/vim_plug_$(date +%F)"
+  if [ ! -f "$file" ]; then
+    vim -c "PlugUpdate | qa"
+    touch "$file"
+  fi
+}
+
+cron_color_light() {
+  file="/tmp/color_light_$(date +%F)"
+  if [ ! -f "$file" ]; then
+    color light
+    touch "$file"
+  fi
+}
+
+cron_color_dark() {
+  file="/tmp/color_dark_$(date +%F)"
+  if [ ! -f "$file" ]; then
+    color dark
+    touch "$file"
+  fi
+}

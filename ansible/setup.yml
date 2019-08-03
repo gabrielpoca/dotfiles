@@ -11,6 +11,7 @@
       - coreutils
       - diff-so-fancy
       - direnv
+      - exa
       - fzf
       - git
       - gpg
@@ -62,7 +63,7 @@
       - vlc
 
   tasks:
-  - name: create .config
+  - name: create .config directory
     file: path="{{ home_dir}}/.config" state=directory
 
   - name: link dotfiles
@@ -83,7 +84,7 @@
       - { dest: ".zshrc.local", src: "zshrc.local" }
       - { dest: ".config/nvim", src: "config/nvim" }
 
-  - name: setup zsh
+  - name: setup zsh if file doesn't exist
     include_tasks: "tasks/copy_file.yml"
     vars:
       src: "{{ dotfiles_dir }}/zshrc"
@@ -92,7 +93,7 @@
   - name: make zsh the default shell
     shell: chsh -s /bin/zsh
 
-  - name: setup netrc
+  - name: setup netrc if file doesn't exist
     include_tasks: "tasks/copy_file.yml"
     vars:
       src: "{{ dotfiles_dir }}/netrc"
@@ -128,8 +129,39 @@
       tic -x {{ dotfiles_dir }}/tmux-256color.terminfo
       tic -x {{ dotfiles_dir }}/xterm-256color.terminfo
 
-  - debug: msg="All done! Don't forget to update .zshrc and .netrc"
+  - name: update vim-plug every monday
+    cron:
+      name: "update vim-plug"
+      minute: "*/2"
+      hour: "7,8,9,10,11,12"
+      weekday: 1
+      job: /bin/zsh -c "source ~/.zshrc && cron_update_vim_plug"
+
+  - name: change color to light on saturdays
+    cron:
+      name: "color light"
+      minute: "*/2"
+      hour: "7,8,9,10,11,12,13,14,15"
+      weekday: 6
+      job: /bin/zsh -c "source ~/.zshrc && cron_color_light"
+
+  - name: change color to dark every other day
+    cron:
+      name: "color dark"
+      minute: "*/2"
+      hour: "7,8,9,10,11,12,13"
+      weekday: 0,1,2,3,4,5
+      job: /bin/zsh -c "source ~/.zshrc && cron_color_dark"
+
+  - name: check if TPM exists
+    stat:
+      path: "{{ home_dir }}/.tmux/plugins/tpm"
+    register: tpm_found
 
   - name: install TPM
     shell: |
+      mkdir -p ~/.tmux/plugins
       git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    when: tpm_found.stat.exists == False
+
+  - debug: msg="All done! Don't forget to update .zshrc and .netrc"
