@@ -21,7 +21,6 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
-Plug 'w0rp/ale'
 
 " GIT
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
@@ -31,28 +30,20 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'Gstatus', 'Git'] }
 Plug 'morhetz/gruvbox'
 
 " Languages
-"Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
 Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
 
-" Autocomplete
-function! InstallDeps(info)
-  if a:info.status == 'installed' || a:info.force
-    let extensions = ['coc-emmet',     \
-    'coc-highlight', \
-    'coc-css',       \
-    'coc-yaml',      \
-    'coc-ultisnips',  \
-    'coc-tsserver',  \
-    'coc-json',       \
-    'coc-emoji'       \
-    ]
-    call coc#util#install()
-    call coc#util#install_extension(extensions)
-  endif
-endfunction
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': function('InstallDeps')}
+" Language Tool
+Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'amiralies/coc-elixir', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+Plug 'iamcco/coc-svg', {'do': 'yarn install --frozen-lockfile'}
 
 " JavaScript
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }

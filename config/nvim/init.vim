@@ -7,8 +7,8 @@ so ~/.config/nvim/rc/statusline.vim
 so ~/.config/nvim/rc/tree.vim
 so ~/.config/nvim/rc/terminal.vim
 so ~/.config/nvim/rc/search.vim
-so ~/.config/nvim/rc/linter.vim
 so ~/.config/nvim/rc/completion.vim
+so ~/.config/nvim/rc/linter.vim
 so ~/.config/nvim/rc/experiments.vim
 
 set autoread
@@ -26,6 +26,8 @@ set shiftwidth=2
 set nowrap
 set wildmenu
 set wildmode=full
+set wildoptions=pum
+set pumblend=20
 
 set splitbelow
 set splitright
@@ -49,6 +51,7 @@ set gdefault
 set inccommand=nosplit
 set completeopt+=noselect,menuone,preview
 set formatoptions+=j
+set pyxversion=0
 
 set dictionary+=/usr/share/dict/words
 

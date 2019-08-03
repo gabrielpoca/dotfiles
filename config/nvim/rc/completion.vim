@@ -1,12 +1,18 @@
-" don't give |ins-completion-menu| messages.
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" Don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" always show signcolumns
+" Always show signcolumns
 set signcolumn=yes
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " To make snippet completion work just like VSCode, add:
 let g:coc_snippet_next = '<TAB>'
@@ -47,3 +53,5 @@ nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>ls  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list
 nnoremap <silent> <leader>lp  :<C-u>CocListResume<CR>
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile

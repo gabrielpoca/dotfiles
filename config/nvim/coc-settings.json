@@ -1,14 +1,22 @@
 {
+  "list.normalMappings": {
+    "<C-c>": "do:exit"
+  },
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
+  },
+  "coc.preferences.formatOnSaveFiletypes": [],
+  "diagnostic.enableMessage": "jump",
+  "diagnostic.errorSign": "X",
+  "diagnostic.hintSign": ">>",
+  "diagnostic.infoSign": ">>",
+  "diagnostic.virtualText": true,
+  "diagnostic.warningSign": "⚠",
+  "signature.hideOnTextChange": true,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
-  "diagnostic.enableMessage": "never",
-  "diagnostic.virtualText": true,
-  "diagnostic.errorSign": "X",
-  "diagnostic.warningSign": "⚠",
-  "diagnostic.infoSign": ">>",
-  "diagnostic.hintSign": ">>",
   "languageserver": {
-    "elixir": {
+    "elixirLS": {
       "command": "/Users/gabrielpoca/.elixir_ls/language_server.sh",
       "filetypes": ["elixir", "eelixir"]
     }
