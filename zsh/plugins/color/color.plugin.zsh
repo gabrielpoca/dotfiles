@@ -11,27 +11,19 @@ _color_colorscheme() {
 }
 
 _color_light() {
-  _color_it2prof "Light"
+  _base16 "$BASE16_SHELL/scripts/base16-gruvbox-light-hard.sh"
   _color_background "light"
-  _color_colorscheme "onehalflight"
 }
 
 _color_dark() {
-  _color_it2prof "Dark"
+  _base16 "$BASE16_SHELL/scripts/base16-gruvbox-dark-hard.sh"
   _color_background "dark"
-  _color_colorscheme "nord"
 }
 
 color() {
   case $1 in
     light) _color_light;;
     dark) _color_dark;;
-    *) echo "unrecognized colorscheme $1" ;;
+    *) echo "the only valid arguments are 'dark' and 'light'" ;;
   esac
 }
-
-# this is not working with VIM right now
-#
-#if [ ! -n "$TMUX" ]; then
-	#_color_dark
-#fi
