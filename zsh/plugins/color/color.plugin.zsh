@@ -6,18 +6,14 @@ _color_background() {
   sed -i '' "s/.*background.*/set background=$1/"  ~/.config/nvim/rc/colors.vim
 }
 
-_color_colorscheme() {
-  sed -i '' "s/.*colorscheme.*/colorscheme $1/"  ~/.config/nvim/rc/colors.vim
-}
-
 _color_light() {
-  _base16 "$BASE16_SHELL/scripts/base16-gruvbox-light-hard.sh"
   _color_background "light"
+  _color_it2prof "Light"
 }
 
 _color_dark() {
-  _base16 "$BASE16_SHELL/scripts/base16-gruvbox-dark-hard.sh"
   _color_background "dark"
+  _color_it2prof "Dark"
 }
 
 color() {
