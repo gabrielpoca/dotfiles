@@ -13,14 +13,7 @@ fi
 
 alias l="ls -l ${colorflag}"
 alias la="ls -la ${colorflag}"
-alias lsd='ls -l ${colorflag} | grep "^d"'
 alias ls="command ls ${colorflag}"
-
-# run ls on file change. The -G flag is for colors.
-chpwd() {
-  emulate -L zsh
-  ls -G
-}
 
 # remove files with hierarchy
 rr() {
