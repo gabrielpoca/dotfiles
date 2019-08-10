@@ -19,11 +19,6 @@ nnoremap <silent> <Leader>fw :Ag <C-R><C-W><CR>
 " search for something
 nnoremap <silent> <Leader>ff :Ag 
 
-" hide status line inside fzf
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
 " insert mode completion
 inoremap <expr> <c-x><c-k> fzf#vim#complete('cat /usr/share/dict/words')
 imap <c-x><c-f> <plug>(fzf-complete-path)

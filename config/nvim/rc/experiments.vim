@@ -59,3 +59,19 @@ function! TranslateSelection ()
 endfunction
 
 vmap <silent> <leader>m :call TranslateSelection()<CR>
+
+"move lines around
+nnoremap <leader>k :m-2<cr>==
+nnoremap <leader>j :m+<cr>==
+xnoremap <leader>k :m-2<cr>gv=gv
+xnoremap <leader>j :m'>+<cr>gv=gv
+
+"replace the word under cursor
+nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
+
+" Makes s (along with corresponding maps for ss and S) act like d, except it
+" doesn’t save the cut text to a register. Helps when I want to delete
+" something without clobbering my unnamed register.
+nnoremap s "_d
+nnoremap s "_dd
+nnoremap S "_D
