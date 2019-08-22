@@ -1,0 +1,29 @@
+{
+  "name": "coc-tf",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "license": "MIT",
+  "engines": {
+    "coc": "^0.0.46"
+  },
+  "activationEvents": [
+    "onLanguage:terraform"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "tf.formatFile",
+        "title": "Format terraform files"
+      }
+    ],
+    "configuration": {
+      "title": "tf",
+      "properties": {
+      }
+    }
+  },
+  "devDependencies": {
+    "coc.nvim": "^0.0.62",
+    "vscode-languageserver-protocol": "^3.15.0-next.8"
+  }
+}
