@@ -1,20 +1,73 @@
-  - name: check if brew exists
-    shell: command -v brew > /dev/null 2>&1
-    register: brew_found
-    ignore_errors: yes
+- name: check if brew exists
+  shell: command -v brew > /dev/null 2>&1
+  register: brew_found
+  ignore_errors: yes
 
-  - name: install homebrew
-    shell: |
-      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    when: brew_found == False
+- name: install homebrew
+  shell: |
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: brew_found == False
 
-  - name: install homebrew package
-    homebrew:
-      name: "{{ homebrew_packages }}"
-      state: present
-      update_homebrew: yes
+- name: install homebrew package
+  homebrew:
+    name: "{{ homebrew_packages }}"
+    state: present
+    update_homebrew: yes
+  vars:
+    homebrew_packages:
+      - autoconf
+      - automake
+      - bash
+      - bat
+      - coreutils
+      - diff-so-fancy
+      - direnv
+      - fzf
+      - git
+      - gpg
+      - heroku/brew/heroku
+      - hub
+      - jq
+      - libtool
+      - libxslt
+      - libyaml
+      - mplayer
+      - ncdu
+      - neovim
+      - openssl
+      - postgresql
+      - readline
+      - reattach-to-user-namespace
+      - ripgrep
+      - the_silver_searcher
+      - tig
+      - tldr
+      - tmux
+      - unixodbc
+      - wget
+      - youtube-dl
+      - zlib
+      - zsh
+      - zsh-completions
 
-  - name: install homebrew cask packages
-    homebrew_cask:
-      name: "{{ homebrew_cask_packages }}"
-      state: present
+- name: install homebrew cask packages
+  ignore_errors: yes
+  homebrew_cask:
+    name: "{{ homebrew_cask_packages }}"
+    state: present
+  vars:
+    homebrew_cask_packages:
+      - brave-browser
+      - font-fira-code
+      - google-chrome
+      - homebrew/cask-fonts/font-fira-code
+      - iterm2
+      - licecap
+      - lulu
+      - playonmac
+      - quicklook-json
+      - shiftit
+      - slack
+      - vagrant
+      - virtualbox
+      - vlc

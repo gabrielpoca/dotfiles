@@ -3,63 +3,6 @@
   vars:
     home_dir: "{{ ansible_env.HOME }}"
     dotfiles_dir: "{{ home_dir }}/Developer/dotfiles"
-    homebrew_packages:
-      - autoconf
-      - automake
-      - bash
-      - bat
-      - coreutils
-      - diff-so-fancy
-      - direnv
-      - fzf
-      - git
-      - gpg
-      - heroku/brew/heroku
-      - hub
-      - jq
-      - libtool
-      - libxslt
-      - libyaml
-      - mplayer
-      - ncdu
-      - neovim
-      - openssl
-      - postgresql
-      - readline
-      - reattach-to-user-namespace
-      - ripgrep
-      - the_silver_searcher
-      - tig
-      - tldr
-      - tmux
-      - unixodbc
-      - wget
-      - youtube-dl
-      - zlib
-      - zsh
-      - zsh-completions
-
-    homebrew_cask_packages:
-      - brave-browser
-      - caffeine
-      - etcher
-      - firefox
-      - flux
-      - font-fira-code
-      - github-desktop
-      - google-chrome
-      - homebrew/cask-fonts/font-fira-code
-      - iterm2
-      - licecap
-      - lulu
-      - playonmac
-      - quicklook-json
-      - shiftit
-      - slack
-      - spectacle
-      - vagrant
-      - virtualbox
-      - vlc
 
   tasks:
   - name: create .config directory
@@ -101,26 +44,8 @@
   - name: install homebrew
     include_tasks: "tasks/brew.yml"
 
-  - name: check if asdf exists
-    stat:
-      path: "{{ home_dir }}/.asdf"
-    register: asdf_found
-
   - name: install asdf
-    shell: |
-      git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.6.1
-      echo -e '\n. $HOME/.asdf/asdf.sh' >> ~/.zshrc
-      echo -e '\n. $HOME/.asdf/completions/asdf.bash' >> ~/.zshrc
-    when: asdf_found.stat.exists == False
-
-  - name: add asdf plugins
-    shell: |
-      asdf plugin-add nodejs || true
-      asdf plugin-add ruby || true
-      asdf plugin-add elixir || true
-      asdf plugin-add python || true
-      asdf plugin-add erlang || true
-    ignore_errors: yes
+    include_tasks: "tasks/asdf.yml"
 
   - name: install terminfo
     shell: |
@@ -146,5 +71,8 @@
       mkdir -p ~/.tmux/plugins
       git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
     when: tpm_found.stat.exists == False
+
+  - name: setup macOS user defaults
+    include_tasks: "tasks/macos.yml"
 
   - debug: msg="All done! Don't forget to update .zshrc and .netrc"
