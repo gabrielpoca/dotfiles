@@ -9,7 +9,6 @@ bindkey -M viins 'jk' vi-cmd-mode
 plugins=(
   project
   conf
-  color
   git
   docker
   docker-compose
