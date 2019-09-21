@@ -8,3 +8,12 @@ alias dc='docker-compose'
 alias p='project'
 alias bs='bin/server'
 alias ssh='TERM=xterm-256color ssh'
+
+alias .....='cd ../../../..'
+alias ....='cd ../../..'
+alias ...='cd ../..'
+alias ..='cd ..'
+
+alias l="exa"
+alias la="exa -a"
+alias ls="exa"
