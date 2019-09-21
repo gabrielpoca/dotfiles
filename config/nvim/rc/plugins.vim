@@ -1,9 +1,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'wincent/terminus'
-Plug 'AndrewRadev/splitjoin.vim'
 Plug 'Olical/vim-enmasse'
-Plug 'SirVer/ultisnips'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'derekprior/vim-trimmer'
 Plug 'easymotion/vim-easymotion'
@@ -21,6 +19,11 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
+Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
 
 " GIT
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
@@ -29,23 +32,13 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'Gstatus', 'Git'] }
 " Colors
 Plug 'morhetz/gruvbox'
 
-" Language Tool
-Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+" Language Tools
+Plug 'liuchengxu/vista.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'amiralies/coc-elixir', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
-Plug 'iamcco/coc-svg', {'do': 'yarn install --frozen-lockfile'}
-
-" JavaScript
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx', 'typescript'] }
-
-" Ruby
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug '~/Developer/coc-octobox', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()

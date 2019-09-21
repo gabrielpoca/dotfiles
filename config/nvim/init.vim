@@ -4,11 +4,10 @@ so ~/.config/nvim/rc/plugins.vim
 so ~/.config/nvim/rc/git.vim
 so ~/.config/nvim/rc/colors.vim
 so ~/.config/nvim/rc/statusline.vim
-so ~/.config/nvim/rc/tree.vim
 so ~/.config/nvim/rc/terminal.vim
-so ~/.config/nvim/rc/search.vim
+so ~/.config/nvim/rc/navigation.vim
 so ~/.config/nvim/rc/completion.vim
-so ~/.config/nvim/rc/linter.vim
+so ~/.config/nvim/rc/languages.vim
 so ~/.config/nvim/rc/experiments.vim
 
 set autoread
@@ -28,6 +27,7 @@ set wildmenu
 set wildmode=full
 set wildoptions=pum
 set pumblend=20
+set lazyredraw
 
 set splitbelow
 set splitright
@@ -67,28 +67,17 @@ imap jk <Esc>
 map <c-s> :w<CR>
 nmap <silent> <c-s> <Esc>:w<CR>
 
-" pane navigation
-nmap <BS> <C-W>h
-nmap <silent> <C-k> :wincmd k<CR>
-nmap <silent> <C-j> :wincmd j<CR>
-nmap <silent> <C-h> :wincmd h<CR>
-nmap <silent> <C-l> :wincmd l<CR>
-
-" => buffer shortcuts
-nmap <C-q> :bp <BAR> bd #<CR>
-
-" move in wrapped lines
-nnoremap j gj
-nnoremap k gk
-
 " => multi cursors
 let g:multi_cursor_exit_from_insert_mode = 0
 
 " => trimmer
-let g:trimmer_blacklist = ['markdown', 'md', 'make', 'vim']
+let g:trimmer_blacklist = ['markdown', 'javascript', 'typescript', 'elixir', 'vim']
 
 " => polyglot
-let g:polyglot_disabled = ['js', 'jsx', 'markdown', 'ts', 'tsx']
+let g:polyglot_disabled = ['json']
+let g:terraform_fmt_on_save=1
+let g:typescript_indent_disable = 1
+let g:vim_markdown_folding_disabled = 1
 
 " => localvimrc
 let g:localvimrc_whitelist=['/Users/gabrielpoca/Developer/.*']

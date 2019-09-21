@@ -34,6 +34,12 @@ autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
+" vim-highlightedyank duration of the highlight
+let g:highlightedyank_highlight_duration = 300
+
+" vim-highlightedyank color or the highlight
+highlight HighlightedyankRegion cterm=reverse gui=reverse
+
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],

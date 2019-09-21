@@ -8,4 +8,8 @@ nmap <leader>gd :r !git pr-description<CR>
 nmap <silent> <leader>gh :silent execute "!tmux new-window tig " . expand("%:p")<CR>
 
 " show commits for every source line
-nnoremap <Leader>gb :Gblame<CR>  " git blame
+nnoremap <Leader>gb :Gblame<CR> 
+
+
+" show octobox notifications
+nnoremap <Leader>gn :CocList octobox<CR>

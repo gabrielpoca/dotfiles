@@ -1,20 +1,29 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "elixir"],
   "list.normalMappings": {
-    "<C-c>": "do:exit"
+    "<C-c>": "do:exit",
+    "t": "action:tabe",
+    "v": "action:vsplit",
+    "s": "action:split",
+    "d": "expr:GetDeleteAction"
   },
   "list.insertMappings": {
-    "<C-c>": "do:exit"
+    "<C-c>": "do:exit",
+    "<C-t>": "action:tabe",
+    "<C-w>": "command:wincmd k"
   },
-  "coc.preferences.formatOnSaveFiletypes": [],
-  "diagnostic.enableMessage": "jump",
+  "diagnostic.displayByAle": false,
+  "diagnostic.enableMessage": "always",
   "diagnostic.errorSign": "X",
   "diagnostic.hintSign": ">>",
   "diagnostic.infoSign": ">>",
-  "diagnostic.virtualText": true,
+  "diagnostic.virtualText": false,
   "diagnostic.warningSign": "⚠",
   "signature.hideOnTextChange": true,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
+  "suggest.floatEnable": false,
+  "octobox.showInStatusBar": true,
   "languageserver": {
     "elixirLS": {
       "command": "/Users/gabrielpoca/.elixir_ls/language_server.sh",
