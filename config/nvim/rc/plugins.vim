@@ -29,11 +29,6 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'Gstatus', 'Git'] }
 " Colors
 Plug 'morhetz/gruvbox'
 
-" Languages
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
-Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
-Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
-
 " Language Tool
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
