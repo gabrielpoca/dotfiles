@@ -22,6 +22,7 @@
       - coreutils
       - diff-so-fancy
       - direnv
+      - exa
       - fzf
       - git
       - gpg
@@ -45,6 +46,7 @@
       - tmux
       - unixodbc
       - wget
+      - yarn
       - youtube-dl
       - zlib
       - zsh
@@ -58,16 +60,21 @@
   vars:
     homebrew_cask_packages:
       - brave-browser
+      - docker
       - font-fira-code
       - google-chrome
       - homebrew/cask-fonts/font-fira-code
+      - homebrew/cask-fonts/font-ibm-plex
       - iterm2
       - licecap
       - lulu
       - playonmac
+      - pgadmin4
       - quicklook-json
       - shiftit
       - slack
+      - spectacle
+      - the-unarchiver
       - vagrant
       - virtualbox
       - vlc
