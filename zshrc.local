@@ -31,5 +31,3 @@ export SPACESHIP_PROMPT_ORDER=(
   )
 
 eval "$(direnv hook zsh)"
-
-export TERM="xterm-256color"
