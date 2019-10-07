@@ -26,7 +26,7 @@ function! TerraformCmd(filename, cmd)
   let last_slash = strridx(dir, "/")
   let dir = strpart(dir, 0, last_slash)
 
-  execute ":T (cd " . l:dir . " && direnv exec . terraform " . a:cmd . ")"
+  execute ":T (cd " . l:dir . " && direnv exec . terraform -parallelism=50 " . a:cmd . ")"
 endfunction
 
 autocmd FileType terraform nmap <silent> <leader>fi :call TerraformCmd(@%, "init")<CR>
