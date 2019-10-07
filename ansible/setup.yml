@@ -1,78 +1,95 @@
----
-- hosts: local
+-
+  hosts: local
   vars:
-    home_dir: "{{ ansible_env.HOME }}"
-    dotfiles_dir: "{{ home_dir }}/Developer/dotfiles"
-
+    home_dir: '{{ ansible_env.HOME }}'
+    dotfiles_dir: '{{ home_dir }}/Developer/dotfiles'
   tasks:
-  - name: create .config directory
-    file: path="{{ home_dir}}/.config" state=directory
-
-  - name: link dotfiles
-    file:
-      src: "{{ dotfiles_dir}}/{{ item.src }}"
-      dest: "{{ home_dir }}/{{ item.dest }}"
-      state: link
-    with_items:
-      - { dest: ".default-gems", src: "default-gems" }
-      - { dest: ".default-npm-packages", src: "default-npm-packages" }
-      - { dest: ".gitattributes", src: "gitattributes" }
-      - { dest: ".gitcommit", src: "gitcommit" }
-      - { dest: ".gitconfig", src: "gitconfig" }
-      - { dest: ".gitignore", src: "gitignore" }
-      - { dest: ".rspec", src: "rspec" }
-      - { dest: ".tmux.conf", src: "tmux.conf" }
-      - { dest: ".tool-versions", src: "tool-versions" }
-      - { dest: ".zshrc.local", src: "zshrc.local" }
-      - { dest: ".config/nvim", src: "config/nvim" }
-
-  - name: setup zsh if file doesn't exist
-    include_tasks: "tasks/copy_file.yml"
-    vars:
-      src: "{{ dotfiles_dir }}/zshrc"
-      dest: "{{ home_dir }}/.zshrc"
-
-  - name: make zsh the default shell
-    shell: chsh -s /bin/zsh
-
-  - name: setup netrc if file doesn't exist
-    include_tasks: "tasks/copy_file.yml"
-    vars:
-      src: "{{ dotfiles_dir }}/netrc"
-      dest: "{{ home_dir }}/.netrc"
-
-  - name: install homebrew
-    include_tasks: "tasks/brew.yml"
-
-  - name: install asdf
-    include_tasks: "tasks/asdf.yml"
-
-  - name: install terminfo
-    shell: |
-      tic -x {{ dotfiles_dir }}/tmux.terminfo
-      tic -x {{ dotfiles_dir }}/tmux-256color.terminfo
-      tic -x {{ dotfiles_dir }}/xterm-256color.terminfo
-
-  - name: update vim-plug every monday
-    cron:
-      name: "update vim-plug"
-      minute: "*/2"
-      hour: "7,8,9,10,11,12"
-      weekday: 1
-      job: /bin/zsh ~/Developer/dotfiles/cron/update_vim_plug
-
-  - name: check if TPM exists
-    stat:
-      path: "{{ home_dir }}/.tmux/plugins/tpm"
-    register: tpm_found
-
-  - name: install TPM
-    shell: |
-      mkdir -p ~/.tmux/plugins
-      git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    when: tpm_found.stat.exists == False
-
-  - name: setup macOS user defaults
-    include_tasks: "tasks/macos.yml"
-
-  - debug: msg="All done! Don't forget to update .zshrc and .netrc"
+    -
+      name: 'create .config directory'
+      file: 'path="{{ home_dir}}/.config" state=directory'
+    -
+      name: 'link dotfiles'
+      file:
+        src: '{{ dotfiles_dir}}/{{ item.src }}'
+        dest: '{{ home_dir }}/{{ item.dest }}'
+        state: link
+      with_items:
+        -
+          dest: .default-gems
+          src: default-gems
+        -
+          dest: .default-npm-packages
+          src: default-npm-packages
+        -
+          dest: .gitattributes
+          src: gitattributes
+        -
+          dest: .gitcommit
+          src: gitcommit
+        -
+          dest: .gitconfig
+          src: gitconfig
+        -
+          dest: .gitignore
+          src: gitignore
+        -
+          dest: .rspec
+          src: rspec
+        -
+          dest: .tmux.conf
+          src: tmux.conf
+        -
+          dest: .tool-versions
+          src: tool-versions
+        -
+          dest: .zshrc.local
+          src: zshrc.local
+        -
+          dest: .config/nvim
+          src: config/nvim
+    -
+      name: 'setup zsh if file doesn''t exist'
+      include_tasks: tasks/copy_file.yml
+      vars:
+        src: '{{ dotfiles_dir }}/zshrc'
+        dest: '{{ home_dir }}/.zshrc'
+    -
+      name: 'make zsh the default shell'
+      shell: 'chsh -s /bin/zsh'
+    -
+      name: 'setup netrc if file doesn''t exist'
+      include_tasks: tasks/copy_file.yml
+      vars:
+        src: '{{ dotfiles_dir }}/netrc'
+        dest: '{{ home_dir }}/.netrc'
+    -
+      name: 'install homebrew'
+      include_tasks: tasks/brew.yml
+    -
+      name: 'install asdf'
+      include_tasks: tasks/asdf.yml
+    -
+      name: 'install terminfo'
+      shell: "tic -x {{ dotfiles_dir }}/tmux.terminfo\ntic -x {{ dotfiles_dir }}/tmux-256color.terminfo\ntic -x {{ dotfiles_dir }}/xterm-256color.terminfo\n"
+    -
+      name: 'update vim-plug every monday'
+      cron:
+        name: 'update vim-plug'
+        minute: '*/2'
+        hour: '7,8,9,10,11,12'
+        weekday: 1
+        job: '/bin/zsh ~/Developer/dotfiles/cron/update_vim_plug'
+    -
+      name: 'check if TPM exists'
+      stat:
+        path: '{{ home_dir }}/.tmux/plugins/tpm'
+      register: tpm_found
+    -
+      name: 'install TPM'
+      shell: "mkdir -p ~/.tmux/plugins\ngit clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm\n"
+      when: 'tpm_found.stat.exists == False'
+    -
+      name: 'setup macOS user defaults'
+      include_tasks: tasks/macos.yml
+    -
+      debug: 'msg="All done! Don''t forget to update .zshrc and .netrc"'
