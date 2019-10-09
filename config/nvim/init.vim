@@ -82,3 +82,6 @@ let g:vim_markdown_folding_disabled = 1
 " => localvimrc
 let g:localvimrc_whitelist=['/Users/gabrielpoca/Developer/.*']
 let g:localvimrc_sandbox=0
+
+" => resize splits when vim is resized
+autocmd VimResized * wincmd =
