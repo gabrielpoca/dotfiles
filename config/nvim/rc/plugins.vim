@@ -31,6 +31,7 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'Gstatus', 'Git'] }
 
 " Colors
 Plug 'morhetz/gruvbox'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 " Language Tools
 Plug 'liuchengxu/vista.vim'
