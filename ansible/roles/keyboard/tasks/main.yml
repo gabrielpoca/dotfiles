@@ -1,0 +1,21 @@
+- name: install homebrew cask packages
+  ignore_errors: yes
+  homebrew_cask:
+    name: "{{ homebrew_cask_packages }}"
+    state: present
+  vars:
+    homebrew_cask_packages:
+      - karabiner-elements
+      - hammerspoon
+
+- name: link hammerspoon
+  file:
+    src: '{{ ansible_env.PWD }}/roles/keyboard/files/hammerspoon'
+    dest: '{{ home_dir }}/.hammerspoon'
+    state: link
+
+- name: link karabiner
+  file:
+    src: '{{ ansible_env.PWD }}/roles/keyboard/files/karabiner'
+    dest: '{{ home_dir }}/.config/karabiner'
+    state: link

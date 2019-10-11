@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  roles:
+    - { role: 'keyboard' }
+    - { role: 'macos' }
+  vars:
+    home_dir: '{{ ansible_env.HOME }}'
+    dotfiles_dir: '{{ home_dir }}/Developer/dotfiles'

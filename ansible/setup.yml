@@ -89,7 +89,4 @@
       shell: "mkdir -p ~/.tmux/plugins\ngit clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm\n"
       when: 'tpm_found.stat.exists == False'
     -
-      name: 'setup macOS user defaults'
-      include_tasks: tasks/macos.yml
-    -
       debug: 'msg="All done! Don''t forget to update .zshrc and .netrc"'
