@@ -18,12 +18,6 @@
           dest: .rspec
           src: rspec
     -
-      name: 'setup zsh if file doesn''t exist'
-      include_tasks: tasks/copy_file.yml
-      vars:
-        src: '{{ dotfiles_dir }}/zshrc'
-        dest: '{{ home_dir }}/.zshrc'
-    -
       name: 'setup netrc if file doesn''t exist'
       include_tasks: tasks/copy_file.yml
       vars:

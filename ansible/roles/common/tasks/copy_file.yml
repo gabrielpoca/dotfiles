@@ -1,0 +1,8 @@
+- name: check if {{ dest }} exists
+  stat:
+    path: "{{ dest }}"
+  register: file_found
+
+- name: copy {{ dest }}
+  copy: src="{{ src }}" dest="{{ dest }}"
+  when: file_found.stat.exists == False

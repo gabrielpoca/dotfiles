@@ -25,3 +25,12 @@
 
 - name: make zsh the default shell
   shell: 'chsh -s /bin/zsh'
+
+- name: copy .zshrc
+  include_role:
+    name: common
+    tasks_from: copy_file
+  vars:
+    src: "{{ ansible_env.PWD }}/roles/shell/files/zshrc"
+    dest: "{{ home_dir }}/.zshrc"
+
