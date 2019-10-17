@@ -1,0 +1,24 @@
+- name: link dotfiles
+  file:
+    src: "{{ ansible_env.PWD }}/roles/shell/files/{{ item.src }}"
+    dest: "{{ home_dir }}/{{ item.dest }}"
+    state: link
+  with_items:
+    - dest: .gitattributes
+      src: gitattributes
+    - dest: .gitcommit
+      src: gitcommit
+    - dest: .gitconfig
+      src: gitconfig
+    - dest: .gitignore
+      src: gitignore
+    - dest: .zshrc.local
+      src: zshrc.local
+
+- git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: ~/.oh-my-zsh
+
+- git:
+    repo: https://github.com/denysdovhan/spaceship-prompt.git
+    dest: "{{ ansible_env.PWD }}/roles/shell/files/zsh/themes/spaceship-prompt"
