@@ -6,7 +6,7 @@ This project contains my personal dotfiles.
 
 Clone the repository:
 
-    git@github.com:gabrielpoca/dotfiles.git
+    git@github.com:gabrielpoca/dotfiles.git ~/Developer/dotfiles
 
 Run the installation script:
 
