@@ -15,35 +15,14 @@
         state: link
       with_items:
         -
-          dest: .gitattributes
-          src: gitattributes
-        -
-          dest: .gitcommit
-          src: gitcommit
-        -
-          dest: .gitconfig
-          src: gitconfig
-        -
-          dest: .gitignore
-          src: gitignore
-        -
           dest: .rspec
           src: rspec
-        -
-          dest: .zshrc.local
-          src: zshrc.local
-        -
-          dest: .config/nvim
-          src: config/nvim
     -
       name: 'setup zsh if file doesn''t exist'
       include_tasks: tasks/copy_file.yml
       vars:
         src: '{{ dotfiles_dir }}/zshrc'
         dest: '{{ home_dir }}/.zshrc'
-    -
-      name: 'make zsh the default shell'
-      shell: 'chsh -s /bin/zsh'
     -
       name: 'setup netrc if file doesn''t exist'
       include_tasks: tasks/copy_file.yml

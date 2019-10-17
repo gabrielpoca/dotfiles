@@ -22,3 +22,6 @@
 - git:
     repo: https://github.com/denysdovhan/spaceship-prompt.git
     dest: "{{ ansible_env.PWD }}/roles/shell/files/zsh/themes/spaceship-prompt"
+
+- name: make zsh the default shell
+  shell: 'chsh -s /bin/zsh'
