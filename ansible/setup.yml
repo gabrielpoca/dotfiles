@@ -30,9 +30,6 @@
           dest: .rspec
           src: rspec
         -
-          dest: .tmux.conf
-          src: tmux.conf
-        -
           dest: .zshrc.local
           src: zshrc.local
         -
@@ -57,9 +54,6 @@
       name: 'install homebrew'
       include_tasks: tasks/brew.yml
     -
-      name: 'install terminfo'
-      shell: "tic -x {{ dotfiles_dir }}/tmux.terminfo\ntic -x {{ dotfiles_dir }}/tmux-256color.terminfo\ntic -x {{ dotfiles_dir }}/xterm-256color.terminfo\n"
-    -
       name: 'update vim-plug every monday'
       cron:
         name: 'update vim-plug'
@@ -67,14 +61,5 @@
         hour: '7,8,9,10,11,12'
         weekday: 1
         job: '/bin/zsh ~/Developer/dotfiles/cron/update_vim_plug'
-    -
-      name: 'check if TPM exists'
-      stat:
-        path: '{{ home_dir }}/.tmux/plugins/tpm'
-      register: tpm_found
-    -
-      name: 'install TPM'
-      shell: "mkdir -p ~/.tmux/plugins\ngit clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm\n"
-      when: 'tpm_found.stat.exists == False'
     -
       debug: 'msg="All done! Don''t forget to update .zshrc and .netrc"'
