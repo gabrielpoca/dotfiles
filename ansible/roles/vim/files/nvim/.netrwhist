@@ -1,5 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
-let g:netrw_dirhist_3='/Users/gabrielpoca/Developer/utrust_infra/aws/modules/domain'
-let g:netrw_dirhist_2='/Users/gabrielpoca/Developer/utrust_safe_keeper/node_modules/web3/src'
-let g:netrw_dirhist_1='/Users/gabrielpoca/Developer/utrust_safe_keeper/node_modules/web3'
