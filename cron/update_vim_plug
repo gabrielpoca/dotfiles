@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-file="/tmp/vim_plug_$(date +%F)"
-if [ ! -f "$file" ]; then
-  vim -c "PlugUpdate | qa"
-  touch "$file"
-fi
