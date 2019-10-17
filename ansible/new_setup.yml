@@ -1,6 +1,7 @@
 - hosts: localhost
   connection: local
   roles:
+    - { role: 'common' }
     - { role: 'shell' }
     - { role: 'terminal' }
     - { role: 'asdf' }
@@ -10,3 +11,7 @@
   vars:
     home_dir: '{{ ansible_env.HOME }}'
     dotfiles_dir: '{{ home_dir }}/Developer/dotfiles'
+
+  tasks:
+    - debug:
+        msg: All done! Go go go little turtle.
