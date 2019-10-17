@@ -11,6 +11,8 @@ plugins=(
   git
   docker
   docker-compose
+  zsh-completions
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh

@@ -3,3 +3,5 @@ fishd.*
 tmux/*
 *.gem
 *.retry
+roles/shell/files/zsh/plugins/zsh-autosuggestions/
+roles/shell/files/zsh/plugins/zsh-completions/

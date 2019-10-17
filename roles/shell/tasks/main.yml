@@ -23,6 +23,14 @@
     repo: https://github.com/denysdovhan/spaceship-prompt.git
     dest: "{{ ansible_env.PWD }}/roles/shell/files/zsh/themes/spaceship-prompt"
 
+- git:
+    repo: https://github.com/zsh-users/zsh-completions
+    dest: "{{ ansible_env.PWD }}/roles/shell/files/zsh/plugins/zsh-completions"
+
+- git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions
+    dest: "{{ ansible_env.PWD }}/roles/shell/files/zsh/plugins/zsh-autosuggestions"
+
 - name: make zsh the default shell
   shell: 'chsh -s /bin/zsh'
 
