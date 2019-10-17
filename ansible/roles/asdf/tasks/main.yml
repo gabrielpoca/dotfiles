@@ -1,3 +1,16 @@
+- name: link .files
+  file:
+    src: '{{ ansible_env.PWD }}/roles/asdf/files/{{ item.src }}'
+    dest: '{{ home_dir }}/{{ item.dest }}'
+    state: link
+  with_items:
+    - dest: .default-gems
+      src: default-gems
+    - dest: .default-npm-packages
+      src: default-npm-packages
+    - dest: .tool-versions
+      src: tool-versions
+
 - name: check if asdf exists
   stat:
     path: "{{ home_dir }}/.asdf"

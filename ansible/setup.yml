@@ -15,12 +15,6 @@
         state: link
       with_items:
         -
-          dest: .default-gems
-          src: default-gems
-        -
-          dest: .default-npm-packages
-          src: default-npm-packages
-        -
           dest: .gitattributes
           src: gitattributes
         -
@@ -38,9 +32,6 @@
         -
           dest: .tmux.conf
           src: tmux.conf
-        -
-          dest: .tool-versions
-          src: tool-versions
         -
           dest: .zshrc.local
           src: zshrc.local
@@ -65,9 +56,6 @@
     -
       name: 'install homebrew'
       include_tasks: tasks/brew.yml
-    -
-      name: 'install asdf'
-      include_tasks: tasks/asdf.yml
     -
       name: 'install terminfo'
       shell: "tic -x {{ dotfiles_dir }}/tmux.terminfo\ntic -x {{ dotfiles_dir }}/tmux-256color.terminfo\ntic -x {{ dotfiles_dir }}/xterm-256color.terminfo\n"

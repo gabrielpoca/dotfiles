@@ -1,6 +1,7 @@
 - hosts: localhost
   connection: local
   roles:
+    - { role: 'asdf' }
     - { role: 'vim' }
     - { role: 'keyboard' }
     - { role: 'macos' }
