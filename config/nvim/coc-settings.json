@@ -12,12 +12,10 @@
     "<C-t>": "action:tabe",
     "<C-w>": "command:wincmd k"
   },
-  "diagnostic.displayByAle": false,
   "diagnostic.enableMessage": "always",
   "diagnostic.errorSign": "X",
   "diagnostic.hintSign": ">>",
   "diagnostic.infoSign": ">>",
-  "diagnostic.virtualText": false,
   "diagnostic.warningSign": "⚠",
   "signature.hideOnTextChange": true,
   "suggest.noselect": false,
