@@ -1,49 +1,58 @@
+hyper = {"cmd","alt","ctrl"}
+shift_hyper = {"cmd","alt","ctrl","shift"}
+
 hs.window.animationDuration = 0
 
-hs.hotkey.bind({"cmd", "alt", "ctrl", "shift"}, "H", function()
+function placeWindow(x, y, w, h)
   local win = hs.window.focusedWindow()
   local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
 
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w / 2
-  f.h = max.h
+  f.x = x
+  f.y = y
+  f.w = w
+  f.h = h
+
   win:setFrame(f)
-end)
-
-hs.hotkey.bind({"cmd", "alt", "ctrl", "shift"}, "L", function()
-
+end
+function screenFrame()
   local win = hs.window.focusedWindow()
-  local f = win:frame()
   local screen = win:screen()
-  local max = screen:frame()
+  return screen:frame()
+end
 
-  f.x = max.x + (max.w / 2)
-  f.y = max.y
-  f.w = max.w / 2
-  f.h = max.h
-  win:setFrame(f)
+hs.hotkey.bind(shift_hyper, "Y", function()
+  local max = screenFrame()
+  placeWindow(max.x, max.y, max.w / 2, max.h)
 end)
 
-hs.hotkey.bind({"cmd", "alt", "ctrl", "shift"}, "J", function()
-  local win = hs.window.focusedWindow()
-  local f = win:frame()
-  local screen = win:screen()
-  local max = screen:frame()
-
-  f.x = max.x
-  f.y = max.y
-  f.w = max.w
-  f.h = max.h
-  win:setFrame(f,0)
+hs.hotkey.bind(shift_hyper, "O", function()
+  local max = screenFrame()
+  placeWindow(max.x + (max.w / 2), max.y, max.w / 2, max.h)
 end)
 
-hs.hotkey.bind({"cmd", "alt", "ctrl", "shift"}, ",", function()
-  hs.applescript('tell application \"iTerm2\" to activate')
+hs.hotkey.bind(shift_hyper, "U", function()
+  local max = screenFrame()
+  placeWindow(max.x, max.y, max.w, max.h)
 end)
 
+hs.hotkey.bind(shift_hyper, "R", function()
+  hs.reload()
+  hs.notify.new({title="config reloaded"}):send()
+end)
 
 local Caffeine = hs.loadSpoon('Caffeine')
-Caffeine:start();
+Caffeine:start()
+
+local HeadphoneAutoPause = hs.loadSpoon('HeadphoneAutoPause')
+HeadphoneAutoPause:start()
+
+--https://spinscale.de/posts/2016-11-08-creating-a-productive-osx-environment-hammerspoon.html
+function muteOnWake(eventType)
+  if (eventType == hs.caffeinate.watcher.systemDidWake) then
+    local output = hs.audiodevice.defaultOutputDevice()
+    output:setMuted(true)
+  end
+end
+
+caffeinateWatcher = hs.caffeinate.watcher.new(muteOnWake)
+caffeinateWatcher:start()

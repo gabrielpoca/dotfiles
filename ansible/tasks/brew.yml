@@ -51,6 +51,7 @@
       - zlib
       - zsh
       - zsh-completions
+      - gnu-tar
 
 - name: install homebrew cask packages
   ignore_errors: yes
