@@ -10,6 +10,6 @@ Clone the repository:
 
 Run the installation script:
 
-    ansible-playbook ansible/setup.yml -i ansible/hosts
+    ansible-playbook setup.yml -i hosts
 
 Finnaly, just update your .zshrc and .netrc.
