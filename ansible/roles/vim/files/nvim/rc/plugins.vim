@@ -1,5 +1,8 @@
 call plug#begin('~/.vim/plugged')
 
+let maplocalleader=","
+Plug 'https://github.com/purpleposeidon/vim-tidal'
+
 Plug 'wincent/terminus'
 Plug 'Olical/vim-enmasse'
 Plug 'christoomey/vim-tmux-navigator'

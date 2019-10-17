@@ -55,6 +55,10 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 
 " default heuristics for projectionist
 let g:projectionist_heuristics = {
+      \ "spec/support/jasmine.json": {
+      \   'src/*.js': {'alternate': 'src/{}.spec.js', 'type': 'source'},
+      \   'src/*.spec.js': {'alternate': 'src/{}.js', 'type': 'test'}
+      \ },
       \ "package.json": {
       \   'src/*.js': {'alternate': '{}.test.js', 'type': 'source'},
       \   'src/*.test.js': {'alternate': 'src/{}.js', 'type': 'test'}

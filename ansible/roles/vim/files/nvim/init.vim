@@ -41,7 +41,7 @@ endif
 set display+=lastline
 set nostartofline
 set synmaxcol=200
-set cursorline
+"set cursorline
 set cursorcolumn
 
 set ignorecase
@@ -61,7 +61,7 @@ set clipboard=unnamed
 set hidden
 
 " ESC
-imap jk <Esc>
+"imap jk <Esc>
 
 " save
 map <c-s> :w<CR>
