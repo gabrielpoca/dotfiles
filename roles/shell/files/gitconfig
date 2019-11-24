@@ -28,6 +28,8 @@
   r = rebase
   rc = rebase --continue
   s = status
+  rmb = "!f() { git branch --merged | grep -v "master" | while read i; do git branch -d $i; done; }; f"
+
 [merge "railsschema"]
   name = newer Rails schema version
   driver = "ruby -e '\n\
