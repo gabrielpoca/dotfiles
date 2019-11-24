@@ -2,6 +2,7 @@ call plug#begin('~/.vim/plugged')
 
 let maplocalleader=","
 Plug 'https://github.com/purpleposeidon/vim-tidal'
+"Plug 'https://github.com/purpleposeidon/vim-tidal'
 
 Plug 'wincent/terminus'
 Plug 'Olical/vim-enmasse'
@@ -24,7 +25,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
-Plug 'ap/vim-css-color', { 'for': ['css', 'scss', 'sass'] }
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 
@@ -35,6 +35,7 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'Gstatus', 'Git'] }
 " Colors
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " Language Tools
 Plug 'liuchengxu/vista.vim'
