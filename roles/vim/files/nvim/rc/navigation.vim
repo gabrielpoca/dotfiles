@@ -9,7 +9,9 @@ nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-l> :wincmd l<CR>
 
 " => buffer shortcuts
-nmap <C-q> :bp <BAR> bd #<CR>
+"nmap <C-q> :bp <BAR> bd #<CR>
+map <C-q> :close<CR>
+tnoremap <C-q> <C-\><C-n>:close<CR>
 
 " fzfz jumps to the existing window if possible
 let g:fzf_buffers_jump = 1
