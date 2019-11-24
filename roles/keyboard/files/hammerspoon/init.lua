@@ -35,9 +35,19 @@ hs.hotkey.bind(shift_hyper, "U", function()
   placeWindow(max.x, max.y, max.w, max.h)
 end)
 
-hs.hotkey.bind(shift_hyper, "R", function()
-  hs.reload()
-  hs.notify.new({title="config reloaded"}):send()
+hs.loadSpoon("ReloadConfiguration")
+spoon.ReloadConfiguration:start()
+
+hs.hotkey.bind(hyper, ";", function()
+  hs.application.launchOrFocus("Brave Browser")
+end)
+
+hs.hotkey.bind(hyper, "\'", function()
+  hs.application.launchOrFocus("iTerm")
+end)
+
+hs.hotkey.bind(hyper, "\\", function()
+  hs.application.launchOrFocus("Visual Studio Code")
 end)
 
 local Caffeine = hs.loadSpoon('Caffeine')
