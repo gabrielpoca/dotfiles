@@ -5,3 +5,4 @@ tmux/*
 *.retry
 roles/shell/files/zsh/plugins/zsh-autosuggestions/
 roles/shell/files/zsh/plugins/zsh-completions/
+roles/keyboard/files/karabiner/automatic_backups/
