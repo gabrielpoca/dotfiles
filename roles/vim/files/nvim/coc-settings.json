@@ -1,5 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "elixir"],
+  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "elixir", "markdown"],
   "list.normalMappings": {
     "<C-c>": "do:exit",
     "t": "action:tabe",
