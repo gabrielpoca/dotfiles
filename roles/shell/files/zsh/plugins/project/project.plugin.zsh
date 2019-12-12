@@ -12,8 +12,8 @@ function project() {
     folder=${folder/\./_} # replace "." with "_"
 
     if [[ ! "$sessions" =~ "$folder" ]]; then
-      tmux new -s $folder -d
-      tmux new-window -t $folder
+      tmux new -s $folder -d -n "vim"
+      tmux new-window -d -c $project_folder -n "shell" -t $folder
     fi
 
     if [ -n "$TMUX" ]; then
