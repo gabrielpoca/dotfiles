@@ -1,0 +1,5 @@
+bind status P !git push origin
+bind status a !tmux new-window 'git commit --amend'
+bind status C !tmux new-window 'git commit'
+
+bind generic e !nvr -l +%(lineno) %(file)

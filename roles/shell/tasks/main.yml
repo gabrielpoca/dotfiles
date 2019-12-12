@@ -4,6 +4,8 @@
     dest: "{{ home_dir }}/{{ item.dest }}"
     state: link
   with_items:
+    - dest: .tigrc
+      src: tigrc
     - dest: .gitattributes
       src: gitattributes
     - dest: .gitcommit
