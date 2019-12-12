@@ -10,6 +10,8 @@
       src: default-npm-packages
     - dest: .tool-versions
       src: tool-versions
+    - dest: .default-python-packages
+      src: default-python-packages
 
 - name: check if asdf exists
   stat:
