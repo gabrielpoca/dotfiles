@@ -9,7 +9,7 @@ alias gd="git diff"
 alias gcom="git commit -m"
 alias gs="git status"
 alias gb="git branch"
-alias gp="git push"
+alias gp="git push -u"
 alias gf="git fetch"
 alias gu="git fetch && git rebase"
 
