@@ -3,7 +3,7 @@
 	name = Gabriel Poça
 	email = gabrielpoca@gmail.com
 [push]
-  default = current
+	default = current
 [color]
   ui = true
 [core]
@@ -24,11 +24,10 @@
   d = diff
   f = fetch
   lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --graph --date=human
-  p = push
+  p = push -u
   r = rebase
   rc = rebase --continue
   s = status
-  rmb = "!f() { git branch --merged | grep -v "master" | while read i; do git branch -d $i; done; }; f"
 
 [merge "railsschema"]
   name = newer Rails schema version
