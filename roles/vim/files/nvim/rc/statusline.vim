@@ -1,3 +1,15 @@
+function! CocStatus()
+  let info = get(b:, 'coc_diagnostic_info', {})
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, ' ' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, ' ' . info['warning'])
+  endif
+  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+endfunction
+
 set laststatus=2
 set statusline=
 set statusline+=\  " Empty space
@@ -6,6 +18,6 @@ set statusline+=%f " Path to the file in the buffer, as typed or relative to cur
 set statusline+=%{&modified?'\ +':''}
 set statusline+=%{&readonly?'\ ':''}
 set statusline+=%= " Separation point between left and right aligned items
-set statusline+=\ %{coc#status()} " Show errors and warnings from coc.nvim
+set statusline+=\ %{CocStatus()} " Show errors and warnings from coc.nvim
 set statusline+=\ %3p%% " Percentage through file in lines as in |CTRL-G|
 set statusline+=\  " Empty space

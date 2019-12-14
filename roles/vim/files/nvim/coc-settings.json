@@ -12,15 +12,18 @@
     "<C-t>": "action:tabe",
     "<C-w>": "command:wincmd k"
   },
+  "diagnostic.enable": true,
   "diagnostic.enableMessage": "always",
-  "diagnostic.errorSign": "X",
-  "diagnostic.hintSign": ">>",
-  "diagnostic.infoSign": ">>",
-  "diagnostic.warningSign": "⚠",
+  "diagnostic.errorSign": "x",
+  "diagnostic.hintSign": "?",
+  "diagnostic.infoSign": "?",
+  "diagnostic.warningSign": "?",
   "signature.hideOnTextChange": true,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "suggest.floatEnable": false,
+  "prettier.statusItemText": "",
+  "octobox.iconForStatusBar": "",
   "octobox.showInStatusBar": true,
   "languageserver": {
     "elixirLS": {
