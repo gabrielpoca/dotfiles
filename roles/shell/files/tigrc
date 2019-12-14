@@ -3,3 +3,15 @@ bind status a !tmux new-window 'git commit --amend'
 bind status C !tmux new-window 'git commit'
 
 bind generic e !nvr -l +%(lineno) %(file)
+
+
+# https://www.bhalash.com/archives/13544806070
+# Area                  Foreground      Background         Options
+
+# Main UI
+# ==============================================================================
+color 'Author '         15              default
+
+# Current Line
+# ==============================================================================
+color cursor            254             201
