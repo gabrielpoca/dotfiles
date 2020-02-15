@@ -75,6 +75,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeMinimalMenu = 1
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeStatusline = "%{''}"
+let g:andrews_nerdtree_all = 1
 
 " toggle nerdtree
 nnoremap <silent> <leader>nn :NERDTreeToggle<cr>
