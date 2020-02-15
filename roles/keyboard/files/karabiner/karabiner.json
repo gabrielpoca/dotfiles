@@ -16,11 +16,22 @@
         },
         "rules": [
           {
-            "description": "alt R sends ctrl + cmd + alt",
+            "description": "simultaneous s and d sends ctrl + cmd + alt",
             "manipulators": [
               {
                 "from": {
-                  "key_code": "right_option"
+                  "simultaneous": [
+                    {
+                      "key_code": "s"
+                    },
+                    {
+                      "key_code": "d"
+                    }
+                  ],
+                  "simultaneous_options": {
+                    "key_down_order": "insensitive",
+                    "key_up_order": "insensitive"
+                  }
                 },
                 "to_if_alone": [
                   {
