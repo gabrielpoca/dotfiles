@@ -41,8 +41,7 @@ endif
 set display+=lastline
 set nostartofline
 set synmaxcol=200
-"set cursorline
-set cursorcolumn
+set cursorline
 
 set ignorecase
 set smartcase
