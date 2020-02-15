@@ -1,7 +1,31 @@
-#!/bin/zsh
+#!/usr/bin/env ruby
 
-git branch --merged | grep -v "master" | while read i;
-do git branch -d $i;
-done;
+require 'octokit'
+require 'date'
+require 'git'
 
-git branch -vv | grep ': gone]'|  grep -v "\*" | awk '{ print $1; }' | xargs git branch -d;
+git = Git.open('.')
+$github = Octokit::Client.new(netrc: true)
+
+$threshold = Date.today - 7
+$remote = git.remote('origin').url.split(':')[1].sub! '.git', ''
+
+def local_branches
+  `git show-branch --list`
+    .split("\n")
+    .map { |branch| branch.split(' ').first[1..-2] }
+    .reject { |branch| ['master', '*', ''].include? branch }
+end
+
+def branch_pull_requests(branch)
+  $github.pull_requests($remote, state: 'closed', head: "#{$remote}:#{branch}")
+end
+
+local_branches.map do |branch|
+  branch_pull_requests(branch).map do |pr|
+    return if !pr.merged_at || pr.merged_at.to_date > $threshold
+
+    print "Deleting #{branch}...\n"
+    system("git branch -D #{branch}")
+  end
+end
