@@ -1,11 +1,11 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "elixir", "markdown", "c"],
-  "list.normalMappings": {
-    "<C-c>": "do:exit",
-    "t": "action:tabe",
-    "v": "action:vsplit",
-    "s": "action:split",
-    "d": "expr:GetDeleteAction"
+    "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "elixir", "markdown", "c", "vue"],
+    "list.normalMappings": {
+      "<C-c>": "do:exit",
+      "t": "action:tabe",
+      "v": "action:vsplit",
+      "s": "action:split",
+      "d": "expr:GetDeleteAction"
   },
   "list.insertMappings": {
     "<C-c>": "do:exit",
@@ -23,8 +23,9 @@
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "suggest.floatEnable": false,
   "prettier.statusItemText": "",
-  "octobox.iconForStatusBar": "",
-  "octobox.showInStatusBar": true,
+  "vetur.format.enable": true,
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.validation.template": false,
   "languageserver": {
     "elixirLS": {
       "command": "/Users/gabrielpoca/.elixir_ls/language_server.sh",
