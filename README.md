@@ -12,4 +12,4 @@ Run the installation script:
 
     ansible-playbook setup.yml -i hosts
 
-Finnaly, just update your .zshrc and .netrc.
+Finnaly, just update your .netrc.

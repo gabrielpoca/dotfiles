@@ -6,3 +6,7 @@ tmux/*
 roles/shell/files/zsh/plugins/zsh-autosuggestions/
 roles/shell/files/zsh/plugins/zsh-completions/
 roles/keyboard/files/karabiner/automatic_backups/
+omf.fish
+fish_variables
+local.fish
+asdf.fish

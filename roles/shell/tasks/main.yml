@@ -14,33 +14,31 @@
       src: gitconfig
     - dest: .gitignore
       src: gitignore
-    - dest: .zshrc.local
-      src: zshrc.local
 
-- git:
-    repo: https://github.com/robbyrussell/oh-my-zsh.git
-    dest: ~/.oh-my-zsh
+- name: link omf
+  file:
+    src: '{{ ansible_env.PWD }}/roles/shell/files/fish'
+    dest: '{{ home_dir }}/.config/fish'
+    state: link
 
-- git:
-    repo: https://github.com/denysdovhan/spaceship-prompt.git
-    dest: "{{ ansible_env.PWD }}/roles/shell/files/zsh/themes/spaceship-prompt"
+- name: link fish configuration
+  file:
+    src: '{{ ansible_env.PWD }}/roles/shell/files/omf'
+    dest: '{{ home_dir }}/.config/omf'
+    state: link
 
-- git:
-    repo: https://github.com/zsh-users/zsh-completions
-    dest: "{{ ansible_env.PWD }}/roles/shell/files/zsh/plugins/zsh-completions"
+- name: make fish the default shell
+  shell: |
+    if test $SHELL != '/usr/local/bin/fish'
+      chsh -s /usr/local/bin/fish
+    end
+  args:
+    executable: /usr/local/bin/fish
 
-- git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions
-    dest: "{{ ansible_env.PWD }}/roles/shell/files/zsh/plugins/zsh-autosuggestions"
-
-- name: make zsh the default shell
-  shell: 'chsh -s /bin/zsh'
-
-- name: copy .zshrc
-  include_role:
-    name: common
-    tasks_from: copy_file
-  vars:
-    src: "{{ ansible_env.PWD }}/roles/shell/files/zshrc"
-    dest: "{{ home_dir }}/.zshrc"
-
+- name: install omf
+  shell: |
+    if ! test -d ~/.local/share/omf
+      curl -L https://get.oh-my.fish | fish
+    end
+  args:
+    executable: /usr/local/bin/fish

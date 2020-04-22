@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-for k in $(git branch | sed /\*/d); do
-  if [ -n "$(git log -1 --before='4 week ago' -s $k)" ]; then
-    git branch -d $k
-  fi
-done

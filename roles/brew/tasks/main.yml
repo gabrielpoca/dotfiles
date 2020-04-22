@@ -23,6 +23,7 @@
       - diff-so-fancy
       - direnv
       - exa
+      - fish
       - fzf
       - gawk
       - git

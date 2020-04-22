@@ -26,7 +26,7 @@ end
 
 function Terminal(nr, command, ...)
   if command == nil then
-    command = "/bin/zsh"
+    command = "/usr/local/bin/fish"
   end
 
   if list_of_terms[nr] then

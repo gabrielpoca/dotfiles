@@ -1,3 +1,0 @@
-#compdef conf
-
-_arguments "1: :(vim tmux zsh ssh)"
