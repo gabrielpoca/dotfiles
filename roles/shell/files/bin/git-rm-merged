@@ -11,9 +11,9 @@ $threshold = Date.today - 7
 $remote = git.remote('origin').url.split(':')[1].sub! '.git', ''
 
 def local_branches
-  `git show-branch --list`
+  `git branch`
     .split("\n")
-    .map { |branch| branch.split(' ').first[1..-2] }
+    .map { |branch| branch.gsub(/\s+/, "") }
     .reject { |branch| ['master', '*', ''].include? branch }
 end
 
@@ -23,7 +23,7 @@ end
 
 local_branches.map do |branch|
   branch_pull_requests(branch).map do |pr|
-    return if !pr.merged_at || pr.merged_at.to_date > $threshold
+    next if !pr.merged_at || pr.merged_at.to_date > $threshold
 
     print "Deleting #{branch}...\n"
     system("git branch -D #{branch}")
