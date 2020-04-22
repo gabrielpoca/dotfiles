@@ -22,7 +22,8 @@ hs.hotkey.bind(globals.hyper, "j", function()
   pos_y = frame.y / 2
 
   hs.focus()
-  local _button, value = hs.dialog.textPrompt("Search in Startpage", "", "", "Search")
-  print(value)
-  hs.execute("open https://www.startpage.com/do/dsearch?query=" .. urlencode(value))
+  local button, value = hs.dialog.textPrompt("Search in Startpage", "", "", "Search", "Cancel")
+  if button == 'Search' then
+    hs.execute("open https://www.startpage.com/do/dsearch?query=" .. urlencode(value))
+  end
 end)

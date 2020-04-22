@@ -5,7 +5,6 @@ require "search"
 hs.loadSpoon("ReloadConfiguration")
 spoon.ReloadConfiguration:start()
 
-
 local Caffeine = hs.loadSpoon('Caffeine')
 Caffeine:start()
 Caffeine:setDisplay(true)

@@ -37,41 +37,34 @@ function place_full()
   placeWindow(max.x + window_gap / 2, max.y + window_gap / 2, max.w - window_gap, max.h - window_gap)
 end
 
+function on_application(name, callback)
+  hs.window.filter.new{name}:setAppFilter(name,{allowTitles=1; hasTitlebar=true}):subscribe(hs.window.filter.windowCreated, callback)
+end
+
 -- place window on the left half of the screen
 hs.hotkey.bind(globals.shift_hyper, "Y", place_left_half)
-
 -- place window on the right half of the screen
 hs.hotkey.bind(globals.shift_hyper, "O", place_right_half)
-
 -- make window take the whole screen
 hs.hotkey.bind(globals.shift_hyper, "U", place_full)
 
 -- slack full screen
-hs.window.filter.new{'Slack'}:setAppFilter('Slack',{allowTitles=1; hasTitlebar=true}):subscribe(hs.window.filter.windowCreated, function()
-  place_full()
-end)
-
+on_application('Slack', place_full)
 -- telegram right half
-hs.window.filter.new{'Telegram'}:setAppFilter('Telegram',{allowTitles=1; hasTitlebar=true}):subscribe(hs.window.filter.windowCreated, function()
-  place_right_half()
-end)
-
+on_application('Telegram', place_right_half)
 -- iterm full screen
-hs.window.filter.new{'iTerm2'}:setAppFilter('iTerm2',{allowTitles=1; hasTitlebar=true}):subscribe(hs.window.filter.windowCreated, function()
-  place_full()
-end)
-
+on_application('iTerm2', place_full)
+-- vscode full screen
+on_application('Visual Studio Code', place_full)
 -- brave full screen
-hs.window.filter.new{'Brave Browser'}:setAppFilter('Brave Browser',{allowTitles=1; hasTitlebar=true}):subscribe(hs.window.filter.windowCreated, function()
-  place_full()
-end)
-
+on_application('Brave Browser', place_full)
+-- chrome full screen
+on_application('Google Chrome', place_full)
 -- insomnia full screen
-hs.window.filter.new{'Insomnia'}:setAppFilter('Insomnia',{allowTitles=1; hasTitlebar=true}):subscribe(hs.window.filter.windowCreated, function()
-  place_full()
-end)
-
+on_application('Insomnia', place_full)
 -- calendar full screen
-hs.window.filter.new{'Calendar'}:setAppFilter('Calendar',{allowTitles=1; hasTitlebar=true}):subscribe(hs.window.filter.windowCreated, function()
-  place_full()
-end)
+on_application('Calendar', place_full)
+-- figma
+on_application('Figma', place_full)
+-- todoist
+on_application('Todoist', place_right_half)
