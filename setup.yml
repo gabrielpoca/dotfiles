@@ -7,7 +7,7 @@
     - { role: 'asdf' }
     - { role: 'vim' }
     - { role: 'keyboard' }
-    - { role: 'macos' }
+    - { role: 'osx_defaults', tags: 'osx' }
   vars:
     home_dir: '{{ ansible_env.HOME }}'
     dotfiles_dir: '{{ home_dir }}/Developer/dotfiles'

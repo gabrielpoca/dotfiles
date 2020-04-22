@@ -47,13 +47,6 @@
     value: 1
     state: present
 
-- osx_defaults:
-    domain: com.apple.screensaver
-    key: askForPasswordDelay
-    type: int
-    value: 0
-    state: present
-
 # Disable shadow in screenshots
 - osx_defaults:
     domain: com.apple.screencapture
@@ -83,3 +76,11 @@
     type: bool
     value: true
     state: present
+
+# Disable audio sound effects for the system ui
+- osx_defaults:
+    key: com.apple.sound.uiaudio.enabled
+    type: int
+    value: 0
+    state: present
+
