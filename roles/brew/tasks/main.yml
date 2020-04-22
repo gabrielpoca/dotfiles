@@ -24,6 +24,7 @@
       - direnv
       - exa
       - fzf
+      - gawk
       - git
       - gpg
       - heroku/brew/heroku
@@ -60,21 +61,17 @@
     state: present
   vars:
     homebrew_cask_packages:
-      - brave-browser
       - docker
       - font-fira-code
-      - google-chrome
       - homebrew/cask-fonts/font-fira-code
       - homebrew/cask-fonts/font-ibm-plex
+      - hyperswitch
       - iterm2
-      - licecap
       - lulu
-      - playonmac
       - pgadmin4
       - quicklook-json
       - shiftit
       - slack
-      - spectacle
       - the-unarchiver
       - vagrant
       - virtualbox
