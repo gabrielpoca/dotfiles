@@ -15,3 +15,9 @@ nnoremap <Leader>gb :TigGblame<CR>
 
 " show octobox notifications
 nnoremap <Leader>gn :CocList octobox<CR>
+
+if has('nvim')
+  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
+endif
+
+autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
