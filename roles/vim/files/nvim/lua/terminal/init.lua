@@ -44,7 +44,7 @@ end
 tig_current_nr = 100
 
 function TerminalTig()
-  TerminalTigOpen("tig")
+  TerminalTigOpen("tig status")
 end
 
 function TerminalTigCurrentFile()
