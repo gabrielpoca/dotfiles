@@ -23,14 +23,8 @@
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "suggest.floatEnable": false,
   "prettier.statusItemText": "",
-  "vetur.format.enable": true,
-  "vetur.format.defaultFormatter.html": "prettier",
-  "vetur.validation.template": false,
+  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
   "languageserver": {
-    "elixirLS": {
-      "command": "/Users/gabrielpoca/.elixir_ls/language_server.sh",
-      "filetypes": ["elixir", "eelixir"]
-    },
     "ccls": {
       "command": "ccls",
       "filetypes": ["c", "cpp", "objc", "objcpp"],
