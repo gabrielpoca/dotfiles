@@ -16,16 +16,80 @@
         },
         "rules": [
           {
-            "description": "simultaneous s and d sends ctrl + cmd + alt",
+            "description": "double right shift to cap_lock",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_shift",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "caps_lock"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "right_shift pressed",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_shift",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "right_shift pressed",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "key_code": "right_shift"
+                  }
+                ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "right_shift pressed",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "right_shift pressed",
+                        "value": 0
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "description": "simultaneous x and c sends ctrl + cmd + alt",
             "manipulators": [
               {
                 "from": {
                   "simultaneous": [
                     {
-                      "key_code": "s"
+                      "key_code": "x"
                     },
                     {
-                      "key_code": "d"
+                      "key_code": "c"
                     }
                   ],
                   "simultaneous_options": {
@@ -51,16 +115,16 @@
             ]
           },
           {
-            "description": "simultaneous d and f sends ctrl + cmd + alt + shift",
+            "description": "simultaneous s and d sends ctrl + cmd + alt + shift",
             "manipulators": [
               {
                 "from": {
                   "simultaneous": [
                     {
-                      "key_code": "d"
+                      "key_code": "s"
                     },
                     {
-                      "key_code": "f"
+                      "key_code": "d"
                     }
                   ],
                   "simultaneous_options": {
