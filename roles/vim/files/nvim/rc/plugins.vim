@@ -24,7 +24,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'posva/vim-vue'
 
 " GIT
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
@@ -38,7 +37,6 @@ Plug 'arcticicestudio/nord-vim'
 
 " Language Tools
 Plug 'liuchengxu/vista.vim'
-Plug 'Maxattax97/coc-ccls', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}

@@ -1,5 +1,5 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "elixir", "markdown", "c", "vue"],
+    "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "elixir", "markdown", "c"],
     "list.normalMappings": {
       "<C-c>": "do:exit",
       "t": "action:tabe",
@@ -23,17 +23,5 @@
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "suggest.floatEnable": false,
   "prettier.statusItemText": "",
-  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
-  "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-      "initializationOptions": {
-         "cache": {
-           "directory": "/tmp/ccls"
-         }
-       }
-    }
-  }
+  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
 }
