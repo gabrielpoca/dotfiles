@@ -22,7 +22,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
-Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 
 " GIT

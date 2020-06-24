@@ -16,8 +16,7 @@ endif
 set background=dark
 lua require("colors").setup('nord')
 
-" vim-highlightedyank duration of the highlight
-let g:highlightedyank_highlight_duration = 300
-
-" vim-highlightedyank color or the highlight
-highlight HighlightedyankRegion cterm=reverse gui=reverse
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("Substitute", 300)
+augroup END
