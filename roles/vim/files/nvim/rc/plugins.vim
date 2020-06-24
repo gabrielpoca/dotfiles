@@ -37,6 +37,7 @@ Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'arcticicestudio/nord-vim'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
 " Language Tools
 Plug 'liuchengxu/vista.vim'
