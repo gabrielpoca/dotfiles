@@ -18,11 +18,6 @@ nnoremap <silent> <leader>th :Ttoggle<cr>
 nnoremap <silent> <leader>tl :Tclear<cr>
 " kill job running in terminal
 nnoremap <silent> <leader>tk :Tkill<cr>
-" miscellaneous terminals
-nnoremap <silent> <leader>ty :lua Terminal(1)<cr>
-nnoremap <silent> <leader>tu :lua Terminal(2)<cr>
-nnoremap <silent> <leader>ti :lua Terminal(3)<cr>
-nnoremap <silent> <leader>to :lua Terminal(4)<cr>
 
 " vim-test settings
 let test#strategy = "neoterm"
