@@ -2,7 +2,7 @@ globals = require "globals"
 
 -- open chrome
 hs.hotkey.bind(globals.shift_hyper, "J", function()
-  hs.application.launchOrFocus("Google Chrome")
+  hs.application.launchOrFocus("Firefox")
 end)
 
 -- open iTerm
