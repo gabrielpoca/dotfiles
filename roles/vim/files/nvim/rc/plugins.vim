@@ -23,6 +23,8 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'pechorin/any-jump.vim'
+
 " Writing
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/limelight.vim'
