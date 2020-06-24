@@ -12,8 +12,7 @@ function project --argument-names 'project'
     set folder (string replace -a '.' _ $folder)
 
     if not contains $sessions $folder
-      tmux new -s $folder -d -n "vim"
-      tmux new-window -d -c $project_folder -n "shell" -t $folder
+      tmux new -s $folder -d -n "$folder"
     end
 
     if test -n "$TMUX"
