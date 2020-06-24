@@ -3,8 +3,8 @@ lua require("terminal")
 " exit terminal mode
 tnoremap <C-e> <C-\><C-n>
 
-" hide relative numbers in terminal
-au TermOpen * setlocal nonumber norelativenumber
+" change settings in terminal
+au TermOpen * setlocal nonumber norelativenumber wrap winhl=Normal:MyTerm
 
 " neoterm settings
 let g:neoterm_default_mod = 'vertical'

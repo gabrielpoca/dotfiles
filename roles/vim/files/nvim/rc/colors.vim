@@ -1,3 +1,4 @@
+
 " hide characters between panes
 set fillchars+=vert:\ 
 
@@ -13,25 +14,10 @@ endif
 
 " theme and colors
 set background=dark
-colorscheme dracula
+lua require("colors").setup('nord')
 
 " vim-highlightedyank duration of the highlight
 let g:highlightedyank_highlight_duration = 300
 
 " vim-highlightedyank color or the highlight
 highlight HighlightedyankRegion cterm=reverse gui=reverse
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'DraculaBgDark'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'DraculaBgDark'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }

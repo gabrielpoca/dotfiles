@@ -34,6 +34,7 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'Gstatus', 'Git'] }
 Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'arcticicestudio/nord-vim'
 
 " Language Tools
 Plug 'liuchengxu/vista.vim'
