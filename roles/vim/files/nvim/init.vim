@@ -9,6 +9,7 @@ so ~/.config/nvim/rc/navigation.vim
 so ~/.config/nvim/rc/completion.vim
 so ~/.config/nvim/rc/languages.vim
 so ~/.config/nvim/rc/experiments.vim
+so ~/.config/nvim/rc/writing.vim
 
 set autoread
 set nobackup
