@@ -1,3 +1,4 @@
+" change "const a = require('a')" to "import a from 'a'"
 nmap <leader>et 0cwimportjkf=dt(lds(ifrom jkj0
 
 " URL encode a string. ie. Percent-encode characters as necessary.
@@ -62,3 +63,6 @@ vmap <silent> <leader>m :call TranslateSelection()<CR>
 
 "replace the word under cursor
 nnoremap <leader>* :%s/\<<c-r><c-w>\>//g<left><left>
+
+"search the word under cursor
+nnoremap <leader>/ :/\<<c-r><c-w>\><cr>
