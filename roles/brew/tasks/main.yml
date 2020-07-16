@@ -27,6 +27,7 @@
       - fzf
       - gawk
       - git
+      - glow
       - gpg
       - heroku/brew/heroku
       - hub
