@@ -19,22 +19,37 @@ end
 function screenFrame()
   local win = hs.window.focusedWindow()
   local screen = win:screen()
-  return screen:frame()
+  local frame = screen:frame()
+  local full_frame = screen:fullFrame()
+
+  return {
+    x = frame.x,
+    y = frame.y,
+    w = frame.w,
+    h = full_frame.h
+  }
 end
 
 function place_left_half()
-  local max = screenFrame()
-  placeWindow(window_gap / 2, window_gap / 2, max.w / 2 - (window_gap / 2), max.h - window_gap)
+  local frame = screenFrame()
+  placeWindow(frame.x, 0, frame.w / 2, frame.h)
 end
 
 function place_right_half()
-  local max = screenFrame()
-  placeWindow(max.w / 2 + (window_gap / 2), window_gap / 2, max.w / 2 - window_gap, max.h - window_gap)
+  local frame = screenFrame()
+  placeWindow(frame.w / 2 + frame.x, 0, frame.w / 2, frame.h)
 end
 
 function place_full()
-  local max = screenFrame()
-  placeWindow(max.x + window_gap / 2, max.y + window_gap / 2, max.w - window_gap, max.h - window_gap)
+  local frame = screenFrame()
+  placeWindow(frame.x, frame.y, frame.w, frame.h)
+end
+
+function place_center()
+  local frame = screenFrame()
+  local width = frame.w / 8 * 7
+  local height = frame.h / 8 * 7
+  placeWindow(frame.x + (frame.w - width) / 2, frame.y + (frame.h - height) / 2, width, height)
 end
 
 function on_application(name, callback)
@@ -58,6 +73,8 @@ on_application('iTerm2', place_full)
 on_application('Visual Studio Code', place_full)
 -- brave full screen
 on_application('Brave Browser', place_full)
+-- firefox full screen
+on_application('Firefox', place_full)
 -- chrome full screen
 on_application('Google Chrome', place_full)
 -- insomnia full screen
@@ -66,5 +83,9 @@ on_application('Insomnia', place_full)
 on_application('Calendar', place_full)
 -- figma
 on_application('Figma', place_full)
+-- mac pass
+on_application('MacPass', place_center)
+-- notedown
+on_application('NoteDown', place_center)
 -- todoist
 on_application('Todoist', place_right_half)
