@@ -10,51 +10,15 @@
 
 - name: install homebrew package
   homebrew:
-    name: "{{ homebrew_packages }}"
+    name: "{{ terminal_packages }}"
     state: present
     update_homebrew: yes
-  vars:
-    homebrew_packages:
-      - autoconf
-      - automake
-      - bash
-      - bat
-      - coreutils
-      - diff-so-fancy
-      - direnv
-      - exa
-      - fish
-      - fzf
-      - gawk
-      - git
-      - glow
-      - gpg
-      - heroku/brew/heroku
-      - hub
-      - jq
-      - libtool
-      - libxslt
-      - libyaml
-      - mplayer
-      - ncdu
-      - neovim
-      - openssl
-      - postgresql
-      - readline
-      - reattach-to-user-namespace
-      - ripgrep
-      - the_silver_searcher
-      - tig
-      - tldr
-      - tmux
-      - unixodbc
-      - wget
-      - yarn
-      - youtube-dl
-      - zlib
-      - zsh
-      - zsh-completions
-      - gnu-tar
+
+- name: install homebrew package
+  homebrew:
+    name: "{{ terminal_osx_packages }}"
+    state: present
+    update_homebrew: yes
 
 - name: install homebrew cask packages
   ignore_errors: yes

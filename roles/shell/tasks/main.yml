@@ -27,18 +27,12 @@
     dest: '{{ home_dir }}/.config/omf'
     state: link
 
-- name: make fish the default shell
-  shell: |
-    if test $SHELL != '/usr/local/bin/fish'
-      chsh -s /usr/local/bin/fish
-    end
-  args:
-    executable: /usr/local/bin/fish
+- include: fish.yml
+  when: os_family == 'macosx'
+  vars:
+    - executable: /usr/local/bin/fish
 
-- name: install omf
-  shell: |
-    if ! test -d ~/.local/share/omf
-      curl -L https://get.oh-my.fish | fish
-    end
-  args:
-    executable: /usr/local/bin/fish
+- include: fish.yml
+  when: os_family == 'debian'
+  vars:
+    - executable: /usr/bin/fish

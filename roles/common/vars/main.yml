@@ -1,0 +1,40 @@
+terminal_osx_packages:
+  - bat
+  - exa
+  - glow
+  - libxslt
+  - libyaml
+  - readline
+  - reattach-to-user-namespace
+  - the_silver_searcher
+  - zlib
+  - gnu-tar
+
+terminal_packages:
+  - autoconf
+  - automake
+  - bash
+  - coreutils
+  - curl
+  - direnv
+  - fish
+  - fzf
+  - gawk
+  - git
+  - gpg
+  - hub
+  - jq
+  - libtool
+  - mplayer
+  - ncdu
+  - neovim
+  - openssl
+  - postgresql
+  - ripgrep
+  - tig
+  - tldr
+  - tmux
+  - unixodbc
+  - wget
+  - yarn
+  - youtube-dl

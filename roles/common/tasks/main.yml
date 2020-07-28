@@ -1,2 +1,11 @@
 - name: 'create .config directory'
   file: 'path="{{ home_dir}}/.config" state=directory'
+
+- debug:
+    msg: Testing {{ os_family }}
+
+- import_tasks: brew.yml
+  when: os_family == 'macosx'
+
+- import_tasks: debian.yml
+  when: os_family == 'debian'
