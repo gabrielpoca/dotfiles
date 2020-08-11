@@ -4,7 +4,7 @@ lua require("terminal")
 tnoremap <C-e> <C-\><C-n>
 
 " change settings in terminal
-au TermOpen * setlocal nonumber norelativenumber wrap winhl=Normal:MyTerm
+au TermOpen * setlocal nonumber norelativenumber wrap winhl=Normal:MyTerm signcolumn=
 
 " neoterm settings
 let g:neoterm_default_mod = 'vertical'
