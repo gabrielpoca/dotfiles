@@ -7,7 +7,7 @@ Plug 'derekprior/vim-trimmer'
 Plug 'easymotion/vim-easymotion'
 Plug 'embear/vim-localvimrc'
 Plug 'farmergreg/vim-lastplace'
-Plug 'gcmt/wildfire.vim'
+Plug 'gcmt/wildfire.vim', { 'for': ['elixir', 'css', 'vim', 'lua', 'markdown'] }
 Plug 'janko-m/vim-test'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
