@@ -13,31 +13,47 @@ def convert_to_module(path):
 # Returns the proper Elixir module name given a `path` (assumed to be in
 # `lib/`).
 def module_from_path(path):
-		path       = re.sub(r'^lib/', '', path)
+		path       = re.sub(r'.*/lib/', '', path)
 		path, _ext = os.path.splitext(path)
 		return convert_to_module(path)
 
 # Returns the a proper Elixir module name given a `path` (assumed to be a test
 # inside `test/`).
 def module_from_test_path(path):
-		path = re.sub(r'^test/', '', path)
+		path = re.sub(r'.*test/', '', path)
 		path = re.sub(r'_test\.exs$', '', path)
 		return convert_to_module(path)
 endglobal
 
-snippet defm "module definition" b
+snippet do "block" w
+do
+	$1
+end
+endsnippet
+
+snippet fn "inline function" w
+fn -> $1 end
+endsnippet
+
+snippet def "function" b
+def $1 do
+	$2
+end
+endsnippet
+
+snippet defmod "module" b
 defmodule $1 do
 	$2
 end
 endsnippet
 
-snippet defmod "automatically module definition" b
+snippet defm "automatically module" b
 defmodule `!p snip.rv = module_from_path(path)` do
 	$1
 end
 endsnippet
 
-snippet deft "test module definition" b
+snippet deftest "test module" b
 defmodule $1Test do
 	use ExUnit.Case, async: true
 	alias `!p snip.rv = t[1]`
@@ -46,7 +62,7 @@ defmodule $1Test do
 end
 endsnippet
 
-snippet deftest "automatically test module definition" b
+snippet deft "automatically test module" b
 defmodule `!p snip.rv = module_from_test_path(path)`Test do
 	use ExUnit.Case, async: true
 	alias `!p snip.rv = module_from_test_path(path)`
@@ -63,4 +79,8 @@ endsnippet
 
 snippet ins "IO.inspect" b
 IO.inspect($1)
+endsnippet
+
+snippet |> "|> IO.inspect()" b
+|> IO.inspect()
 endsnippet

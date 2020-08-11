@@ -1,4 +1,8 @@
-priority -50
+priority 90
+
+snippet co "console.log" b
+console.log(${1:"${2:value}"})
+endsnippet
 
 snippet cl "console.log" b
 console.log(${1:"${2:value}"})
@@ -18,14 +22,18 @@ function (${1:argument}) {
 }
 endsnippet
 
-snippet () "() =>"
-(${1:arguments}) => {
-	${VISUAL}$0
+snippet cons "const NAME = () => { }"
+const $1 = (${2:arguments}) => {
+	${VISUAL}$3
 }
 endsnippet
 
+snippet imp "import variable"
+import  {${1:variable}} from '${2:package}'
+endsnippet
+
 snippet imp "import from"
-import ${1:variable} from '${2:package}'
+import  * as ${1:variable} from '${2:package}'
 endsnippet
 
 snippet ir "import React"
@@ -34,4 +42,8 @@ endsnippet
 
 snippet il "import lodash"
 import * as _ from 'lodash'
+endsnippet
+
+snippet danger "dangerouslySetInnerHTML"
+dangerouslySetInnerHTML={{ __html: ${1:src} }}
 endsnippet
