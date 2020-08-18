@@ -1,4 +1,4 @@
-let g:pencil#autoformat = 1      " 0=disable, 1=enable (def)
+let g:pencil#autoformat = 0      " 0=disable, 1=enable (def)
 
 augroup pencil
   autocmd!
@@ -14,6 +14,7 @@ function! s:goyo_enter()
   set noshowmode
   set noshowcmd
   set scrolloff=999
+  let g:pencil#autoformat = 0      " 0=disable, 1=enable (def)
   Limelight
 endfunction
 
@@ -25,6 +26,7 @@ function! s:goyo_leave()
   set showmode
   set showcmd
   set scrolloff=5
+  let g:pencil#autoformat = 1      " 0=disable, 1=enable (def)
   Limelight!
 endfunction
 
