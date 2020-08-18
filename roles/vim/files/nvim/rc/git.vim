@@ -1,3 +1,5 @@
+lua require("git")
+
 " in interactive rebase, change all commits to squash except for the first
 nmap <Leader>gs mzggjvG$:s/^pick/s<CR>
 
