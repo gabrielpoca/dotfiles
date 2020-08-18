@@ -1,6 +1,5 @@
-
 " hide characters between panes
-set fillchars+=vert:\ 
+"set fillchars+=vert:\ 
 
 if has('termguicolors')
   set termguicolors
@@ -14,7 +13,7 @@ endif
 
 " theme and colors
 set background=dark
-lua require("colors").setup('nord')
+lua require("colors").setup('gruvbox')
 
 augroup highlight_yank
     autocmd!

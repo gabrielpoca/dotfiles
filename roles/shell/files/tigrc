@@ -6,13 +6,11 @@ bind generic e @nvr -l +%(lineno) %(file)
 bind generic b @hub browse
 bind generic c @hub compare
 
-# https://www.bhalash.com/archives/13544806070
 # Area                  Foreground      Background         Options
-
-# Main UI
-# ==============================================================================
-color 'Author '         15              default
-
-# Current Line
-# ==============================================================================
-color cursor            254             201
+color default           15              0
+color status            15              0
+color mode              15              0
+color header            15              0
+color author            3               default
+color date              8               default
+color cursor            0               15
