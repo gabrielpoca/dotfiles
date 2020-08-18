@@ -1,5 +1,5 @@
 erlang 23.0.2
-elixir 1.10.3
+elixir 1.10.3-otp-23
 nodejs 13.9.0
 ruby 2.7.0
 python 3.7.3
