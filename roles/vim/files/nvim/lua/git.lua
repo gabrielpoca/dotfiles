@@ -2,6 +2,8 @@ tig_current_nr = 101
 
 function FloatingTerminalTig()
   FloatingTerminal(100, "tig status")
+  -- send refresh command to tig
+  vim.api.nvim_input("R")
 end
 
 function FloatingTerminalTigCurrentFile()
