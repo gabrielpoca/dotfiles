@@ -6,8 +6,4 @@ nmap <Leader>gs mzggjvG$:s/^pick/s<CR>
 " get the pull request's description
 nmap <Leader>gd :r !git pr-description<CR>
 
-if has('nvim')
-  let $GIT_EDITOR = 'nvr -cc split --remote-wait'
-endif
-
 autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
