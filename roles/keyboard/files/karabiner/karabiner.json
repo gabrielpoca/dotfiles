@@ -16,53 +16,304 @@
         },
         "rules": [
           {
-            "description": "double right shift to cap_lock",
+            "description": "HYPER u",
             "manipulators": [
               {
-                "type": "basic",
                 "from": {
-                  "key_code": "right_shift",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
+                  "key_code": "u"
                 },
                 "to": [
                   {
-                    "key_code": "caps_lock"
+                    "key_code": "u",
+                    "modifiers": [
+                      "left_shift",
+                      "right_control",
+                      "right_command",
+                      "left_option"
+                    ]
                   }
                 ],
+                "to_after_key_up": [{
+                  "set_variable": {
+                    "name": "hyper_mode",
+                    "value": 0
+                  }
+                }],
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "right_shift pressed",
+                    "name": "hyper_mode",
                     "value": 1
                   }
-                ]
-              },
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "HYPER ;",
+            "manipulators": [
               {
-                "type": "basic",
                 "from": {
-                  "key_code": "right_shift",
+                  "key_code": "semicolon"
+                },
+                "to": [
+                  {
+                    "key_code": "semicolon",
+                    "modifiers": [
+                      "left_shift",
+                      "right_control",
+                      "right_command",
+                      "left_option"
+                    ]
+                  }
+                ],
+                "to_after_key_up": [{
+                  "set_variable": {
+                    "name": "hyper_mode",
+                    "value": 0
+                  }
+                }],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_mode",
+                    "value": 1
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "HYPER l",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "l"
+                },
+                "to": [
+                  {
+                    "key_code": "l",
+                    "modifiers": [
+                      "left_shift",
+                      "right_control",
+                      "right_command",
+                      "left_option"
+                    ]
+                  }
+                ],
+                "to_after_key_up": [{
+                  "set_variable": {
+                    "name": "hyper_mode",
+                    "value": 0
+                  }
+                }],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_mode",
+                    "value": 1
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "HYPER k",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "k"
+                },
+                "to": [
+                  {
+                    "key_code": "k",
+                    "modifiers": [
+                      "left_shift",
+                      "right_control",
+                      "right_command",
+                      "left_option"
+                    ]
+                  }
+                ],
+                "to_after_key_up": [{
+                  "set_variable": {
+                    "name": "hyper_mode",
+                    "value": 0
+                  }
+                }],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_mode",
+                    "value": 1
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "HYPER j",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "j"
+                },
+                "to": [
+                  {
+                    "key_code": "j",
+                    "modifiers": [
+                      "left_shift",
+                      "right_control",
+                      "right_command",
+                      "left_option"
+                    ]
+                  }
+                ],
+                "to_after_key_up": [{
+                  "set_variable": {
+                    "name": "hyper_mode",
+                    "value": 0
+                  }
+                }],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_mode",
+                    "value": 1
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "HYPER n",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "n"
+                },
+                "to": [
+                  {
+                    "key_code": "n",
+                    "modifiers": [
+                      "left_shift",
+                      "right_control",
+                      "right_command",
+                      "left_option"
+                    ]
+                  }
+                ],
+                "to_after_key_up": [{
+                  "set_variable": {
+                    "name": "hyper_mode",
+                    "value": 0
+                  }
+                }],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_mode",
+                    "value": 1
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "HYPER m",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "m"
+                },
+                "to": [
+                  {
+                    "key_code": "m",
+                    "modifiers": [
+                      "left_shift",
+                      "right_control",
+                      "right_command",
+                      "left_option"
+                    ]
+                  }
+                ],
+                "to_after_key_up": [{
+                  "set_variable": {
+                    "name": "hyper_mode",
+                    "value": 0
+                  }
+                }],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "hyper_mode",
+                    "value": 1
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "caps lock sends control R or escape",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "caps_lock",
                   "modifiers": {
-                    "optional": ["any"]
+                    "optional": [
+                      "any"
+                    ]
                   }
                 },
                 "to": [
                   {
-                    "set_variable": {
-                      "name": "right_shift pressed",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "key_code": "right_shift"
+                    "key_code": "right_control",
+                    "lazy": true
                   }
                 ],
+                "to_if_alone": [
+                  {
+                    "key_code": "escape"
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "command L alone sets hyper_mode",
+            "manipulators": [
+              {
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to_if_alone": [
+                  {
+                    "set_variable": {
+                      "name": "hyper_mode",
+                      "value": 1
+                    }
+                  }
+                ],
+                "to": {
+                  "key_code": "left_command",
+                  "lazy": true
+                },
                 "to_delayed_action": {
                   "to_if_invoked": [
                     {
                       "set_variable": {
-                        "name": "right_shift pressed",
+                        "name": "hyper_mode",
                         "value": 0
                       }
                     }
@@ -70,85 +321,21 @@
                   "to_if_canceled": [
                     {
                       "set_variable": {
-                        "name": "right_shift pressed",
+                        "name": "hyper_mode",
                         "value": 0
                       }
                     }
                   ]
-                }
-              }
-            ]
-          },
-          {
-            "description": "simultaneous x and c sends ctrl + cmd + alt",
-            "manipulators": [
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "x"
-                    },
-                    {
-                      "key_code": "c"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "insensitive",
-                    "key_up_order": "insensitive"
-                  }
                 },
-                "to_if_alone": [
-                  {
-                    "key_code": "tab",
-                    "modifiers": ["left_command"]
-                  }
-                ],
-                "to": [
-                  {
-                    "key_code": "right_command",
-                    "lazy": true,
-                    "modifiers": ["right_control", "right_option"]
-                  }
-                ],
+                "parameters": {
+                  "basic.to_if_alone_timeout_milliseconds": 500
+                },
                 "type": "basic"
               }
             ]
           },
           {
-            "description": "simultaneous s and d sends ctrl + cmd + alt + shift",
-            "manipulators": [
-              {
-                "from": {
-                  "simultaneous": [
-                    {
-                      "key_code": "s"
-                    },
-                    {
-                      "key_code": "d"
-                    }
-                  ],
-                  "simultaneous_options": {
-                    "key_down_order": "insensitive",
-                    "key_up_order": "insensitive"
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "right_command",
-                    "lazy": true,
-                    "modifiers": [
-                      "right_control",
-                      "right_option",
-                      "right_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "command R sends control L",
+            "description": "command R sends control L + a",
             "manipulators": [
               {
                 "from": {
@@ -160,22 +347,6 @@
                     "modifiers": ["left_control"]
                   }
                 ],
-                "to": [
-                  {
-                    "key_code": "left_control"
-                  }
-                ],
-                "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "capslock sends control L",
-            "manipulators": [
-              {
-                "from": {
-                  "key_code": "caps_lock"
-                },
                 "to": [
                   {
                     "key_code": "left_control"
