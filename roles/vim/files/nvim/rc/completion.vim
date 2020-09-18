@@ -52,9 +52,3 @@ nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
 
 " find symbol of current document
 nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
-
-" vista.vim disable icons
-let g:vista#renderer#enable_icon = 0
-
-" vista.vim use coc.nvim
-let g:vista_default_executive = 'coc'
