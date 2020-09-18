@@ -18,10 +18,10 @@
   "diagnostic.hintSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
+  "git.enableGutters": false,
   "signature.hideOnTextChange": true,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "suggest.floatEnable": false,
-  "prettier.statusItemText": "",
-  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
+  "prettier.statusItemText": ""
 }
