@@ -84,3 +84,27 @@ endsnippet
 snippet |> "|> IO.inspect()" b
 |> IO.inspect()
 endsnippet
+
+snippet  usegenserver "use GenServer" b
+  use GenServer
+
+  def start_link(_) do
+    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
+  end
+
+  def init(_) do
+    {:ok, %{}}
+  end
+
+  def handle_call(_, _, state) do
+    {:reply, :ok, state}
+  end
+
+  def handle_cast(_, state) do
+    {:noreply, state}
+  end
+
+  def handle_info(_, state) do
+    {:noreply, state}
+  end
+endsnippet
