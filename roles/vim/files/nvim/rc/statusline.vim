@@ -18,6 +18,8 @@ set statusline+=%f " Path to the file in the buffer, as typed or relative to cur
 set statusline+=%{&modified?'\ +':''}
 set statusline+=%{&readonly?'\ ':''}
 set statusline+=%= " Separation point between left and right aligned items
+set statusline+=%{get(g:,'coc_git_status','')}
+set statusline+=\  " Empty space
 set statusline+=\ %{CocStatus()} " Show errors and warnings from coc.nvim
 set statusline+=\ %3p%% " Percentage through file in lines as in |CTRL-G|
 set statusline+=\  " Empty space
