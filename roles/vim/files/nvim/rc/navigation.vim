@@ -1,4 +1,3 @@
-" load lua functions for navigation
 lua require("navigation")
 
 " pane navigation
@@ -91,4 +90,4 @@ au FileType nerdtree set nocursorcolumn
 let $FZF_DEFAULT_OPTS = '--layout=reverse'
 
 "Open FZF and choose floating window
-let g:fzf_layout = { 'window': 'lua NavigationFloatingWin()' }
+let g:fzf_layout = { 'window': 'lua require"navigation".floating_window()' }
