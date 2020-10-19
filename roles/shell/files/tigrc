@@ -7,10 +7,12 @@ bind generic b @hub browse
 bind generic c @hub compare
 
 # Area                  Foreground      Background         Options
-color default           15              0
-color status            15              0
-color mode              15              0
-color header            15              0
-color author            3               default
-color date              8               default
-color cursor            0               15
+color author            228             default
+color cursor            232             141
+color date              215             default
+color default           253             0
+color delimiter         default         default
+color header            default         default
+color mode              default         default
+color section           default         default
+color status            default         default

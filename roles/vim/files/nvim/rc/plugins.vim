@@ -34,6 +34,7 @@ Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'Gstatus', 'Git'] }
 " Colors
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
+Plug 'embark-theme/vim'
 
 " Language Tools
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
