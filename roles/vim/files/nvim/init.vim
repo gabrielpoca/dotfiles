@@ -1,6 +1,11 @@
 let mapleader="\<SPACE>"
 
 so ~/.config/nvim/rc/plugins.vim
+
+lua require("global")
+lua require("tests")
+lua require("repl")
+lua require("terminal")
 so ~/.config/nvim/rc/git.vim
 so ~/.config/nvim/rc/colors.vim
 so ~/.config/nvim/rc/statusline.vim
@@ -10,7 +15,6 @@ so ~/.config/nvim/rc/completion.vim
 so ~/.config/nvim/rc/languages.vim
 so ~/.config/nvim/rc/experiments.vim
 so ~/.config/nvim/rc/writing.vim
-lua require("tests")
 
 set autoread
 set nobackup
