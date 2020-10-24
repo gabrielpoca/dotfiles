@@ -27,6 +27,12 @@
     dest: '{{ home_dir }}/.config/omf'
     state: link
 
+- name: link alacritty configuration
+  file:
+    src: '{{ ansible_env.PWD }}/roles/shell/files/alacritty'
+    dest: '{{ home_dir }}/.config/alacritty'
+    state: link
+
 - include: fish.yml
   when: os_family == 'macosx'
   vars:
