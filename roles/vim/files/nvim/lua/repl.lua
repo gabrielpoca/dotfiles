@@ -1,4 +1,4 @@
-local terminal = require "./terminal"
+local Terminal = require "terminal"
 
 local function has_file(filename)
   local stat = vim.loop.fs_stat(filename)
@@ -6,8 +6,8 @@ local function has_file(filename)
 end
 
 local function repl_send(command)
-  term = terminal.current()
-  chan = terminal.get_chan(term)
+  term = Terminal.current()
+  chan = Terminal.get_chan(term)
   vim.fn.chansend(chan, command)
 end
 
@@ -45,13 +45,13 @@ local function recompile()
 end
 
 set_keymaps({
-  ['<leader>es'] = 'lua require"repl".start()',
-  ['<leader>er'] = 'lua require"repl".recompile()',
-  ['<leader>el'] = 'lua require"repl".send_line()'
+  ["<leader>es"] = "lua require'repl'.start()",
+  ["<leader>er"] = "lua require'repl'.recompile()",
+  ["<leader>el"] = "lua require'repl'.send_line()"
 })
 
 set_keymaps({
-  ['<leader>el'] = 'lua require"repl".send_selection()'
+  ["<leader>el"] = "lua require'repl'.send_selection()"
 }, 'v')
 
 return {

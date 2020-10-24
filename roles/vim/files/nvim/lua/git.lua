@@ -1,34 +1,38 @@
+local Floating = require'floating'
+local api = vim.api
+
 tig_current_nr = 101
 
-function FloatingTerminalTig()
-  FloatingTerminal(100, "tig status")
-  -- send refresh command to tig
-  vim.api.nvim_input("R")
-end
-
-function FloatingTerminalTigCurrentFile()
-  FloatingTerminalTigOpen("tig " .. vim.api.nvim_call_function("expand", {"%:p"}))
-end
-
-function FloatingTerminalTigOpen(command)
-  FloatingTerminal(tig_current_nr, command)
+local function tig_command(command)
+  require'terminal'.floating(tig_current_nr, command)
   tig_current_nr = tig_current_nr + 1
 end
 
--- show current file's history in tig, on a new tmux window
-vim.api.nvim_set_keymap('n', "<Leader>gh", ":lua FloatingTerminalTigCurrentFile()<CR>", { silent = true })
+local function tig_status()
+  require'terminal'.tab(100, 'tig status')
 
--- open tig in project folder
-vim.api.nvim_set_keymap('n', "<Leader>gg", ":lua FloatingTerminalTig()<CR>", { silent = true })
+  vim.cmd("autocmd BufWinEnter,WinEnter <buffer> silent! normal i")
 
--- show commits for every source line
-vim.api.nvim_set_keymap('n', "<Leader>gb", ":Gblame<CR>", { silent = true })
+  vim.defer_fn(function ()
+    vim.api.nvim_input("R")
+  end, 300)
+end
 
--- push
-vim.api.nvim_set_keymap('n', "<Leader>gp", ":!git push<CR>", { silent = true })
+local function current_file()
+  tig_command("tig " .. api.nvim_call_function("expand", {"%:p"}))
+end
 
--- force push
-vim.api.nvim_set_keymap('n', "<Leader>gP", ":!git push -f<CR>", { silent = true })
+set_keymaps({
+    ['<Leader>gh'] = 'lua require"git".current_file()', -- show current file's history in tig
+    ['<Leader>gg'] = 'lua require"git".status()', -- open tig in project folder
+    ['<Leader>gb'] = 'Gblame', -- show commits for every source line
+    ['<Leader>gp'] = '!git push', -- push
+    ['<Leader>gP'] = '!git push -f', -- force push
+    ['<Leader>go'] = '!hub browse', -- open in browser
+    ['<Leader>gr'] = '!git pr-open' -- open pull request
+  })
 
--- open in browser
-vim.api.nvim_set_keymap('n', "<Leader>go", ":!hub browse<CR>", { silent = true })
+return {
+  current_file = current_file,
+  status = tig_status
+}

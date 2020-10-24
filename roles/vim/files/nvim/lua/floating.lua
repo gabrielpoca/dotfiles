@@ -1,6 +1,6 @@
 local api = vim.api
 
-function new_buffer(buf)
+local function new_buffer(buf)
   local width = vim.api.nvim_get_option("columns")
   local height = vim.api.nvim_get_option("lines")
 
