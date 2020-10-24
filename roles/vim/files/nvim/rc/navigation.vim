@@ -66,7 +66,8 @@ let g:projectionist_heuristics = {
       \ },
       \ "mix.exs": {
       \   'lib/*.ex': {'alternate': 'test/{}_test.exs', 'type': 'source'},
-      \   'test/*_test.exs': {'alternate': 'lib/{}.ex', 'type': 'test'}
+      \   'test/*_test.exs': {'alternate': 'lib/{}.ex', 'type': 'test'},
+      \   'lib/*.html.leex': {'alternate': 'lib/{}.ex', 'type': 'live_view'}
       \ }}
 
 let g:NERDTreeWinPos = "left"
