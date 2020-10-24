@@ -21,6 +21,7 @@ terminal_packages:
   - fzf
   - gawk
   - git
+  - git-delta
   - gpg
   - hub
   - jq

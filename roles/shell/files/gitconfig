@@ -9,6 +9,8 @@
 [core]
   excludesfile = ~/.gitignore
   editor = nvim
+  attributesfile = ~/.gitattributes
+  pager = delta
 [github]
   user = gabrielpoca
 [commit]
@@ -43,3 +45,9 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[delta]
+  syntax-theme = Dracula
+  line-numbers = true
+  side-by-side = true
+[interactive]
+  diffFilter = delta --color-only
