@@ -1,11 +1,19 @@
 {
-    "coc.preferences.formatOnSaveFiletypes": ["typescript", "typescriptreact", "javascript", "javascriptreact", "elixir", "markdown", "c"],
     "list.normalMappings": {
       "<C-c>": "do:exit",
       "t": "action:tabe",
       "v": "action:vsplit",
       "s": "action:split",
       "d": "expr:GetDeleteAction"
+  "coc.preferences.formatOnSaveFiletypes": [
+    "typescript",
+    "typescriptreact",
+    "javascript",
+    "javascriptreact",
+    "markdown",
+    "c",
+    "scss"
+  ],
   },
   "list.insertMappings": {
     "<C-c>": "do:exit",

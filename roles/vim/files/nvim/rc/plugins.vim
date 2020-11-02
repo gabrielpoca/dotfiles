@@ -36,6 +36,8 @@ Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'embark-theme/vim'
 
+" Elixir
+Plug 'mhinz/vim-mix-format' " I'm using this because the LSP client is too slow
 " Language Tools
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
