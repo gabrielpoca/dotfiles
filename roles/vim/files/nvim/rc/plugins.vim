@@ -37,6 +37,8 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'embark-theme/vim'
 
 " Elixir
+Plug 'kana/vim-textobj-user'
+Plug 'andyl/vim-textobj-elixir'
 Plug 'mhinz/vim-mix-format' " I'm using this because the LSP client is too slow
 " Language Tools
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

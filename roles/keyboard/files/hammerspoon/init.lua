@@ -1,6 +1,5 @@
 require "window_placement"
 require "applications"
-require "search"
 require "string"
 
 hs.loadSpoon("ReloadConfiguration")

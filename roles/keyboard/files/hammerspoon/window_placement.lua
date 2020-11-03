@@ -57,11 +57,11 @@ function on_application(name, callback)
 end
 
 -- place window on the left half of the screen
-hs.hotkey.bind(globals.shift_hyper, "Y", place_left_half)
+hs.hotkey.bind(globals.hyper, "Y", place_left_half)
 -- place window on the right half of the screen
-hs.hotkey.bind(globals.shift_hyper, "O", place_right_half)
+hs.hotkey.bind(globals.hyper, "O", place_right_half)
 -- make window take the whole screen
-hs.hotkey.bind(globals.shift_hyper, "U", place_full)
+hs.hotkey.bind(globals.hyper, "U", place_full)
 
 -- slack full screen
 on_application('Slack', place_full)
