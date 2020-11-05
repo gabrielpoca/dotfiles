@@ -16,3 +16,35 @@ end
 function _G.reload_current_file()
   vim.cmd(":luafile %")
 end
+
+function _G.table_size (t)
+  local max = 0
+
+  for i, _ in pairs(t) do
+    if i > max then
+      max = i
+    end
+  end
+
+  return max
+end
+
+table.filter = function(t, filterIter)
+  local out = {}
+
+  for k, v in pairs(t) do
+    if filterIter(v, k, t) then out[k] = v end
+  end
+
+  return out
+end
+
+table.map = function(t, filterIter)
+  local out = {}
+
+  for k, v in pairs(t) do
+    out[k] = filterIter(v, k, t)
+  end
+
+  return out
+end

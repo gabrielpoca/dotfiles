@@ -29,7 +29,7 @@ Plug 'junegunn/goyo.vim'
 
 " GIT
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fugitive', { 'on': ['Gblame', 'Gstatus', 'Git'] }
+Plug 'tpope/vim-fugitive'
 
 " Colors
 Plug 'morhetz/gruvbox'

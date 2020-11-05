@@ -1,26 +1,6 @@
 local api = vim.api
 
-local function new_buffer(buf)
-  local width = vim.api.nvim_get_option("columns")
-  local height = vim.api.nvim_get_option("lines")
-
-  local win_height = math.ceil(height * 4 / 5)
-  local win_width
-
-  if (width < 150) then
-    win_width = math.ceil(width - 8)
-  else
-    win_width = math.ceil(width * 0.9)
-  end
-
-  local opts = {
-    relative = "editor",
-    width = win_width,
-    height = win_height,
-    row = math.ceil((height - win_height) / 2),
-    col = math.ceil((width - win_width) / 2)
-  }
-
+local function create_border(opts)
   local border_opts = {
     style = "minimal",
     relative = "editor",
@@ -42,11 +22,52 @@ local function new_buffer(buf)
   local border_window = api.nvim_open_win(border_buffer, true, border_opts)
   vim.cmd 'set winhl=Normal:Floating'
 
+  return border_buffer
+end
+
+local function new_buffer(buf, opts)
+  local opts = opts or {}
+  local width = opts.width or vim.api.nvim_get_option("columns")
+  local height = opts.height or vim.api.nvim_get_option("lines")
+
+  local win_height = height
+  local win_width
+
+  if opts.height == nil then
+    win_height = math.ceil(height * 4 / 5)
+  end
+
+  if (width < 150) then
+    win_width = math.ceil(width - 8)
+  elseif opts.width == nil then
+    win_width = math.ceil(width * 0.9)
+  end
+
+  local row = math.ceil((height - win_height) / 2)
+  local col = math.ceil((width - win_width) / 2)
+
+  if opts.position == 'topright' then
+    col = vim.api.nvim_get_option("columns") - win_width - 2
+    row = 2
+  end
+
+  local opts = {
+    relative = "editor",
+    width = win_width,
+    height = win_height,
+    row = row,
+    col = col,
+  }
+
+  local border_buffer = create_border(opts)
+
   local win = vim.api.nvim_open_win(buf, true, opts)
 
   -- use autocommand to ensure that the border_buffer closes at the same time as the main buffer
   local cmd = [[autocmd WinLeave <buffer> silent! execute 'silent bdelete %s']]
   vim.cmd(cmd:format(border_buffer))
+
+  return win
 end
 
 return {

@@ -20,13 +20,15 @@ M.current = function()
       end
     end
   end
+
+  return nil
 end
 
 M.get_chan = function(nr)
   return M.job_ids[nr]
 end
 
-M.hide_terminal = function()
+M.toggle_terminal = function()
   local found = false
 
   wins = api.nvim_list_wins()
@@ -53,7 +55,13 @@ M.side = function(nr, command, ...)
     command = "/usr/local/bin/fish"
   end
 
-  wins = api.nvim_list_wins()
+  local wins = api.nvim_list_wins()
+
+  wins = table.filter(wins, function(win)
+    buf = api.nvim_win_get_buf(win)
+
+    return string.match(api.nvim_buf_get_name(buf), "NERD_tree") == nil
+  end)
 
   if wins[2] == nil then
     vim.cmd(":vsplit")
@@ -68,10 +76,10 @@ M.side = function(nr, command, ...)
     M.term_buffers[nr] = api.nvim_create_buf(false, false)
     api.nvim_set_current_buf(M.term_buffers[nr])
     M.job_ids[nr] = vim.fn.termopen(command)
-    vim.cmd 'set winhl=Normal:Floating'
   end
 
-  vim.cmd(":startinsert")
+  vim.cmd("autocmd! FloatingWinLeave")
+  vim.cmd("startinsert")
 
   return { channel = M.job_ids[nr] }
 end
@@ -91,10 +99,10 @@ M.tab = function(nr, command, ...)
     M.term_buffers[nr] = api.nvim_create_buf(false, false)
     api.nvim_set_current_buf(M.term_buffers[nr])
     M.job_ids[nr] = vim.fn.termopen(command)
-    vim.cmd 'set winhl=Normal:Floating'
   end
 
-  vim.cmd(":startinsert")
+  vim.cmd("autocmd! FloatingWinLeave")
+  vim.cmd("startinsert")
 
   return { channel = M.job_ids[nr] }
 end
@@ -112,26 +120,26 @@ M.floating = function(nr, command, ...)
     M.term_buffers[nr] = api.nvim_create_buf(false, false)
     Floating.new_buffer(M.term_buffers[nr])
     M.job_ids[nr] = vim.fn.termopen(command)
-    vim.cmd(":au WinLeave <buffer> :close")
   end
 
-  vim.cmd(":startinsert")
+  vim.cmd("augroup FloatingWinLeave")
+  vim.cmd("autocmd WinLeave <buffer> :close")
+  vim.cmd("augroup END")
+
+  vim.cmd("startinsert")
 
   return { channel = M.job_ids[nr] }
 end
 
 set_keymaps({
-    ["<leader>th"] = "lua require'terminal'.hide_terminal()",
-    -- side terminals
-    ["<leader>tu"] = "lua require'terminal'.side(1)",
-    ["<leader>ti"] = "lua require'terminal'.side(2)",
-    ["<leader>to"] = "lua require'terminal'.side(3)",
-    ["<leader>tp"] = "lua require'terminal'.side(4)",
-    -- floating terminals
-    ["<leader>fu"] = "lua require'terminal'.floating(1)",
-    ["<leader>fi"] = "lua require'terminal'.floating(2)",
-    ["<leader>fo"] = "lua require'terminal'.floating(3)",
-    ["<leader>fp"] = "lua require'terminal'.floating(4)"
+    ["<leader>t"] = "lua require'terminal'.toggle_terminal()",
+    ["<leader>u"] = "lua require'terminal'.side(1)",
+    ["<leader>i"] = "lua require'terminal'.side(2)",
+    ["<leader>U"] = "lua require'terminal'.floating(1)",
+    ["<leader>I"] = "lua require'terminal'.floating(2)",
   })
+
+vim.cmd("augroup FloatingWinLeave")
+vim.cmd("augroup END")
 
 return M

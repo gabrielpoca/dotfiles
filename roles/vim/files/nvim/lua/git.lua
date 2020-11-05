@@ -1,14 +1,17 @@
 local Floating = require'floating'
+
 local api = vim.api
 
-tig_current_nr = 101
+local M = {}
 
-local function tig_command(command)
-  require'terminal'.floating(tig_current_nr, command)
-  tig_current_nr = tig_current_nr + 1
+M.on_demand_terminal = 101
+
+M.new_tig_window = function(command)
+  require'terminal'.floating(M.on_demand_terminal, command)
+  M.on_demand_terminal = M.on_demand_terminal + 1
 end
 
-local function tig_status()
+M.status = function()
   require'terminal'.tab(100, 'tig status')
 
   vim.cmd("autocmd BufWinEnter,WinEnter <buffer> silent! normal i")
@@ -18,21 +21,14 @@ local function tig_status()
   end, 300)
 end
 
-local function current_file()
-  tig_command("tig " .. api.nvim_call_function("expand", {"%:p"}))
+M.file_history = function()
+  M.new_tig_window("tig " .. api.nvim_call_function("expand", {"%:p"}))
 end
 
 set_keymaps({
-    ['<Leader>gh'] = 'lua require"git".current_file()', -- show current file's history in tig
-    ['<Leader>gg'] = 'lua require"git".status()', -- open tig in project folder
-    ['<Leader>gb'] = 'Gblame', -- show commits for every source line
-    ['<Leader>gp'] = '!git push', -- push
-    ['<Leader>gP'] = '!git push -f', -- force push
-    ['<Leader>go'] = '!hub browse', -- open in browser
-    ['<Leader>gr'] = '!git pr-open' -- open pull request
+    ['<Leader>g'] = 'lua require"git".status()', -- open tig in project folder
+    ['<Leader>Gh'] = 'lua require"git".file_history()', -- show current file's history in tig
+    ['<Leader>Gb'] = 'Gblame' -- show commits for every source line
   })
 
-return {
-  current_file = current_file,
-  status = tig_status
-}
+return M
