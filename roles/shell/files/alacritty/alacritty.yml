@@ -69,7 +69,7 @@ background_opacity: 0.99
 
 key_bindings:
   - { key: V,        mods: Command, action: Paste                        }
-  - { key: C,        mods: Command, action: Copy                         }
+  #- { key: C,        mods: Command, action: Copy                         }
   - { key: Q,        mods: Command, action: Quit                         }
   - { key: Q,        mods: Control, chars: "\x11"                        }
   - { key: N,        mods: Command, command: { program: "open", args: ["-nb", "io.alacritty"] } }
@@ -195,14 +195,17 @@ key_bindings:
   - { key: Down,     mods: Command,       chars: "\x06\x4a" }
   - { key: Up,       mods: Command,       chars: "\x06\x4b" }
   - { key: Right,    mods: Command,       chars: "\x06\x4c" }
-  - { key: Key1,      mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 1"] } }
-  - { key: Key2,      mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 2"] } }
-  - { key: Key3,      mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 3"] } }
-  - { key: Key4,      mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 4"] } }
-  - { key: D,    mods: Command,       chars: "\x01\x73" }
-  - { key: W,    mods: Command,       chars: "\x01\x71" }
+  - { key: Key1,     mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 1"] } }
+  - { key: Key2,     mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 2"] } }
+  - { key: Key3,     mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 3"] } }
+  - { key: Key4,     mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 4"] } }
+  - { key: D,        mods: Command,  command: { program: "/usr/local/bin/tmux", args: ["detach"] } }
+  - { key: S,    mods: Command,       chars: "\x01\x73" }
   - { key: W,    mods: Command,       chars: "\x01\x71" }
   - { key: P,    mods: Command,       chars: "\x01\x69" }
   - { key: O,    mods: Command,       chars: "\x01\x75" }
-  - { key: C,    mods: Command,       chars: "\x01\x65" }
+  - { key: C,    mods: Command,       chars: "\x01\x63" }
   - { key: F,    mods: Command,       chars: "\x01\x46" }
+  - { key: E,    mods: Command,       chars: "\x01\x76" }
+  - { key: Z,    mods: Command,       chars: "\x01\x7a" }
+  - { key: I,    mods: Command,       chars: "\x01\x6f" }

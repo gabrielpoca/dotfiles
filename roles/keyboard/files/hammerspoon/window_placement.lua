@@ -67,8 +67,8 @@ hs.hotkey.bind(globals.hyper, "U", place_full)
 on_application('Slack', place_full)
 -- telegram right half
 on_application('Telegram', place_right_half)
--- iterm full screen
-on_application('iTerm2', place_full)
+-- alacritty full screen
+on_application('Alacritty', place_full)
 -- vscode full screen
 on_application('Visual Studio Code', place_full)
 -- brave full screen

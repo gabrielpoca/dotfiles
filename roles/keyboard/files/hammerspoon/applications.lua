@@ -5,7 +5,7 @@ hs.hotkey.bind(globals.hyper, "J", function()
   hs.application.launchOrFocus("Firefox Developer Edition")
 end)
 
--- open iTerm
+-- open Alacritty
 hs.hotkey.bind(globals.hyper, "K", function()
   hs.application.launchOrFocus("Alacritty")
 end)
