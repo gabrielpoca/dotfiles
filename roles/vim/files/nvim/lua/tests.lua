@@ -3,7 +3,6 @@ set_keymaps({
     ["<leader>rt"] = "TestFile",
     ["<leader>rr"] = "TestNearest",
     ["<leader>rl"] = "TestLast",
-    ["<leader>rh"] = "Ttoggle",
     ["<leader>rd"] = "Tclear",
     ["<leader>rk"] = "Tkill"
   })

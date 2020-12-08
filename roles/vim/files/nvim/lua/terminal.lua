@@ -5,7 +5,9 @@ local api = vim.api
 local M = {}
 
 M.term_buffers = {}
+
 M.job_ids = {}
+
 M.last_used_terminal = nil;
 
 M.current = function()
@@ -28,7 +30,7 @@ M.get_chan = function(nr)
   return M.job_ids[nr]
 end
 
-M.toggle_terminal = function()
+M.toggle = function()
   local found = false
 
   wins = api.nvim_list_wins()
@@ -57,14 +59,14 @@ M.side = function(nr, command, ...)
 
   local wins = api.nvim_list_wins()
 
-  wins = table.filter(wins, function(win)
+  wins = filter_array(wins, function(win)
     buf = api.nvim_win_get_buf(win)
 
     return string.match(api.nvim_buf_get_name(buf), "NERD_tree") == nil
   end)
 
   if wins[2] == nil then
-    vim.cmd(":vsplit")
+    vim.cmd("vsplit")
   end
 
   wins = api.nvim_list_wins()
@@ -132,7 +134,7 @@ M.floating = function(nr, command, ...)
 end
 
 set_keymaps({
-    ["<leader>t"] = "lua require'terminal'.toggle_terminal()",
+    ["<leader>t"] = "lua require'terminal'.toggle()",
     ["<leader>u"] = "lua require'terminal'.side(1)",
     ["<leader>i"] = "lua require'terminal'.side(2)",
     ["<leader>U"] = "lua require'terminal'.floating(1)",

@@ -4,11 +4,10 @@ tnoremap <C-e> <C-\><C-n>
 " change settings in terminal
 au TermOpen * setlocal nonumber norelativenumber wrap winhl=Normal:MyTerm signcolumn=
 
-" neoterm settings
-let g:neoterm_default_mod = 'vertical'
-let g:neoterm_automap_keys = 'tt'
-let g:neoterm_fixedsize = 1
-let g:neoterm_autoscroll = 1
-
 " vim-test settings
-let test#strategy = "neoterm"
+function! MyStrategy(cmd)
+  exec 'lua require"repl".run_test("'.a:cmd.'")'
+endfunction
+
+let g:test#custom_strategies = {'echo': function('MyStrategy')}
+let g:test#strategy = 'echo'

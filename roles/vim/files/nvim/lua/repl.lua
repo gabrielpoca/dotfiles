@@ -17,21 +17,29 @@ M.has_file = function(filename)
   return stat and stat.type or false
 end
 
-M.repl_send = function(command)
-  local term = Terminal.current()
+M.send = function(command, terminal)
+  local current_terminal = Terminal.current()
 
-  if term == nil then
+  if terminal and current_terminal ~= terminal then
+    Terminal.side(terminal)
+
+    vim.cmd("wincmd p")
+    vim.api.nvim_input("<Esc>")
+  elseif Terminal.current() == nil then
     Terminal.side(1)
-    term = Terminal.current()
+
+    vim.cmd("wincmd p")
+    vim.api.nvim_input("<Esc>")
   end
 
-  local chan = Terminal.get_chan(term)
+  local current_terminal = Terminal.current()
+  local chan = Terminal.get_chan(current_terminal)
   vim.fn.chansend(chan, command)
 end
 
 M.send_line = function()
   local line = vim.api.nvim_get_current_line() .. "\n"
-  M.repl_send(line)
+  M.send(line)
 end
 
 M.send_selection = function()
@@ -43,32 +51,38 @@ M.send_selection = function()
     lines = lines .. v .. "\n"
   end
 
-  M.repl_send(lines)
+  M.send(lines)
 end
 
 M.start = function()
   if M.has_file("mix.exs") then
     M.has_contents("mix.exs", "phoenix", function(res)
       if res then
-        M.repl_send('iex -S mix phx.server\n')
+        M.send('iex -S mix phx.server\n', 1)
       else
-        M.repl_send('iex -S mix\n')
+        M.has_contents("mix.exs", "still", function(res)
+          if res then
+            M.send('iex -S mix still.dev\n', 1)
+          else
+            M.send('iex -S mix\n', 1)
+          end
+        end)
       end
     end)
   elseif M.has_file("yarn.lock") then
-    M.repl_send("yarn start\n")
+    M.send("yarn start\n", 1)
   elseif M.has_file("package-lock.json") then
-    M.repl_send("npm start\n")
+    M.send("npm start\n", 1)
   end
 end
 
 M.install = function()
   if M.has_file("mix.exs") then
-    M.repl_send('mix deps.get\n')
+    M.send('mix deps.get\n')
   elseif M.has_file("yarn.lock") then
-    M.repl_send("yarn install\n")
+    M.send("yarn install\n")
   elseif M.has_file("package-lock.json") then
-    M.repl_send("npm install\n")
+    M.send("npm install\n")
   end
 end
 
@@ -76,8 +90,12 @@ M.recompile = function()
   filetype = vim.api.nvim_buf_get_option(0, 'filetype')
 
   if M.has_file("mix.exs") then
-    M.repl_send('recompile\n')
+    M.send('recompile\n')
   end
+end
+
+M.run_test = function(cmd)
+  M.send(cmd .. "\n", 2)
 end
 
 set_keymaps({
