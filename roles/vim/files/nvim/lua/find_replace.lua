@@ -8,12 +8,15 @@ M.all = {}
 
 local function create_window(bufnr)
   local win_id = Floating.new_buffer(bufnr)
-  vim.cmd("au WinLeave <buffer> :close")
-  vim.cmd('setlocal nocursorcolumn nonumber norelativenumber')
-  api.nvim_buf_set_name(bufnr, "find_replace://" .. bufnr)
-  api.nvim_buf_set_option(bufnr, 'buftype', 'acwrite')
 
-  local write_autocmd = string.format("autocmd BufWriteCmd <buffer=%s> lua require'find_replace'.save(%s)", bufnr, bufnr)
+  vim.cmd('au WinLeave <buffer> :close')
+  vim.cmd('setlocal nocursorcolumn nonumber norelativenumber')
+  api.nvim_buf_set_name(bufnr, 'find_replace://' .. bufnr)
+  api.nvim_buf_set_option(bufnr, 'buftype', 'acwrite')
+  vim.cmd('set filetype=find_replace')
+
+  local write_autocmd = string.format('autocmd BufWriteCmd <buffer=%s> lua require"find_replace".save(%s)', bufnr, bufnr)
+
   vim.api.nvim_command(write_autocmd)
 
   return win_id
