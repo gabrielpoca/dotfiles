@@ -94,5 +94,5 @@ let g:localvimrc_sandbox=0
 autocmd VimResized * wincmd =
 
 if has('nvim') && executable('nvr')
-  let $GIT_EDITOR = "nvr --remote-tab-wait +'set bufhidden=wipe'"
+  let $GIT_EDITOR = "nvr -cc split --remote-wait"
 endif
