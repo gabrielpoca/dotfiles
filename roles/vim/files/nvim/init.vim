@@ -74,7 +74,7 @@ set clipboard=unnamed
 set hidden
 
 " ESC
-"imap jk <Esc>
+imap jk <Esc>
 
 " save
 map <c-s> :w<CR>
