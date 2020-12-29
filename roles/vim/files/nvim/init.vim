@@ -10,7 +10,7 @@ lua require("keymaps")
 
 so ~/.config/nvim/rc/git.vim
 so ~/.config/nvim/rc/colors.vim
-so ~/.config/nvim/rc/statusline.vim
+so ~/.config/nvim/rc/info.vim
 so ~/.config/nvim/rc/terminal.vim
 so ~/.config/nvim/rc/navigation.vim
 so ~/.config/nvim/rc/completion.vim
