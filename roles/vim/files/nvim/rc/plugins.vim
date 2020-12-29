@@ -50,7 +50,7 @@ Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'amiralies/coc-elixir', {'do': 'yarn install --frozen-lockfile && yarn prepack'}
-Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile && yarn prepack'}
+Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
 Plug 'antoinemadec/coc-fzf', {'do': 'yarn install --frozen-lockfile'}
 Plug 'iamcco/coc-tailwindcss', {'do': 'yarn install --frozen-lockfile'}
 

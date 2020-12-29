@@ -1,6 +1,6 @@
 bind status P !git push origin
 bind status F ?!git push -f origin
-bind status a !git commit --amend
+bind status A !git commit --amend
 
 bind generic e @nvr -l +%(lineno) %(file)
 bind generic b @hub browse
