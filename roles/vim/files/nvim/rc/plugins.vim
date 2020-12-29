@@ -21,6 +21,8 @@ Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'scss', 'sass'] }
 Plug 'pechorin/any-jump.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 
+Plug 'gabrielpoca/replacer.nvim', { 'dir': '~/Developer/replacer.vim' }
+
 " Writing
 Plug 'reedes/vim-pencil'
 Plug 'junegunn/limelight.vim'

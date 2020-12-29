@@ -6,7 +6,7 @@ lua require("global")
 lua require("tests")
 lua require("repl")
 lua require("terminal")
-lua require("find_replace")
+lua require("keymaps")
 
 so ~/.config/nvim/rc/git.vim
 so ~/.config/nvim/rc/colors.vim
