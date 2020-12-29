@@ -6,4 +6,4 @@ autocmd FileType gitrebase nmap <Leader>gs mzggjvG$:s/^pick/s<CR>
 autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete
 
 " show commit contains current position
-nnoremap <leader>gv <Plug>(coc-git-commit)
+nmap <leader>gv <Plug>(coc-git-commit)
