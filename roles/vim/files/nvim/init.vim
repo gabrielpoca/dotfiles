@@ -1,5 +1,11 @@
 let mapleader="\<SPACE>"
 
+" => polyglot
+let g:polyglot_disabled = ['json']
+let g:terraform_fmt_on_save=1
+let g:typescript_indent_disable = 1
+let g:vim_markdown_folding_disabled = 1
+
 so ~/.config/nvim/rc/plugins.vim
 
 lua require("global")
@@ -79,12 +85,6 @@ let g:multi_cursor_exit_from_insert_mode = 0
 
 " => trimmer
 let g:trimmer_blacklist = ['markdown', 'javascript', 'typescript', 'elixir', 'vim']
-
-" => polyglot
-let g:polyglot_disabled = ['json']
-let g:terraform_fmt_on_save=1
-let g:typescript_indent_disable = 1
-let g:vim_markdown_folding_disabled = 1
 
 " => localvimrc
 let g:localvimrc_whitelist=['/Users/gabrielpoca/Developer/.*']
