@@ -49,7 +49,8 @@ set_keymaps({
     ['<Leader>gs'] = 'lua require"git".status()', -- open status in project folder
     ['<Leader>gi'] = 'lua require"ci_status".run()', -- show the current branch's CI status
     ['<Leader>gh'] = 'lua require"git".file_history()', -- show current file's history in tig
-    ['<Leader>gb'] = 'Gblame' -- show commits for every source line
+    ['<Leader>gb'] = 'Gblame', -- show commits for every source line
+    ['<Leader>gc'] = 'GBranches --locals' -- show commits for every source line
   })
 
 return M

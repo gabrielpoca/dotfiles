@@ -31,6 +31,7 @@ Plug 'junegunn/goyo.vim'
 " GIT
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
+Plug 'stsewd/fzf-checkout.vim'
 
 " Colors
 Plug 'morhetz/gruvbox'
