@@ -1,10 +1,11 @@
 {
-    "list.normalMappings": {
-      "<C-c>": "do:exit",
-      "t": "action:tabe",
-      "v": "action:vsplit",
-      "s": "action:split",
-      "d": "expr:GetDeleteAction"
+  "list.normalMappings": {
+    "<C-c>": "do:exit",
+    "t": "action:tabe",
+    "v": "action:vsplit",
+    "s": "action:split",
+    "d": "expr:GetDeleteAction"
+  },
   "tailwindCSS.htmlLanguages": [
     "blade",
     "edge",
@@ -42,7 +43,6 @@
     "c",
     "scss"
   ],
-  },
   "list.insertMappings": {
     "<C-c>": "do:exit",
     "<C-t>": "action:tabe",
@@ -58,9 +58,11 @@
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "suggest.floatEnable": false,
-  "prettier.statusItemText": ""
+  "prettier.statusItemText": "",
   "git.enableGutters": false,
   "git.showCommitInFloating": true,
+  "codeLens.enable": false,
+  "elixirLS.fetchDeps": false,
   "languageserver": {
     "terraform": {
       "command": "terraform-ls",
