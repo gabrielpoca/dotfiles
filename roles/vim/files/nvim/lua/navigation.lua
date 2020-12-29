@@ -59,6 +59,10 @@ vim.g.projectionist_heuristics = {
         }
     },
     ["mix.exs"] = {
+        ['lib/*_live.ex'] = {
+            ['alternate'] = 'lib/{}_live.html.leex',
+            ['type'] = 'source',
+        },
         ['lib/*.ex'] = {
             ['alternate'] = 'test/{}_test.exs',
             ['type'] = 'source',
