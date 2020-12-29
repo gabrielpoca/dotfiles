@@ -25,10 +25,30 @@ M.file_history = function()
   M.new_tig_window("tig " .. api.nvim_call_function("expand", {"%:p"}))
 end
 
+M.status = function()
+  local wins = api.nvim_list_wins()
+
+  wins = filter_array(wins, function(win)
+    buf = api.nvim_win_get_buf(win)
+
+    return string.match(api.nvim_buf_get_name(buf), "NERD_tree") == nil
+  end)
+
+  if wins[2] == nil then
+    vim.cmd("vsplit")
+  end
+
+  wins = api.nvim_list_wins()
+  api.nvim_set_current_win(wins[#wins])
+
+  api.nvim_call_function("FugitiveDetect", {vim.fn.getcwd()})
+  vim.cmd("0Git")
+end
+
 set_keymaps({
-    ['<Leader>g'] = 'lua require"git".status()', -- open tig in project folder
     ['<Leader>Gh'] = 'lua require"git".file_history()', -- show current file's history in tig
     ['<Leader>Gb'] = 'Gblame' -- show commits for every source line
+    ['<Leader>gs'] = 'lua require"git".status()', -- open status in project folder
   })
 
 return M
