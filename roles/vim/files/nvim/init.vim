@@ -6,8 +6,7 @@ let g:terraform_fmt_on_save=1
 let g:typescript_indent_disable = 1
 let g:vim_markdown_folding_disabled = 1
 
-so ~/.config/nvim/rc/plugins.vim
-
+lua require("plugins")
 lua require("global")
 lua require("tests")
 lua require("repl")
