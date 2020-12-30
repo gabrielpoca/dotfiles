@@ -59,11 +59,11 @@ M.side = function(nr, command, ...)
 
   local wins = api.nvim_list_wins()
 
-  wins = filter_array(wins, function(win)
+  wins = vim.tbl_filter(function(win)
     buf = api.nvim_win_get_buf(win)
 
     return string.match(api.nvim_buf_get_name(buf), "NERD_tree") == nil
-  end)
+  end, wins)
 
   if wins[2] == nil then
     vim.cmd("vsplit")

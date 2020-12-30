@@ -5,7 +5,7 @@ local M = {}
 M.has_contents = function(filename, contents, on_done)
   vim.fn.jobstart('grep ' .. contents .. ' ' .. filename, {
       on_stdout = function(_, data, _)
-        on_done(table_size(data) > 1)
+        on_done(vim.tbl_count(data) > 1)
       end,
       stdout_buffered = true,
       stderr_buffered = true,

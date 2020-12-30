@@ -49,19 +49,19 @@ M.run = function()
 
     local lines = vim.split(data, "\n")
 
-    lines = table.filter(lines, function(v)
+    lines = vim.tbl_filter(function(v)
       return v ~= "" and v ~= nil
-    end)
+    end, lines)
 
-    lines = table.map(lines, function(line)
+    lines = vim.tbl_map(function(line)
       local parts = vim.split(line, "\t")
       return parts[1] .. " " .. parts[2]
-    end)
+    end, lines)
 
-    local size = table_size(lines)
+    local size = vim.tbl_count(lines)
 
     buf = buf or create_ci_status_popup()
-    vim.api.nvim_buf_set_lines(buf, current_line, table_size(lines) + current_line, false, lines)
+    vim.api.nvim_buf_set_lines(buf, current_line, vim.tbl_count(lines) + current_line, false, lines)
     current_line = current_line + size
   end)
 
