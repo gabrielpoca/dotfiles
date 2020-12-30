@@ -19,7 +19,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-surround'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-abolish'
-
+Plug 'itchyny/lightline.vim'
 Plug 'gabrielpoca/replacer.nvim', { 'dir': '~/Developer/replacer.vim' }
 
 " Writing

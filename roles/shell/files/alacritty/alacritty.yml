@@ -40,15 +40,15 @@ colors: *embark
 
 font:
   normal:
-    family: "JetBrainsMono NerdFont"
+    family: "FuraMono Nerd Font Mono"
     style: Regular
 
   bold:
-    family: "JetBrainsMono NerdFont"
+    family: "FuraMono Nerd Font Mono"
     style: Bold
 
   italic:
-    family: "JetBrainsMono NerdFont"
+    family: "FuraMono Nerd Font Mono"
     style: Italic
 
   size: 16.0

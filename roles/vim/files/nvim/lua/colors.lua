@@ -12,6 +12,17 @@ Colors.setup = function(colorscheme)
     api.nvim_command('highlight MyYellow guifg=#FFE6B3 guibg=#FFE6B3')
     api.nvim_command("let g:terminal_color_0 = \'#1e1c31\'")
 
+    api.nvim_set_var('lightline', {
+        colorscheme = 'embark',
+        active = {
+          left = {{ 'mode', 'paste' }, { 'filename', 'modified' }},
+          right = {{ 'lineinfo' }, { 'percent' }, { 'filetype', 'gitbranch' }}
+        },
+        component_function = {
+          gitbranch = 'CocStatus'
+        }
+      })
+
     api.nvim_set_var('fzf_colors', {
       fg =      {'fg', 'Normal'},
       bg =      {'bg', 'Normal'},
