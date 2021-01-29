@@ -29,6 +29,7 @@
     "nunjucks",
     "php",
     "razor",
+    "rust",
     "slim",
     "svelte",
     "twig",
@@ -41,7 +42,8 @@
     "javascriptreact",
     "markdown",
     "c",
-    "scss"
+    "scss",
+    "elixir"
   ],
   "list.insertMappings": {
     "<C-c>": "do:exit",

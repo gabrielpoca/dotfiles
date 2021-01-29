@@ -15,7 +15,6 @@ function! s:goyo_enter()
   set noshowcmd
   set scrolloff=999
   let g:pencil#autoformat = 0      " 0=disable, 1=enable (def)
-  Limelight
 endfunction
 
 function! s:goyo_leave()
@@ -27,7 +26,6 @@ function! s:goyo_leave()
   set showcmd
   set scrolloff=5
   let g:pencil#autoformat = 1      " 0=disable, 1=enable (def)
-  Limelight!
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()

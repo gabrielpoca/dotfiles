@@ -73,6 +73,8 @@ M.start = function()
     M.send("yarn start\n", 1)
   elseif M.has_file("package-lock.json") then
     M.send("npm start\n", 1)
+  elseif M.has_file("Cargo.toml") then
+    M.send("cargo run\n", 1)
   end
 end
 

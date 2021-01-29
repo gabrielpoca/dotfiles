@@ -1,48 +1,37 @@
 local Floating = require'floating'
+local Terminal = require'terminal'
 
 local api = vim.api
 
 local M = {}
 
 M.on_demand_terminal = 101
+M.lazygit_terminal = 1000;
 
 M.new_tig_window = function(command)
-  require'terminal'.floating(M.on_demand_terminal, command)
+  Terminal.floating(M.on_demand_terminal, command)
   M.on_demand_terminal = M.on_demand_terminal + 1
 end
 
 M.status = function()
-  require'terminal'.tab(100, 'tig status')
+  Terminal.floating(M.lazygit_terminal, 'lazygit', {
+      on_exit = function()
+        Terminal.close()
+        M.lazygit_terminal = M.lazygit_terminal + 1
+      end
+    })
 
   vim.cmd("autocmd BufWinEnter,WinEnter <buffer> silent! normal i")
-
-  vim.defer_fn(function ()
-    vim.api.nvim_input("R")
-  end, 300)
 end
 
 M.file_history = function()
   M.new_tig_window("tig " .. api.nvim_call_function("expand", {"%:p"}))
 end
 
-M.status = function()
-  local wins = api.nvim_list_wins()
+M.edit = function(file)
+  Terminal.close()
 
-  wins = vim.tbl_filter(function(win)
-    buf = api.nvim_win_get_buf(win)
-
-    return string.match(api.nvim_buf_get_name(buf), "NERD_tree") == nil
-  end, wins)
-
-  if wins[2] == nil then
-    vim.cmd("vsplit")
-  end
-
-  wins = api.nvim_list_wins()
-  api.nvim_set_current_win(wins[#wins])
-
-  api.nvim_call_function("FugitiveDetect", {vim.fn.getcwd()})
-  vim.cmd("0Git")
+  vim.cmd("e " .. file)
 end
 
 set_keymaps({

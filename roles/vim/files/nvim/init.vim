@@ -5,6 +5,7 @@ let g:polyglot_disabled = ['json']
 let g:terraform_fmt_on_save=1
 let g:typescript_indent_disable = 1
 let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal_code_blocks = 0
 
 lua require("plugins")
 lua require("global")
@@ -22,6 +23,9 @@ so ~/.config/nvim/rc/completion.vim
 so ~/.config/nvim/rc/languages.vim
 so ~/.config/nvim/rc/experiments.vim
 so ~/.config/nvim/rc/writing.vim
+
+set shell=/bin/zsh
+let $SHELL="/bin/zsh"
 
 set autoread
 set nobackup
@@ -93,5 +97,5 @@ let g:localvimrc_sandbox=0
 autocmd VimResized * wincmd =
 
 if has('nvim') && executable('nvr')
-  let $GIT_EDITOR = "nvr -cc split --remote-wait"
+  let $GIT_EDITOR = "nvr"
 endif

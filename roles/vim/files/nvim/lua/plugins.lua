@@ -1,5 +1,4 @@
 vim.cmd [[packadd packer.nvim]]
-vim._update_package_paths()
 
 return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use 'wincent/terminus'
@@ -26,13 +25,12 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
 
   --Writing
   use 'reedes/vim-pencil'
-  use 'junegunn/limelight.vim'
   use 'junegunn/goyo.vim'
+  use 'rhysd/vim-grammarous'
 
   --GIT
   use 'Xuyuanp/nerdtree-git-plugin'
   use 'tpope/vim-fugitive'
-  use 'stsewd/fzf-checkout.vim'
 
   --Colors
   use 'morhetz/gruvbox'
@@ -42,7 +40,6 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   --Elixir
   use 'kana/vim-textobj-user'
   use 'andyl/vim-textobj-elixir'
-  use 'mhinz/vim-mix-format' -- I'm using this because the LSP client is too slow
 
   --Language Tools
   use { 'neoclide/coc.nvim', branch = 'release' }
@@ -54,6 +51,5 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'neoclide/coc-css', run = 'yarn install --frozen-lockfile' }
   use { 'amiralies/coc-elixir', run = 'yarn install --frozen-lockfile && yarn prepack' }
   use { 'neoclide/coc-git', run = 'yarn install --frozen-lockfile' }
-  use { 'antoinemadec/coc-fzf', run = 'yarn install --frozen-lockfile' }
   use { 'iamcco/coc-tailwindcss', run = 'yarn install --frozen-lockfile' }
 end)

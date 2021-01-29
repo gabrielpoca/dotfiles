@@ -10,7 +10,7 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn=yes
+set signcolumn=number
 
 " Hard-coded path to node
 let g:coc_node_path = '/Users/gabrielpoca/.asdf/shims/node' 
@@ -62,13 +62,13 @@ nnoremap <silent> <leader>ln <Plug>(coc-diagnostic-next)
 " show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " show all diagnostics
-nnoremap <silent> <leader>ld  :<C-u>CocFzfList diagnostics<cr>
+nnoremap <silent> <leader>ld  :<C-u>CocList diagnostics<cr>
 " manage extensions
-nnoremap <silent> <leader>le  :<C-u>CocFzfList extensions<cr>
+nnoremap <silent> <leader>le  :<C-u>CocList extensions<cr>
 " show commands
-nnoremap <silent> <leader>lc  :<C-u>CocFzfList commands<cr>
+nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
 " find symbol of current document
-nnoremap <silent> <leader>lo  :<C-u>CocFzfList outline<cr>
+nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)

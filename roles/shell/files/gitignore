@@ -33,3 +33,4 @@ tags.*
 tmp/**/*
 .terraform/
 .env.dev.local
+config/credentials/*

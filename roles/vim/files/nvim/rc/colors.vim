@@ -13,7 +13,7 @@ endif
 
 " theme and colors
 set background=dark
-lua require("colors").setup('embark')
+lua require("colors").setup('gruvbox')
 
 augroup highlight_yank
     autocmd!

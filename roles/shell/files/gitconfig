@@ -1,17 +1,15 @@
 [init]
 [user]
 	name = Gabriel Poça
-	email = gabrielpoca@gmail.com
 [push]
 	default = current
 [color]
   ui = true
 [core]
   excludesfile = ~/.gitignore
-  editor = nvim
+  editor = nvr
   attributesfile = ~/.gitattributes
   pager = delta
-  autocrlf = input
 [github]
   user = gabrielpoca
 [commit]
@@ -30,25 +28,3 @@
   r = rebase
   rc = rebase --continue
   s = status
-
-[merge "railsschema"]
-  name = newer Rails schema version
-  driver = "ruby -e '\n\
-    system %(git), %(merge-file), %(--marker-size=%L), %(%A), %(%O), %(%B)\n\
-    b = File.read(%(%A))\n\
-    b.sub!(/^<+ .*\\nActiveRecord::Schema\\.define.:version => (\\d+). do\\n=+\\nActiveRecord::Schema\\.define.:version => (\\d+). do\\n>+ .*/) do\n\
-    %(ActiveRecord::Schema.define(:version => #{[$1, $2].max}) do)\n\
-    end\n\
-    File.open(%(%A), %(w)) {|f| f.write(b)}\n\
-    exit 1 if b.include?(%(<)*%L)'"
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[delta]
-  syntax-theme = Dracula
-  line-numbers = true
-  side-by-side = true
-[interactive]
-  diffFilter = delta --color-only

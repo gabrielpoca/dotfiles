@@ -30,6 +30,20 @@ M.get_chan = function(nr)
   return M.job_ids[nr]
 end
 
+M.close = function()
+  wins = api.nvim_list_wins()
+
+  for _, win in pairs(wins) do
+    buf = api.nvim_win_get_buf(win)
+    for _, v in pairs(M.term_buffers) do
+      if v == buf then
+        api.nvim_win_close(win, 1)
+        return
+      end
+    end
+  end
+end
+
 M.toggle = function()
   local found = false
 
@@ -109,11 +123,15 @@ M.tab = function(nr, command, ...)
   return { channel = M.job_ids[nr] }
 end
 
-M.floating = function(nr, command, ...)
+M.floating = function(nr, command, job_opts, ...)
   M.last_used_terminal = nr
 
   if command == nil then
     command = "/usr/local/bin/fish"
+  end
+
+  if job_opts == nil then
+    job_opts = {}
   end
 
   if M.term_buffers[nr] and vim.fn.jobwait({M.job_ids[nr]}, 0)[1] == -1 then
@@ -121,7 +139,7 @@ M.floating = function(nr, command, ...)
   else
     M.term_buffers[nr] = api.nvim_create_buf(false, false)
     Floating.new_buffer(M.term_buffers[nr])
-    M.job_ids[nr] = vim.fn.termopen(command)
+    M.job_ids[nr] = vim.fn.termopen(command, job_opts)
   end
 
   vim.cmd("augroup FloatingWinLeave")
