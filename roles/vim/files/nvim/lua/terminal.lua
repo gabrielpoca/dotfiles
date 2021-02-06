@@ -126,20 +126,16 @@ end
 M.floating = function(nr, command, job_opts, ...)
   M.last_used_terminal = nr
 
-  if command == nil then
-    command = "/usr/local/bin/fish"
-  end
-
-  if job_opts == nil then
-    job_opts = {}
-  end
-
   if M.term_buffers[nr] and vim.fn.jobwait({M.job_ids[nr]}, 0)[1] == -1 then
     Floating.new_buffer(M.term_buffers[nr])
   else
     M.term_buffers[nr] = api.nvim_create_buf(false, false)
     Floating.new_buffer(M.term_buffers[nr])
-    M.job_ids[nr] = vim.fn.termopen(command, job_opts)
+    if job_opts == nil then
+      M.job_ids[nr] = vim.fn.termopen(command)
+    else
+      M.job_ids[nr] = vim.fn.termopen(command, job_opts)
+    end
   end
 
   vim.cmd("augroup FloatingWinLeave")

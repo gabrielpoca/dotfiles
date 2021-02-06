@@ -1,6 +1,6 @@
 function project --argument-names 'project'
   if test -n "$project"
-    set project_folder "/Users/gabrielpoca/Developer/$project"
+    set project_folder "/Users/gabriel/Developer/$project"
   else
     set project_folder (pwd)
   end

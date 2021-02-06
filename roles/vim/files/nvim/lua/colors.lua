@@ -26,29 +26,6 @@ Colors.setup = function(colorscheme)
       header =  {'fg', 'Comment'}
     })
   end
-
-  if colorscheme == 'nord' then
-    api.nvim_command('colorscheme ' .. colorscheme)
-    api.nvim_command('highlight MyYellow guifg=#D08770 guibg=#D08770')
-    api.nvim_command('highlight MyTerm guibg=#3B4252')
-    api.nvim_command('highlight MyPurple guifg=#B48EAD guibg=#B48EAD')
-
-    api.nvim_set_var('fzf_colors', {
-      fg =      {'fg', 'Normal'},
-      bg =      {'bg', 'MyTerm'},
-      hl =      {'fg', 'MyPurple'},
-      ['fg+'] = {'fg', 'MyYellow'},
-      ['bg+'] = {'bg', 'MyTerm'},
-      ['hl+'] = {'fg', 'MyPurple'},
-      info =    {'fg', 'PreProc'},
-      border =  {'fg', 'StatusLine'},
-      prompt =  {'fg', 'Conditional'},
-      pointer = {'fg', 'Exception'},
-      marker =  {'fg', 'Keyword'},
-      spinner = {'fg', 'Label'},
-      header =  {'fg', 'Comment'}
-    })
-  end
 end
 
 return Colors

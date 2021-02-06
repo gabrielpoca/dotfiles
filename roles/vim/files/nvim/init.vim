@@ -7,33 +7,30 @@ let g:typescript_indent_disable = 1
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_conceal_code_blocks = 0
 
-lua require("plugins")
 lua require("global")
+lua require("plugins")
+
+so ~/.config/nvim/rc/git.vim
+so ~/.config/nvim/rc/colors.vim
+so ~/.config/nvim/rc/terminal.vim
+so ~/.config/nvim/rc/completion.vim
+so ~/.config/nvim/rc/languages.vim
+so ~/.config/nvim/rc/writing.vim
+so ~/.config/nvim/rc/navigation.vim
+so ~/.config/nvim/rc/experiments.vim
+
 lua require("tests")
 lua require("repl")
 lua require("terminal")
 lua require("keymaps")
 
-so ~/.config/nvim/rc/git.vim
-so ~/.config/nvim/rc/colors.vim
-so ~/.config/nvim/rc/info.vim
-so ~/.config/nvim/rc/terminal.vim
-so ~/.config/nvim/rc/navigation.vim
-so ~/.config/nvim/rc/completion.vim
-so ~/.config/nvim/rc/languages.vim
-so ~/.config/nvim/rc/experiments.vim
-so ~/.config/nvim/rc/writing.vim
-
-set shell=/bin/zsh
-let $SHELL="/bin/zsh"
-
+set shell=/bin/bash " changing the shell to bash makes fugitive much faster
 set autoread
 set nobackup
 set noswapfile
 set nowritebackup
 set undodir=~/.vim/undo
 set undofile
-
 set rnu
 set nu
 set expandtab
@@ -44,22 +41,15 @@ set wildmenu
 set wildmode=full
 set wildoptions=pum
 set pumblend=20
-set lazyredraw
-
+set laststatus=2
 set splitbelow
 set splitright
-
-if !&scrolloff
-  set scrolloff=3
-endif
-if !&sidescrolloff
-  set sidescrolloff=5
-endif
+set scrolloff=3
+set sidescrolloff=5
 set display+=lastline
 set nostartofline
 set synmaxcol=200
 set cursorline
-
 set ignorecase
 set smartcase
 set incsearch
@@ -68,12 +58,8 @@ set inccommand=nosplit
 set completeopt+=noselect,menuone,preview
 set formatoptions+=j
 set pyxversion=0
-
 set dictionary+=/usr/share/dict/words
-
-" copy to system clipboard
-set clipboard=unnamed
-
+set clipboard=unnamed " copy to system clipboard
 set hidden
 
 " ESC
@@ -90,12 +76,8 @@ let g:multi_cursor_exit_from_insert_mode = 0
 let g:trimmer_blacklist = ['markdown', 'javascript', 'typescript', 'elixir', 'vim']
 
 " => localvimrc
-let g:localvimrc_whitelist=['/Users/gabrielpoca/Developer/.*']
+let g:localvimrc_whitelist=['/Users/gabriel/Developer/.*']
 let g:localvimrc_sandbox=0
 
 " => resize splits when vim is resized
 autocmd VimResized * wincmd =
-
-if has('nvim') && executable('nvr')
-  let $GIT_EDITOR = "nvr"
-endif

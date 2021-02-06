@@ -5,6 +5,13 @@ vim.api.nvim_set_keymap('n', '<leader><cr>', ':nohlsearch<cr><C-L>', { silent = 
 
 vim.cmd("au FileType nerdtree set nocursorcolumn")
 
+vim.g.rnvimr_ex_enable = 1
+vim.g.rnvimr_pick_enable = 1
+vim.g.rnvimr_draw_border = 1
+vim.g.rnvimr_border_attr = {fg = 39, bg = -1}
+vim.g.rnvimr_ranger_cmd = 'ranger --cmd="set column_ratios 1,1"'
+
+
 vim.g.NERDTreeWinPos = "left"
 vim.g.NERDTreeMinimalUI = 1
 vim.g.NERDTreeMinimalMenu = 1

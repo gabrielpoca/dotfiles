@@ -5,3 +5,5 @@ bind status A !git commit --amend
 bind generic e @nvr -l +%(lineno) %(file)
 bind generic b @hub browse
 bind generic c @hub compare
+
+bind generic S :source ~/.tigrc

@@ -1,13 +1,14 @@
 [init]
 [user]
-	name = Gabriel Poça
+	name = Gabriel Poca
+	email = mail@gabrielpoca.com
 [push]
 	default = current
 [color]
   ui = true
 [core]
   excludesfile = ~/.gitignore
-  editor = nvr
+  editor = nvim
   attributesfile = ~/.gitattributes
   pager = delta
 [github]
@@ -20,10 +21,8 @@
   c = checkout
   cb = checkout -b
   co = commit
-  conflicts = diff --name-only --diff-filter=U
   d = diff
   f = fetch
-  lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --graph --date=human
   p = push -u
   r = rebase
   rc = rebase --continue

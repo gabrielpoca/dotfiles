@@ -1,8 +1,8 @@
 erlang 23.1.1
-elixir 1.10.4-otp-23
+elixir 1.11.3-otp-23
 nodejs 14.8.0
 ruby 2.7.0
-python 3.7.3
+python 3.9.1
 rust 1.49.0
 deno 1.6.3
 java azul-zulufx-8.46.0.19-jdk8.0.252

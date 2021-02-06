@@ -1,5 +1,4 @@
 - name: make fish the default shell
-  become: true
   shell: |
     chsh -s {{ executable }}
   args:

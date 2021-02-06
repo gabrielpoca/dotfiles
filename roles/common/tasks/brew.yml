@@ -5,8 +5,12 @@
 
 - name: install homebrew
   shell: |
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  when: brew_found == False
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  when: brew_found.rc == 1
+
+- name: fonts package
+  community.general.homebrew_tap:
+    name: homebrew/cask-fonts
 
 - name: install homebrew package
   homebrew:
@@ -27,17 +31,19 @@
     state: present
   vars:
     homebrew_cask_packages:
+      - alacritty
       - docker
-      - font-fira-code
-      - homebrew/cask-fonts/font-fira-code
-      - homebrew/cask-fonts/font-ibm-plex
+      - font-hack-nerd-font
       - hyperswitch
       - lulu
+      - nextcloud
+      - reaper
       - pgadmin4
       - quicklook-json
-      - shiftit
       - slack
       - the-unarchiver
       - vagrant
       - virtualbox
       - vlc
+      - surge-synthesizer
+      - keepassxc

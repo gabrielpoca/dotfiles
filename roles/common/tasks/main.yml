@@ -5,7 +5,7 @@
     msg: Testing {{ os_family }}
 
 - import_tasks: brew.yml
-  when: os_family == 'macosx'
+  when: os_family == 'darwin'
 
 - import_tasks: debian.yml
   when: os_family == 'debian'

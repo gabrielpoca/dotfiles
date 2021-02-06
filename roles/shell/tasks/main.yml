@@ -34,7 +34,7 @@
     state: link
 
 - include: fish.yml
-  when: os_family == 'macosx'
+  when: os_family == 'darwin'
   vars:
     - executable: /usr/local/bin/fish
 

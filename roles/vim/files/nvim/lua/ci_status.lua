@@ -69,4 +69,8 @@ M.run = function()
   vim.loop.read_start(stderr, on_read)
 end
 
+set_keymaps({
+    ['<Leader>gi'] = 'lua require"ci_status".run()', -- show the current branch's CI status
+  })
+
 return M

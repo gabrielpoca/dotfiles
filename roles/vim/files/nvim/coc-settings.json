@@ -6,35 +6,11 @@
     "s": "action:split",
     "d": "expr:GetDeleteAction"
   },
-  "tailwindCSS.htmlLanguages": [
-    "blade",
-    "edge",
-    "eelixir",
-    "ejs",
-    "elixir",
-    "elm",
-    "erb",
-    "eruby",
-    "haml",
-    "handlebars",
-    "html",
-    "htmldjango",
-    "HTML (EEx)",
-    "HTML (Eex)",
-    "html.twig",
-    "jade",
-    "leaf",
-    "markdown",
-    "njk",
-    "nunjucks",
-    "php",
-    "razor",
-    "rust",
-    "slim",
-    "svelte",
-    "twig",
-    "vue"
-  ],
+  "list.insertMappings": {
+    "<C-c>": "do:exit",
+    "<C-t>": "action:tabe",
+    "<C-w>": "command:wincmd k"
+  },
   "coc.preferences.formatOnSaveFiletypes": [
     "typescript",
     "typescriptreact",
@@ -42,29 +18,25 @@
     "javascriptreact",
     "markdown",
     "c",
+    "css",
     "scss",
-    "elixir"
+    "elixir",
+    "rust"
   ],
-  "list.insertMappings": {
-    "<C-c>": "do:exit",
-    "<C-t>": "action:tabe",
-    "<C-w>": "command:wincmd k"
-  },
+  "codeLens.enable": false,
   "diagnostic.enable": true,
   "diagnostic.enableMessage": "always",
   "diagnostic.errorSign": "",
   "diagnostic.hintSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
-  "signature.hideOnTextChange": true,
-  "suggest.noselect": false,
-  "suggest.preferCompleteThanJumpPlaceholder": true,
-  "suggest.floatEnable": false,
-  "prettier.statusItemText": "",
   "git.enableGutters": false,
   "git.showCommitInFloating": true,
-  "codeLens.enable": false,
-  "elixirLS.fetchDeps": false,
+  "prettier.statusItemText": "",
+  "signature.hideOnTextChange": true,
+  "suggest.floatEnable": false,
+  "suggest.noselect": false,
+  "suggest.preferCompleteThanJumpPlaceholder": true,
   "languageserver": {
     "terraform": {
       "command": "terraform-ls",
@@ -87,7 +59,7 @@
         "clang": {
           "resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/11.0.3",
           "extraArgs": [
-            "-I/Users/gabrielpoca/.asdf/installs/erlang/23.1.1/usr/include",
+            "-I/Users/gabriel/.asdf/installs/erlang/23.1.1/usr/include",
             "-I/usr/local/include",
             "-I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/12.0.0/include",
             "-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include",

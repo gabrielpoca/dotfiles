@@ -13,7 +13,7 @@ set shortmess+=c
 set signcolumn=number
 
 " Hard-coded path to node
-let g:coc_node_path = '/Users/gabrielpoca/.asdf/shims/node' 
+let g:coc_node_path = '/usr/local/bin/node' 
 
 " Use <cr> or <tab> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -79,3 +79,11 @@ xmap ic <Plug>(coc-classobj-i)
 omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
+
+function! ToggleCodeLens()
+  let l:codelens = CocAction("getConfig", "codeLens")
+  let l:toggled = !(l:codelens['enable'])
+  call CocAction("updateConfig", "codeLens.enable", l:toggled)
+endfunction
+
+nnoremap <silent> <leader>ll :call ToggleCodeLens()<CR>

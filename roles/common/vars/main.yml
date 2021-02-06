@@ -20,8 +20,10 @@ terminal_packages:
   - fish
   - fzf
   - gawk
+  - lazygit
   - git
   - git-delta
+  - git-crypt
   - gpg
   - hub
   - jq

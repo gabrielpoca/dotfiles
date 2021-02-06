@@ -1,13 +1,13 @@
 - hosts: localhost
   connection: local
   roles:
-    - { role: 'common' }
-    - { role: 'shell' }
-    - { role: 'asdf' }
-    - { role: 'vim' }
-    - { role: 'terminal', when: "os_family == 'macosx'" }
-    - { role: 'keyboard', when: "os_family == 'macosx'" }
-    - { role: 'osx_defaults', when: "os_family == 'macosx'", tags: 'osx' }
+    - { role: 'common', tags: [common] }
+    - { role: 'shell', tags: [shell] }
+    - { role: 'asdf', tags: [shell] }
+    - { role: 'vim', tags: [shell] }
+    - { role: 'terminal', when: "os_family == 'darwin'" }
+    - { role: 'keyboard', when: "os_family == 'darwin'" }
+    - { role: 'osx_defaults', when: "os_family == 'darwin'", tags: 'osx' }
   vars:
     home_dir: '{{ ansible_env.HOME }}'
     dotfiles_dir: '{{ home_dir }}/Developer/dotfiles'
