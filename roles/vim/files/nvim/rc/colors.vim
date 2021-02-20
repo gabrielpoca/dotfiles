@@ -11,11 +11,16 @@ if has('termguicolors')
   endif
 endif
 
-" theme and colors
 set background=dark
+
 lua require("colors").setup('gruvbox')
 
+" highlight yanked text
 augroup highlight_yank
     autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("Substitute", 300)
+    au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
 augroup END
+
+autocmd ColorScheme *
+  \ hi CocExplorerNormalFloatBorder guifg=#414347 guibg=Normal
+  \ | hi CocExplorerNormalFloat guibg=Normal

@@ -1,0 +1,5 @@
+- name: make zsh the default shell
+  shell: |
+    chsh -s {{ executable }}
+  args:
+    executable: '{{ executable }}'

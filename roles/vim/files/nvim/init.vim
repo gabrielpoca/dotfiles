@@ -11,13 +11,13 @@ lua require("global")
 lua require("plugins")
 
 so ~/.config/nvim/rc/git.vim
-so ~/.config/nvim/rc/colors.vim
 so ~/.config/nvim/rc/terminal.vim
 so ~/.config/nvim/rc/completion.vim
 so ~/.config/nvim/rc/languages.vim
 so ~/.config/nvim/rc/writing.vim
 so ~/.config/nvim/rc/navigation.vim
 so ~/.config/nvim/rc/experiments.vim
+so ~/.config/nvim/rc/colors.vim
 
 lua require("tests")
 lua require("repl")

@@ -1,50 +1,54 @@
--- clear search
+-- clear search highlights
 vim.api.nvim_set_keymap('n', '<leader><cr>', ':nohlsearch<cr><C-L>', { silent = true, noremap = true })
 
--- nerdtree
+-- tree explorer
 
-vim.cmd("au FileType nerdtree set nocursorcolumn")
-
-vim.g.rnvimr_ex_enable = 1
-vim.g.rnvimr_pick_enable = 1
-vim.g.rnvimr_draw_border = 1
-vim.g.rnvimr_border_attr = {fg = 39, bg = -1}
-vim.g.rnvimr_ranger_cmd = 'ranger --cmd="set column_ratios 1,1"'
-
-
-vim.g.NERDTreeWinPos = "left"
-vim.g.NERDTreeMinimalUI = 1
-vim.g.NERDTreeMinimalMenu = 1
-vim.g.NERDTreeAutoDeleteBuffer = 1
-vim.g.NERDTreeStatusline = "%{''}"
+vim.g.coc_explorer_global_presets = {
+  ['floating'] =  {
+    ['position'] = 'floating',
+    ['open-action-strategy'] = 'sourceWindow'
+  }
+}
 
 set_keymaps({
-        ['<Leader>nn'] = 'NERDTreeToggle',
-        ['<Leader>nf'] = 'NERDTreeFind',
+        ['<Leader>nn'] = 'CocCommand explorer --preset floating'
     })
 
--- fzf
 
+-- fzf
 vim.g.fzf_buffers_jump = 1
 vim.g.fzf_layout = { window = { width = 0.9, height = 0.8 } }
 
+vim.g.fzf_preview_custom_processes = {
+    ['open-file'] = {
+        ['ctrl-o'] = 'FzfPreviewOpenFileCtrlO',
+        ['ctrl-t'] = 'FzfPreviewOpenFileCtrlQ',
+        ['ctrl-v'] = 'FzfPreviewOpenFileCtrlV',
+        ['ctrl-x'] = 'FzfPreviewOpenFileCtrlX',
+        ['enter'] = 'FzfPreviewOpenFileEnter'
+    }
+}
+
 vim.api.nvim_set_keymap('i', '<c-x><c-k>', '<plug>(fzf-complete-word)', {})
 vim.api.nvim_set_keymap('i', '<c-x><c-f>', '<plug>(fzf-complete-path)', {})
-
-set_keymaps({
-        ['<Leader>p'] = 'Files',
-        ['<Leader>o'] = 'Buffers',
-        --['<Leader>i'] = 'Lines',
-        ['<Leader>w'] = 'Ag <C-R><C-W>',
-    })
-
-
-vim.api.nvim_set_keymap('n', '<Leader>f', ':Rg ', { noremap = true })
-
+vim.api.nvim_set_keymap('n', '<leader>p', ':<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>', { silent = true, noremap= true })
+vim.api.nvim_set_keymap('n', '<leader>o', ':<C-u>CocCommand fzf-preview.Buffers<CR>', { silent = true, noremap= true })
+vim.api.nvim_set_keymap('x', '<leader>w', "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>\"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>", { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>w', '"sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-R><C-W>"', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>f', ':<C-u>CocCommand fzf-preview.ProjectGrep<Space>', { noremap = true })
 
 -- projectionist
-
 vim.g.projectionist_heuristics = {
+    ["Gemfile"] = {
+        ['app/*.rb'] = {
+            ['alternate'] = 'spec/{}_spec.rb',
+            ['type'] = 'source',
+        },
+        ['spec/*_spec.rb'] = {
+            ['alternate'] = 'app/{}.rb',
+            ['type'] = 'test',
+        },
+    },
     ["spec/support/jasmine.json"] = {
         ['src/*.js'] = {
             ['alternate'] = 'src/{}.spec.js',

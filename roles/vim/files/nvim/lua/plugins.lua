@@ -1,9 +1,8 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer', { git = { clone_timeout = 120 } }).startup(function()
-  use {'wbthomason/packer.nvim', opt = true}
+  use { 'wbthomason/packer.nvim', opt = true }
   use 'wincent/terminus'
-  use 'Olical/vim-enmasse'
   use 'christoomey/vim-tmux-navigator'
   use 'derekprior/vim-trimmer'
   use 'easymotion/vim-easymotion'
@@ -14,7 +13,6 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'junegunn/fzf', dir = '~/.fzf', config = './install --all' }
   use 'junegunn/fzf.vim'
   use 'scrooloose/nerdcommenter'
-  use 'scrooloose/nerdtree'
   use 'sheerun/vim-polyglot'
   use { 'mg979/vim-visual-multi', branch = 'master' }
   use 'tpope/vim-projectionist'
@@ -23,6 +21,8 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use 'tpope/vim-abolish'
   use 'itchyny/lightline.vim'
   use '~/Developer/replacer.nvim'
+  use { 'kristijanhusak/any-jump.vim', commit = '471094ddacbe65d68439e95af9ee01e120a867ec' }
+  use 'ryanoasis/vim-devicons'
 
   --Writing
   use 'reedes/vim-pencil'
@@ -34,6 +34,9 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
 
   --Colors
   use 'morhetz/gruvbox'
+
+  --Ruby
+  use 'tpope/vim-rails'
 
   --Elixir
   use 'kana/vim-textobj-user'
@@ -49,4 +52,5 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'neoclide/coc-css', run = 'yarn install --frozen-lockfile' }
   use { 'amiralies/coc-elixir', run = 'yarn install --frozen-lockfile && yarn prepack' }
   use { 'neoclide/coc-git', run = 'yarn install --frozen-lockfile' }
+  use { 'weirongxu/coc-explorer', run = 'yarn install --frozen-lockfile' }
 end)

@@ -10,6 +10,8 @@ Colors.setup = function(colorscheme)
     api.nvim_command('highlight SignColumn guibg=Normal')
     api.nvim_set_var('lightline', { colorscheme = 'gruvbox'})
 
+    api.nvim_command('highlight Pmenu guibg=Normal')
+
     api.nvim_set_var('fzf_colors', {
       fg =      {'fg', 'GruvboxFg3'},
       bg =      {'bg', 'Normal'},

@@ -10,7 +10,7 @@
   excludesfile = ~/.gitignore
   editor = nvim
   attributesfile = ~/.gitattributes
-  pager = delta
+  ;pager = delta --color-only
 [github]
   user = gabrielpoca
 [commit]

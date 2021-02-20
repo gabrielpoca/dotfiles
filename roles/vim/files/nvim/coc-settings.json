@@ -34,6 +34,7 @@
   "git.showCommitInFloating": true,
   "prettier.statusItemText": "",
   "signature.hideOnTextChange": true,
+  "signature.triggerSignatureWait": 1000,
   "suggest.floatEnable": false,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,

@@ -17,7 +17,6 @@ terminal_packages:
   - coreutils
   - curl
   - direnv
-  - fish
   - fzf
   - gawk
   - lazygit

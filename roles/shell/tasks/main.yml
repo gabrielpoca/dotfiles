@@ -15,30 +15,18 @@
     - dest: .gitignore
       src: gitignore
 
-- name: link omf
-  file:
-    src: '{{ ansible_env.PWD }}/roles/shell/files/fish'
-    dest: '{{ home_dir }}/.config/fish'
-    state: link
-
-- name: link fish configuration
-  file:
-    src: '{{ ansible_env.PWD }}/roles/shell/files/omf'
-    dest: '{{ home_dir }}/.config/omf'
-    state: link
-
 - name: link alacritty configuration
   file:
     src: '{{ ansible_env.PWD }}/roles/shell/files/alacritty'
     dest: '{{ home_dir }}/.config/alacritty'
     state: link
 
-- include: fish.yml
+- include: zsh.yml
   when: os_family == 'darwin'
   vars:
-    - executable: /usr/local/bin/fish
+    - executable: /usr/local/binzsh/
 
-- include: fish.yml
+- include: zsh.yml
   when: os_family == 'debian'
   vars:
-    - executable: /usr/bin/fish
+    - executable: /usr/binzsh/

@@ -68,7 +68,7 @@ M.side = function(nr, command, ...)
   M.last_used_terminal = nr
 
   if command == nil then
-    command = "/usr/local/bin/fish"
+    command = "/usr/local/bin/zsh"
   end
 
   local wins = api.nvim_list_wins()
@@ -104,7 +104,7 @@ M.tab = function(nr, command, ...)
   M.last_used_terminal = nr
 
   if command == nil then
-    command = "/usr/local/bin/fish"
+    command = "/usr/local/bin/zsh"
   end
 
   vim.cmd "tabnew"

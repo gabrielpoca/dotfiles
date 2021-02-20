@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+gh repo view --web

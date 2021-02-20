@@ -9,5 +9,17 @@ function! MyStrategy(cmd)
   exec 'lua require"repl".run_test("'.a:cmd.'")'
 endfunction
 
-let g:test#custom_strategies = {'echo': function('MyStrategy')}
-let g:test#strategy = 'echo'
+" vim-test config
+function! DockerComposeTransform(cmd) abort
+  if !exists("g:docker_compose_service")
+    echo 'The ' . g:docker_compose_service . ' variable must be set to run this command.'
+    return
+  endif
+
+  return 'docker-compose exec ' . g:docker_compose_service . ' ' . a:cmd
+endfunction
+
+let test#strategy = 'neoterm'
+let g:test#custom_transformations = {'docker-compose': function('DockerComposeTransform')}
+let g:test#custom_strategies = {'myrepl': function('MyStrategy')}
+let g:test#strategy = 'myrepl'
