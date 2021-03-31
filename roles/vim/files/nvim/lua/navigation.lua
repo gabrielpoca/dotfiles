@@ -6,7 +6,8 @@ vim.api.nvim_set_keymap('n', '<leader><cr>', ':nohlsearch<cr><C-L>', { silent = 
 vim.g.coc_explorer_global_presets = {
   ['floating'] =  {
     ['position'] = 'floating',
-    ['open-action-strategy'] = 'sourceWindow'
+    ['open-action-strategy'] = 'sourceWindow',
+    ['file-child-template'] = '[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]'
   }
 }
 
@@ -29,13 +30,21 @@ vim.g.fzf_preview_custom_processes = {
     }
 }
 
+set_keymaps({
+        ['<Leader>p'] = 'Files',
+        ['<Leader>o'] = 'Buffers',
+        --['<Leader>i'] = 'Lines',
+        ['<Leader>w'] = 'Ag <C-R><C-W>',
+    })
+
+vim.api.nvim_set_keymap('n', '<Leader>f', ':Rg ', { noremap = true })
 vim.api.nvim_set_keymap('i', '<c-x><c-k>', '<plug>(fzf-complete-word)', {})
 vim.api.nvim_set_keymap('i', '<c-x><c-f>', '<plug>(fzf-complete-path)', {})
-vim.api.nvim_set_keymap('n', '<leader>p', ':<C-u>CocCommand fzf-preview.FromResources project_mru git<CR>', { silent = true, noremap= true })
-vim.api.nvim_set_keymap('n', '<leader>o', ':<C-u>CocCommand fzf-preview.Buffers<CR>', { silent = true, noremap= true })
-vim.api.nvim_set_keymap('x', '<leader>w', "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>\"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>", { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>w', '"sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-R><C-W>"', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>f', ':<C-u>CocCommand fzf-preview.ProjectGrep<Space>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>p', ':Files<CR>', { silent = true, noremap= true })
+--vim.api.nvim_set_keymap('n', '<leader>o', ':<C-u>CocCommand fzf-preview.Buffers<CR>', { silent = true, noremap= true })
+--vim.api.nvim_set_keymap('x', '<leader>w', "sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>\"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>", { noremap = true })
+--vim.api.nvim_set_keymap('n', '<leader>w', '"sy:CocCommand   fzf-preview.ProjectGrep<Space>-F<Space>"<C-R><C-W>"', { noremap = true })
+--vim.api.nvim_set_keymap('n', '<leader>f', ':<C-u>CocCommand fzf-preview.ProjectGrep<Space>', { noremap = true })
 
 -- projectionist
 vim.g.projectionist_heuristics = {

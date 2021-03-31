@@ -23,6 +23,7 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use '~/Developer/replacer.nvim'
   use { 'kristijanhusak/any-jump.vim', commit = '471094ddacbe65d68439e95af9ee01e120a867ec' }
   use 'ryanoasis/vim-devicons'
+  use 'preservim/vimux'
 
   --Writing
   use 'reedes/vim-pencil'
@@ -53,4 +54,6 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'amiralies/coc-elixir', run = 'yarn install --frozen-lockfile && yarn prepack' }
   use { 'neoclide/coc-git', run = 'yarn install --frozen-lockfile' }
   use { 'weirongxu/coc-explorer', run = 'yarn install --frozen-lockfile' }
+  use { 'fannheyward/coc-rust-analyzer', run = 'yarn install --frozen-lockfile' }
+  use { 'josa42/coc-lua', run = 'yarn install --frozen-lockfile' }
 end)

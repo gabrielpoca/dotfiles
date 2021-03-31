@@ -8,7 +8,22 @@ Colors.setup = function(colorscheme)
     api.nvim_command('let g:gruvbox_italic=1')
     api.nvim_command('colorscheme ' .. colorscheme)
     api.nvim_command('highlight SignColumn guibg=Normal')
-    api.nvim_set_var('lightline', { colorscheme = 'gruvbox'})
+    api.nvim_set_var('lightline', {
+        colorscheme = 'gruvbox',
+        active = {
+          left = {
+            {'mode', 'paste'},
+            {'readonly', 'relativepath', 'modified'}
+          },
+          right = {{'lineinfo' }, {'filetype'} , {'gitbranch'}}
+        },
+        component = {
+          relativepath = '%f'
+        },
+        component_function = {
+          gitbranch = 'FugitiveHead'
+        }
+      })
 
     api.nvim_command('highlight Pmenu guibg=Normal')
 

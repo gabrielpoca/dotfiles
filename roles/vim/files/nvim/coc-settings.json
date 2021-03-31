@@ -1,4 +1,8 @@
 {
+  "lua.enable": false,
+  "explorer.keyMappings.global": {
+    "<cr>": ["wait", "expandable?", "expand", "open"]
+  },
   "list.normalMappings": {
     "<C-c>": "do:exit",
     "t": "action:tabe",
