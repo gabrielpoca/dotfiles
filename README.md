@@ -1,6 +1,6 @@
-# Gabriel Poça dotfiles
+# Gabriel Poça's Dotfiles
 
-This project contains my personal dotfiles.
+My personal dotfiles.
 
 ## Install
 
@@ -12,4 +12,4 @@ Run the installation script:
 
     ansible-playbook setup.yml -i hosts
 
-Finnaly, just update your .netrc.
+Update your .netrc.
