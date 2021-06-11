@@ -1,4 +1,5 @@
 [init]
+	defaultBranch = master
 [user]
 	name = Gabriel Poca
 	email = mail@gabrielpoca.com
@@ -10,7 +11,7 @@
   excludesfile = ~/.gitignore
   editor = nvim
   attributesfile = ~/.gitattributes
-  ;pager = delta --color-only
+  pager = diff-so-fancy | less --tabs=2 -RFX
 [github]
   user = gabrielpoca
 [commit]

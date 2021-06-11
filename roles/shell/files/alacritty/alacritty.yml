@@ -57,7 +57,7 @@ schemes:
       white: '0x8a889d'
 
 window:
-  title: Alacritty
+  title: Terminal
   dynamic_padding: true
   padding:
     x: 10
@@ -75,13 +75,13 @@ font:
 
   bold:
     family: "Hack Nerd Font Mono"
-    style: Bold
+    style: Regular
 
   italic:
     family: "Hack Nerd Font Mono"
     style: Italic
 
-  size: 16.0
+  size: 17.0
 
   offset:
     x: 0

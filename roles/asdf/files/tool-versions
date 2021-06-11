@@ -1,6 +1,6 @@
 erlang 23.1.1
 elixir 1.11.3-otp-23
-nodejs 14.8.0
+nodejs 14.15.1
 ruby 2.7.0
 python 3.9.1
 rust 1.49.0
