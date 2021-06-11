@@ -1,0 +1,1 @@
+export FZF_PREVIEW_PREVIEW_BAT_THEME=gruvbox
