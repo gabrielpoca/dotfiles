@@ -24,7 +24,7 @@ lua require("repl")
 lua require("terminal")
 lua require("keymaps")
 
-set shell=/bin/bash " changing the shell to bash makes fugitive much faster
+set shell=/usr/local/bin/zsh
 set autoread
 set nobackup
 set noswapfile
