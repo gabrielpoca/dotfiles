@@ -18,23 +18,7 @@ M.has_file = function(filename)
 end
 
 M.send = function(command, terminal)
-  local current_terminal = Terminal.current()
-
-  if terminal and current_terminal ~= terminal then
-    Terminal.side(terminal)
-
-    vim.cmd("wincmd p")
-    vim.api.nvim_input("<Esc>")
-  elseif Terminal.current() == nil then
-    Terminal.side(1)
-
-    vim.cmd("wincmd p")
-    vim.api.nvim_input("<Esc>")
-  end
-
-  local current_terminal = Terminal.current()
-  local chan = Terminal.get_chan(current_terminal)
-  vim.fn.chansend(chan, command)
+  Terminal.toggle(terminal, command)
 end
 
 M.send_line = function()

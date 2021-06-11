@@ -25,6 +25,7 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use 'ryanoasis/vim-devicons'
   use 'preservim/vimux'
 
+  use 'voldikss/vim-floaterm'
   --Writing
   use 'reedes/vim-pencil'
   use 'junegunn/goyo.vim'

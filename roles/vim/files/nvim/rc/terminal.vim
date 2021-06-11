@@ -1,9 +1,6 @@
 " exit terminal mode
 tnoremap <C-e> <C-\><C-n>
 
-" change settings in terminal
-au TermOpen * setlocal nonumber norelativenumber wrap winhl=Normal:MyTerm signcolumn=
-
 " vim-test settings
 function! MyStrategy(cmd)
   exec 'lua require"repl".run_test("'.a:cmd.'")'
@@ -23,3 +20,6 @@ endfunction
 "let g:test#custom_transformations = {'docker-compose': function('DockerComposeTransform')}
 let g:test#custom_strategies = {'myrepl': function('MyStrategy')}
 let g:test#strategy = 'myrepl'
+
+let g:floaterm_title = ' term ($1|$2) '
+let g:floaterm_autoinsert = v:false
