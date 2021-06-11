@@ -6,6 +6,7 @@ vim.api.nvim_set_keymap('n', '<leader><cr>', ':nohlsearch<cr><C-L>', { silent = 
 vim.g.coc_explorer_global_presets = {
   ['floating'] =  {
     ['position'] = 'floating',
+    ['floating-width'] = -40,
     ['open-action-strategy'] = 'sourceWindow',
     ['file-child-template'] = '[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]'
   }

@@ -1,7 +1,13 @@
 {
+  "rust-analyzer.callInfo.full": false,
+  "rust-analyzer.inlayHints.typeHints": false,
+  "rust-analyzer.inlayHints.chainingHints": false,
   "lua.enable": false,
+  "explorer.icon.enableVimDevicons": true,
   "explorer.keyMappings.global": {
-    "<cr>": ["wait", "expandable?", "expand", "open"]
+    "<cr>": ["wait", "expandable?", "expand", "open"],
+    "i": ["open:split"],
+    "s": ["open:vsplit"]
   },
   "list.normalMappings": {
     "<C-c>": "do:exit",
@@ -42,6 +48,12 @@
   "suggest.floatEnable": false,
   "suggest.noselect": false,
   "suggest.preferCompleteThanJumpPlaceholder": true,
+  "coc.preferences.rootPatterns": [
+    ".git",
+    ".hg",
+    ".projections.json",
+    "Cargo.lock"
+  ],
   "languageserver": {
     "terraform": {
       "command": "terraform-ls",
