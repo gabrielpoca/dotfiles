@@ -22,11 +22,7 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use '~/Developer/replacer.nvim'
   use { 'kristijanhusak/any-jump.vim', commit = '471094ddacbe65d68439e95af9ee01e120a867ec' }
   use 'ryanoasis/vim-devicons'
-  use 'preservim/vimux'
-
   use 'voldikss/vim-floaterm'
-
-  use {'nvim-treesitter/nvim-treesitter', config = ':TSUpdate'}
 
   --Writing
   use 'reedes/vim-pencil'
@@ -38,6 +34,7 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
 
   --Colors
   use 'morhetz/gruvbox'
+  use {'nvim-treesitter/nvim-treesitter', config = ':TSUpdate'}
 
   --Ruby
   use 'tpope/vim-rails'
