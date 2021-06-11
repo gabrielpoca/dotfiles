@@ -1,3 +1,13 @@
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true
+  },
+  indent = {
+    enable = false
+  }
+}
+
 local api = vim.api
 
 local Colors = {}
@@ -55,3 +65,4 @@ Colors.setup = function(colorscheme)
 end
 
 return Colors
+

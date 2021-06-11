@@ -13,7 +13,6 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'junegunn/fzf', dir = '~/.fzf', config = './install --all' }
   use 'junegunn/fzf.vim'
   use 'scrooloose/nerdcommenter'
-  use 'sheerun/vim-polyglot'
   use { 'mg979/vim-visual-multi', branch = 'master' }
   use 'tpope/vim-projectionist'
   use 'tpope/vim-surround'
@@ -26,6 +25,9 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use 'preservim/vimux'
 
   use 'voldikss/vim-floaterm'
+
+  use {'nvim-treesitter/nvim-treesitter', config = ':TSUpdate'}
+
   --Writing
   use 'reedes/vim-pencil'
   use 'junegunn/goyo.vim'
@@ -41,6 +43,7 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use 'tpope/vim-rails'
 
   --Elixir
+  use 'elixir-editors/vim-elixir'
   use 'kana/vim-textobj-user'
   use 'andyl/vim-textobj-elixir'
 
