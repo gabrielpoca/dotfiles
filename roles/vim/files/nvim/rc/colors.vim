@@ -20,7 +20,3 @@ augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
 augroup END
-
-autocmd ColorScheme *
-  \ hi CocExplorerNormalFloatBorder guifg=#414347 guibg=Normal
-  \ | hi CocExplorerNormalFloat guibg=Normal

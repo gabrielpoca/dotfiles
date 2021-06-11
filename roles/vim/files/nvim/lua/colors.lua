@@ -4,28 +4,37 @@ local Colors = {}
 
 Colors.setup = function(colorscheme)
   if colorscheme == 'gruvbox' then
-    api.nvim_command('let g:gruvbox_contrast_dark=\'hard\'')
-    api.nvim_command('let g:gruvbox_italic=1')
-    api.nvim_command('colorscheme ' .. colorscheme)
-    api.nvim_command('highlight SignColumn guibg=Normal')
-    api.nvim_set_var('lightline', {
-        colorscheme = 'gruvbox',
-        active = {
-          left = {
-            {'mode', 'paste'},
-            {'readonly', 'relativepath', 'modified'}
-          },
-          right = {{'lineinfo' }, {'filetype'} , {'gitbranch'}}
-        },
-        component = {
-          relativepath = '%f'
-        },
-        component_function = {
-          gitbranch = 'FugitiveHead'
-        }
-      })
+    vim.g.gruvbox_contrast_dark= "hard"
+    vim.g.gruvbox_italic = 1
 
-    api.nvim_command('highlight Pmenu guibg=Normal')
+    vim.cmd[[augroup MyColors]]
+      vim.cmd[[autocmd!]]
+      vim.cmd[[autocmd ColorScheme * hi FloatermBorder guibg=Normal guifg=#928374]]
+      vim.cmd[[autocmd ColorScheme * hi Floaterm guibg=Normal]]
+      vim.cmd[[autocmd ColorScheme * hi CocExplorerNormalFloatBorder guifg=#414347 guibg=Normal]]
+      vim.cmd[[autocmd ColorScheme * hi CocExplorerNormalFloat guibg=Normal]]
+      vim.cmd[[autocmd ColorScheme * hi SignColumn guibg=Normal]]
+      vim.cmd[[autocmd ColorScheme * hi Pmenu guibg=Normal]]
+    vim.cmd[[augroup END]]
+
+    api.nvim_command('colorscheme ' .. colorscheme)
+
+    api.nvim_set_var('lightline', {
+      colorscheme = 'gruvbox',
+      active = {
+        left = {
+          {'mode', 'paste'},
+          {'readonly', 'relativepath', 'modified'}
+        },
+        right = {{'lineinfo' }, {'filetype'} , {'gitbranch'}}
+      },
+      component = {
+        relativepath = '%f'
+      },
+      component_function = {
+        gitbranch = 'FugitiveHead'
+      }
+    })
 
     api.nvim_set_var('fzf_colors', {
       fg =      {'fg', 'GruvboxFg3'},
