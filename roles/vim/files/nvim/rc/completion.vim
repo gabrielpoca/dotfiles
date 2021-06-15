@@ -69,6 +69,8 @@ nnoremap <silent> <leader>le  :<C-u>CocList extensions<cr>
 nnoremap <silent> <leader>lc  :<C-u>CocList commands<cr>
 " find symbol of current document
 nnoremap <silent> <leader>lo  :<C-u>CocList outline<cr>
+" find symbol of current document
+nnoremap <silent> <leader>la  :<C-u>CocAction<cr>
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
