@@ -13,6 +13,9 @@ local api = vim.api
 local Colors = {}
 
 Colors.setup = function(colorscheme)
+  vim.o.termguicolors = true
+  vim.o.background = "dark"
+
   if colorscheme == 'gruvbox' then
     vim.g.gruvbox_contrast_dark= "hard"
     vim.g.gruvbox_italic = 1
@@ -29,23 +32,6 @@ Colors.setup = function(colorscheme)
 
     api.nvim_command('colorscheme ' .. colorscheme)
 
-    api.nvim_set_var('lightline', {
-      colorscheme = 'gruvbox',
-      active = {
-        left = {
-          {'mode', 'paste'},
-          {'readonly', 'relativepath', 'modified'}
-        },
-        right = {{'lineinfo' }, {'filetype'} , {'gitbranch'}}
-      },
-      component = {
-        relativepath = '%f'
-      },
-      component_function = {
-        gitbranch = 'FugitiveHead'
-      }
-    })
-
     api.nvim_set_var('fzf_colors', {
       fg =      {'fg', 'GruvboxFg3'},
       bg =      {'bg', 'Normal'},
@@ -58,6 +44,24 @@ Colors.setup = function(colorscheme)
       prompt =  {'fg', 'GruvboxGreen'},
       pointer = {'fg', 'GruvboxGreen'},
       marker =  {'fg', 'GruvboxYellow'},
+      spinner = {'fg', 'Label'},
+      header =  {'fg', 'Comment'}
+    })
+  elseif colorscheme == "dracula" then
+    api.nvim_command('colorscheme ' .. colorscheme)
+
+    api.nvim_set_var('fzf_colors', {
+      fg =      {'fg', 'DraculaFg'},
+      bg =      {'bg', 'Normal'},
+      hl =      {'fg', 'DraculaCyan'},
+      ['fg+'] = {'fg', 'Normal'},
+      ['bg+'] = {'bg', 'Normal'},
+      ['hl+'] = {'fg', 'Normal'},
+      --info =    {'fg', 'DraculaBgLight'},
+      border =  {'fg', 'StatusLine'},
+      prompt =  {'fg', 'draculacomment'},
+      pointer = {'fg', 'DraculaCyan'},
+      marker =  {'fg', 'DraculaYellow'},
       spinner = {'fg', 'Label'},
       header =  {'fg', 'Comment'}
     })

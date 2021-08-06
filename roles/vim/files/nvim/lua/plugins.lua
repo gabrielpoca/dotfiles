@@ -1,6 +1,6 @@
 vim.cmd [[packadd packer.nvim]]
 
-return require('packer', { git = { clone_timeout = 120 } }).startup(function()
+require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'wbthomason/packer.nvim', opt = true }
   use 'wincent/terminus'
   use 'christoomey/vim-tmux-navigator'
@@ -34,6 +34,7 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
 
   --Colors
   use 'morhetz/gruvbox'
+  use 'dracula/vim'
   use {'nvim-treesitter/nvim-treesitter', config = ':TSUpdate'}
 
   --Ruby
@@ -58,3 +59,5 @@ return require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'fannheyward/coc-rust-analyzer', run = 'yarn install --frozen-lockfile' }
   use { 'josa42/coc-lua', run = 'yarn install --frozen-lockfile' }
 end)
+
+require('lualine').setup({ options = {theme = 'dracula'} })

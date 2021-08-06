@@ -1,8 +1,7 @@
 " hide characters between panes
-"set fillchars+=vert:\ 
+set fillchars+=vert:\ 
 
 if has('termguicolors')
-  set termguicolors
   " Don't need this in xterm-256color, but do need it inside tmux.
   " (See `:h xterm-true-color`.)
   if &term =~# 'tmux-256color'
@@ -11,9 +10,7 @@ if has('termguicolors')
   endif
 endif
 
-set background=dark
-
-lua require("colors").setup('gruvbox')
+lua require("colors").setup('dracula')
 
 " highlight yanked text
 augroup highlight_yank
