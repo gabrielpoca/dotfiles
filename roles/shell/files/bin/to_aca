@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require 'fileutils'
+
+
+folder = '/Users/gabriel/Google Drive/2. Areas/Music Production/1. Unprocessed - Acapellas'
+out_folder = '/Users/gabriel/Google Drive/2. Areas/Music Production/1. Sound Packs - My/Acapellas'
+
+unless ARGV[0].nil?
+  `youtube-dl -f bestaudio --extract-audio -o "#{folder}/%(title)s.%(ext)s" #{ARGV[0]}`
+end
+
+Dir.foreach(folder) do |file|
+  next if file == '.' or file == '..'
+
+  file = File.join(folder, file)
+  next if FileTest.directory?(file)
+
+  `spleeter separate -p spleeter:2stems -o "#{out_folder}" "#{file}"`
+  FileUtils.rm_rf(file)
+end
+
+Dir.foreach(out_folder) do |file|
+  next if file == '.' or file == '..'
+
+  original_file = file
+  file = File.join(out_folder, original_file)
+  next unless FileTest.directory?(file)
+
+  puts out_folder
+  puts original_file
+  FileUtils.mv(File.join(file, "vocals.wav"), "#{out_folder}/#{original_file}.wav")
+  FileUtils.rm_rf(file)
+end
