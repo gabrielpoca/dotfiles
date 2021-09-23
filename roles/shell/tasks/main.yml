@@ -31,18 +31,6 @@
   vars:
     - executable: /usr/bin/zsh
 
-- name: Ensure ZSH contains $DOTFILES
-  ansible.builtin.lineinfile:
-    path: ~/.zshrc
-    regexp: '^export DOTFILES='
-    line: export DOTFILES={{playbook_dir}}
-
-- name: Ensure ZSH contains $ZSH_CUSTOM
-  ansible.builtin.lineinfile:
-    path: ~/.zshrc
-    regexp: '^export ZSH_CUSTOM='
-    line: export ZSH_CUSTOM="$DOTFILES/roles/shell/files/zsh"
-
 - name: Check if ~/.oh-my-zsh exists
   stat:
     path: ~/.oh-my-zsh
@@ -51,3 +39,19 @@
 - name: Install Oh My Zsh
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   when: not ohmyzsh.stat.exists
+
+- name: Ensure ZSH contains $ZSH_CUSTOM
+  ansible.builtin.lineinfile:
+    insertbefore: BOF
+    create: yes
+    path: ~/.zshrc
+    regexp: '^export ZSH_CUSTOM='
+    line: export ZSH_CUSTOM="$DOTFILES/roles/shell/files/zsh"
+
+- name: Ensure ZSH contains $DOTFILES
+  ansible.builtin.lineinfile:
+    insertbefore: BOF
+    create: yes
+    path: ~/.zshrc
+    regexp: '^export DOTFILES='
+    line: export DOTFILES={{playbook_dir}}

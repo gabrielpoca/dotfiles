@@ -13,3 +13,9 @@ Run the installation script:
     ansible-playbook setup.yml -i hosts
 
 Update your .netrc.
+
+## Vagrant
+
+```
+vagrant up
+```

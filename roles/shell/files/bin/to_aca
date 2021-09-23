@@ -4,7 +4,7 @@ require 'fileutils'
 
 
 folder = '/Users/gabriel/Google Drive/2. Areas/Music Production/1. Unprocessed - Acapellas'
-out_folder = '/Users/gabriel/Google Drive/2. Areas/Music Production/1. Sound Packs - My/Acapellas'
+out_folder = '/Users/gabriel/Google Drive/2. Areas/Music Production/1. Sound Packs - My/Vocals/Full Acapellas'
 
 unless ARGV[0].nil?
   `youtube-dl -f bestaudio --extract-audio -o "#{folder}/%(title)s.%(ext)s" #{ARGV[0]}`

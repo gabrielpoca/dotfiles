@@ -16,6 +16,33 @@
                 },
                 "rules": [
                     {
+                        "description": "left ALT sends CMD + CTRL",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "right_option",
+                                    "modifiers": {
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_control",
+                                        "modifiers": [
+                                            "left_command"
+                                        ]
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "escape"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "caps lock sends control R or escape",
                         "manipulators": [
                             {
@@ -43,7 +70,7 @@
                         ]
                     },
                     {
-                        "description": "command R sends control L + a",
+                        "description": "CMD R sends CTRL or CTRL + a",
                         "manipulators": [
                             {
                                 "from": {
