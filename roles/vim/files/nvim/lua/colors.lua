@@ -1,3 +1,6 @@
+local api = vim.api
+local M = {}
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
   highlight = {
@@ -8,11 +11,7 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
-local api = vim.api
-
-local Colors = {}
-
-Colors.setup = function(colorscheme)
+M.setup = function(colorscheme)
   vim.o.termguicolors = true
   vim.o.background = "dark"
 
@@ -68,5 +67,4 @@ Colors.setup = function(colorscheme)
   end
 end
 
-return Colors
-
+return M
