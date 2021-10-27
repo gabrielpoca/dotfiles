@@ -1,3 +1,5 @@
+require'nvim-tree'.setup {}
+
 -- clear search highlights
 vim.api.nvim_set_keymap('n', '<leader><cr>', ':nohlsearch<cr><C-L>', { silent = true, noremap = true })
 

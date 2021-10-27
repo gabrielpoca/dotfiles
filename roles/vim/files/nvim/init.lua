@@ -86,6 +86,7 @@ require('navigation')
 require('keymaps')
 require('git')
 require('writing')
+require("stabilize").setup()
 
 set_keymap('n', '<leader>nn', ':NvimTreeToggle<CR>')
 set_keymap('n', '<leader>nf', ':NvimTreeFindFile<CR>')

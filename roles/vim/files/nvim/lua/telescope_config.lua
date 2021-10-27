@@ -35,3 +35,5 @@ set_keymap('n', '<leader>lr', "<cmd>lua require('telescope.builtin').lsp_referen
 set_keymap('n', '<leader>la', "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>")
 set_keymap('n', '<leader>ld', "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>")
 set_keymap('n', '<leader>lD', "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>")
+set_keymap('n', '<leader>lr', "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>")
+set_keymap('n', '<leader>lR', "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>")

@@ -72,7 +72,7 @@ on_application('Alacritty', place_full)
 -- vscode full screen
 on_application('Visual Studio Code', place_full)
 -- brave full screen
-on_application('Brave Browser', place_full)
+--on_application('Brave Browser', place_full)
 -- firefox full screen
 on_application('Firefox', place_full)
 -- chrome full screen

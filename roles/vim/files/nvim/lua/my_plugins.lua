@@ -35,6 +35,8 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons'
   }
+  use 'TovarishFin/vim-solidity'
+  use 'luukvbaal/stabilize.nvim'
 
   --GIT
   use 'tpope/vim-fugitive'
@@ -71,12 +73,15 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
   -- Completion
   use { 'ms-jpq/coq_nvim', branch = 'coq' }
   use { 'ms-jpq/coq.artifacts', branch = 'artifacts' }
+  use { 'ms-jpq/coq.thirdparty' }
 
   -- LSP
-  use { 'neovim/nvim-lspconfig' }
-  --use { 'nvim-lua/completion-nvim' }
-  --use { 'aca/completion-tabnine', { config = 'version=3.1.9 ./install.sh' } }
-  --use { 'steelsojka/completion-buffers' }
+  use 'neovim/nvim-lspconfig'
+
+  use {
+    'romgrk/nvim-treesitter-context',
+    require = { 'nvim-treesitter/nvim-treesitter' }
+  }
 
   -- Writing
   use { 'reedes/vim-pencil' }

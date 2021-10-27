@@ -1,5 +1,4 @@
 terminal_osx_packages:
-  - bat
   - exa
   - glow
   - libxslt
@@ -9,8 +8,10 @@ terminal_osx_packages:
   - the_silver_searcher
   - zlib
   - gnu-tar
+  - efm-langserver
 
 terminal_packages:
+  - bat
   - autoconf
   - automake
   - bash
