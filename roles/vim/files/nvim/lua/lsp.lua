@@ -68,19 +68,21 @@ local on_attach = function(client, bufnr)
 end
 
 vim.schedule(function ()
-  -- Use a loop to conveniently call 'setup' on multiple servers and
-  -- map buffer local keybindings when the language server attaches
-  local servers = { 'tsserver', 'solargraph' }
+  nvim_lsp.tsserver.setup(coq().lsp_ensure_capabilities{
+    on_attach = on_attach,
+    root_dir = nvim_lsp.util.root_pattern { '.git/', '.' },
+    flags = {
+      debounce_text_changes = 150,
+    }
+  })
 
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup(coq().lsp_ensure_capabilities{
-      on_attach = on_attach,
-      root_dir = nvim_lsp.util.root_pattern { '.git/', '.' },
-      flags = {
-        debounce_text_changes = 150,
-      }
-    })
-  end
+  nvim_lsp.solargraph.setup(coq().lsp_ensure_capabilities{
+    on_attach = on_attach,
+    root_dir = nvim_lsp.util.root_pattern { '.git/', '.' },
+    flags = {
+      debounce_text_changes = 150,
+    }
+  })
 
   nvim_lsp.rust_analyzer.setup(coq().lsp_ensure_capabilities{
     on_attach = on_attach,

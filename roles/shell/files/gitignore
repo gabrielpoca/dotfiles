@@ -34,3 +34,4 @@ tmp/**/*
 .terraform/
 .env.dev.local
 config/credentials/*
+deployments/*
