@@ -23,8 +23,6 @@ M.setup = function(colorscheme)
       vim.cmd[[autocmd!]]
       vim.cmd[[autocmd ColorScheme * hi FloatermBorder guibg=Normal guifg=#928374]]
       vim.cmd[[autocmd ColorScheme * hi Floaterm guibg=Normal]]
-      vim.cmd[[autocmd ColorScheme * hi CocExplorerNormalFloatBorder guifg=#414347 guibg=Normal]]
-      vim.cmd[[autocmd ColorScheme * hi CocExplorerNormalFloat guibg=Normal]]
       vim.cmd[[autocmd ColorScheme * hi SignColumn guibg=Normal]]
       vim.cmd[[autocmd ColorScheme * hi Pmenu guibg=Normal]]
     vim.cmd[[augroup END]]
