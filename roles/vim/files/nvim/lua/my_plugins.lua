@@ -25,7 +25,6 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use 'voldikss/vim-floaterm'
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
   use 'TovarishFin/vim-solidity'
-  use 'luukvbaal/stabilize.nvim'
 
   --GIT
   use 'tpope/vim-fugitive'
