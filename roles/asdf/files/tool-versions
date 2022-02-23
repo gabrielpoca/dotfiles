@@ -3,6 +3,6 @@ elixir 1.11.3-otp-23
 nodejs 14.15.1
 ruby 2.7.0
 python 3.8.11
-rust 1.49.0
+rust 1.54.0
 deno 1.6.3
 java azul-zulufx-8.46.0.19-jdk8.0.252
