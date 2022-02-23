@@ -25,6 +25,7 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use 'voldikss/vim-floaterm'
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
   use 'TovarishFin/vim-solidity'
+  use 'sheerun/vim-polyglot'
 
   --GIT
   use 'tpope/vim-fugitive'
@@ -32,7 +33,6 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
   --Colors
   --use 'morhetz/gruvbox'
   use 'dracula/vim'
-  use { 'nvim-treesitter/nvim-treesitter', config = ':TSUpdate' }
 
   -- CSS
   use { 'jasonlong/vim-textobj-css', requires = 'kana/vim-textobj-user' }
@@ -67,7 +67,6 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
 
   -- LSP
   use 'neovim/nvim-lspconfig'
-  use { 'romgrk/nvim-treesitter-context', require = { 'nvim-treesitter/nvim-treesitter' } }
 
   -- Writing
   use { 'reedes/vim-pencil' }

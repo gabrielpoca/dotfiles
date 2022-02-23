@@ -12,19 +12,6 @@ require("coq_3p") {
   { src = "nvimlua", short_name = "nLUA" },
 }
 
-require('treesitter-context').setup{
-    enable = true,
-    throttle = true,
-    max_lines = 0,
-    patterns = {
-        default = {
-            'class',
-            'function',
-            'method',
-        },
-    },
-}
-
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
