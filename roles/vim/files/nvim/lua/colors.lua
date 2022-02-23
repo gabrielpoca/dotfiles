@@ -37,9 +37,15 @@ M.setup = function(colorscheme)
   elseif colorscheme == "dracula" then
     api.nvim_command('colorscheme ' .. colorscheme)
 
+    vim.cmd[[augroup MyColors]]
+      vim.cmd[[autocmd!]]
+      vim.cmd[[hi! link FloatermBorder DraculaBgDark]]
+      vim.cmd[[hi! link Floaterm DraculaBgDark]]
+    vim.cmd[[augroup END]]
+
     api.nvim_set_var('fzf_colors', {
       fg =      {'fg', 'DraculaFg'},
-      bg =      {'bg', 'Normal'},
+      bg =      {'bg', 'DraculaBgDark'},
       hl =      {'fg', 'DraculaCyan'},
       ['fg+'] = {'fg', 'Normal'},
       ['bg+'] = {'bg', 'Normal'},

@@ -7,12 +7,11 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use 'wincent/terminus'
   use 'christoomey/vim-tmux-navigator'
   use 'derekprior/vim-trimmer'
-  use 'easymotion/vim-easymotion'
   use 'embear/vim-localvimrc'
   use 'farmergreg/vim-lastplace'
   use 'gcmt/wildfire.vim'
-  use 'janko-m/vim-test'
-  use 'scrooloose/nerdcommenter'
+  use 'vim-test/vim-test'
+  use { 'numToStr/Comment.nvim' }
   use { 'mg979/vim-visual-multi', branch = 'master' }
   use 'tpope/vim-projectionist'
   use 'tpope/vim-surround'
@@ -21,10 +20,14 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
   use '~/Developer/replacer.nvim'
   use { 'kristijanhusak/any-jump.vim', commit = '471094ddacbe65d68439e95af9ee01e120a867ec' }
-  use 'ryanoasis/vim-devicons'
-  use 'voldikss/vim-floaterm'
+  use { 'ryanoasis/vim-devicons' }
+  use { 'voldikss/vim-floaterm' }
   use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
-  use 'TovarishFin/vim-solidity'
+  use { 'thesis/vim-solidity' }
+  use { 'folke/which-key.nvim' }
+  use { 'phaazon/hop.nvim' }
+  use { 'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
+  use 'antoinemadec/FixCursorHold.nvim'
   use 'sheerun/vim-polyglot'
 
   --GIT
@@ -56,7 +59,6 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
     requires = {
       { 'nvim-lua/popup.nvim' },
       { 'nvim-lua/plenary.nvim' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
     }
   }
 
@@ -66,9 +68,8 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
   use { 'ms-jpq/coq.thirdparty' }
 
   -- LSP
-  use 'neovim/nvim-lspconfig'
-
-  -- Writing
-  use { 'reedes/vim-pencil' }
-  use { "Pocco81/TrueZen.nvim" }
+  use {
+    'neovim/nvim-lspconfig',
+    'williamboman/nvim-lsp-installer',
+  }
 end)

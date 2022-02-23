@@ -85,13 +85,6 @@ M.run_test = function(cmd)
 end
 
 set_keymaps({
-  ["<leader>es"] = "lua require'repl'.start()",
-  ["<leader>er"] = "lua require'repl'.recompile()",
-  ["<leader>el"] = "lua require'repl'.send_line()",
-  ["<leader>ei"] = "lua require'repl'.install()"
-})
-
-set_keymaps({
   ["<leader>el"] = "lua require'repl'.send_selection()"
 }, 'v')
 
