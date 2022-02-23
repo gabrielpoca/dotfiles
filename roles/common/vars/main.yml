@@ -1,5 +1,4 @@
 terminal_osx_packages:
-  - exa
   - glow
   - libxslt
   - libyaml
@@ -40,4 +39,3 @@ terminal_packages:
   - yarn
   - youtube-dl
   - zsh
-  - exa
