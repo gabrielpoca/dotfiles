@@ -68,7 +68,7 @@ lsp_installer.on_server_ready(function(server)
   }
 
   if server.name == "tsserver" then
-    opts.root_dir = nvim_lsp.util.root_pattern { '.git/', "package.json" }
+    opts.root_dir = nvim_lsp.util.root_pattern { '.git/', "package.json", "tsconfig.json" }
   end
 
   if server.name == "efm" then
