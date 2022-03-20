@@ -6,3 +6,4 @@ yarn
 http-server
 solc
 @fsouza/prettierd
+prettier-plugin-solidity
