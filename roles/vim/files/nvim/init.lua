@@ -6,7 +6,7 @@ local fn = vim.fn
 local execute = vim.api.nvim_command
 local cmd = vim.cmd
 
-vim.g.polyglot_disabled = { 'solidity' }
+vim.g.polyglot_disabled = { 'solidity', 'svelte' }
 
 -- defaults
 local indent = 2
@@ -83,6 +83,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 require('my_plugins')
+require('legendary').setup()
 require('lualine').setup({ options = {theme = 'dracula'} })
 require('colors').setup('dracula')
 require('terminal')
@@ -91,10 +92,11 @@ require('tests')
 require('navigation')
 require('git')
 
+
+vim.g.svelte_preprocessors = {'typescript'}
 vim.g.AutoPairsMultilineClose = 1
 vim.g.any_jump_disable_default_keybindings = 1
 vim.g.coq_settings = { keymap = { jump_to_mark = '<c-g>', pre_select = true } }
-vim.g.coq_settings.clients = { tabnine = true }
 vim.g.cursorhold_updatetime = 100
 vim.g.localvimrc_sandbox = false
 vim.g.localvimrc_whitelist = { '/Users/gabriel/Developer/.*' }
@@ -174,8 +176,8 @@ wk.register({
     n = { ":NvimTreeToggle<CR>", "Toggle" },
     f = { ":NvimTreeFindFile<CR>", "Find file" },
   },
-  o = { ":Buffers<CR>", "Buffers" },
-  p = { ":Files<CR>", "Files" },
+  o = { ":Telescope buffers<CR>", "Buffers" },
+  p = { ":Telescope find_files<CR>", "Files" },
   t = {
     name = "terminal",
     t = { ":FloatermToggle<CR>", "Toggle terminal" },
@@ -185,14 +187,15 @@ wk.register({
   u = { ':lua require"terminal".toggle(2)<CR>', "Tests terminal" },
   r = {
     name = "tests",
-    a = { ":TestSuite<CR>", "Run suite" },
-    t = { ":TestFile<CR>", "Run file" },
-    r = { ":TestNearest<CR>", "Run line" },
-    l = { ":TestLast<CR>", "Run last" },
+    a = { ":TestSuite<CR>", "Run test suite" },
+    t = { ":TestFile<CR>", "Run test file" },
+    r = { ":TestNearest<CR>", "Run test line" },
+    l = { ":TestLast<CR>", "Run last test" },
     d = { ":Tclear<CR>", "Clear terminal" },
     k = { ":Tkill<CR>", "Kill job" },
   },
-  v = { ":AV<CR>", "Open alternate file in split" }
+  v = { ":AV<CR>", "Open alternate file in split" },
+  ['<leader>'] = { ":Legendary<CR>", "Search everything" },
 }, { prefix = "<leader>", nowait = true })
 
 require('Comment').setup()

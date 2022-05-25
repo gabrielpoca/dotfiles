@@ -1,10 +1,14 @@
-local lsp_installer = require("nvim-lsp-installer")
+require("nvim-lsp-installer").setup {
+    automatic_installation = true
+}
+
 local nvim_lsp = require('lspconfig')
 local coq = require('coq')
-wk = require("which-key")
+local wk = require("which-key")
 
 require("coq_3p") {
   { src = "nvimlua", short_name = "nLUA" },
+  { src = "copilot", short_name = "COP", accept_key = "<c-f>" },
 }
 
 local on_attach = function(client, bufnr)
@@ -27,7 +31,7 @@ local on_attach = function(client, bufnr)
       k = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', "Signature" },
       K = { '<cmd>lua vim.lsp.buf.type_definition()<CR>', "Jump to type definition" },
       l = { '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})<cr>',"Line Diagnostics" },
-      c = { "<cmd>lua require('telescope.builtin').lsp_code_actions()<cr>", "Code Action" },
+      c = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
       ['wa'] = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', "Add Workspace Folder"},
       ['wl'] = { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>', "List Workspace Folders"},
       ['wr'] = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', "Remove Workspace Folder"},
@@ -58,60 +62,68 @@ local on_attach = function(client, bufnr)
   end
 end
 
-lsp_installer.on_server_ready(function(server)
-  local opts = {
-    on_attach = on_attach,
-    root_dir = nvim_lsp.util.root_pattern { '.git/' },
-    flags = {
-      debounce_text_changes = 150,
-    }
+nvim_lsp.rust_analyzer.setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  flags = { debounce_text_changes = 150 },
+  root_dir = nvim_lsp.util.root_pattern { "Cargo.toml" }
+}))
+
+nvim_lsp.solidity_ls.setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  flags = { debounce_text_changes = 150 },
+  root_dir = nvim_lsp.util.root_pattern { '.git/', "package.json", "tsconfig.json" }
+}))
+
+nvim_lsp.tsserver.setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  flags = { debounce_text_changes = 150 },
+  root_dir = nvim_lsp.util.root_pattern { '.git/', "package.json", "tsconfig.json" }
+}))
+
+local prettier = {
+  formatCommand = 'npx prettierd "${INPUT}"',
+  formatStdin = true,
+  env = {
+    string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/linter-config/.prettierrc.json')),
+  },
+}
+
+local languages = {
+  css = { prettier },
+  html = { prettier },
+  javascript = { prettier },
+  javascriptreact = { prettier },
+  json = { prettier },
+  markdown = { prettier },
+  scss = { prettier },
+  scss = { prettier },
+  typescript = { prettier },
+  solidity = { prettier },
+  typescriptreact = { prettier },
+  svelte = { prettier },
+}
+
+nvim_lsp.efm.setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  flags = { debounce_text_changes = 150 },
+  root_dir = nvim_lsp.util.root_pattern { '.git/', "package.json", "tsconfig.json" },
+  init_options = { documentFormatting = true, codeAction = true },
+  filetypes = vim.tbl_keys(languages),
+  settings = {
+    version = 2,
+    languages = languages
   }
+}))
 
-  if server.name == "tsserver" then
-    opts.root_dir = nvim_lsp.util.root_pattern { '.git/', "package.json", "tsconfig.json" }
-  end
+nvim_lsp.elixirls.setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  flags = { debounce_text_changes = 150 },
+  root_dir = nvim_lsp.util.root_pattern { '.git/', 'mix.exs' }
+}))
 
-  if server.name == "efm" then
-    local prettier = {
-      formatCommand = 'npx prettierd "${INPUT}"',
-      formatStdin = true,
-      env = {
-        string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/linter-config/.prettierrc.json')),
-      },
-    }
-
-    local languages = {
-      css = { prettier },
-      html = { prettier },
-      javascript = { prettier },
-      javascriptreact = { prettier },
-      json = { prettier },
-      markdown = { prettier },
-      scss = { prettier },
-      scss = { prettier },
-      typescript = { prettier },
-      solidity = { prettier },
-      typescriptreact = { prettier },
-    }
-
-    opts.init_options = { documentFormatting = true, codeAction = true }
-    opts.filetypes = vim.tbl_keys(languages)
-    opts.settings = {
-      version = 2,
-      languages = languages
-    }
-  end
-
-  if server.name == "elixirls" then
-    opts.root_dir = nvim_lsp.util.root_pattern { '.git/', 'mix.exs' }
-  end
-
-  server:setup(coq().lsp_ensure_capabilities(opts))
-
-  vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = true,
     signs = true,
     underline = false,
     update_in_insert = false,
   })
-end)

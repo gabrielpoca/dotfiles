@@ -1,5 +1,9 @@
 local api = vim.api
 
+function _G.empty(thing)
+	return vim.fn.empty(thing) == 1
+end
+
 function _G.dump(...)
   vim.pretty_print(...)
 end
