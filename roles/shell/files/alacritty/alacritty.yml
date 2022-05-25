@@ -111,14 +111,12 @@ schemes:
       white: '0x8a889d'
 
 window:
-  decorations: "none"
+  decorations: "buttonless"
   title: Terminal
   dynamic_padding: true
   padding:
     x: 10
     y: 10
-
-background_opacity: 0.97
 
 scrolling:
   history: 5000
@@ -155,18 +153,18 @@ draw_bold_text_with_bright_colors: true
 # use "xxd -psd" to figure out the keycodes
 key_bindings:
   - { key: C,        mods: Command,        chars: "\x01\x63" }
-  - { key: D,        mods: Command,        command: { program: "/usr/local/bin/tmux", args: ["detach"] } }
+  - { key: D,        mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["detach"] } }
   - { key: E,        mods: Command,        chars: "\x01\x76" }
   - { key: F,        mods: Command,        chars: "\x01\x46" }
   - { key: H,        mods: Command,        chars: "\x01\x68" }
   - { key: I,        mods: Command,        chars: "\x01\x69" }
-  - { key: Key1,     mods: Command,        command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 1"] } }
-  - { key: Key2,     mods: Command,        command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 2"] } }
-  - { key: Key3,     mods: Command,        command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 3"] } }
-  - { key: Key4,     mods: Command,        command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 4"] } }
-  - { key: Key5,     mods: Command,        command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 5"] } }
-  - { key: Key6,     mods: Command,        command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 6"] } }
-  - { key: Key7,     mods: Command,        command: { program: "/usr/local/bin/tmux", args: ["select-window", "-t 7"] } }
+  - { key: Key1,     mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["select-window", "-t 1"] } }
+  - { key: Key2,     mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["select-window", "-t 2"] } }
+  - { key: Key3,     mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["select-window", "-t 3"] } }
+  - { key: Key4,     mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["select-window", "-t 4"] } }
+  - { key: Key5,     mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["select-window", "-t 5"] } }
+  - { key: Key6,     mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["select-window", "-t 6"] } }
+  - { key: Key7,     mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["select-window", "-t 7"] } }
   - { key: L,        mods: Command,        chars: "\x01\x6c" }
   - { key: N,        mods: Command,        command: { program: "open", args: ["-nb", "io.alacritty"] } }
   - { key: O,        mods: Command,        chars: "\x01\x6f" }
