@@ -4,12 +4,6 @@
     dest: '{{ home_dir }}/.tmux.conf'
     state: link
 
-- name: install terminfo
-  shell: |
-    tic -x {{ ansible_env.PWD }}/roles/terminal/files/tmux.terminfo
-    tic -x {{ ansible_env.PWD }}/roles/terminal/files/tmux-256color.terminfo
-    tic -x {{ ansible_env.PWD }}/roles/terminal/files/xterm-256color.terminfo
-
 - git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
