@@ -24,7 +24,7 @@
 - include: zsh.yml
   when: os_family == 'darwin'
   vars:
-    - executable: /usr/local/bin/zsh
+    - executable: /bin/zsh
 
 - include: zsh.yml
   when: os_family == 'debian'
