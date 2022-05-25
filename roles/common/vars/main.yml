@@ -8,6 +8,7 @@ terminal_osx_packages:
   - zlib
   - gnu-tar
   - efm-langserver
+  - asdf
 
 terminal_packages:
   - bat
