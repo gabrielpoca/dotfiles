@@ -41,6 +41,7 @@ require('packer', { git = { clone_timeout = 120 } }).startup(function()
 
   -- CSS
   use { 'jasonlong/vim-textobj-css', requires = 'kana/vim-textobj-user' }
+    use {"catppuccin/nvim", as = "catppuccin"}
 
   --Ruby
   use 'tpope/vim-rails'

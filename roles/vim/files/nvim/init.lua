@@ -85,7 +85,7 @@ end
 require('my_plugins')
 require('legendary').setup()
 require('lualine').setup({ options = {theme = 'dracula'} })
-require('colors').setup('dracula')
+require('colors').setup('catppuccin')
 require('terminal')
 require('repl')
 require('tests')
