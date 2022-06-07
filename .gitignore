@@ -10,3 +10,4 @@ omf.fish
 fish_variables
 local.fish
 asdf.fish
+roles/vim/files/nvim/plugin/packer_compiled.lua
