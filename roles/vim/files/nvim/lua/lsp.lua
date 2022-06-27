@@ -95,8 +95,10 @@ end
 do_setup('rust_analyzer', {root_dir = nvim_lsp.util.root_pattern {"Cargo.toml"}})
 
 do_setup('solidity_ls', {
-    root_dir = nvim_lsp.util
-        .root_pattern {'.git/', "package.json", "tsconfig.json"}
+    root_dir = nvim_lsp.util.root_pattern {
+        '.git/', "package.json", "tsconfig.json"
+    },
+    init_options = {codeAction = true}
 })
 
 do_setup('tsserver', {
@@ -124,7 +126,14 @@ local languages = {
     scss = {prettier},
     scss = {prettier},
     typescript = {prettier},
-    solidity = {prettier},
+    solidity = {
+        prettier, {
+            lintCommand = string.format('solhint -f unix -c %s ${INPUT}', vim.fn
+                                            .expand(
+                                            '~/.config/nvim/utils/linter-config/.solhint.json')),
+            lintFormats = {'%f:%l:%c: %m'}
+        }
+    },
     typescriptreact = {prettier},
     svelte = {prettier},
     lua = {{formatCommand = "lua-format -i", formatStdin = true}}
