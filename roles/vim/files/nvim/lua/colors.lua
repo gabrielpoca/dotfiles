@@ -1,4 +1,5 @@
 local catppuccin = require("catppuccin")
+local lualine = require('lualine')
 
 local api = vim.api
 local M = {}
@@ -62,7 +63,7 @@ M.setup = function(colorscheme)
         })
     elseif colorscheme == "catppuccin" then
         catppuccin.setup()
-        vim.g.catppuccin_flavour = "dusk"
+        vim.g.catppuccin_flavour = "mocha"
 
         api.nvim_command('colorscheme ' .. colorscheme)
 
@@ -96,6 +97,10 @@ M.setup = function(colorscheme)
         vim.api.nvim_create_autocmd('VimEnter',
                                     {group = group, command = command})
     end
+
+    lualine.setup({
+        options = {theme = colorscheme, disabled_filetypes = {'NvimTree'}}
+    })
 end
 
 return M

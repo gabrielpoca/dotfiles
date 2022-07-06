@@ -23,6 +23,7 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     use 'kristijanhusak/any-jump.vim'
     use 'tpope/vim-projectionist'
     use 'christoomey/vim-tmux-navigator'
+    use 'vimpostor/vim-tpipeline'
     use {'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
     use {
         'kyazdani42/nvim-tree.lua',
@@ -66,12 +67,7 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     use {"catppuccin/nvim", as = "catppuccin"}
     use {
         'nvim-lualine/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
-        config = function()
-            require('lualine').setup({
-                options = {disabled_filetypes = {'NvimTree'}}
-            })
-        end
+        requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
 
     -----------------------------------------------------------------
