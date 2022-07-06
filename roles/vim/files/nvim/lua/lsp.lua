@@ -71,14 +71,15 @@ local on_attach = function(client, bufnr)
 
     -- So that the only client with format capabilities is efm
     if client.name == 'tsserver' then
-        client.resolved_capabilities.document_formatting = false
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
     end
 
-    if client.resolved_capabilities.document_formatting then
+    if client.server_capabilities.documentFormattingProvider then
         vim.cmd [[
           augroup Format
             au! * <buffer>
-            au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 3000)
+            au BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, {'efm'})
           augroup END
         ]]
     end
@@ -131,7 +132,8 @@ local languages = {
             lintCommand = string.format('solhint -f unix -c %s ${INPUT}', vim.fn
                                             .expand(
                                             '~/.config/nvim/utils/linter-config/.solhint.json')),
-            lintFormats = {'%f:%l:%c: %m'}
+            lintFormats = {'%f:%l:%c: %m'},
+            lintIgnoreExitCode = true
         }
     },
     typescriptreact = {prettier},
