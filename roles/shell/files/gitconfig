@@ -5,6 +5,7 @@
 	email = mail@gabrielpoca.com
 [push]
 	default = current
+	autoSetupRemote = true
 [color]
   ui = true
 [core]
