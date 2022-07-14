@@ -115,13 +115,17 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     -----------------------------------------------------------------
     -- Completion
     -----------------------------------------------------------------
+    use {'github/copilot.vim'}
     use {'ms-jpq/coq_nvim', branch = 'coq'}
     use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
     use {
         'ms-jpq/coq.thirdparty',
         requires = {'ms-jpq/coq_nvim'},
         config = function()
-            require("coq_3p") {{src = "nvimlua", short_name = "nLUA"}}
+            require("coq_3p") {
+                {src = "nvimlua", short_name = "nLUA"},
+                {src = "copilot", short_name = "COP", accept_key = "<c-f>"}
+            }
         end
     }
 
