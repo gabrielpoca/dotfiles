@@ -67,8 +67,7 @@ M.setup = function(colorscheme)
 
         api.nvim_command('colorscheme ' .. colorscheme)
 
-        local cp_api = require("catppuccin.api.colors")
-        local colors = cp_api.get_colors()
+        local colors = require("catppuccin.palettes").get_palette()
 
         local group = vim.api.nvim_create_augroup("mycolors", {});
 
