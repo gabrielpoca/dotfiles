@@ -29,7 +29,13 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     use {
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
-        config = function() require'nvim-tree'.setup {} end
+        config = function()
+            require'nvim-tree'.setup {
+                sync_root_with_cwd = true,
+                disable_netrw = true,
+                git = {ignore = false}
+            }
+        end
     }
 
     -----------------------------------------------------------------
