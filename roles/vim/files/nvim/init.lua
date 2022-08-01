@@ -93,6 +93,13 @@ require('tests')
 require('navigation')
 require('git')
 
+require('term_find').setup({
+    autocmd_pattern = 'floaterm',
+    keymap_mode = 'n',
+    keymap_mapping = 'gf',
+    callback = function() vim.cmd("FloatermHide") end
+})
+
 vim.g.svelte_preprocessors = {'typescript'}
 vim.g.AutoPairsMultilineClose = 1
 vim.g.any_jump_disable_default_keybindings = 1

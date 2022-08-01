@@ -14,6 +14,7 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     use 'voldikss/vim-floaterm'
     use 'wincent/terminus'
     use '~/Developer/replacer.nvim'
+    use 'gabrielpoca/term_find.nvim'
     use {'mg979/vim-visual-multi', branch = 'master'}
 
     -----------------------------------------------------------------
