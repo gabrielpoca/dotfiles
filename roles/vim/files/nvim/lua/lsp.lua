@@ -138,6 +138,7 @@ local languages = {
     },
     typescriptreact = {prettier},
     svelte = {prettier},
+    elixir = {{formatCommand = "mix format -", formatStdin = true}},
     lua = {{formatCommand = "lua-format -i", formatStdin = true}}
 }
 
