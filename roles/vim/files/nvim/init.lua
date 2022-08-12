@@ -103,7 +103,6 @@ require('term_find').setup({
 vim.g.svelte_preprocessors = {'typescript'}
 vim.g.AutoPairsMultilineClose = 1
 vim.g.any_jump_disable_default_keybindings = 1
-vim.g.coq_settings = {keymap = {jump_to_mark = '<c-g>', pre_select = true}}
 vim.g.cursorhold_updatetime = 100
 vim.g.localvimrc_sandbox = false
 vim.g.localvimrc_whitelist = {'/Users/gabriel/Developer/.*'}
@@ -127,8 +126,6 @@ cmd [[
 " yank whole line
 nnoremap Y Y
 ]]
-
-cmd("autocmd VimEnter * :COQnow -s")
 
 local wk = require("which-key")
 

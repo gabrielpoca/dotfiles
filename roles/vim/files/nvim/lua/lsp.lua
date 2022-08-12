@@ -1,6 +1,8 @@
 local nvim_lsp = require('lspconfig')
-local coq = require('coq')
 local wk = require("which-key")
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp
+                                                                     .protocol
+                                                                     .make_client_capabilities())
 
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
@@ -86,11 +88,12 @@ local on_attach = function(client, bufnr)
 end
 
 local do_setup = function(name, config)
-    nvim_lsp[name].setup(coq.lsp_ensure_capabilities(merge({
+    nvim_lsp[name].setup(merge({
+        capabilities = capabilities,
         on_attach = on_attach,
         flags = {debounce_text_changes = 150},
         root_dir = nvim_lsp.util.root_pattern {".git"}
-    }, config)))
+    }, config))
 end
 
 do_setup('rust_analyzer', {root_dir = nvim_lsp.util.root_pattern {"Cargo.toml"}})
@@ -156,7 +159,7 @@ do_setup('elixirls',
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
+        virtual_text = true,
         signs = true,
         underline = false,
         update_in_insert = false
