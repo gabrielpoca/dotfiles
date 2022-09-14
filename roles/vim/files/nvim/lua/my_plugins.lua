@@ -33,7 +33,8 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
             require'nvim-tree'.setup {
                 sync_root_with_cwd = true,
                 disable_netrw = true,
-                git = {ignore = false}
+                git = {ignore = false},
+                filters = {custom = {"^\\.DS_Store"}}
             }
         end
     }
