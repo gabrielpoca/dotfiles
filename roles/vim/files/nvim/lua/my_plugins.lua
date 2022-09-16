@@ -105,7 +105,7 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
             require('telescope').setup {
                 defaults = {
                     file_ignore_patterns = {
-                        "node_modules", ".git", "_build", ".elixir_ls"
+                        "node_modules", "%.git/", "_build", ".elixir_ls"
                     },
                     mappings = {
                         i = {
