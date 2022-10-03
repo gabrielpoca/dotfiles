@@ -106,9 +106,11 @@ do_setup('solidity_ls', {
 })
 
 do_setup('tsserver', {
-    root_dir = nvim_lsp.util
-        .root_pattern {'.git/', "package.json", "tsconfig.json"}
+    root_dir = nvim_lsp.util.root_pattern {"package.json", "tsconfig.json"}
 })
+
+do_setup('denols',
+         {root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")})
 
 local prettier = {
     formatCommand = 'npx prettierd "${INPUT}"',
