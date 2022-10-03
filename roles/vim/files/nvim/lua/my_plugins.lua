@@ -202,3 +202,10 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
         requires = {'nvim-telescope/telescope.nvim', 'stevearc/dressing.nvim'}
     }
 end)
+
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost my_plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
