@@ -16,6 +16,9 @@ M.toggle = function(terminal, cmd)
     if cmd then vim.cmd("FloatermSend --termname=" .. name .. " " .. cmd) end
 end
 
+M.REPL = 1
+M.SHELL = 2
+
 vim.g.floaterm_width = 0.9
 vim.g.floaterm_height = 0.9
 vim.g.floaterm_borderchars = '        '

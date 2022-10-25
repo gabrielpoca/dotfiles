@@ -14,7 +14,17 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     use 'voldikss/vim-floaterm'
     use 'wincent/terminus'
     use '~/Developer/replacer.nvim'
-    use 'gabrielpoca/term_find.nvim'
+    use {
+        'gabrielpoca/term_find.nvim',
+        config = function()
+            require('term_find').setup({
+                autocmd_pattern = 'floaterm',
+                keymap_mode = 'n',
+                keymap_mapping = 'gf',
+                callback = function() vim.cmd("FloatermHide") end
+            })
+        end
+    }
     use {'mg979/vim-visual-multi', branch = 'master'}
 
     -----------------------------------------------------------------
@@ -24,7 +34,6 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     use 'kristijanhusak/any-jump.vim'
     use 'tpope/vim-projectionist'
     use 'christoomey/vim-tmux-navigator'
-    use 'vimpostor/vim-tpipeline'
     use {'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
     use {
         'kyazdani42/nvim-tree.lua',
@@ -73,6 +82,7 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     -- use 'morhetz/gruvbox'
     -- use 'dracula/vim'
     use {"catppuccin/nvim", as = "catppuccin", run = ":CatppuccinCompile"}
+    use 'vimpostor/vim-tpipeline'
     use {
         'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -134,24 +144,13 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     -----------------------------------------------------------------
     -- Completion
     -----------------------------------------------------------------
-    use {
-        'hrsh7th/cmp-copilot',
-        requires = {'github/copilot.vim'},
-        config = function()
-            vim.g.copilot_no_tab_map = true
-            vim.api.nvim_set_keymap('i', '<Plug>(vimrc:copilot-dummy-map)',
-                                    'copilot#Accept("<Tab>")', {expr = true})
-        end
-    }
-
     use {'quangnguyen30192/cmp-nvim-ultisnips', requires = {'SirVer/ultisnips'}}
 
     use {
         'hrsh7th/cmp-nvim-lsp',
         requires = {
             'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline',
-            'hrsh7th/nvim-cmp', 'quangnguyen30192/cmp-nvim-ultisnips',
-            'hrsh7th/cmp-copilot'
+            'hrsh7th/nvim-cmp', 'quangnguyen30192/cmp-nvim-ultisnips'
         },
         config = function()
             local cmp = require 'cmp'
@@ -162,33 +161,18 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
                         vim.fn["UltiSnips#Anon"](args.body)
                     end
                 },
-                window = {
-                    -- completion = cmp.config.window.bordered(),
-                    -- documentation = cmp.config.window.bordered(),
-                },
+                window = {},
                 mapping = cmp.mapping.preset.insert({
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<s-TAB>'] = cmp.mapping.select_prev_item(),
                     ['<TAB>'] = cmp.mapping.select_next_item(),
-                    -- ['<TAB>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm({select = true}),
-                    ['<C-g>'] = cmp.mapping(function(fallback)
-                        vim.api.nvim_feedkeys(
-                            vim.fn['copilot#Accept'](vim.api
-                                                         .nvim_replace_termcodes(
-                                                         '<Tab>', true, true,
-                                                         true)), 'n', true)
-                    end)
+                    ['<CR>'] = cmp.mapping.confirm({select = true})
                 }),
                 sources = cmp.config.sources({
-                    {name = 'nvim_lsp'}, {name = 'ultisnips'},
-                    {name = 'copilot'}
-                }, {{name = 'buffer'}}),
-                experimental = {
-                    ghost_text = false -- this feature conflict with copilot.vim's preview.
-                }
+                    {name = 'nvim_lsp'}, {name = 'ultisnips'}
+                }, {{name = 'buffer'}})
             })
         end
     }
@@ -199,7 +183,8 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     use 'folke/which-key.nvim'
     use {
         'mrjones2014/legendary.nvim',
-        requires = {'nvim-telescope/telescope.nvim', 'stevearc/dressing.nvim'}
+        requires = {'nvim-telescope/telescope.nvim', 'stevearc/dressing.nvim'},
+        config = function() require('legendary').setup() end
     }
 end)
 
