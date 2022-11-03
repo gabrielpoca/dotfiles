@@ -103,7 +103,7 @@ require('repl')
 require('tests')
 require('navigation')
 require('git')
-require('mappings')
+require('which_key')
 
 vim.g.svelte_preprocessors = {'typescript'}
 vim.g.AutoPairsMultilineClose = 1
