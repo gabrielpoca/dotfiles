@@ -39,10 +39,7 @@ local on_attach = function(client, bufnr)
                 '<cmd>lua vim.lsp.buf.type_definition()<CR>',
                 "Jump to type definition"
             },
-            l = {
-                '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})<cr>',
-                "Line Diagnostics"
-            },
+            l = {'<cmd>lua vim.diagnostic.open_float()<cr>', "Line Diagnostics"},
             c = {"<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action"},
             ['wa'] = {
                 '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>',
@@ -112,14 +109,19 @@ do_setup('tsserver', {
 do_setup('denols',
          {root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")})
 
+-- local prettier = {
+--     formatCommand = 'npx prettierd "${INPUT}"',
+--     formatStdin = true,
+--     env = {
+--         string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn
+--                           .expand(
+--                           '~/.config/nvim/utils/linter-config/.prettierrc.json'))
+--     }
+-- }
+
 local prettier = {
-    formatCommand = 'npx prettierd "${INPUT}"',
-    formatStdin = true,
-    env = {
-        string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn
-                          .expand(
-                          '~/.config/nvim/utils/linter-config/.prettierrc.json'))
-    }
+    formatCommand = 'prettier --find-config-path --stdin-filepath ${INPUT}',
+    formatStdin = true
 }
 
 local languages = {
@@ -159,10 +161,12 @@ do_setup('efm', {
 do_setup('elixirls',
          {root_dir = nvim_lsp.util.root_pattern {'.git/', 'mix.exs'}})
 
-vim.lsp.handlers['textDocument/publishDiagnostics'] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = true,
-        signs = true,
-        underline = false,
-        update_in_insert = false
-    })
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    float = {border = "single"},
+    update_in_insert = false
+})
+
+vim.lsp.handlers["textDocument/hover"] =
+    vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
