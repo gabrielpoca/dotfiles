@@ -4,7 +4,7 @@ local lualine = require('lualine')
 local api = vim.api
 local M = {}
 
-M.setup = function(colorscheme)
+M.setup = function(colorscheme, variant)
     vim.o.termguicolors = true
     vim.o.background = "dark"
 
@@ -62,8 +62,7 @@ M.setup = function(colorscheme)
             header = {'fg', 'Comment'}
         })
     elseif colorscheme == "catppuccin" then
-        catppuccin.setup()
-        vim.g.catppuccin_flavour = "mocha"
+        catppuccin.setup({flavour = variant})
 
         api.nvim_command('colorscheme ' .. colorscheme)
 
@@ -72,8 +71,7 @@ M.setup = function(colorscheme)
         local group = vim.api.nvim_create_augroup("mycolors", {});
 
         local command = vim.fn.join({
-            "hi! FloatermBorder guibg=" .. colors.mantle,
-            "hi! Floaterm guibg=" .. colors.mantle,
+            "hi! FloatermBorder guifg=" .. colors.blue,
             "hi! BufferCurrentSign guifg=" .. colors.subtext0,
             "hi! BufferCurrentMod guibg=" .. colors.base .. " guifg=" ..
                 colors.yellow,
@@ -98,7 +96,12 @@ M.setup = function(colorscheme)
     end
 
     lualine.setup({
-        options = {theme = colorscheme, disabled_filetypes = {'NvimTree'}}
+        options = {
+            globalstatus = true,
+            theme = colorscheme,
+            ignore_focus = {'TelescopePrompt', 'NvimTree', 'TelescopeResults'},
+            disabled_filetypes = {{}}
+        }
     })
 end
 

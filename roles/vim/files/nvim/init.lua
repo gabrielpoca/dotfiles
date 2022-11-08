@@ -97,7 +97,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 require('my_plugins')
-require('colors').setup('catppuccin')
+require('colors').setup(os.getenv("COLORSCHEME"),
+                        os.getenv("COLORSCHEME_VARIANT"))
 require('terminal')
 require('repl')
 require('tests')
