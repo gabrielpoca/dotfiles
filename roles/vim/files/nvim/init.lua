@@ -17,7 +17,7 @@ cmd 'filetype plugin indent on'
 vim.o.signcolumn = 'number'
 vim.o.cmdheight = 1
 vim.o.updatetime = 300
-vim.o.shell = "/bin/zsh"
+vim.o.shell = "/opt/homebrew/bin/zsh"
 vim.o.autoread = true
 vim.o.backup = false
 vim.o.swapfile = false
