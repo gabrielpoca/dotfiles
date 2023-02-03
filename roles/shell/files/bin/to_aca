@@ -2,9 +2,12 @@
 
 require 'fileutils'
 
+if not ENV['MUSIC_PROD']
+  raise "$MUSIC_PROD is not set"
+end
 
-folder = '/Users/gabriel/Music/Music Production/1. Unprocessed - Acapellas'
-out_folder = '/Users/gabriel/Music/Music Production/1. Sound Packs - My/Vocals/Full Acapellas'
+folder = "#{ENV['MUSIC_PROD']}/1. Unprocessed - Acapellas"
+out_folder = "#{ENV['MUSIC_PROD']}/1. Sound Packs - My/Vocals/Full Acapellas"
 
 unless ARGV[0].nil?
   `youtube-dl -f bestaudio --extract-audio -o "#{folder}/%(title)s.%(ext)s" #{ARGV[0]}`

@@ -1,3 +1,7 @@
 #!/usr/bin/env ruby
 
-`youtube-dl --audio-format wav -f bestaudio --extract-audio -o "~/Music/Music Production/1. Unprocessed - Songs to Sample/%(title)s.%(ext)s" #{ARGV[0]}`
+if not ENV['MUSIC_PROD']
+  raise "$MUSIC_PROD is not set"
+end
+
+`youtube-dl --audio-format wav -f bestaudio --extract-audio -o "#{ENV['MUSIC_PROD']}/1. Unprocessed - Songs to Sample/%(title)s.%(ext)s" #{ARGV[0]}`
