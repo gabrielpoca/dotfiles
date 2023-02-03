@@ -1,0 +1,12 @@
+{
+  "cl": {
+    "prefix": "cl",
+    "body": ["console.log(${0})"],
+    "description": "console.log"
+  },
+  "import": {
+    "prefix": "imp",
+    "body": ["import ${1:variables} from \"${0}\""],
+    "description": "import from"
+  }
+}

@@ -144,34 +144,69 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     -----------------------------------------------------------------
     -- Completion
     -----------------------------------------------------------------
-    use {'quangnguyen30192/cmp-nvim-ultisnips', requires = {'SirVer/ultisnips'}}
+    use {
+        'L3MON4D3/LuaSnip',
+        requires = {"rafamadriz/friendly-snippets"},
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_vscode").lazy_load({
+                paths = {"./snippets"}
+            })
+        end
+    }
 
     use {
         'hrsh7th/cmp-nvim-lsp',
         requires = {
             'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline',
-            'hrsh7th/nvim-cmp', 'quangnguyen30192/cmp-nvim-ultisnips'
+            'hrsh7th/nvim-cmp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip'
         },
         config = function()
             local cmp = require 'cmp'
+            local luasnip = require("luasnip")
+
+            local has_words_before = function()
+                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+                return col ~= 0 and
+                           vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(
+                               col, col):match("%s") == nil
+            end
 
             cmp.setup({
                 snippet = {
                     expand = function(args)
-                        vim.fn["UltiSnips#Anon"](args.body)
+                        require('luasnip').lsp_expand(args.body)
                     end
                 },
                 window = {},
                 mapping = cmp.mapping.preset.insert({
                     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<s-TAB>'] = cmp.mapping.select_prev_item(),
-                    ['<TAB>'] = cmp.mapping.select_next_item(),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm({select = true})
+                    ['<CR>'] = cmp.mapping.confirm({select = true}),
+                    ["<Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        elseif has_words_before() then
+                            cmp.complete()
+                        else
+                            fallback()
+                        end
+                    end, {"i", "s"}),
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, {"i", "s"})
                 }),
                 sources = cmp.config.sources({
-                    {name = 'nvim_lsp'}, {name = 'ultisnips'}
+                    {name = 'luasnip'}, {name = 'nvim_lsp'}
                 }, {{name = 'buffer'}})
             })
         end
