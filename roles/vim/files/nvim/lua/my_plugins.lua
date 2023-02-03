@@ -103,8 +103,6 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     -----------------------------------------------------------------
     -- Fuzzy finder
     -----------------------------------------------------------------
-    use {'junegunn/fzf', run = './install --all'}
-    use 'junegunn/fzf.vim'
     use {
         'nvim-telescope/telescope.nvim',
         requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
@@ -128,6 +126,12 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
                 }
             }
         end
+    }
+
+    use {
+        "nvim-telescope/telescope-frecency.nvim",
+        config = function() require"telescope".load_extension("frecency") end,
+        requires = {"kkharji/sqlite.lua"}
     }
 
     -----------------------------------------------------------------

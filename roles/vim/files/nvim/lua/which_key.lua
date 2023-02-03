@@ -1,4 +1,5 @@
 local wk = require("which-key")
+local telescope = require('telescope.builtin')
 
 local wk_mappings = {
     ["1"] = {":BufferGoto 1<CR>", "Go to buffer 1"},
@@ -16,7 +17,8 @@ local wk_mappings = {
         q = {":BufferClose<CR>", "Close"},
         b = {":BufferOrderByBufferNumber<CR>", "Order by number"},
         d = {":BufferOrderByDirectory<CR>", "Order by directory"},
-        l = {":BufferOrderByLanguage<CR>", "Order by language"}
+        l = {":BufferOrderByLanguage<CR>", "Order by language"},
+        o = {":BufferPick<CR>", "Pick buffer"}
     },
     e = {
         name = "shell",
@@ -27,14 +29,20 @@ local wk_mappings = {
     },
     f = {
         name = "search",
-        w = {":Ag <C-R><C-W><CR>", "Search for word under cursor"},
-        f = {":Ag ", "Search for word input", silent = false}
+        w = {
+            function() telescope.grep_string(); end,
+            "Search for word under cursor"
+        },
+        f = {
+            function() telescope.grep_string({search = ''}); end,
+            "Search for input"
+        }
     },
     g = {
         name = "git",
         s = {":vertical G<CR>", "Git status"},
         h = {':lua require"git".file_history()<CR>', "Git history for file"},
-        b = {":Gblame<CR>", "Git blame"},
+        b = {":G blame<CR>", "Git blame"},
         P = {":Octo pr list<CR>", "List PRs"},
         p = {":G push<CR>", "Git Push"},
         o = {":G browse<CR>", "Git open in browser"}
@@ -53,8 +61,8 @@ local wk_mappings = {
         n = {":NvimTreeToggle<CR>", "Toggle"},
         f = {":NvimTreeFindFile<CR>", "Find file"}
     },
-    o = {":Telescope buffers<CR>", "Buffers"},
-    p = {":Telescope find_files<CR>", "Files"},
+    o = {function() telescope.buffers(); end, "Buffers"},
+    p = {function() telescope.find_files(); end, "Files"},
     t = {
         name = "terminal",
         t = {":FloatermToggle<CR>", "Toggle terminal"},

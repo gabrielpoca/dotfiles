@@ -116,7 +116,6 @@ vim.g.terraform_fmt_on_save = 1
 vim.g.typescript_indent_disable = 1
 vim.g.vim_markdown_conceal_code_blocks = 0
 vim.g.vim_markdown_folding_disabled = 1
-vim.g.fzf_preview_window = {}
 vim.g.loaded_matchparen = 1 -- matchparen seems to be slow
 
 require('lsp')
