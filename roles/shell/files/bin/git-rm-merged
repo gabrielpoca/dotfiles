@@ -29,3 +29,5 @@ local_branches.map do |branch|
     system("git branch -D #{branch}")
   end
 end
+
+`git fetch origin --prune`
