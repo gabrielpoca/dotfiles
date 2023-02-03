@@ -1,1 +1,1 @@
-export PATH="$PATH:$HOME/Developer/dotfiles/roles/shell/files/bin:$HOME/.asdf/shims"
+export PATH="$HOME/.asdf/shims:$HOME/Developer/dotfiles/roles/shell/files/bin:$PATH"
