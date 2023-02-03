@@ -78,7 +78,7 @@ local on_attach = function(client, bufnr)
         vim.cmd [[
           augroup Format
             au! * <buffer>
-            au BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync(nil, nil, {'efm'})
+            au BufWritePre <buffer> lua vim.lsp.buf.format({ name = 'efm'})
           augroup END
         ]]
     end
@@ -95,32 +95,31 @@ end
 
 do_setup('rust_analyzer', {root_dir = nvim_lsp.util.root_pattern {"Cargo.toml"}})
 
-do_setup('solidity_ls', {
-    root_dir = nvim_lsp.util.root_pattern {
-        '.git/', "package.json", "tsconfig.json"
-    },
-    init_options = {codeAction = true}
-})
+function tsserver_root_dir()
+    local tsroot = nvim_lsp.util.root_pattern("package.json", "tsconfig.json")
+    local denoroot = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")
+
+    return function(startpath)
+        -- don't start tsserver if deno is in there
+        if (denoroot(startpath)) then
+            return
+        else
+            return tsroot(startpath)
+        end
+    end
+end
 
 do_setup('tsserver', {
-    root_dir = nvim_lsp.util.root_pattern {"package.json", "tsconfig.json"}
+    -- root_dir = nvim_lsp.util.root_pattern {"package.json", "tsconfig.json"}
+    root_dir = tsserver_root_dir(),
+    single_file_support = false
 })
 
 do_setup('denols',
          {root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")})
 
--- local prettier = {
---     formatCommand = 'npx prettierd "${INPUT}"',
---     formatStdin = true,
---     env = {
---         string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn
---                           .expand(
---                           '~/.config/nvim/utils/linter-config/.prettierrc.json'))
---     }
--- }
-
 local prettier = {
-    formatCommand = 'prettier --find-config-path --stdin-filepath ${INPUT}',
+    formatCommand = 'npx prettier --stdin-filepath ${INPUT}',
     formatStdin = true
 }
 
@@ -157,6 +156,9 @@ do_setup('efm', {
     filetypes = vim.tbl_keys(languages),
     settings = {version = 2, languages = languages}
 })
+
+do_setup('solc',
+         {root_dir = nvim_lsp.util.root_pattern {'.git/', 'hardhat.config.ts'}})
 
 do_setup('elixirls',
          {root_dir = nvim_lsp.util.root_pattern {'.git/', 'mix.exs'}})

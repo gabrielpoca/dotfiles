@@ -137,11 +137,13 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     -----------------------------------------------------------------
     -- LSP
     -----------------------------------------------------------------
+    use {'neovim/nvim-lspconfig'}
     use {
-        'neovim/nvim-lspconfig',
-        requires = {'williamboman/nvim-lsp-installer'},
+        'williamboman/mason.nvim',
+        requires = {'williamboman/mason-lspconfig.nvim'},
         config = function()
-            require("nvim-lsp-installer").setup {automatic_installation = true}
+            require("mason").setup {ui = {icons = {package_installed = "✓"}}}
+            require("mason-lspconfig").setup {automatic_installation = true}
         end
     }
 
