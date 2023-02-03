@@ -77,11 +77,13 @@ M.setup = function(colorscheme, variant)
 
     lualine.setup({
         options = {
+            show_filename_only = false,
             globalstatus = true,
             theme = colorscheme,
             ignore_focus = {'TelescopePrompt', 'NvimTree', 'TelescopeResults'},
             disabled_filetypes = {{}}
-        }
+        },
+        sections = {lualine_c = {{'filename', path = 1}}}
     })
 end
 
