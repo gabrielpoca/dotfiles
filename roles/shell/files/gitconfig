@@ -29,8 +29,5 @@
   r = rebase
   rc = rebase --continue
   s = status
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+[include]
+  path = /Users/gabriel/Library/Preferences/netlify/helper/git-config
