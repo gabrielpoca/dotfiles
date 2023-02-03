@@ -1,4 +1,5 @@
 export COLORSCHEME='catppuccin'
+# export COLORSCHEME_VARIANT='latte'
 export COLORSCHEME_VARIANT='mocha'
 
 export FZF_PREVIEW_PREVIEW_BAT_THEME=gruvbox
@@ -21,4 +22,4 @@ if [[ $COLORSCHEME == "catppuccin" ]]; then
 fi
 
 # update alacritty config
-sed -i -e "s/^colors: .*$/colors: *$COLORSCHEME\_$COLORSCHEME_VARIANT/" "$DOTFILES/roles/shell/files/alacritty/alacritty.yml"
+sed -i '' -e "s/^colors: .*$/colors: *$COLORSCHEME\_$COLORSCHEME_VARIANT/" "$DOTFILES/roles/shell/files/alacritty/alacritty.yml"
