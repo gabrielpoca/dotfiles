@@ -1,26 +1,27 @@
 globals = require "globals"
 
-function current_app()
-  return hs.application.frontmostApplication():name()
-end
+function current_app() return hs.application.frontmostApplication():name() end
 
--- open chrome
 hs.hotkey.bind(globals.hyper, "L", function()
-  if current_app() == "Brave Browser" then
-    hs.application.launchOrFocus("Alacritty")
-  else
-    hs.application.launchOrFocus("Brave Browser")
-  end
+    if current_app() == "Alacritty" then
+        hs.application.launchOrFocus("Brave Browser")
+    else
+        hs.application.launchOrFocus("Alacritty")
+    end
 end)
 
--- open Alacritty
---hs.hotkey.bind(globals.hyper, "L", function()
-  --hs.application.launchOrFocus("Alacritty")
---end)
-
--- open slack
-hs.hotkey.bind(globals.hyper, ";", function()
-  print(hs.inspect.inspect(hs.application.runningApplications()))
-  --hs.application.launchOrFocus("Slack")
+hs.hotkey.bind(globals.hyper, "K", function()
+    if current_app() == "Slack" then
+        hs.application.launchOrFocus("Discord")
+    else
+        hs.application.launchOrFocus("Slack")
+    end
 end)
 
+hs.hotkey.bind(globals.hyper, "J", function()
+    if current_app() == "Obsidian" then
+        hs.application.launchOrFocus("TickTick")
+    else
+        hs.application.launchOrFocus("Obsidian")
+    end
+end)

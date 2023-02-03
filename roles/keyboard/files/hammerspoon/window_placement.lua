@@ -81,7 +81,6 @@ hs.hotkey.bind(globals.hyper, "O", place_right_half)
 hs.hotkey.bind(globals.hyper, "U", place_full)
 
 on_application('Alacritty', place_full)
-on_application('Brave Browser', place_full)
 on_application('Calendar', place_full)
 on_application('Figma', place_full)
 on_application('Slack', place_full)

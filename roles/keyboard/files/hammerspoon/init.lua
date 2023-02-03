@@ -15,13 +15,8 @@ HeadphoneAutoPause:start()
 -- https://spinscale.de/posts/2016-11-08-creating-a-productive-osx-environment-hammerspoon.html
 function handleCaffeinateEvents(eventType)
     if (eventType == hs.caffeinate.watcher.systemDidWake) then
-        -- mute
         local output = hs.audiodevice.defaultOutputDevice()
         output:setMuted(true)
-    elseif eventType == hs.caffeinate.watcher.systemWillSleep then
-        -- bluetooth("off")
-    elseif eventType == hs.caffeinate.watcher.screensDidWake then
-        -- bluetooth("on")
     end
 end
 
