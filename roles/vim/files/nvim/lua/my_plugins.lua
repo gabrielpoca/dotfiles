@@ -53,6 +53,12 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     -----------------------------------------------------------------
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
     use {
+        'nvim-treesitter/nvim-treesitter-context',
+        config = function()
+            require'treesitter-context'.setup({mode = 'topline'})
+        end
+    }
+    use {
         'JoosepAlviste/nvim-ts-context-commentstring',
         config = function()
             require'nvim-treesitter.configs'.setup {
