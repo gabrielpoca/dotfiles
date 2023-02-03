@@ -82,7 +82,6 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     -- use 'morhetz/gruvbox'
     -- use 'dracula/vim'
     use {"catppuccin/nvim", as = "catppuccin", run = ":CatppuccinCompile"}
-    use 'vimpostor/vim-tpipeline'
     use {
         'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
