@@ -243,16 +243,16 @@ colors: *catppuccin_mocha
 
 font:
   normal:
-    family: "FiraCode Nerd Font"
+    family: "JetBrainsMono Nerd Font"
     style: Regular
 
   bold:
-    family: "FiraCode Nerd Font"
-    style: Regular
-    # style: Bold
+    family: "JetBrainsMono Nerd Font"
+    # style: Regular # disable bold fonts
+    style: Bold
 
   italic:
-    family: "FiraCode Nerd Font"
+    family: "JetBrainsMono Nerd Font"
     style: Italic
 
   size: 16.0
@@ -269,7 +269,8 @@ draw_bold_text_with_bright_colors: true
 
 # use "xxd -psd" to figure out the keycodes
 key_bindings:
-  - { key: C,        mods: Command,        chars: "\x01\x63" }
+  - { key: C,        mods: Command,        chars: "\x01\x63" } # sends Ctrl + a
+  - { key: S,        mods: Command,        chars: "\x01\x73" } # sends Ctrl + s
   - { key: D,        mods: Command,        command: { program: "/opt/homebrew/bin/tmux", args: ["detach"] } }
   - { key: E,        mods: Command,        chars: "\x01\x76" }
   - { key: F,        mods: Command,        chars: "\x01\x46" }
@@ -289,7 +290,6 @@ key_bindings:
   - { key: Q,        mods: Command,        action: Quit }
   - { key: Q,        mods: Control,        chars: "\x11" }
   - { key: R,        mods: Command,        chars: "\x01\x72" }
-  - { key: S,        mods: Command,        chars: "\x01\x73" }
   - { key: V,        mods: Command,        action: Paste }
   - { key: W,        mods: Command,        chars: "\x01\x71" }
   - { key: Z,        mods: Command,        chars: "\x01\x7a" }
