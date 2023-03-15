@@ -122,15 +122,22 @@ local prettier = {
     formatStdin = true
 }
 
+local eslint = {
+    lintCommand = "npx eslint -f visualstudio --stdin --stdin-filename ${INPUT}",
+    lintIgnoreExitCode = true,
+    lintStdin = true,
+    lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"}
+}
+
 local languages = {
     css = {prettier},
     html = {prettier},
-    javascript = {prettier},
-    javascriptreact = {prettier},
+    javascript = {prettier, eslint},
+    javascriptreact = {prettier, eslint},
     json = {prettier},
     markdown = {prettier},
     scss = {prettier},
-    typescript = {prettier},
+    typescript = {prettier, eslint},
     solidity = {
         prettier, {
             lintCommand = string.format('solhint -f unix -c %s ${INPUT}', vim.fn
@@ -140,7 +147,7 @@ local languages = {
             lintIgnoreExitCode = true
         }
     },
-    typescriptreact = {prettier},
+    typescriptreact = {prettier, eslint},
     svelte = {prettier},
     elixir = {{formatCommand = "mix format -", formatStdin = true}},
     lua = {{formatCommand = "lua-format -i", formatStdin = true}}
