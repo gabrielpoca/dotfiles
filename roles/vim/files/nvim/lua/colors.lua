@@ -4,7 +4,7 @@ local lualine = require('lualine')
 local api = vim.api
 local M = {}
 
-function setup_gruvbox()
+local function setup_gruvbox()
     vim.g.gruvbox_contrast_dark = "hard"
     vim.g.gruvbox_italic = 1
 
@@ -19,7 +19,7 @@ function setup_gruvbox()
     api.nvim_command('colorscheme gruvbox')
 end
 
-function setup_dracula()
+local function setup_dracula()
     api.nvim_command('colorscheme dracula')
 
     vim.cmd [[augroup MyColors]]
@@ -29,7 +29,7 @@ function setup_dracula()
     vim.cmd [[augroup END]]
 end
 
-function setup_catppuccin(variant)
+local function setup_catppuccin(variant)
     catppuccin.setup({flavour = variant})
 
     api.nvim_command('colorscheme catppuccin')

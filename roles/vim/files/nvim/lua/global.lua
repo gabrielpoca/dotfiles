@@ -16,11 +16,12 @@ end
 function _G.reload_current_file() vim.cmd(":luafile %") end
 
 function _G.basename(path)
-    chunks = vim.fn.split(path, "/")
-    size = vim.tbl_count(chunks)
+    local chunks = vim.fn.split(path, "/")
+    local size = vim.tbl_count(chunks)
 
     if size == 1 then return nil end
 
+    ---@diagnostic disable-next-line: redundant-parameter,param-type-mismatch
     return vim.fn.join(vim.fn.remove(chunks, 0, -2), "/")
 end
 

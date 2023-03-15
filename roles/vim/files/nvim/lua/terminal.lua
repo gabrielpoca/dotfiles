@@ -1,6 +1,8 @@
 local M = {}
 
 M.toggle = function(terminal, cmd)
+    local name
+
     if terminal == 1 or terminal == nil then
         name = "repl"
     else

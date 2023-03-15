@@ -95,7 +95,7 @@ end
 
 do_setup('rust_analyzer', {root_dir = nvim_lsp.util.root_pattern {"Cargo.toml"}})
 
-function tsserver_root_dir()
+local function tsserver_root_dir()
     local tsroot = nvim_lsp.util.root_pattern("package.json", "tsconfig.json")
     local denoroot = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")
 
