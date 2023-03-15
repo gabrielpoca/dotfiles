@@ -1,11 +1,10 @@
 - name: install homebrew cask packages
   ignore_errors: yes
-  homebrew_cask:
+  community.general.homebrew_cask:
     name: "{{ homebrew_cask_packages }}"
     state: present
   vars:
     homebrew_cask_packages:
-      - karabiner-elements
       - hammerspoon
 
 - name: link hammerspoon
@@ -14,8 +13,14 @@
     dest: '{{ home_dir }}/.hammerspoon'
     state: link
 
-- name: link karabiner
-  file:
-    src: '{{ ansible_env.PWD }}/roles/keyboard/files/karabiner'
-    dest: '{{ home_dir }}/.config/karabiner'
-    state: link
+- name: link com.local.KeyRemapping.plist
+  ansible.builtin.copy:
+    src: '{{ ansible_env.PWD }}/roles/keyboard/files/com.local.KeyRemapping.plist'
+    dest: '{{ home_dir }}/Library/LaunchAgents/com.local.KeyRemapping.plist'
+    force: false
+  register: key_remapping
+
+- name: reboot
+  ansible.builtin.debug:
+    msg: You need to reboot for KeyRemapping to take effect
+  when: key_remapping.changed
