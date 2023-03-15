@@ -1,3 +1,5 @@
+require("neodev").setup({})
+
 local nvim_lsp = require('lspconfig')
 local wk = require("which-key")
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp
@@ -109,11 +111,8 @@ local function tsserver_root_dir()
     end
 end
 
-do_setup('tsserver', {
-    -- root_dir = nvim_lsp.util.root_pattern {"package.json", "tsconfig.json"}
-    root_dir = tsserver_root_dir(),
-    single_file_support = false
-})
+do_setup('tsserver',
+         {root_dir = tsserver_root_dir(), single_file_support = false})
 
 do_setup('denols',
          {root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")})
@@ -130,7 +129,6 @@ local languages = {
     javascriptreact = {prettier},
     json = {prettier},
     markdown = {prettier},
-    scss = {prettier},
     scss = {prettier},
     typescript = {prettier},
     solidity = {
@@ -159,6 +157,10 @@ do_setup('efm', {
 
 do_setup('solc',
          {root_dir = nvim_lsp.util.root_pattern {'.git/', 'hardhat.config.ts'}})
+
+nvim_lsp.lua_ls.setup({
+    settings = {Lua = {completion = {callSnippet = "Replace"}}}
+})
 
 do_setup('elixirls',
          {root_dir = nvim_lsp.util.root_pattern {'.git/', 'mix.exs'}})

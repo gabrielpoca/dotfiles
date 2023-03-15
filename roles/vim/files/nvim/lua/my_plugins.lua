@@ -103,7 +103,7 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     use 'elixir-editors/vim-elixir'
     use 'slime-lang/vim-slime-syntax'
     use {'andyl/vim-textobj-elixir', requires = 'kana/vim-textobj-user'}
-    use 'tjdevries/nlua.nvim'
+    use {"folke/neodev.nvim", config = function() end}
 
     -----------------------------------------------------------------
     -- Fuzzy finder
