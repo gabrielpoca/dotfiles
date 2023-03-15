@@ -5,18 +5,18 @@ require "string"
 hs.loadSpoon("ReloadConfiguration")
 spoon.ReloadConfiguration:start()
 
-local Caffeine = hs.loadSpoon('Caffeine')
-Caffeine:start()
-Caffeine:setDisplay(true)
-
 local HeadphoneAutoPause = hs.loadSpoon('HeadphoneAutoPause')
 HeadphoneAutoPause:start()
 
 -- https://spinscale.de/posts/2016-11-08-creating-a-productive-osx-environment-hammerspoon.html
 function handleCaffeinateEvents(eventType)
     if (eventType == hs.caffeinate.watcher.systemDidWake) then
+        -- mute sound on wake
         local output = hs.audiodevice.defaultOutputDevice()
         output:setMuted(true)
+        -- kill logioptions wake
+        local logiDaemon = hs.application.get('Logi Options Daemon')
+        logiDaemon:kill()
     end
 end
 
@@ -38,3 +38,4 @@ end
 
 appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
+
