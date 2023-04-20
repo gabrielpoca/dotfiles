@@ -26,6 +26,10 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
         end
     }
     use {'mg979/vim-visual-multi', branch = 'master'}
+    use {
+        'NvChad/nvim-colorizer.lua',
+        config = function() require'colorizer'.setup({}) end
+    }
 
     -----------------------------------------------------------------
     -- Navigation
