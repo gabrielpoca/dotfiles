@@ -178,6 +178,37 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
     }
 
     use {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup {
+                filetypes = {
+                    javascript = true,
+                    lua = true,
+                    markdown = true,
+                    solidity = true,
+                    terraform = false,
+                    typescript = true,
+                    typescriptreact = true
+                },
+                suggestion = {
+                    enabled = false,
+                    auto_trigger = false
+                    -- keymap = {
+                    -- accept = "<C-k>"
+                    -- accept_line = "<C-K>"
+                    -- accept_word = "<M-k>",
+                    -- next = "<M-]>",
+                    -- prev = "<M-[>",
+                    -- dismiss = "<M-c>"
+                    -- }
+                }
+            }
+        end
+    }
+
+    use {
         'hrsh7th/cmp-nvim-lsp',
         requires = {
             'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline',
@@ -229,8 +260,28 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
                 }),
                 sources = cmp.config.sources({
                     {name = 'luasnip'}, {name = 'nvim_lsp'}
-                }, {{name = 'buffer'}})
+                }, {
+                    {
+                        name = 'buffer',
+                        option = {
+                            keyword_length = 2,
+                            get_bufnrs = function()
+                                return vim.api.nvim_list_bufs()
+                            end
+                        }
+                    }, {name = 'path'}
+                })
             })
+
+            cmp.event:on("menu_opened",
+                         function()
+                vim.b.copilot_suggestion_hidden = true
+            end)
+
+            cmp.event:on("menu_closed",
+                         function()
+                vim.b.copilot_suggestion_hidden = false
+            end)
         end
     }
 

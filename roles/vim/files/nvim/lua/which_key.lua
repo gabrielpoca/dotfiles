@@ -20,6 +20,10 @@ local wk_mappings = {
         l = {":BufferOrderByLanguage<CR>", "Order by language"},
         o = {":BufferPick<CR>", "Pick buffer"}
     },
+    c = {
+        name = "completion",
+        c = {function() require('copilot.panel').open() end, "Copilot"}
+    },
     e = {
         name = "shell",
         s = {":lua require'repl'.start()<CR>", "Start server"},
