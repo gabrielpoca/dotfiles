@@ -62,7 +62,14 @@ local wk_mappings = {
         f = {":NvimTreeFindFile<CR>", "Find file"}
     },
     o = {function() telescope.buffers(); end, "Buffers"},
-    p = {function() telescope.find_files(); end, "Files"},
+    p = {function() telescope.find_files({hidden = true}); end, "Files"},
+    P = {
+        function()
+            require('telescope').extensions.frecency.frecency({
+                workspace = 'CWD'
+            });
+        end, "Recent Files"
+    },
     t = {
         name = "terminal",
         t = {":FloatermToggle<CR>", "Toggle terminal"},

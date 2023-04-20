@@ -113,18 +113,29 @@ require('packer', {git = {clone_timeout = 120}}).startup(function()
         requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
         config = function()
             local actions = require('telescope.actions')
-            local action_state = require('telescope.actions.state')
 
             require('telescope').setup {
                 defaults = {
+                    layout_strategy = 'horizontal',
+                    layout_config = {height = 0.9, width = 0.9},
                     file_ignore_patterns = {
-                        "node_modules", "%.git/", "_build", ".elixir_ls", "deps"
+                        "node_modules", "%.git/", "%_build/", "%.elixir%_ls",
+                        "deps"
+                    },
+                    vimgrep_arguments = {
+                        "rg", "--color=never", "--no-heading",
+                        "--with-filename", "--line-number", "--column",
+                        "--smart-case", "--hidden"
                     },
                     mappings = {
                         i = {
                             ["<C-j>"] = actions.move_selection_next,
                             ["<C-k>"] = actions.move_selection_previous,
-                            ['<C-c>'] = actions.close
+                            ['<C-c>'] = actions.close,
+                            ['<C-w>'] = actions.send_selected_to_qflist +
+                                actions.open_qflist,
+                            ['<C-q>'] = actions.send_to_qflist +
+                                actions.open_qflist
                         },
                         n = {['<C-c>'] = actions.close}
                     }
