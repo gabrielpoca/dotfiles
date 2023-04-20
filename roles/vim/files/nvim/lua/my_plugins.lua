@@ -1,4 +1,4 @@
-require('packer', {git = {clone_timeout = 120}}).startup(function()
+require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use 'AndrewRadev/splitjoin.vim'
