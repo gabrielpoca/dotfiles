@@ -136,7 +136,12 @@ local languages = {
     javascriptreact = {prettier, eslint},
     json = {prettier},
     markdown = {prettier},
-    scss = {prettier},
+    scss = {
+        prettier, {
+            formatCommand = 'npx stylelint --fix --stdin --stdin-filename ${INPUT}',
+            formatStdin = true
+        }
+    },
     typescript = {prettier, eslint},
     solidity = {
         prettier, {
