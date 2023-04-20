@@ -3,8 +3,3 @@
     src: '{{ ansible_env.PWD }}/roles/vim/files/nvim'
     dest: '{{ home_dir }}/.config/nvim'
     state: link
-
-- name: install
-  git:
-    repo: https://github.com/wbthomason/packer.nvim
-    dest: ~/.local/share/nvim/site/pack/packer/opt/packer.nvim

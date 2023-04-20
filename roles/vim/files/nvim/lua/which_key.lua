@@ -22,14 +22,14 @@ local wk_mappings = {
     },
     c = {
         name = "completion",
-        c = {function() require('copilot.panel').open() end, "Copilot"}
+        c = {function() require('copilot.panel').open({}) end, "Copilot"}
     },
     e = {
         name = "shell",
-        s = {":lua require'repl'.start()<CR>", "Start server"},
-        r = {":lua require'repl'.recompile()<CR>", "Recompile"},
-        l = {":lua require'repl'.send_line()<CR>", "Send line"},
-        i = {":lua require'repl'.install()<CR>", "Setup projet"}
+        s = {function() require'repl'.start() end, "Start server"},
+        r = {function() require'repl'.recompile() end, "Recompile"},
+        l = {function() require'repl'.send_line() end, "Send line"},
+        i = {function() require'repl'.install() end, "Setup projet"}
     },
     f = {
         name = "search",
@@ -51,7 +51,7 @@ local wk_mappings = {
         p = {":G push<CR>", "Git Push"},
         o = {":G browse<CR>", "Git open in browser"}
     },
-    h = {":lua require('replacer').run()<cr>", "replacer.nvim"},
+    h = {function() require('replacer').run() end, "replacer.nvim"},
     j = {
         name = "jump",
         j = {":AnyJump<CR>", "Open"},
@@ -62,8 +62,16 @@ local wk_mappings = {
     i = {':lua require"terminal".toggle(1)<CR>', "General terminal"},
     n = {
         name = "tree",
-        n = {":NvimTreeToggle<CR>", "Toggle"},
-        f = {":NvimTreeFindFile<CR>", "Find file"}
+        n = {function() require('nvim-tree.api').tree.toggle() end, "Toggle"},
+        f = {
+            function()
+                require('nvim-tree.api').tree.find_file({
+                    open = true,
+                    focus = true
+                })
+            end,
+            "Find file"
+        }
     },
     o = {function() telescope.buffers(); end, "Buffers"},
     p = {function() telescope.find_files({hidden = true}); end, "Files"},
@@ -72,7 +80,8 @@ local wk_mappings = {
             require('telescope').extensions.frecency.frecency({
                 workspace = 'CWD'
             });
-        end, "Recent Files"
+        end,
+        "Recent Files"
     },
     t = {
         name = "terminal",
@@ -80,7 +89,7 @@ local wk_mappings = {
         l = {":FloatermNext<CR>", "Next terminal"},
         h = {":FloatermPrev<CR>", "Previous terminal"}
     },
-    u = {':lua require"terminal".toggle(2)<CR>', "Tests terminal"},
+    u = {function() require"terminal".toggle(2) end, "Tests terminal"},
     r = {
         name = "tests",
         a = {":TestSuite<CR>", "Run test suite"},
@@ -91,7 +100,10 @@ local wk_mappings = {
         k = {":Tkill<CR>", "Kill job"}
     },
     v = {":AV<CR>", "Open alternate file in split"},
-    ['<leader>'] = {":Legendary<CR>", "Search everything"}
+    ['<leader>'] = {
+        function() require('legendary').find() end,
+        "Search everything"
+    }
 }
 
 wk.register(wk_mappings, {prefix = "<leader>", nowait = true})

@@ -155,7 +155,12 @@ local languages = {
     typescriptreact = {prettier, eslint},
     svelte = {prettier},
     elixir = {{formatCommand = "mix format -", formatStdin = true}},
-    lua = {{formatCommand = "lua-format -i", formatStdin = true}}
+    lua = {
+        {
+            formatCommand = "lua-format --chop-down-table -i",
+            formatStdin = true
+        }
+    }
 }
 
 do_setup('efm', {

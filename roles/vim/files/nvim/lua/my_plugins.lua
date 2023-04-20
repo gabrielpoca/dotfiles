@@ -1,20 +1,32 @@
-require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-    use 'AndrewRadev/splitjoin.vim'
-    use 'antoinemadec/FixCursorHold.nvim'
-    use 'derekprior/vim-trimmer'
-    use 'embear/vim-localvimrc'
-    use 'farmergreg/vim-lastplace'
-    use 'gcmt/wildfire.vim'
-    use 'tpope/vim-abolish'
-    use 'tpope/vim-commentary'
-    use 'tpope/vim-surround'
-    use 'vim-test/vim-test'
-    use 'voldikss/vim-floaterm'
-    use 'wincent/terminus'
-    use '~/Developer/replacer.nvim'
-    use {
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath
+    })
+end
+
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+    {'AndrewRadev/splitjoin.vim', lazy = false},
+    {'derekprior/vim-trimmer', lazy = false},
+    {'embear/vim-localvimrc', lazy = false},
+    {'farmergreg/vim-lastplace', lazy = false},
+    {'gcmt/wildfire.vim', lazy = false},
+    {'tpope/vim-abolish', lazy = false},
+    {'tpope/vim-commentary', lazy = false},
+    {'tpope/vim-surround', lazy = false},
+    {'vim-test/vim-test', lazy = false},
+    {'voldikss/vim-floaterm', lazy = false},
+    {'wincent/terminus', lazy = false},
+    {dir = '~/Developer/replacer.nvim'},
+    {
         'gabrielpoca/term_find.nvim',
         config = function()
             require('term_find').setup({
@@ -24,24 +36,29 @@ require('packer').startup(function(use)
                 callback = function() vim.cmd("FloatermHide") end
             })
         end
-    }
-    use {'mg979/vim-visual-multi', branch = 'master'}
-    use {
+    },
+    {'mg979/vim-visual-multi', branch = 'master', lazy = false},
+    {
         'NvChad/nvim-colorizer.lua',
+        lazy = false,
         config = function() require'colorizer'.setup({}) end
-    }
-
-    -----------------------------------------------------------------
-    -- Navigation
-    -----------------------------------------------------------------
-    use {'phaazon/hop.nvim', config = function() require'hop'.setup() end}
-    use 'kristijanhusak/any-jump.vim'
-    use 'tpope/vim-projectionist'
-    use 'christoomey/vim-tmux-navigator'
-    use {'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'}}
-    use {
+    },
+    {
+        'phaazon/hop.nvim',
+        lazy = false,
+        config = function() require'hop'.setup() end,
+    },
+    {'kristijanhusak/any-jump.vim', lazy = false},
+    {'tpope/vim-projectionist', lazy = false},
+    {'christoomey/vim-tmux-navigator', lazy = false},
+    {
+        'romgrk/barbar.nvim',
+        lazy = false,
+        dependencies = {'kyazdani42/nvim-web-devicons'},
+    },
+    {
         'kyazdani42/nvim-tree.lua',
-        requires = 'kyazdani42/nvim-web-devicons',
+        dependencies = {'kyazdani42/nvim-web-devicons'},
         config = function()
             require'nvim-tree'.setup {
                 sync_root_with_cwd = true,
@@ -50,71 +67,71 @@ require('packer').startup(function(use)
                 filters = {custom = {"^\\.DS_Store"}}
             }
         end
-    }
-
-    -----------------------------------------------------------------
-    -- Treesitter
-    -----------------------------------------------------------------
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-    use {
+    },
+    {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', lazy = false},
+    {
         'nvim-treesitter/nvim-treesitter-context',
+        lazy = false,
         config = function()
             require'treesitter-context'.setup({mode = 'topline'})
-        end
-    }
-    use {
+        end,
+    },
+    {
         'JoosepAlviste/nvim-ts-context-commentstring',
+        lazy = false,
         config = function()
             require'nvim-treesitter.configs'.setup {
                 ensure_installed = {"svelte", "css", "typescript"},
                 highlight = {enable = true},
                 context_commentstring = {enable = true}
             }
-        end
-    }
-
-    -----------------------------------------------------------------
+        end,
+    }, -----------------------------------------------------------------
     -- GIT
     -----------------------------------------------------------------
-    use 'tpope/vim-fugitive'
-    use {
+    {'tpope/vim-fugitive', lazy = false},
+    {
         'pwntester/octo.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim',
+        lazy = false<,
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim',
             'kyazdani42/nvim-web-devicons'
         },
-        config = function() require"octo".setup() end
-    }
-
-    -----------------------------------------------------------------
-    -- Colors
-    -----------------------------------------------------------------
-    -- use 'morhetz/gruvbox'
-    -- use 'dracula/vim'
-    use {"catppuccin/nvim", as = "catppuccin", run = ":CatppuccinCompile"}
-    use {
+        config = function() require"octo".setup() end,
+    },
+    -- 'morhetz/gruvbox',
+    -- 'dracula/vim',
+    {
+        "catppuccin/nvim",
+        lazy = false,
+        -- as = "catppuccin",
+        config = function() require('catppuccin').compile() end
+    },
+    {
         'nvim-lualine/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true}
-    }
-
-    -----------------------------------------------------------------
-    -- Languages
-    -----------------------------------------------------------------
-    use 'thesis/vim-solidity'
-    use 'sheerun/vim-polyglot'
-    use {'jasonlong/vim-textobj-css', requires = 'kana/vim-textobj-user'}
-    use 'tpope/vim-rails'
-    use 'elixir-editors/vim-elixir'
-    use 'slime-lang/vim-slime-syntax'
-    use {'andyl/vim-textobj-elixir', requires = 'kana/vim-textobj-user'}
-    use {"folke/neodev.nvim", config = function() end}
-
-    -----------------------------------------------------------------
-    -- Fuzzy finder
-    -----------------------------------------------------------------
-    use {
+        lazy = false,
+        dependencies = {'kyazdani42/nvim-web-devicons'}
+    },
+    {'thesis/vim-solidity', ft = "solidity"},
+    {'sheerun/vim-polyglot', lazy = false},
+    {
+        'jasonlong/vim-textobj-css',
+        dependencies = 'kana/vim-textobj-user',
+        lazy = false
+    },
+    {'tpope/vim-rails', ft = "ruby"},
+    {'elixir-editors/vim-elixir', ft = "elixir"},
+    {'slime-lang/vim-slime-syntax', ft = "slime"},
+    {
+        'andyl/vim-textobj-elixir',
+        dependencies = 'kana/vim-textobj-user',
+        lazy = false
+    },
+    {"folke/neodev.nvim", config = function() end, ft = "lua"},
+    {
         'nvim-telescope/telescope.nvim',
-        requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
+        dependencies = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
         config = function()
             local actions = require('telescope.actions')
 
@@ -123,13 +140,21 @@ require('packer').startup(function(use)
                     layout_strategy = 'horizontal',
                     layout_config = {height = 0.9, width = 0.9},
                     file_ignore_patterns = {
-                        "node_modules", "%.git/", "%_build/", "%.elixir%_ls",
+                        "node_modules",
+                        "%.git/",
+                        "%_build/",
+                        "%.elixir%_ls",
                         "deps"
                     },
                     vimgrep_arguments = {
-                        "rg", "--color=never", "--no-heading",
-                        "--with-filename", "--line-number", "--column",
-                        "--smart-case", "--hidden"
+                        "rg",
+                        "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                        "--smart-case",
+                        "--hidden"
                     },
                     mappings = {
                         i = {
@@ -146,43 +171,35 @@ require('packer').startup(function(use)
                 }
             }
         end
-    }
-
-    use {
+    },
+    {
         "nvim-telescope/telescope-frecency.nvim",
         config = function() require"telescope".load_extension("frecency") end,
-        requires = {"kkharji/sqlite.lua"}
-    }
-
-    -----------------------------------------------------------------
-    -- LSP
-    -----------------------------------------------------------------
-    use {'neovim/nvim-lspconfig'}
-    use {
+        dependencies = {"kkharji/sqlite.lua"}
+    },
+    {'neovim/nvim-lspconfig'},
+    {
         'williamboman/mason.nvim',
-        requires = {'williamboman/mason-lspconfig.nvim'},
+        dependencies = {'williamboman/mason-lspconfig.nvim'},
         config = function()
             require("mason").setup {ui = {icons = {package_installed = "✓"}}}
             require("mason-lspconfig").setup {automatic_installation = true}
         end
-    }
-
-    -----------------------------------------------------------------
-    -- Completion
-    -----------------------------------------------------------------
-    use {
+    },
+    {
         'L3MON4D3/LuaSnip',
-        requires = {"rafamadriz/friendly-snippets"},
+        lazy = false,
+        dependencies = {"rafamadriz/friendly-snippets"},
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
             require("luasnip.loaders.from_vscode").lazy_load({
                 paths = {"./snippets"}
             })
         end
-    }
-
-    use {
+    },
+    {
         "zbirenbaum/copilot.lua",
+        lazy = false,
         cmd = "Copilot",
         event = "InsertEnter",
         config = function()
@@ -210,13 +227,17 @@ require('packer').startup(function(use)
                 }
             }
         end
-    }
-
-    use {
+    },
+    {
         'hrsh7th/cmp-nvim-lsp',
-        requires = {
-            'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-cmdline',
-            'hrsh7th/nvim-cmp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip'
+        lazy = false,
+        dependencies = {
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
+            'hrsh7th/nvim-cmp',
+            'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip'
         },
         config = function()
             local cmp = require 'cmp'
@@ -263,7 +284,8 @@ require('packer').startup(function(use)
                     end, {"i", "s"})
                 }),
                 sources = cmp.config.sources({
-                    {name = 'luasnip'}, {name = 'nvim_lsp'}
+                    {name = 'luasnip'},
+                    {name = 'nvim_lsp'}
                 }, {
                     {
                         name = 'buffer',
@@ -273,7 +295,8 @@ require('packer').startup(function(use)
                                 return vim.api.nvim_list_bufs()
                             end
                         }
-                    }, {name = 'path'}
+                    },
+                    {name = 'path'}
                 })
             })
 
@@ -287,22 +310,15 @@ require('packer').startup(function(use)
                 vim.b.copilot_suggestion_hidden = false
             end)
         end
-    }
-
-    -----------------------------------------------------------------
-    -- Commands
-    -----------------------------------------------------------------
-    use 'folke/which-key.nvim'
-    use {
+    },
+    'folke/which-key.nvim',
+    {
         'mrjones2014/legendary.nvim',
-        requires = {'nvim-telescope/telescope.nvim', 'stevearc/dressing.nvim'},
+        dependencies = {
+            'nvim-telescope/telescope.nvim',
+            'stevearc/dressing.nvim'
+        },
         config = function() require('legendary').setup() end
     }
-end)
+}, {})
 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost my_plugins.lua source <afile> | PackerCompile
-  augroup end
-]])

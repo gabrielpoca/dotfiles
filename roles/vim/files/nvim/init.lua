@@ -87,16 +87,6 @@ cmd [[
 nnoremap Y Y
 ]]
 
--- Auto install packer.nvim if not exists
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({
-        'git', 'clone', '--depth', '1',
-        'https://github.com/wbthomason/packer.nvim', install_path
-    })
-    vim.cmd 'packadd packer.nvim'
-end
-
 require('my_plugins')
 require('colors').setup(os.getenv("COLORSCHEME"),
                         os.getenv("COLORSCHEME_VARIANT"))
