@@ -26,7 +26,7 @@
 
 - name: install homebrew cask packages
   ignore_errors: yes
-  homebrew_cask:
+  community.general.homebrew_cask:
     name: "{{ homebrew_cask_packages }}"
     state: present
   vars:
