@@ -33,6 +33,7 @@ vim.o.wrap = false
 vim.o.wildmenu = true
 vim.o.wildmode = "full"
 vim.o.wildoptions = "pum"
+vim.o.wildignore = "*/build/*,*/.git/*"
 vim.o.pumblend = 20
 vim.o.laststatus = 2
 vim.o.splitbelow = true
