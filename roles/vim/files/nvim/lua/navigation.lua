@@ -13,6 +13,14 @@ vim.g.projectionist_heuristics = {
         ['src/*.spec.js'] = {['alternate'] = 'src/{}.js', ['type'] = 'test'}
     },
     ["package.json"] = {
+        ['src/*/index.jsx'] = {
+            ['alternate'] = 'src/{}/index.module.scss',
+            ['type'] = 'js'
+        },
+        ['src/*/index.module.scss'] = {
+            ['alternate'] = 'src/{}/index.jsx',
+            ['type'] = 'css'
+        },
         ['src/*.js'] = {['alternate'] = '{}.test.js', ['type'] = 'source'},
         ['src/*.test.js'] = {['alternate'] = 'src/{}.js', ['type'] = 'test'}
     },

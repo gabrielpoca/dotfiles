@@ -22,10 +22,37 @@ require("lazy").setup({
     {'tpope/vim-abolish', lazy = false},
     {'tpope/vim-commentary', lazy = false},
     {'tpope/vim-surround', lazy = false},
-    {'vim-test/vim-test', lazy = false},
-    {'voldikss/vim-floaterm', lazy = false},
+    {
+        'vim-test/vim-test',
+        keys = {
+            {"<leader>ra", "<cmd>TestSuite<CR>", desc = "Run test suite"},
+            {"<leader>rt", "<cmd>TestFile<CR>", desc = "Run test file"},
+            {"<leader>rr", "<cmd>TestNearest<CR>", desc = "Run test line"},
+            {"<leader>rl", "<cmd>TestLast<CR>", desc = "Run last test"},
+            {"<leader>rd", "<cmd>Tclear<CR>", desc = "Clear terminal"},
+            {"<leader>rk", "<cmd>Tkill<CR>", desc = "Kill job"}
+        }
+    },
+    {
+        'voldikss/vim-floaterm',
+        lazy = false,
+        keys = {
+            {'<leader>tt', ":FloatermToggle<CR>", desc = "Toggle terminal"},
+            {'<leader>tl', ":FloatermNext<CR>", desc = "Next terminal"},
+            {'<leader>th', ":FloatermPrev<CR>", desc = "Previous terminal"}
+        }
+    },
     {'wincent/terminus', lazy = false},
-    {dir = '~/Developer/replacer.nvim'},
+    {
+        dir = '~/Developer/replacer.nvim',
+        keys = {
+            {
+                '<leader>h',
+                function() require('replacer').run() end,
+                desc = "run replacer.nvim"
+            }
+        }
+    },
     {
         'gabrielpoca/term_find.nvim',
         config = function()
@@ -45,20 +72,87 @@ require("lazy").setup({
     },
     {
         'phaazon/hop.nvim',
-        lazy = false,
         config = function() require'hop'.setup() end,
+        keys = {
+            {'<leader>jw', '<cmd>HopWord<CR>', desc = "Go to word"},
+            {'<leader>jl', '<cmd>HopLine<CR>', desc = "Go to line"}
+        }
     },
-    {'kristijanhusak/any-jump.vim', lazy = false},
-    {'tpope/vim-projectionist', lazy = false},
+    {
+        'kristijanhusak/any-jump.vim',
+        keys = {
+            {'<leader>jj', "<cmd>AnyJump<CR>", desc = "AnyJump"},
+            {
+                '<leader>jk',
+                "<cmd>AnyJumpLastResults<CR>",
+                desc = "AnyJump Reopen"
+            }
+        }
+    },
+    {
+        'tpope/vim-projectionist',
+        lazy = false,
+        keys = {
+            {'<leader>a', "<cmd>A<CR>", desc = "Change to alternate"},
+            {'<leader>v', "<cmd>AV<CR>", desc = "Open alternate file in split"}
+        }
+    },
     {'christoomey/vim-tmux-navigator', lazy = false},
     {
         'romgrk/barbar.nvim',
         lazy = false,
         dependencies = {'kyazdani42/nvim-web-devicons'},
+        init = function() vim.g.barbar_auto_setup = false end,
+        opts = {insert_at_start = true},
+        keys = {
+            {"<leader>1", ":BufferGoto 1<CR>", desc = "Go to buffer 1"},
+            {"<leader>2", ":BufferGoto 2<CR>", desc = "Go to buffer 2"},
+            {"<leader>3", ":BufferGoto 3<CR>", desc = "Go to buffer 3"},
+            {"<leader>4", ":BufferGoto 4<CR>", desc = "Go to buffer 4"},
+            {"<leader>5", ":BufferGoto 5<CR>", desc = "Go to buffer 5"},
+            {"<leader>6", ":BufferGoto 6<CR>", desc = "Go to buffer 6"},
+            {"<leader>7", ":BufferGoto 7<CR>", desc = "Go to buffer 7"},
+            {'<leader>bn', ":BufferNext<CR>", desc = "Next"},
+            {'<leader>bp', ":BufferPrevious<CR>", desc = "Previous"},
+            {'<leader>bq', ":BufferClose<CR>", desc = "Close"},
+            {
+                '<leader>bb',
+                ":BufferOrderByBufferNumber<CR>",
+                desc = "Order by number"
+            },
+            {
+                '<leader>bd',
+                ":BufferOrderByDirectory<CR>",
+                desc = "Order by directory"
+            },
+            {
+                '<leader>bl',
+                ":BufferOrderByLanguage<CR>",
+                desc = "Order by language"
+            },
+            {'<leader>bo', ":BufferPick<CR>", desc = "Pick buffer"}
+        }
     },
     {
         'kyazdani42/nvim-tree.lua',
         dependencies = {'kyazdani42/nvim-web-devicons'},
+        keys = {
+            {
+                '<leader>nn',
+                function() require('nvim-tree.api').tree.toggle() end,
+                desc = "Toggle"
+            },
+            {
+                '<leader>nf',
+                function()
+                    require('nvim-tree.api').tree.find_file({
+                        open = true,
+                        focus = true
+                    })
+                end,
+                desc = "Find file"
+            }
+        },
         config = function()
             require'nvim-tree'.setup {
                 sync_root_with_cwd = true,
@@ -70,11 +164,21 @@ require("lazy").setup({
     },
     {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', lazy = false},
     {
+        'RRethy/vim-illuminate',
+        lazy = false,
+        config = function()
+            require('illuminate').configure({
+                filetypes_denylist = {'NvimTree'},
+                min_count_to_highlight = 2
+            })
+        end
+    },
+    {
         'nvim-treesitter/nvim-treesitter-context',
         lazy = false,
         config = function()
             require'treesitter-context'.setup({mode = 'topline'})
-        end,
+        end
     },
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
@@ -85,28 +189,67 @@ require("lazy").setup({
                 highlight = {enable = true},
                 context_commentstring = {enable = true}
             }
-        end,
-    }, -----------------------------------------------------------------
-    -- GIT
-    -----------------------------------------------------------------
-    {'tpope/vim-fugitive', lazy = false},
+        end
+    },
+    {
+        'tpope/vim-fugitive',
+        cmd = "G",
+        keys = {
+            {'<leader>gs', "<cmd>vertical G<CR>", desc = "Git status"},
+            {'<leader>gb', "<cmd>G blame<CR>", desc = "Git blame"},
+            {'<leader>gp', "<cmd>G push<CR>", desc = "Git push"},
+            {'<leader>go', "<cmd>G browse<CR>", desc = "Git browse"},
+            {
+                '<leader>gh',
+                function() require('git').file_history() end,
+                desc = "Git history for file"
+            }
+        }
+    },
     {
         'pwntester/octo.nvim',
-        lazy = false<,
         dependencies = {
             'nvim-lua/plenary.nvim',
             'nvim-telescope/telescope.nvim',
             'kyazdani42/nvim-web-devicons'
         },
         config = function() require"octo".setup() end,
+        cmd = 'Octo',
+        keys = {{'<leader>gP', "<cmd>Octo pr list<CR>", desc = "List PRs"}}
     },
     -- 'morhetz/gruvbox',
     -- 'dracula/vim',
     {
         "catppuccin/nvim",
         lazy = false,
-        -- as = "catppuccin",
-        config = function() require('catppuccin').compile() end
+        config = function()
+            require('catppuccin').compile()
+            require('catppuccin').setup({
+                integrations = {
+                    which_key = true,
+                    barbar = true,
+                    hop = true,
+                    mason = true,
+                    cmp = true,
+                    native_lsp = false,
+                    nvimtree = true,
+                    treesitter = true,
+                    octo = true,
+                    telescope = true,
+                    illuminate = true
+
+                }
+            })
+
+            vim.g.floaterm_width = 0.9
+            vim.g.floaterm_height = 0.9
+            -- vim.g.floaterm_borderchars = '        '
+            vim.g.floaterm_borderchars = '─│─│╭╮╯╰'
+            vim.g.floaterm_title = ''
+            -- vim.g.floaterm_title = ' term ($1|$2) '
+            vim.g.floaterm_autoinsert = false
+            vim.g.floaterm_autohide = true
+        end
     },
     {
         'nvim-lualine/lualine.nvim',
@@ -132,6 +275,49 @@ require("lazy").setup({
     {
         'nvim-telescope/telescope.nvim',
         dependencies = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
+        keys = {
+            {
+                '<leader>o',
+                function()
+                    local telescope = require('telescope.builtin')
+                    telescope.buffers();
+                end,
+                desc = "Buffers"
+            },
+            {
+                '<leader>p',
+                function()
+                    local telescope = require('telescope.builtin')
+                    telescope.find_files({hidden = true});
+                end,
+                desc = "Files"
+            },
+            {
+                '<leader>P',
+                function()
+                    require('telescope').extensions.frecency.frecency({
+                        workspace = 'CWD'
+                    });
+                end,
+                desc = "Recent Files"
+            },
+            {
+                '<leader>fw',
+                function()
+                    local telescope = require('telescope.builtin')
+                    telescope.grep_string();
+                end,
+                desc = "Search for word under cursor"
+            },
+            {
+                '<leader>ff',
+                function()
+                    local telescope = require('telescope.builtin')
+                    telescope.grep_string({search = ''});
+                end,
+                desc = "Search for input"
+            }
+        },
         config = function()
             local actions = require('telescope.actions')
 
@@ -188,7 +374,6 @@ require("lazy").setup({
     },
     {
         'L3MON4D3/LuaSnip',
-        lazy = false,
         dependencies = {"rafamadriz/friendly-snippets"},
         config = function()
             require("luasnip.loaders.from_vscode").lazy_load()
@@ -199,9 +384,15 @@ require("lazy").setup({
     },
     {
         "zbirenbaum/copilot.lua",
-        lazy = false,
         cmd = "Copilot",
         event = "InsertEnter",
+        keys = {
+            {
+                '<leader>cc',
+                function() require('copilot.panel').open({}) end,
+                desc = "Copilot"
+            }
+        },
         config = function()
             require("copilot").setup {
                 filetypes = {
@@ -311,14 +502,52 @@ require("lazy").setup({
             end)
         end
     },
-    'folke/which-key.nvim',
+    {
+        'folke/which-key.nvim',
+        lazy = false,
+        config = function()
+            local wk = require("which-key")
+            wk.register({
+                b = {name = 'buffer'},
+                c = {name = 'shell'},
+                f = {name = 'search'},
+                g = {name = 'git'},
+                j = {name = 'jump'},
+                t = {name = 'terminal'},
+                r = {name = 'tests'},
+                n = {name = 'tree'}
+            }, {prefix = "<leader>", nowait = true})
+        end
+    },
     {
         'mrjones2014/legendary.nvim',
         dependencies = {
             'nvim-telescope/telescope.nvim',
             'stevearc/dressing.nvim'
         },
-        config = function() require('legendary').setup() end
+        config = function() require('legendary').setup() end,
+        keys = {
+            {
+                '<leader><leader>',
+                function() require('legendary').find() end,
+                desc = "Search everything"
+            }
+        }
     }
 }, {})
 
+local wk = require("which-key")
+
+local wk_mappings = {
+    e = {
+        name = "shell",
+        s = {function() require'repl'.start() end, "Start server"},
+        r = {function() require'repl'.recompile() end, "Recompile"},
+        l = {function() require'repl'.send_line() end, "Send line"},
+        i = {function() require'repl'.install() end, "Setup projet"}
+    },
+    i = {function() require"terminal".toggle(1) end, "General terminal"},
+    u = {function() require"terminal".toggle(2) end, "Tests terminal"}
+}
+
+wk.register(wk_mappings, {prefix = "<leader>", nowait = true})

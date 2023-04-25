@@ -39,25 +39,27 @@ local function setup_catppuccin(variant)
     local group = vim.api.nvim_create_augroup("mycolors", {});
 
     local command = vim.fn.join({
-        "hi! FloatermBorder guibg=" .. colors.mantle .. " guifg=" ..
-            colors.mantle, "hi! Floaterm guibg=" .. colors.mantle,
-        "hi! BufferCurrentSign guifg=" .. colors.subtext0,
+        "hi! FloatermBorder guibg=" .. colors.base .. " guifg=" .. colors.blue,
+        "hi! Floaterm guibg=" .. colors.mantle,
+        "hi! BufferCurrent guibg=" .. colors.surface0,
+        "hi! BufferCurrentSign guibg=" .. colors.surface0 .. " guifg=" ..
+            colors.surface0,
         "hi! BufferCurrentMod guibg=" .. colors.base .. " guifg=" ..
             colors.yellow,
         "hi! BufferTabpageFill guibg=" .. colors.base .. " guifg=" ..
-            colors.surface2,
+            colors.surface0,
         "hi! BufferVisible guibg=" .. colors.base .. " guifg=" ..
-            colors.surface2,
+            colors.surface0,
         "hi! BufferVisibleSign guibg=" .. colors.base .. " guifg=" ..
-            colors.surface2,
+            colors.surface0,
         "hi! BufferVisibleMod guibg=" .. colors.base .. " guifg=" ..
-            colors.surface2,
+            colors.surface0,
         "hi! BufferInactive guibg=" .. colors.base .. " guifg=" ..
-            colors.surface2,
+            colors.surface0,
         "hi! BufferInactiveSign guibg=" .. colors.base .. " guifg=" ..
-            colors.surface2,
+            colors.surface0,
         "hi! BufferInactiveMod guibg=" .. colors.base .. " guifg=" ..
-            colors.surface2
+            colors.surface0
     }, "\n\n")
 
     vim.api.nvim_create_autocmd('VimEnter', {group = group, command = command})

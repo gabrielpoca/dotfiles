@@ -1,6 +1,6 @@
-globals = require "globals"
+local globals = require "globals"
 
-function current_app() return hs.application.frontmostApplication():name() end
+local function current_app() return hs.application.frontmostApplication():name() end
 
 hs.hotkey.bind(globals.hyper, "L", function()
     if current_app() == "Alacritty" then
