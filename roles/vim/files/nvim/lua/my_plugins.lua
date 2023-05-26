@@ -55,24 +55,18 @@ require("lazy").setup({
     },
     {
         'gabrielpoca/term_find.nvim',
-        config = function()
-            require('term_find').setup({
-                autocmd_pattern = 'floaterm',
-                keymap_mode = 'n',
-                keymap_mapping = 'gf',
-                callback = function() vim.cmd("FloatermHide") end
-            })
-        end
+        opts = {
+            autocmd_pattern = 'floaterm',
+            keymap_mode = 'n',
+            keymap_mapping = 'gf',
+            callback = function() vim.cmd("FloatermHide") end
+        }
     },
     {'mg979/vim-visual-multi', branch = 'master', lazy = false},
-    {
-        'NvChad/nvim-colorizer.lua',
-        lazy = false,
-        config = function() require'colorizer'.setup({}) end
-    },
+    {'NvChad/nvim-colorizer.lua', lazy = false, config = true},
     {
         'phaazon/hop.nvim',
-        config = function() require'hop'.setup() end,
+        config = true,
         keys = {
             {'<leader>jw', '<cmd>HopWord<CR>', desc = "Go to word"},
             {'<leader>jl', '<cmd>HopLine<CR>', desc = "Go to line"}
@@ -136,6 +130,12 @@ require("lazy").setup({
     {
         'kyazdani42/nvim-tree.lua',
         dependencies = {'kyazdani42/nvim-web-devicons'},
+        opts = {
+            sync_root_with_cwd = true,
+            disable_netrw = true,
+            git = {ignore = false},
+            filters = {custom = {"^\\.DS_Store"}}
+        },
         keys = {
             {
                 '<leader>nn',
@@ -152,15 +152,12 @@ require("lazy").setup({
                 end,
                 desc = "Find file"
             }
-        },
-        config = function()
-            require'nvim-tree'.setup {
-                sync_root_with_cwd = true,
-                disable_netrw = true,
-                git = {ignore = false},
-                filters = {custom = {"^\\.DS_Store"}}
-            }
-        end
+        }
+    },
+    {
+        'windwp/nvim-ts-autotag',
+        lazy = false,
+        config = function() require('nvim-ts-autotag').setup() end
     },
     {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', lazy = false},
     {
@@ -176,16 +173,23 @@ require("lazy").setup({
     {
         'nvim-treesitter/nvim-treesitter-context',
         lazy = false,
-        config = function()
-            require'treesitter-context'.setup({mode = 'topline'})
-        end
+        opts = {mode = 'topline'}
     },
     {
         'JoosepAlviste/nvim-ts-context-commentstring',
         lazy = false,
         config = function()
-            require'nvim-treesitter.configs'.setup {
-                ensure_installed = {"svelte", "css", "typescript"},
+            require('nvim-treesitter.configs').setup {
+                ensure_installed = {
+                    "svelte",
+                    "css",
+                    "typescript",
+                    "tsx",
+                    "toml",
+                    "json",
+                    "yaml",
+                    "html"
+                },
                 highlight = {enable = true},
                 context_commentstring = {enable = true}
             }
@@ -213,7 +217,7 @@ require("lazy").setup({
             'nvim-telescope/telescope.nvim',
             'kyazdani42/nvim-web-devicons'
         },
-        config = function() require"octo".setup() end,
+        config = true,
         cmd = 'Octo',
         keys = {{'<leader>gP', "<cmd>Octo pr list<CR>", desc = "List PRs"}}
     },
@@ -350,7 +354,8 @@ require("lazy").setup({
                             ['<C-w>'] = actions.send_selected_to_qflist +
                                 actions.open_qflist,
                             ['<C-q>'] = actions.send_to_qflist +
-                                actions.open_qflist
+                                actions.open_qflist,
+                            ['<c-d>'] = actions.delete_buffer
                         },
                         n = {['<C-c>'] = actions.close}
                     }
@@ -393,31 +398,29 @@ require("lazy").setup({
                 desc = "Copilot"
             }
         },
-        config = function()
-            require("copilot").setup {
-                filetypes = {
-                    javascript = true,
-                    lua = true,
-                    markdown = true,
-                    solidity = true,
-                    terraform = false,
-                    typescript = true,
-                    typescriptreact = true
-                },
-                suggestion = {
-                    enabled = false,
-                    auto_trigger = false
-                    -- keymap = {
-                    -- accept = "<C-k>"
-                    -- accept_line = "<C-K>"
-                    -- accept_word = "<M-k>",
-                    -- next = "<M-]>",
-                    -- prev = "<M-[>",
-                    -- dismiss = "<M-c>"
-                    -- }
-                }
+        opts = {
+            filetypes = {
+                javascript = true,
+                lua = true,
+                markdown = true,
+                solidity = true,
+                terraform = false,
+                typescript = true,
+                typescriptreact = true
+            },
+            suggestion = {
+                enabled = false,
+                auto_trigger = false
+                -- keymap = {
+                -- accept = "<C-k>"
+                -- accept_line = "<C-K>"
+                -- accept_word = "<M-k>",
+                -- next = "<M-]>",
+                -- prev = "<M-[>",
+                -- dismiss = "<M-c>"
+                -- }
             }
-        end
+        }
     },
     {
         'hrsh7th/cmp-nvim-lsp',
@@ -512,6 +515,7 @@ require("lazy").setup({
                 c = {name = 'shell'},
                 f = {name = 'search'},
                 g = {name = 'git'},
+                l = {name = 'language'},
                 j = {name = 'jump'},
                 t = {name = 'terminal'},
                 r = {name = 'tests'},
@@ -521,11 +525,11 @@ require("lazy").setup({
     },
     {
         'mrjones2014/legendary.nvim',
+        config = true,
         dependencies = {
             'nvim-telescope/telescope.nvim',
             'stevearc/dressing.nvim'
         },
-        config = function() require('legendary').setup() end,
         keys = {
             {
                 '<leader><leader>',

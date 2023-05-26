@@ -22,7 +22,6 @@ local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     wk.register({
         l = {
-            name = "Language",
             r = {"<cmd>lua vim.lsp.buf.rename()<CR>", "Rename"},
             d = {
                 "<cmd>lua require('telescope.builtin').diagnostics({ bufnr = 0 })<cr>",
@@ -76,11 +75,18 @@ local on_attach = function(client, bufnr)
         client.server_capabilities.documentRangeFormattingProvider = false
     end
 
-    if client.server_capabilities.documentFormattingProvider then
+    if client.name == 'rust_analyzer' then
         vim.cmd [[
           augroup Format
             au! * <buffer>
-            au BufWritePre <buffer> lua vim.lsp.buf.format({ name = 'efm'})
+            au BufWritePre <buffer> lua vim.lsp.buf.format({ name = 'rust_analyzer' })
+          augroup END
+        ]]
+    elseif client.server_capabilities.documentFormattingProvider then
+        vim.cmd [[
+          augroup Format
+            au! * <buffer>
+            au BufWritePre <buffer> lua vim.lsp.buf.format({ name = 'efm' })
           augroup END
         ]]
     end
@@ -95,10 +101,18 @@ local do_setup = function(name, config)
     }, config))
 end
 
-do_setup('rust_analyzer', {root_dir = nvim_lsp.util.root_pattern {"Cargo.toml"}})
+do_setup('rust_analyzer', {
+    root_dir = nvim_lsp.util.root_pattern {"Cargo.toml"},
+    settings = {
+        ['rust-analyzer'] = {
+            ['checkOnSave'] = {["enabled"] = true, ["command"] = "clippy"}
+        }
+    }
+})
 
 local function tsserver_root_dir()
-    local tsroot = nvim_lsp.util.root_pattern("package.json", "tsconfig.json")
+    local tsroot = nvim_lsp.util.root_pattern("package.json")
+    local tsconfigroot = nvim_lsp.util.root_pattern("tsconfig.json")
     local denoroot = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")
 
     return function(startpath)
@@ -106,7 +120,7 @@ local function tsserver_root_dir()
         if (denoroot(startpath)) then
             return
         else
-            return tsroot(startpath)
+            return tsconfigroot(startpath) or tsroot(startpath)
         end
     end
 end
@@ -137,14 +151,16 @@ local languages = {
     json = {prettier},
     markdown = {prettier},
     scss = {
-        prettier, {
+        prettier,
+        {
             formatCommand = 'npx stylelint --fix --stdin --stdin-filename ${INPUT}',
             formatStdin = true
         }
     },
     typescript = {prettier, eslint},
     solidity = {
-        prettier, {
+        prettier,
+        {
             lintCommand = string.format('solhint -f unix -c %s ${INPUT}', vim.fn
                                             .expand(
                                             '~/.config/nvim/utils/linter-config/.solhint.json')),
@@ -156,16 +172,15 @@ local languages = {
     svelte = {prettier},
     elixir = {{formatCommand = "mix format -", formatStdin = true}},
     lua = {
-        {
-            formatCommand = "lua-format --chop-down-table -i",
-            formatStdin = true
-        }
+        {formatCommand = "lua-format --chop-down-table -i", formatStdin = true}
     }
 }
 
 do_setup('efm', {
     root_dir = nvim_lsp.util.root_pattern {
-        '.git/', "package.json", "tsconfig.json"
+        '.git/',
+        "package.json",
+        "tsconfig.json"
     },
     init_options = {documentFormatting = true, codeAction = true},
     filetypes = vim.tbl_keys(languages),
@@ -191,3 +206,11 @@ vim.diagnostic.config({
 
 vim.lsp.handlers["textDocument/hover"] =
     vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
+
+-- vim.lsp.handlers['textDocument/publishDiagnostics'] =
+--     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+--         underline = true,
+--         virtual_text = {spacing = 5, severity_limit = 'Warning'},
+--         update_in_insert = true
+--     })
+

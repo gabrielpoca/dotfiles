@@ -2,14 +2,6 @@ local Terminal = require "terminal"
 
 local M = {}
 
-local has_contents = function(filename, contents, on_done)
-    vim.fn.jobstart('grep ' .. contents .. ' ' .. filename, {
-        on_stdout = function(_, data, _) on_done(vim.tbl_count(data) > 1) end,
-        stdout_buffered = true,
-        stderr_buffered = true
-    })
-end
-
 local has_file = function(filename)
     local stat = vim.loop.fs_stat(filename)
 
@@ -37,11 +29,11 @@ end
 
 M.start = function()
     if has_file("mix.exs") then
-        has_contents("mix.exs", "phoenix", function(result)
+        includes("mix.exs", "phoenix", function(result)
             if result then
                 M.send('iex -S mix phx.server\n', Terminal.REPL)
             else
-                has_contents("mix.exs", "still", function(result)
+                includes("mix.exs", "still", function(result)
                     if result then
                         M.send('iex -S mix still.dev\n', Terminal.REPL)
                     else
@@ -50,8 +42,10 @@ M.start = function()
                 end)
             end
         end)
+    elseif has_file("Justfile") then
+        M.send("just dev\n", Terminal.REPL)
     elseif has_file("yarn.lock") then
-        has_contents("package.json", '"dev"', function(result)
+        includes("package.json", '"dev"', function(result)
             if result then
                 M.send("yarn run dev\n", Terminal.REPL)
             else
@@ -59,7 +53,7 @@ M.start = function()
             end
         end)
     elseif has_file("package-lock.json") then
-        has_contents("package.json", "\"dev\"", function(result)
+        includes("package.json", "\"dev\"", function(result)
             if result then
                 M.send("npm run dev\n", Terminal.REPL)
             else

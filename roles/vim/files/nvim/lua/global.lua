@@ -1,5 +1,13 @@
 local api = vim.api
 
+function _G.includes(filename, contents, on_done)
+    vim.fn.jobstart('grep ' .. contents .. ' ' .. filename, {
+        on_stdout = function(_, data, _) on_done(vim.tbl_count(data) > 1) end,
+        stdout_buffered = true,
+        stderr_buffered = true
+    })
+end
+
 function _G.empty(thing) return vim.fn.empty(thing) == 1 end
 
 function _G.dump(...) vim.pretty_print(...) end

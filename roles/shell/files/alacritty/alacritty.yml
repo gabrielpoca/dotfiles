@@ -248,7 +248,7 @@ font:
 
   bold:
     family: "JetBrainsMono Nerd Font"
-    # style: Regular # disable bold fonts
+    # style: Regular
     style: Bold
 
   italic:
