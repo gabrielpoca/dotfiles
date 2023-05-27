@@ -1,5 +1,6 @@
 local catppuccin = require("catppuccin")
 local lualine = require('lualine')
+local wk = require("which-key")
 
 local api = vim.api
 local M = {}
@@ -29,53 +30,55 @@ local function setup_dracula()
     vim.cmd [[augroup END]]
 end
 
-local function setup_catppuccin(variant)
-    catppuccin.setup({flavour = variant})
+local function setup_catppuccin()
+    catppuccin.setup({
+        background = {light = 'latte', dark = 'mocha'},
+        custom_highlights = function(colors)
+            return {
+                FloatermBorder = {bg = colors.base, fg = colors.blue},
+                Floaterm = {bg = colors.mantle},
+                BufferCurrent = {bg = colors.surface0},
+                BufferCurrentSign = {bg = colors.surface0, fg = colors.surface0},
+                BufferCurrentMod = {bg = colors.base, fg = colors.yellow},
+                BufferTabpageFill = {bg = colors.base, fg = colors.surface0},
+                BufferVisible = {bg = colors.base, fg = colors.surface0},
+                BufferVisibleSign = {bg = colors.base, fg = colors.surface0},
+                BufferVisibleMod = {bg = colors.base, fg = colors.surface0},
+                BufferInactive = {bg = colors.base, fg = colors.surface0},
+                BufferInactiveSign = {bg = colors.base, fg = colors.surface0},
+                BufferInactiveMod = {bg = colors.base, fg = colors.surface0}
+            }
+        end
+    })
 
     api.nvim_command('colorscheme catppuccin')
-
-    local colors = require("catppuccin.palettes").get_palette()
-
-    local group = vim.api.nvim_create_augroup("mycolors", {});
-
-    local command = vim.fn.join({
-        "hi! FloatermBorder guibg=" .. colors.base .. " guifg=" .. colors.blue,
-        "hi! Floaterm guibg=" .. colors.mantle,
-        "hi! BufferCurrent guibg=" .. colors.surface0,
-        "hi! BufferCurrentSign guibg=" .. colors.surface0 .. " guifg=" ..
-            colors.surface0,
-        "hi! BufferCurrentMod guibg=" .. colors.base .. " guifg=" ..
-            colors.yellow,
-        "hi! BufferTabpageFill guibg=" .. colors.base .. " guifg=" ..
-            colors.surface0,
-        "hi! BufferVisible guibg=" .. colors.base .. " guifg=" ..
-            colors.surface0,
-        "hi! BufferVisibleSign guibg=" .. colors.base .. " guifg=" ..
-            colors.surface0,
-        "hi! BufferVisibleMod guibg=" .. colors.base .. " guifg=" ..
-            colors.surface0,
-        "hi! BufferInactive guibg=" .. colors.base .. " guifg=" ..
-            colors.surface0,
-        "hi! BufferInactiveSign guibg=" .. colors.base .. " guifg=" ..
-            colors.surface0,
-        "hi! BufferInactiveMod guibg=" .. colors.base .. " guifg=" ..
-            colors.surface0
-    }, "\n\n")
-
-    vim.api.nvim_create_autocmd('VimEnter', {group = group, command = command})
 end
 
-M.setup = function(colorscheme, variant)
+local colorscheme = os.getenv("COLORSCHEME")
+
+local function sync_background()
+    if os.execute("defaults read -g AppleInterfaceStyle 2> /dev/null") == 0 then
+        vim.o.background = 'dark'
+    else
+        vim.o.background = 'light'
+    end
+end
+
+M.setup = function()
     vim.o.termguicolors = true
-    vim.o.background = "dark"
 
     if colorscheme == 'gruvbox' then
         setup_gruvbox()
     elseif colorscheme == "dracula" then
         setup_dracula()
     elseif colorscheme == "catppuccin" then
-        setup_catppuccin(variant)
+        setup_catppuccin()
     end
+
+    sync_background()
+
+    wk.register({c = {s = {sync_background, "Sync colorscheme"}}},
+                {prefix = "<leader>", nowait = true})
 
     lualine.setup({
         options = {

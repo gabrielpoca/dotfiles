@@ -1,3 +1,4 @@
+#!/bin/zsh
 export COLORSCHEME='catppuccin'
 
 current=$(defaults read -g AppleInterfaceStyle 2> /dev/null)
@@ -7,8 +8,6 @@ if [[ $current == 'Dark' ]]; then
 else
   export COLORSCHEME_VARIANT='latte'
 fi
-
-# export FZF_PREVIEW_PREVIEW_BAT_THEME=gruvbox
 
 if [[ $COLORSCHEME == "catppuccin" ]]; then
   if [[ $COLORSCHEME_VARIANT == "mocha" ]]; then

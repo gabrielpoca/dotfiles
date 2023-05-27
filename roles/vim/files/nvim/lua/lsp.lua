@@ -21,6 +21,10 @@ local on_attach = function(client, bufnr)
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     wk.register({
+        ['<C-LeftMouse>'] = {
+            '<cmd>lua vim.lsp.buf.type_definition()<CR>',
+            "Jump to type definition"
+        },
         l = {
             r = {"<cmd>lua vim.lsp.buf.rename()<CR>", "Rename"},
             d = {

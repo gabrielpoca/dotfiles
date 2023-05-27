@@ -393,7 +393,7 @@ require("lazy").setup({
         event = "InsertEnter",
         keys = {
             {
-                '<leader>cc',
+                '<leader>lC',
                 function() require('copilot.panel').open({}) end,
                 desc = "Copilot"
             }
@@ -512,16 +512,35 @@ require("lazy").setup({
             local wk = require("which-key")
             wk.register({
                 b = {name = 'buffer'},
-                c = {name = 'shell'},
                 f = {name = 'search'},
                 g = {name = 'git'},
                 l = {name = 'language'},
                 j = {name = 'jump'},
                 t = {name = 'terminal'},
                 r = {name = 'tests'},
-                n = {name = 'tree'}
+                n = {name = 'tree'},
+                c = {name = 'colorscheme'}
             }, {prefix = "<leader>", nowait = true})
         end
+    },
+    {
+        'cormacrelf/dark-notify',
+        lazy = false,
+        config = function()
+            require('dark_notify').run({
+
+                onchange = function(mode)
+                    if mode == 'light' then
+                        os.execute(
+                            "sed -i '' -e \"s/^colors: .*$/colors: *catppuccin_latte/\" $DOTFILES/roles/shell/files/alacritty/alacritty.yml")
+                    else
+                        os.execute(
+                            "sed -i '' -e \"s/^colors: .*$/colors: *catppuccin_mocha/\" $DOTFILES/roles/shell/files/alacritty/alacritty.yml")
+                    end
+                end
+            })
+        end
+
     },
     {
         'mrjones2014/legendary.nvim',

@@ -9,6 +9,8 @@ terminal_osx_packages:
   - gnu-tar
   - efm-langserver
   - asdf
+  - cormacrelf/tap/dark-notify
+
 
 terminal_packages:
   - bat

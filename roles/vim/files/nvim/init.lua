@@ -88,8 +88,7 @@ nnoremap Y Y
 ]]
 
 require('my_plugins')
-require('colors').setup(os.getenv("COLORSCHEME"),
-                        os.getenv("COLORSCHEME_VARIANT"))
+require('colors').setup()
 require('terminal')
 require('repl')
 require('tests')
