@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+vim.g.loaded_matchparen = 1 -- matchparen seems to be slow
 
 require('global')
 
@@ -7,6 +8,7 @@ local execute = vim.api.nvim_command
 local cmd = vim.cmd
 
 vim.g.polyglot_disabled = {'solidity', 'svelte'}
+-- vim.g.polyglot_disabled = {'svelte'}
 
 -- defaults
 local indent = 2
@@ -49,7 +51,7 @@ vim.o.incsearch = true
 vim.o.gdefault = true
 vim.o.inccommand = "nosplit"
 vim.o.completeopt = "menuone,noinsert,noselect"
-vim.o.shortmess = vim.o.shortmess .. "c"
+vim.o.shortmess = vim.o.shortmess .. "aWCFS"
 vim.o.pyxversion = 0
 vim.o.dictionary = vim.o.dictionary .. "/usr/share/dict/words"
 vim.o.clipboard = "unnamed" -- copy to system clipboard
@@ -70,8 +72,8 @@ set_keymap('n', '<leader><cr>', '<cmd>noh<CR>')
 set_keymap('t', '<C-e>', '<C-\\><C-n>', {silent = true})
 set_keymap('i', 'jk', '<Esc>')
 -- save
-set_keymap('i', '<C-s>', '<Esc>:w<CR>', {silent = true})
-set_keymap('', '<C-s>', ':w<CR>', {silent = true})
+set_keymap('i', '<C-s>', '<Esc>:silent write<CR>', {silent = true})
+set_keymap('', '<C-s>', ':silent write<CR>', {silent = true})
 -- close window
 set_keymap('', '<C-q>', ':close<CR>', {silent = true})
 set_keymap('t', '<C-q>', '<C-\\><C-n>:close<CR>', {silent = true})
@@ -87,6 +89,8 @@ cmd [[
 nnoremap Y Y
 ]]
 
+vim.g.localvimrc_whitelist = {'/Users/gabriel/Developer/.*'}
+
 require('my_plugins')
 require('colors').setup()
 require('terminal')
@@ -100,11 +104,9 @@ vim.g.AutoPairsMultilineClose = 1
 vim.g.any_jump_disable_default_keybindings = 1
 vim.g.cursorhold_updatetime = 100
 vim.g.localvimrc_sandbox = false
-vim.g.localvimrc_whitelist = {'/Users/gabriel/Developer/.*'}
 vim.g.terraform_fmt_on_save = 1
 vim.g.typescript_indent_disable = 1
 vim.g.vim_markdown_conceal_code_blocks = 0
 vim.g.vim_markdown_folding_disabled = 1
-vim.g.loaded_matchparen = 1 -- matchparen seems to be slow
 
 require('lsp')

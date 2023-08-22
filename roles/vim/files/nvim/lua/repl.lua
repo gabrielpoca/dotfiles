@@ -62,6 +62,8 @@ M.start = function()
         end)
     elseif has_file("Cargo.toml") then
         M.send("cargo run\n", Terminal.REPL)
+    else
+        error('Failed to identify server')
     end
 end
 
@@ -78,7 +80,7 @@ end
 M.recompile =
     function() if has_file("mix.exs") then M.send('recompile\n') end end
 
-M.run_test = function(cmd) M.send(cmd .. "\n", 2) end
+M.run_test = function(cmd) M.send(cmd .. "\n", Terminal.SHELL) end
 
 set_keymaps({["<leader>el"] = "lua require'repl'.send_selection()"}, 'v')
 

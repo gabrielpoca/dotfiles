@@ -31,22 +31,30 @@ local function setup_dracula()
 end
 
 local function setup_catppuccin()
+    ---@diagnostic disable-next-line: missing-fields
     catppuccin.setup({
         background = {light = 'latte', dark = 'mocha'},
         custom_highlights = function(colors)
+            local bg = colors.surface0
+
             return {
                 FloatermBorder = {bg = colors.base, fg = colors.blue},
-                Floaterm = {bg = colors.mantle},
-                BufferCurrent = {bg = colors.surface0},
-                BufferCurrentSign = {bg = colors.surface0, fg = colors.surface0},
-                BufferCurrentMod = {bg = colors.base, fg = colors.yellow},
-                BufferTabpageFill = {bg = colors.base, fg = colors.surface0},
-                BufferVisible = {bg = colors.base, fg = colors.surface0},
-                BufferVisibleSign = {bg = colors.base, fg = colors.surface0},
-                BufferVisibleMod = {bg = colors.base, fg = colors.surface0},
-                BufferInactive = {bg = colors.base, fg = colors.surface0},
-                BufferInactiveSign = {bg = colors.base, fg = colors.surface0},
-                BufferInactiveMod = {bg = colors.base, fg = colors.surface0}
+                Floaterm = {bg = colors.base},
+
+                BufferCurrent = {bg = bg, fg = colors.text},
+                BufferCurrentMod = {bg = bg, fg = colors.yellow},
+                BufferCurrentSign = {bg = bg, fg = bg},
+                BufferCurrentSignRight = {bg = bg, fg = bg},
+
+                BufferTabpageFill = {bg = colors.base, fg = bg},
+
+                BufferInactive = {bg = bg, fg = colors.surface2},
+                BufferInactiveMod = {bg = bg, fg = bg},
+                BufferInactiveSign = {bg = bg, fg = bg},
+
+                BufferVisible = {bg = bg, fg = colors.overlay0},
+                BufferVisibleMod = {bg = bg, fg = bg},
+                BufferVisibleSign = {bg = bg, fg = bg}
             }
         end
     })

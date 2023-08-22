@@ -4,6 +4,10 @@ vim.api.nvim_set_keymap('n', '<leader><cr>', ':nohlsearch<cr><C-L>',
 
 -- projectionist
 vim.g.projectionist_heuristics = {
+    ["foundry.toml"] = {
+        ['src/*.sol'] = {['alternate'] = 'test/{}.t.sol', ['type'] = 'source'},
+        ['test/*.t.sol'] = {['alternate'] = 'src/{}.sol', ['type'] = 'test'}
+    },
     ["Gemfile"] = {
         ['app/*.rb'] = {['alternate'] = 'spec/{}_spec.rb', ['type'] = 'source'},
         ['spec/*_spec.rb'] = {['alternate'] = 'app/{}.rb', ['type'] = 'test'}

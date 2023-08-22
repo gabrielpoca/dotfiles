@@ -129,14 +129,28 @@ local function tsserver_root_dir()
     end
 end
 
-do_setup('tsserver',
-         {root_dir = tsserver_root_dir(), single_file_support = false})
+-- do_setup('tsserver',
+--          {root_dir = tsserver_root_dir(), single_file_support = false})
+
+require("typescript").setup({
+    disable_commands = false,
+    debug = false,
+    go_to_source_definition = {fallback = true},
+    server = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        flags = {debounce_text_changes = 150},
+        root_dir = tsserver_root_dir(),
+        single_file_support = false
+
+    }
+})
 
 do_setup('denols',
          {root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")})
 
 local prettier = {
-    formatCommand = 'npx prettier --stdin-filepath ${INPUT}',
+    formatCommand = "prettier --stdin-filepath '${INPUT}'",
     formatStdin = true
 }
 
@@ -191,8 +205,8 @@ do_setup('efm', {
     settings = {version = 2, languages = languages}
 })
 
-do_setup('solc',
-         {root_dir = nvim_lsp.util.root_pattern {'.git/', 'hardhat.config.ts'}})
+-- do_setup('solc',
+--          {root_dir = nvim_lsp.util.root_pattern {'.git/', 'hardhat.config.ts'}})
 
 nvim_lsp.lua_ls.setup({
     settings = {Lua = {completion = {callSnippet = "Replace"}}}
@@ -200,6 +214,9 @@ nvim_lsp.lua_ls.setup({
 
 do_setup('elixirls',
          {root_dir = nvim_lsp.util.root_pattern {'.git/', 'mix.exs'}})
+
+do_setup('tailwindcss',
+         {root_dir = nvim_lsp.util.root_pattern {'tailwind.config.js'}})
 
 vim.diagnostic.config({
     virtual_text = false,
