@@ -35,3 +35,6 @@ tmp/**/*
 .env.dev.local
 config/credentials/*
 deployments/*
+typechain-types
+*.code-workspace
+.luarc.json
