@@ -56,7 +56,8 @@ end
 
 function place_full()
     local frame = screen_frame()
-    place_window(frame.x, frame.y, frame.w, frame.h)
+    local x_offset = 0
+    place_window(frame.x + x_offset, frame.y, frame.w - x_offset, frame.h)
     last_position = 'full'
 end
 
@@ -81,6 +82,7 @@ hs.hotkey.bind(globals.hyper, "O", place_right_half)
 hs.hotkey.bind(globals.hyper, "U", place_full)
 
 on_application('Alacritty', place_full)
+on_application('Brave Browser', place_full)
 on_application('Calendar', place_full)
 on_application('Figma', place_full)
 on_application('Slack', place_full)
