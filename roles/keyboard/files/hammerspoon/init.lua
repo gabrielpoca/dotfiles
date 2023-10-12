@@ -32,10 +32,12 @@ end)
 -- Automatically close Music app when it opens
 function applicationWatcher(appName, eventType, appObject)
     if (eventType == hs.application.watcher.launched) then
-        if (appName == "Music") then appObject:kill() end
+        if (appName == "Music") then
+            appObject:kill()
+            hs.application.launchOrFocus("Spotify")
+        end
     end
 end
 
 appWatcher = hs.application.watcher.new(applicationWatcher)
 appWatcher:start()
-

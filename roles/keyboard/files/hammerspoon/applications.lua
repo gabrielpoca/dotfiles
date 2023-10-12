@@ -10,18 +10,12 @@ hs.hotkey.bind(globals.hyper, "L", function()
     end
 end)
 
-hs.hotkey.bind(globals.hyper, "K", function()
-    if current_app() == "Slack" then
-        hs.application.launchOrFocus("Discord")
-    else
-        hs.application.launchOrFocus("Slack")
-    end
-end)
+hs.hotkey.bind(globals.hyper, "K",
+               function() hs.application.launchOrFocus("Slack") end)
 
-hs.hotkey.bind(globals.hyper, "J", function()
-    if current_app() == "Obsidian" then
-        hs.application.launchOrFocus("TickTick")
-    else
-        hs.application.launchOrFocus("Obsidian")
-    end
-end)
+hs.hotkey.bind(globals.hyper, "J",
+               function() hs.application.launchOrFocus("Obsidian") end)
+
+hs.hotkey.bind(globals.hyper, "H",
+               function() hs.application.launchOrFocus("TickTick") end)
+
