@@ -17,9 +17,9 @@ if [[ $COLORSCHEME == "catppuccin" ]]; then
       --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
   elif [[ $COLORSCHEME_VARIANT == "latte" ]]; then
     export FZF_DEFAULT_OPTS="--layout reverse \
-      --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39 \
-      --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78 \
-      --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39"
+      --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#7287fd \
+      --color=fg:#4c4f69,header:#8839ef,info:#8839ef,pointer:#dc8a78 \
+      --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#1e66f5"
   else
     echo "Invalid COLORSCHEME_VARIANT" 1>&2
   fi
