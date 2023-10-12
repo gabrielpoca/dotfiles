@@ -105,6 +105,10 @@ local do_setup = function(name, config)
     }, config))
 end
 
+nvim_lsp.lua_ls.setup({
+    settings = {Lua = {completion = {callSnippet = "Replace"}}}
+})
+
 do_setup('rust_analyzer', {
     root_dir = nvim_lsp.util.root_pattern {"Cargo.toml"},
     settings = {
@@ -129,28 +133,11 @@ local function tsserver_root_dir()
     end
 end
 
--- do_setup('tsserver',
---          {root_dir = tsserver_root_dir(), single_file_support = false})
-
-require("typescript").setup({
-    disable_commands = false,
-    debug = false,
-    go_to_source_definition = {fallback = true},
-    server = {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        flags = {debounce_text_changes = 150},
-        root_dir = tsserver_root_dir(),
-        single_file_support = false
-
-    }
-})
-
-do_setup('denols',
-         {root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc")})
+do_setup('tsserver',
+         {root_dir = tsserver_root_dir(), single_file_support = false})
 
 local prettier = {
-    formatCommand = "prettier --stdin-filepath '${INPUT}'",
+    formatCommand = "npx prettier --stdin-filepath '${INPUT}'",
     formatStdin = true
 }
 
@@ -205,18 +192,19 @@ do_setup('efm', {
     settings = {version = 2, languages = languages}
 })
 
--- do_setup('solc',
---          {root_dir = nvim_lsp.util.root_pattern {'.git/', 'hardhat.config.ts'}})
-
-nvim_lsp.lua_ls.setup({
-    settings = {Lua = {completion = {callSnippet = "Replace"}}}
-})
+do_setup('solc',
+         {root_dir = nvim_lsp.util.root_pattern {'.git/', 'hardhat.config.ts'}})
 
 do_setup('elixirls',
          {root_dir = nvim_lsp.util.root_pattern {'.git/', 'mix.exs'}})
-
-do_setup('tailwindcss',
-         {root_dir = nvim_lsp.util.root_pattern {'tailwind.config.js'}})
+do_setup('svelte', {root_dir = nvim_lsp.util.root_pattern {'svelte.config.js'}})
+do_setup('tailwindcss', {
+    root_dir = nvim_lsp.util.root_pattern {
+        'tailwind.config.js',
+        'tailwind.config.cjs'
+    }
+})
+do_setup('eslint', {root_dir = nvim_lsp.util.root_pattern {'package.json'}})
 
 vim.diagnostic.config({
     virtual_text = false,
@@ -227,11 +215,3 @@ vim.diagnostic.config({
 
 vim.lsp.handlers["textDocument/hover"] =
     vim.lsp.with(vim.lsp.handlers.hover, {border = "single"})
-
--- vim.lsp.handlers['textDocument/publishDiagnostics'] =
---     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
---         underline = true,
---         virtual_text = {spacing = 5, severity_limit = 'Warning'},
---         update_in_insert = true
---     })
-

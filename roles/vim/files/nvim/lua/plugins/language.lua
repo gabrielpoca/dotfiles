@@ -1,10 +1,20 @@
 return {
     {"folke/neodev.nvim", config = function() end, ft = "lua"},
-    {'jose-elias-alvarez/typescript.nvim', lazy = false, keys = {}},
-    {'sheerun/vim-polyglot', lazy = false},
-    {'thesis/vim-solidity', lazy = false},
     {
-        'jasonlong/vim-textobj-css',
+        'sheerun/vim-polyglot',
+        lazy = false,
+        init = function()
+            vim.g.polyglot_disabled = {'solidity', 'svelte'}
+            vim.g.svelte_preprocessors = {'typescript'}
+            vim.g.terraform_fmt_on_save = 1
+            vim.g.typescript_indent_disable = 1
+            vim.g.vim_markdown_conceal_code_blocks = 0
+            vim.g.vim_markdown_folding_disabled = 1
+        end
+    },
+    {'thesis/vim-solidity', ft = 'solidity'},
+    {
+        'rhysd/vim-textobj-anyblock',
         dependencies = 'kana/vim-textobj-user',
         lazy = false
     },
@@ -14,7 +24,7 @@ return {
     {
         'andyl/vim-textobj-elixir',
         dependencies = 'kana/vim-textobj-user',
-        lazy = false
+        ft = 'elixir'
     }
 }
 

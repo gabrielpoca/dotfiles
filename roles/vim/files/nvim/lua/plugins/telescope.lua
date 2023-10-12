@@ -12,22 +12,13 @@ return {
                 desc = "Buffers"
             },
             {
-                '<leader>P',
+                '<leader>p',
                 function()
                     local telescope = require('telescope.builtin')
 
                     telescope.find_files({hidden = true});
                 end,
                 desc = "Files"
-            },
-            {
-                '<leader>p',
-                function()
-                    require('telescope').extensions.frecency.frecency({
-                        workspace = 'CWD'
-                    });
-                end,
-                desc = "Recent Files"
             },
             {
                 '<leader>fw',
@@ -88,11 +79,6 @@ return {
                 }
             }
         end
-    },
-    {
-        "nvim-telescope/telescope-frecency.nvim",
-        config = function() require"telescope".load_extension("frecency") end,
-        dependencies = {"kkharji/sqlite.lua"}
     },
     {
         'mrjones2014/legendary.nvim',

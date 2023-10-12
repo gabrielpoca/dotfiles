@@ -1,16 +1,12 @@
 return {
-    {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', lazy = false},
     {
-        'nvim-treesitter/nvim-treesitter-context',
-        lazy = false,
-        opts = {mode = 'topline'}
-    },
-    {
-        'JoosepAlviste/nvim-ts-context-commentstring',
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
         lazy = false,
         config = function()
             require('nvim-treesitter.configs').setup {
                 ensure_installed = {
+                    "astro",
                     "svelte",
                     "css",
                     "typescript",
@@ -25,6 +21,7 @@ return {
             }
         end
     },
+    {'JoosepAlviste/nvim-ts-context-commentstring', lazy = false},
     {
         'windwp/nvim-ts-autotag',
         lazy = false,
@@ -35,7 +32,7 @@ return {
                     enable_rename = true,
                     enable_close = true,
                     enable_close_on_slash = false,
-                    filetypes = {"html", "xml"}
+                    filetypes = {"html", "xml", "astro"}
                 }
             })
         end

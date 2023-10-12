@@ -96,7 +96,19 @@ M.setup = function()
             ignore_focus = {'TelescopePrompt', 'NvimTree', 'TelescopeResults'},
             disabled_filetypes = {{}}
         },
-        sections = {lualine_c = {{'filename', path = 1}}}
+        sections = {
+            lualine_a = {{'mode', fmt = function(str)
+                return str:sub(1, 1)
+            end}},
+            lualine_b = {
+                'branch',
+                {
+                    'diagnostics',
+                    symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'}
+                }
+            },
+            lualine_c = {{'filename', path = 1}}
+        }
     })
 end
 

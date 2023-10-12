@@ -1,7 +1,14 @@
 return {
     {'AndrewRadev/splitjoin.vim', lazy = false},
     {'derekprior/vim-trimmer', lazy = false},
-    {'embear/vim-localvimrc', lazy = false},
+    {
+        'embear/vim-localvimrc',
+        lazy = false,
+        init = function()
+            vim.g.localvimrc_whitelist = {'/Users/gabriel/Developer/.*'}
+        end,
+        config = function() vim.g.localvimrc_sandbox = false end
+    },
     {'farmergreg/vim-lastplace', lazy = false},
     {'gcmt/wildfire.vim', lazy = false},
     {'tpope/vim-abolish', lazy = false},
@@ -58,6 +65,9 @@ return {
     },
     {
         'kristijanhusak/any-jump.vim',
+        config = function()
+            vim.g.any_jump_disable_default_keybindings = 1
+        end,
         keys = {
             {'<leader>jj', "<cmd>AnyJump<CR>", desc = "AnyJump"},
             {
@@ -267,7 +277,6 @@ return {
             })
         end
     }
-
     -- {
     --     "folke/noice.nvim",
     --     event = "VeryLazy",

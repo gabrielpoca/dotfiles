@@ -4,14 +4,7 @@ vim.g.loaded_matchparen = 1 -- matchparen seems to be slow
 require('global')
 
 local fn = vim.fn
-local execute = vim.api.nvim_command
 local cmd = vim.cmd
-
-vim.g.polyglot_disabled = {'solidity', 'svelte'}
--- vim.g.polyglot_disabled = {'svelte'}
-
--- defaults
-local indent = 2
 
 cmd 'syntax enable'
 cmd 'filetype plugin indent on'
@@ -89,8 +82,6 @@ cmd [[
 nnoremap Y Y
 ]]
 
-vim.g.localvimrc_whitelist = {'/Users/gabriel/Developer/.*'}
-
 require('my_plugins')
 require('colors').setup()
 require('terminal')
@@ -98,15 +89,4 @@ require('repl')
 require('tests')
 require('navigation')
 require('git')
-
-vim.g.svelte_preprocessors = {'typescript'}
-vim.g.AutoPairsMultilineClose = 1
-vim.g.any_jump_disable_default_keybindings = 1
-vim.g.cursorhold_updatetime = 100
-vim.g.localvimrc_sandbox = false
-vim.g.terraform_fmt_on_save = 1
-vim.g.typescript_indent_disable = 1
-vim.g.vim_markdown_conceal_code_blocks = 0
-vim.g.vim_markdown_folding_disabled = 1
-
 require('lsp')
