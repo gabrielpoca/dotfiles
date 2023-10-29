@@ -1,5 +1,4 @@
 local catppuccin = require("catppuccin")
-local wk = require("which-key")
 
 local api = vim.api
 local M = {}
@@ -86,9 +85,6 @@ M.setup = function()
 	end
 
 	sync_background()
-
-	-- wk.register({c = {s = {sync_background, "Sync colorscheme"}}},
-	--             {prefix = "<leader>", nowait = true})
 
 	require("lualine").setup({
 		options = {

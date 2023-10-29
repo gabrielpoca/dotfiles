@@ -1,4 +1,58 @@
 return {
+	{ "derekprior/vim-trimmer", lazy = false },
+	{
+		"kyazdani42/nvim-tree.lua",
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+		opts = {
+			sync_root_with_cwd = true,
+			disable_netrw = true,
+			git = { ignore = false },
+			filters = { custom = { "^\\.DS_Store" } },
+			view = {
+				float = {
+					enable = true,
+					quit_on_focus_loss = true,
+					open_win_config = {
+						relative = "editor",
+						border = "rounded",
+						width = 60,
+						height = 30,
+						row = 1,
+						col = 1,
+					},
+				},
+			},
+		},
+		keys = {
+			{
+				"<leader>nn",
+				function()
+					require("nvim-tree.api").tree.toggle()
+				end,
+				desc = "Toggle",
+			},
+			{
+				"<leader>nf",
+				function()
+					require("nvim-tree.api").tree.find_file({
+						open = true,
+						focus = true,
+					})
+				end,
+				desc = "Find file",
+			},
+		},
+	},
+	{
+		"embear/vim-localvimrc",
+		lazy = false,
+		init = function()
+			vim.g.localvimrc_whitelist = { "/Users/gabriel/Developer/.*" }
+		end,
+		config = function()
+			vim.g.localvimrc_sandbox = false
+		end,
+	},
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
@@ -24,48 +78,30 @@ return {
 			},
 		},
 	},
+	{ "wincent/terminus", lazy = false },
 	{
-		"catppuccin/nvim",
-		dependencies = "lukas-reineke/indent-blankline.nvim",
+		"nvim-lualine/lualine.nvim",
 		lazy = false,
-		priority = 1000,
-		name = "catppuccin",
-		config = function()
-			require("catppuccin").compile()
-			require("catppuccin").setup({
-				integrations = {
-					barbar = true,
-					cmp = true,
-					hop = true,
-					illuminate = true,
-					indent_blankline = { enabled = true },
-					mason = true,
-					native_lsp = {
-						enabled = true,
-						underlines = {
-							errors = { "undercurl" },
-							hints = { "undercurl" },
-							warnings = { "undercurl" },
-							information = { "undercurl" },
-						},
-					},
-					nvimtree = true,
-					octo = true,
-					telescope = true,
-					treesitter = true,
-					which_key = true,
-				},
-			})
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+	},
+	{
+		"b0o/incline.nvim",
+		event = { "WinNew", "CursorMoved" },
+		opts = {
+			hide = { cursorline = false, focused_win = true, only_win = false },
+			render = function(props)
+				local bufname = vim.api.nvim_buf_get_name(props.buf)
+				local filename = vim.fn.fnamemodify(bufname, ":t")
+				local folder = vim.fn.fnamemodify(bufname, ":~:.:h:t")
 
-			vim.g.floaterm_width = 0.9
-			vim.g.floaterm_height = 0.9
-			-- vim.g.floaterm_borderchars = '        '
-			vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
-			vim.g.floaterm_titleposition = "center"
-			vim.g.floaterm_autoinsert = false
-			vim.g.floaterm_autohide = true
-			-- vim.g.floaterm_title = ''
-			-- vim.g.floaterm_title = ' ($1|$2) '
-		end,
+				local filetype_icon = require("nvim-web-devicons").get_icon_color(filename)
+
+				return {
+					{ filetype_icon },
+					{ " " },
+					{ string.format("%s/%s", folder, filename) },
+				}
+			end,
+		},
 	},
 }
