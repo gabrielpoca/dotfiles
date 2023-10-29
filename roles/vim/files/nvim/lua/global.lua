@@ -10,7 +10,7 @@ end
 
 function _G.empty(thing) return vim.fn.empty(thing) == 1 end
 
-function _G.dump(...) vim.pretty_print(...) end
+function _G.dump(...) vim.print(...) end
 
 function _G.set_keymaps(mappings, mode)
     local mode = mode or 'n'

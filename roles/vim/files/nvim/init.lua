@@ -1,15 +1,15 @@
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 vim.g.loaded_matchparen = 1 -- matchparen seems to be slow
 
-require('global')
+require("global")
 
 local fn = vim.fn
 local cmd = vim.cmd
 
-cmd 'syntax enable'
-cmd 'filetype plugin indent on'
+cmd("syntax enable")
+cmd("filetype plugin indent on")
 
-vim.o.signcolumn = 'number'
+vim.o.signcolumn = "number"
 vim.o.cmdheight = 1
 vim.o.updatetime = 300
 vim.o.shell = "/opt/homebrew/bin/zsh"
@@ -30,7 +30,7 @@ vim.o.wildmode = "full"
 vim.o.wildoptions = "pum"
 vim.o.wildignore = "*/build/*,*/.git/*"
 vim.o.pumblend = 20
-vim.o.laststatus = 2
+vim.o.laststatus = 3
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.scrolloff = 8
@@ -54,39 +54,41 @@ vim.o.showmatch = false
 vim.o.foldenable = false
 
 -- highlight on yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-    pattern = '*',
-    callback = function() vim.highlight.on_yank {on_visual = false} end
+vim.api.nvim_create_autocmd("TextYankPost", {
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ on_visual = false })
+	end,
 })
 
 -- clear highlights
-set_keymap('n', '<leader><cr>', '<cmd>noh<CR>')
+set_keymap("n", "<leader><cr>", "<cmd>noh<CR>")
 -- escape
-set_keymap('t', '<C-e>', '<C-\\><C-n>', {silent = true})
-set_keymap('i', 'jk', '<Esc>')
+set_keymap("t", "<C-e>", "<C-\\><C-n>", { silent = true })
+set_keymap("i", "jk", "<Esc>")
 -- save
-set_keymap('i', '<C-s>', '<Esc>:silent write<CR>', {silent = true})
-set_keymap('', '<C-s>', ':silent write<CR>', {silent = true})
+set_keymap("i", "<C-s>", "<Esc>:silent write<CR>", { silent = true })
+set_keymap("", "<C-s>", ":silent write<CR>", { silent = true })
 -- close window
-set_keymap('', '<C-q>', ':close<CR>', {silent = true})
-set_keymap('t', '<C-q>', '<C-\\><C-n>:close<CR>', {silent = true})
+set_keymap("", "<C-q>", ":close<CR>", { silent = true })
+set_keymap("t", "<C-q>", "<C-\\><C-n>:close<CR>", { silent = true })
 
-cmd [[
+cmd([[
 "keep visual mode after indent
 vnoremap > >gv
 vnoremap < <gv
-]]
+]])
 
-cmd [[
+cmd([[
 " yank whole line
 nnoremap Y Y
-]]
+]])
 
-require('my_plugins')
-require('colors').setup()
-require('terminal')
-require('repl')
-require('tests')
-require('navigation')
-require('git')
-require('lsp')
+require("my_plugins")
+require("colors").setup()
+require("terminal")
+require("repl")
+require("tests")
+require("navigation")
+require("git")
+require("lsp")
