@@ -113,8 +113,7 @@ return {
 			{ "<leader>7", ":BufferGoto 7<CR>", desc = "Go to buffer 7" },
 			{ "<leader>bn", ":BufferNext<CR>", desc = "Next" },
 			{ "<leader>bp", ":BufferPrevious<CR>", desc = "Previous" },
-			{ "<leader>bq", ":BufferClose<CR>", desc = "Close" },
-			{ "<leader>bQ", ":BufferCloseAllButCurrent<CR>", desc = "Close Other" },
+			{ "<leader>bo", ":BufferCloseAllButCurrent<CR>", desc = "Close other buffers" },
 			{
 				"<leader>bb",
 				":BufferOrderByBufferNumber<CR>",
