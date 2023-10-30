@@ -96,21 +96,4 @@ return {
 			})
 		end,
 	},
-	{
-		"mrjones2014/legendary.nvim",
-		config = true,
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-			"stevearc/dressing.nvim",
-		},
-		keys = {
-			{
-				"<leader><leader>",
-				function()
-					require("legendary").find()
-				end,
-				desc = "Search everything",
-			},
-		},
-	},
 }

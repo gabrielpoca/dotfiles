@@ -83,6 +83,45 @@ return {
 		"nvim-lualine/lualine.nvim",
 		lazy = false,
 		dependencies = { "kyazdani42/nvim-web-devicons" },
+		opts = {
+			options = {
+				show_filename_only = false,
+				globalstatus = true,
+				theme = colorscheme(),
+				ignore_focus = { "TelescopePrompt", "NvimTree", "TelescopeResults" },
+				disabled_filetypes = { {} },
+			},
+			sections = {
+				lualine_a = { {
+					"mode",
+					fmt = function(str)
+						return str:sub(1, 1)
+					end,
+				} },
+				lualine_b = {
+					"branch",
+					{
+						"diagnostics",
+						sources = { "nvim_diagnostic" },
+						symbols = { error = "E", warn = "W", info = "I", hint = "H" },
+						sections = { "error", "warn", "info", "hint" },
+						colored = true,
+						update_in_insert = true,
+						always_visible = false,
+					},
+					{
+						"diagnostics",
+						sources = { "nvim_workspace_diagnostic" },
+						symbols = { error = "WE", warn = "WW", info = "WI", hint = "WH" },
+						sections = { "error" },
+						colored = true,
+						update_in_insert = true,
+						always_visible = true,
+					},
+				},
+				lualine_c = { { "filename", path = 1 } },
+			},
+		},
 	},
 	{
 		"b0o/incline.nvim",

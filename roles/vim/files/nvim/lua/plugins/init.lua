@@ -15,6 +15,7 @@ return {
 	},
 	{
 		"voldikss/vim-floaterm",
+		lazy = false,
 		init = function()
 			vim.g.floaterm_width = 0.9
 			vim.g.floaterm_height = 0.9
@@ -109,6 +110,7 @@ return {
 	},
 	{
 		"folke/which-key.nvim",
+		priority = 1000,
 		lazy = false,
 		config = function()
 			local wk = require("which-key")
@@ -127,38 +129,38 @@ return {
 					name = "shell",
 					s = {
 						function()
-							require("repl").start()
+							require("my.repl").start()
 						end,
 						"Start server",
 					},
 					r = {
 						function()
-							require("repl").recompile()
+							require("my.repl").recompile()
 						end,
 						"Recompile",
 					},
 					l = {
 						function()
-							require("repl").send_line()
+							require("my.repl").send_line()
 						end,
 						"Send line",
 					},
 					i = {
 						function()
-							require("repl").install()
+							require("my.repl").install()
 						end,
 						"Setup projet",
 					},
 				},
 				i = {
 					function()
-						require("terminal").toggle(1)
+						require("my.terminal").toggle(1)
 					end,
 					"General terminal",
 				},
 				u = {
 					function()
-						require("terminal").toggle(2)
+						require("my.terminal").toggle(2)
 					end,
 					"Tests terminal",
 				},
