@@ -1,5 +1,3 @@
-local catppuccin = require("catppuccin")
-
 local api = vim.api
 local M = {}
 

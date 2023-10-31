@@ -1,9 +1,9 @@
 #!/bin/zsh
-export COLORSCHEME='catppuccin'
+export COLORSCHEME='tokyontight'
 
-current=$(defaults read -g AppleInterfaceStyle 2> /dev/null)
+mode=$(defaults read -g AppleInterfaceStyle 2> /dev/null)
 
-if [[ $current == 'Dark' ]]; then
+if [[ $mode == 'Dark' ]]; then
   export COLORSCHEME_VARIANT='mocha'
 else
   export COLORSCHEME_VARIANT='latte'
@@ -26,4 +26,4 @@ if [[ $COLORSCHEME == "catppuccin" ]]; then
 fi
 
 # update alacritty config
-sed -i '' -e "s/^colors: .*$/colors: *$COLORSCHEME\_$COLORSCHEME_VARIANT/" "$DOTFILES/roles/shell/files/alacritty/alacritty.yml"
+sed -i '' -e "s/^colors: .*$/colors: *$COLORSCHEME\_${mode:l}/" "$DOTFILES/roles/shell/files/alacritty/alacritty.yml"

@@ -7,12 +7,16 @@ return {
 				onchange = function(mode)
 					if mode == "light" then
 						os.execute(
-							"sed -i '' -e \"s/^colors: .*$/colors: *catppuccin_latte/\" $DOTFILES/roles/shell/files/alacritty/alacritty.yml"
+							"sed -i '' -e \"s/^colors: .*$/colors: *"
+								.. colorscheme()
+								.. '_light/" $DOTFILES/roles/shell/files/alacritty/alacritty.yml'
 						)
 						-- os.execute("kitty +kitten themes --reload-in=all Catppuccin Kitty Latte")
 					else
 						os.execute(
-							"sed -i '' -e \"s/^colors: .*$/colors: *catppuccin_mocha/\" $DOTFILES/roles/shell/files/alacritty/alacritty.yml"
+							"sed -i '' -e \"s/^colors: .*$/colors: *"
+								.. colorscheme()
+								.. '_dark/" $DOTFILES/roles/shell/files/alacritty/alacritty.yml'
 						)
 						-- os.execute("kitty +kitten themes --reload-in=all Catppuccin Kitty Mocha")
 					end
@@ -22,12 +26,55 @@ return {
 	},
 	{
 		"folke/tokyonight.nvim",
-		lazy = colorscheme() ~= "tokyonight",
+		lazy = colorscheme() ~= "tokyontight",
 		priority = 1000,
 		opts = {},
 		name = "tokyonight",
 		config = function()
-			vim.api.nvim_command("colorscheme tokyonight-" .. colorscheme_variant())
+			require("tokyonight").setup({
+				style = "night",
+				light_style = "day",
+				transparent = false,
+				terminal_colors = true,
+				styles = {
+					comments = { italic = true },
+					keywords = { italic = true },
+					functions = {},
+					variables = {},
+					sidebars = "transparent",
+					floats = "transparent",
+				},
+				sidebars = { "qf", "help" },
+				day_brightness = 0.3,
+				hide_inactive_statusline = false,
+				dim_inactive = false,
+				lualine_bold = false,
+				on_highlights = function(highlights, colors)
+					local bg = colors.bg
+					local bg_dark = colors.bg_dark
+					local fg = colors.fg
+					local fg_dark = colors.fg_dark
+					local fg_gutter = colors.fg_gutter
+
+					highlights.FloatermBorder = { bg = bg, fg = colors.border_highlight }
+					-- highlights.Floaterm = { bg = colors.base }
+					highlights.BufferCurrent = { bg = bg, fg = colors.fg }
+					highlights.BufferCurrentMod = { bg = bg, fg = colors.yellow }
+					highlights.BufferCurrentSign = { bg = bg, fg = bg }
+					highlights.BufferCurrentSignRight = { bg = bg, fg = bg }
+					highlights.BufferTabpageFill = { bg = bg_dark, fg = fg }
+					highlights.BufferInactive = { bg = bg_dark, fg = fg_gutter }
+					highlights.BufferInactiveMod = { bg = bg_dark, fg = colors.orange }
+					highlights.BufferInactiveSign = { bg = bg_dark, fg = bg }
+					highlights.BufferVisible = { bg = bg, fg = fg_gutter }
+					highlights.BufferVisibleMod = { bg = bg, fg = colors.orange }
+					highlights.BufferVisibleSign = { bg = bg, fg = bg }
+					-- highlights.InclineNormal = { bg = colors.overlay1, fg = colors.crust }
+					-- highlights.InclineNormalNC = { bg = colors.overlay1, fg = colors.crust }
+				end,
+			})
+
+			vim.api.nvim_command("colorscheme tokyonight")
 		end,
 	},
 	{
