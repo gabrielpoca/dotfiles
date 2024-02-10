@@ -5,11 +5,11 @@ local api = vim.api
 local M = {}
 
 M.status = function()
-	Terminal.toggle("git")
+  Terminal.toggle("git")
 end
 
 M.file_history = function()
-	Terminal.toggle("shell", "tig " .. api.nvim_call_function("expand", { "%:p" }))
+  Terminal.toggle("shell", "tig " .. api.nvim_call_function("expand", { "%:p" }))
 end
 
 vim.keymap.set("n", "<leader>gs", M.status)
