@@ -1,34 +1,61 @@
+local Terminal = require("toggleterm.terminal").Terminal
+
+local terminals = {
+	shell = Terminal:new({
+		count = 1,
+		direction = "float",
+		auto_scroll = false,
+		start_in_insert = false,
+	}),
+	repl = Terminal:new({
+		count = 2,
+		direction = "float",
+		auto_scroll = false,
+		start_in_insert = false,
+	}),
+	git = Terminal:new({
+		direction = "float",
+		cmd = "lazygit",
+		start_in_insert = true,
+		hidden = true,
+	}),
+}
+
+local last_terminal = nil
+
 local M = {}
 
-local function get_name(terminal)
-	if terminal == M.REPL or terminal == nil then
-		return "Repl"
-	else
-		return "Shell"
+local function get_terminal(name)
+	return terminals[name]
+end
+
+M.kill = function()
+	terminals["shell"]:shutdown()
+	terminals["repl"]:shutdown()
+	terminals["git"]:shutdown()
+end
+
+M.open_last = function()
+	if last_terminal then
+		last_terminal:open()
 	end
 end
 
-M.kill = function(terminal)
-	local name = get_name(terminal)
+M.toggle = function(name, cmd)
+	local terminal = get_terminal(name)
+	last_terminal = terminal
 
-	vim.cmd("FloatermKill --termname=" .. name)
-end
-
-M.toggle = function(terminal, cmd)
-	local name = get_name(terminal)
-
-	if vim.call("floaterm#terminal#get_bufnr", name) ~= -1 then
-		vim.cmd("FloatermShow " .. name)
-	else
-		vim.cmd("FloatermNew --name=" .. name .. " --title=" .. name)
+	if not terminal then
+		vim.notify(string.format("Terminal %s does not exist", name), vim.log.levels.ERROR)
+		return
 	end
+
+	terminal:open()
 
 	if cmd then
-		vim.cmd("FloatermSend --termname=" .. name .. " " .. cmd)
+		terminal:send(cmd)
+		startinsert()
 	end
 end
-
-M.REPL = 1
-M.SHELL = 2
 
 return M

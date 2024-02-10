@@ -1,0 +1,12 @@
+{
+  "IO": {
+    "prefix": "IO",
+    "body": ["IO.inspect(${0})"],
+    "description": "IO.inspect()"
+  },
+  "|> IO": {
+    "prefix": "|> IO",
+    "body": ["|> IO.inspect(${0})"],
+    "description": "|> IO.inspect()"
+  }
+}

@@ -1,10 +1,15 @@
+local vim = vim
+local opt = vim.opt
+local cmd = vim.cmd
+local fn = vim.fn
+
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+
 vim.g.mapleader = " "
 vim.g.loaded_matchparen = 1 -- matchparen seems to be slow
 
 require("global")
-
-local fn = vim.fn
-local cmd = vim.cmd
 
 cmd("syntax enable")
 cmd("filetype plugin indent on")
@@ -100,9 +105,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
-require("my.colors").setup()
-require("my.terminal")
 require("my.repl")
 require("my.tests")
 require("my.git")
-require("my.lsp")

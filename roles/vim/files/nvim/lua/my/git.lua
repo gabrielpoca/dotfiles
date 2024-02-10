@@ -1,24 +1,18 @@
+local Terminal = require("my.terminal")
+
 local api = vim.api
 
 local M = {}
 
-local statusExists = false
-
 M.status = function()
-	if statusExists then
-		vim.cmd("FloatermToggle git")
-	else
-		vim.cmd("FloatermNew! --name=git tig")
-		statusExists = true
-	end
-
-	vim.defer_fn(function()
-		vim.cmd("startinsert")
-	end, 100)
+	Terminal.toggle("git")
 end
 
 M.file_history = function()
-	vim.cmd("FloatermNew! --disposable tig " .. api.nvim_call_function("expand", { "%:p" }))
+	Terminal.toggle("shell", "tig " .. api.nvim_call_function("expand", { "%:p" }))
 end
+
+vim.keymap.set("n", "<leader>gs", M.status)
+vim.keymap.set("n", "<leader>gh", M.file_history)
 
 return M

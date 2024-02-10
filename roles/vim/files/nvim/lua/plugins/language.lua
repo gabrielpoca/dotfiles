@@ -1,5 +1,4 @@
 return {
-	{ "folke/neodev.nvim", config = function() end, ft = "lua" },
 	{
 		"sheerun/vim-polyglot",
 		lazy = false,
@@ -26,4 +25,8 @@ return {
 		dependencies = "kana/vim-textobj-user",
 		ft = "elixir",
 	},
+	{ "folke/neodev.nvim", opts = {
+		lspconfig = true,
+	} },
+	"Glench/Vim-Jinja2-Syntax",
 }

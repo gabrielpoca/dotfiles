@@ -1,32 +1,7 @@
 return {
 	{
-		"cormacrelf/dark-notify",
-		lazy = false,
-		config = function()
-			require("dark_notify").run({
-				onchange = function(mode)
-					if mode == "light" then
-						os.execute(
-							"sed -i '' -e \"s/^colors: .*$/colors: *"
-								.. colorscheme()
-								.. '_light/" $DOTFILES/roles/shell/files/alacritty/alacritty.yml'
-						)
-						-- os.execute("kitty +kitten themes --reload-in=all Catppuccin Kitty Latte")
-					else
-						os.execute(
-							"sed -i '' -e \"s/^colors: .*$/colors: *"
-								.. colorscheme()
-								.. '_dark/" $DOTFILES/roles/shell/files/alacritty/alacritty.yml'
-						)
-						-- os.execute("kitty +kitten themes --reload-in=all Catppuccin Kitty Mocha")
-					end
-				end,
-			})
-		end,
-	},
-	{
 		"folke/tokyonight.nvim",
-		lazy = colorscheme() ~= "tokyontight",
+		lazy = colorscheme() ~= "tokyonight",
 		priority = 1000,
 		opts = {},
 		name = "tokyonight",
@@ -56,8 +31,6 @@ return {
 					local fg_dark = colors.fg_dark
 					local fg_gutter = colors.fg_gutter
 
-					highlights.FloatermBorder = { bg = bg, fg = colors.border_highlight }
-					-- highlights.Floaterm = { bg = colors.base }
 					highlights.BufferCurrent = { bg = bg, fg = colors.fg }
 					highlights.BufferCurrentMod = { bg = bg, fg = colors.yellow }
 					highlights.BufferCurrentSign = { bg = bg, fg = bg }
@@ -69,8 +42,6 @@ return {
 					highlights.BufferVisible = { bg = bg, fg = fg_gutter }
 					highlights.BufferVisibleMod = { bg = bg, fg = colors.orange }
 					highlights.BufferVisibleSign = { bg = bg, fg = bg }
-					-- highlights.InclineNormal = { bg = colors.overlay1, fg = colors.crust }
-					-- highlights.InclineNormalNC = { bg = colors.overlay1, fg = colors.crust }
 				end,
 			})
 
@@ -113,9 +84,6 @@ return {
 					local bg = colors.base
 
 					return {
-						FloatermBorder = { bg = colors.base, fg = colors.blue },
-						Floaterm = { bg = colors.base },
-
 						BufferCurrent = { bg = bg, fg = colors.text },
 						BufferCurrentMod = { bg = bg, fg = colors.yellow },
 						BufferCurrentSign = { bg = bg, fg = bg },
@@ -130,9 +98,6 @@ return {
 						BufferVisible = { bg = bg, fg = colors.overlay0 },
 						BufferVisibleMod = { bg = bg, fg = bg },
 						BufferVisibleSign = { bg = bg, fg = bg },
-
-						InclineNormal = { bg = colors.overlay1, fg = colors.crust },
-						InclineNormalNC = { bg = colors.overlay1, fg = colors.crust },
 					}
 				end,
 			})

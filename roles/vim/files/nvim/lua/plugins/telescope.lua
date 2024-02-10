@@ -60,7 +60,7 @@ return {
 
 			require("telescope").setup({
 				defaults = {
-					layout_strategy = "horizontal",
+					layout_strategy = "flex",
 					layout_config = { height = 0.9, width = 0.9 },
 					file_ignore_patterns = {
 						"artifacts/",
@@ -70,6 +70,12 @@ return {
 						"%_build/",
 						"%.elixir%_ls",
 						"deps",
+						"vendor",
+						"%.png",
+						"%.jpg",
+						"%.jpeg",
+						"%.gif",
+						"%.webp",
 					},
 					vimgrep_arguments = {
 						"rg",
@@ -91,6 +97,12 @@ return {
 							["<c-d>"] = actions.delete_buffer,
 						},
 						n = { ["<C-c>"] = actions.close },
+					},
+				},
+				pickers = {
+					grep_string = {
+						prompt_prefix = " 🔍 ",
+						previewer = false,
 					},
 				},
 			})

@@ -1,5 +1,11 @@
 local api = vim.api
 
+function _G.startinsert()
+	vim.schedule(function()
+		vim.cmd("startinsert")
+	end)
+end
+
 function _G.colorscheme()
 	return os.getenv("COLORSCHEME")
 end

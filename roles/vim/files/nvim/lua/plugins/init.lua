@@ -14,27 +14,6 @@ return {
 		},
 	},
 	{
-		"voldikss/vim-floaterm",
-		lazy = false,
-		init = function()
-			vim.g.floaterm_width = 0.9
-			vim.g.floaterm_height = 0.9
-			-- vim.g.floaterm_borderchars = '        '
-			vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
-			vim.g.floaterm_titleposition = "center"
-			vim.g.floaterm_autoinsert = false
-			vim.g.floaterm_autohide = true
-			-- vim.g.floaterm_title = ''
-			-- vim.g.floaterm_title = ' ($1|$2) '
-		end,
-		keys = {
-			{ "<leader>tt", ":FloatermToggle<CR>", desc = "Toggle terminal" },
-			{ "<leader>tl", ":FloatermNext<CR>", desc = "Next terminal" },
-			{ "<leader>th", ":FloatermPrev<CR>", desc = "Previous terminal" },
-			{ "<leader>tk", ":FloatermKill<CR>", desc = "Kill terminal" },
-		},
-	},
-	{
 		dir = "~/Developer/replacer.nvim",
 		keys = {
 			{
@@ -72,7 +51,6 @@ return {
 		"tpope/vim-fugitive",
 		cmd = "G",
 		keys = {
-			{ "<leader>gs", "<cmd>vertical G<CR>", desc = "Git status" },
 			{ "<leader>gb", "<cmd>G blame<CR>", desc = "Git blame" },
 			{ "<leader>gp", "<cmd>G push<CR>", desc = "Git push" },
 			{ "<leader>go", "<cmd>G browse<CR>", desc = "Git browse" },
@@ -96,8 +74,6 @@ return {
 		cmd = "Octo",
 		keys = { { "<leader>gP", "<cmd>Octo pr list<CR>", desc = "List PRs" } },
 	},
-	-- 'morhetz/gruvbox',
-	-- 'dracula/vim',
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
@@ -121,7 +97,6 @@ return {
 				g = { name = "git" },
 				l = { name = "language" },
 				j = { name = "jump" },
-				t = { name = "terminal" },
 				r = { name = "tests" },
 				n = { name = "tree" },
 				c = { name = "colorscheme" },
@@ -154,17 +129,156 @@ return {
 				},
 				i = {
 					function()
-						require("my.terminal").toggle(1)
+						require("my.terminal").toggle("repl")
 					end,
 					"General terminal",
 				},
 				u = {
 					function()
-						require("my.terminal").toggle(2)
+						require("my.terminal").toggle("shell")
 					end,
 					"Tests terminal",
 				},
+				t = {
+					name = "terminal",
+					t = {
+						function()
+							require("my.terminal").open_last()
+						end,
+						"Open last terminal",
+					},
+					k = {
+						function()
+							require("my.terminal").kill()
+						end,
+						"Kill terminals",
+					},
+				},
 			}, { prefix = "<leader>", nowait = true })
 		end,
+	},
+	{ "derekprior/vim-trimmer", lazy = false },
+	{
+		"embear/vim-localvimrc",
+		lazy = false,
+		init = function()
+			vim.g.localvimrc_whitelist = { "/Users/gabriel/Developer/.*" }
+		end,
+		config = function()
+			vim.g.localvimrc_sandbox = false
+		end,
+	},
+	{
+		"kyazdani42/nvim-tree.lua",
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+		opts = {
+			sync_root_with_cwd = true,
+			disable_netrw = true,
+			git = { ignore = false },
+			filters = { custom = { "^\\.DS_Store" } },
+			view = {
+				float = {
+					enable = false,
+					quit_on_focus_loss = true,
+					open_win_config = {
+						relative = "editor",
+						border = "rounded",
+						width = 60,
+						height = 30,
+						row = 1,
+						col = 1,
+					},
+				},
+			},
+		},
+		keys = {
+			{
+				"<leader>nn",
+				function()
+					require("nvim-tree.api").tree.toggle()
+				end,
+				desc = "Toggle",
+			},
+			{
+				"<leader>nf",
+				function()
+					require("nvim-tree.api").tree.find_file({
+						open = true,
+						focus = true,
+					})
+				end,
+				desc = "Find file",
+			},
+		},
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {
+			indent = {
+				char = "│",
+				tab_char = "│",
+			},
+			scope = { enabled = true },
+			exclude = {
+				filetypes = {
+					"help",
+					"alpha",
+					"dashboard",
+					"neo-tree",
+					"Trouble",
+					"lazy",
+					"mason",
+					"notify",
+					"toggleterm",
+					"lazyterm",
+				},
+			},
+		},
+	},
+	{ "wincent/terminus", lazy = false },
+	{
+		"nvim-lualine/lualine.nvim",
+		lazy = false,
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+		opts = {
+			options = {
+				show_filename_only = false,
+				globalstatus = true,
+				theme = colorscheme(),
+				ignore_focus = { "TelescopePrompt", "NvimTree", "TelescopeResults" },
+				disabled_filetypes = { {} },
+			},
+			sections = {
+				lualine_a = { {
+					"mode",
+					fmt = function(str)
+						return str:sub(1, 1)
+					end,
+				} },
+				lualine_b = {
+					"branch",
+					{
+						"diagnostics",
+						sources = { "nvim_diagnostic" },
+						symbols = { error = "E", warn = "W", info = "I", hint = "H" },
+						sections = { "error", "warn", "info", "hint" },
+						colored = true,
+						update_in_insert = true,
+						always_visible = false,
+					},
+					{
+						"diagnostics",
+						sources = { "nvim_workspace_diagnostic" },
+						symbols = { error = "WE", warn = "WW", info = "WI", hint = "WH" },
+						sections = { "error" },
+						colored = true,
+						update_in_insert = true,
+						always_visible = true,
+					},
+				},
+				lualine_c = { { "filename", path = 1 } },
+			},
+		},
 	},
 }

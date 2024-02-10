@@ -9,23 +9,20 @@ return {
 			{ "<leader>jl", "<cmd>HopLine<CR>", desc = "Go to line" },
 		},
 	},
-	{ "christoomey/vim-tmux-navigator", lazy = false },
 	{
-		"kristijanhusak/any-jump.vim",
-		config = function()
-			vim.g.any_jump_disable_default_keybindings = 1
-		end,
+		"numToStr/Navigator.nvim",
+		lazy = false,
+		opts = { disable_on_zoom = true },
 		keys = {
-			{ "<leader>jj", "<cmd>AnyJump<CR>", desc = "AnyJump" },
-			{
-				"<leader>jk",
-				"<cmd>AnyJumpLastResults<CR>",
-				desc = "AnyJump Reopen",
-			},
+			{ "<C-h>", "<CMD>NavigatorLeft<CR>" },
+			{ "<C-l>", "<CMD>NavigatorRight<CR>" },
+			{ "<C-k>", "<CMD>NavigatorUp<CR>" },
+			{ "<C-j>", "<CMD>NavigatorDown<CR>" },
 		},
 	},
 	{
 		"tpope/vim-projectionist",
+		lazy = false,
 		init = function()
 			vim.g.projectionist_heuristics = {
 				["foundry.toml"] = {
