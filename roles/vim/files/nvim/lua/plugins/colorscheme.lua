@@ -1,5 +1,17 @@
 return {
   {
+    "f-person/auto-dark-mode.nvim",
+    config = {
+      update_interval = 1000,
+      set_dark_mode = function()
+        vim.o.background = "dark"
+      end,
+      set_light_mode = function()
+        vim.o.background = "light"
+      end,
+    },
+  },
+  {
     "folke/tokyonight.nvim",
     lazy = colorscheme() ~= "tokyonight",
     priority = 1000,
@@ -20,6 +32,7 @@ return {
           floats = "transparent",
         },
         sidebars = { "qf", "help" },
+        use_background = true,
         day_brightness = 0.3,
         hide_inactive_statusline = false,
         dim_inactive = false,

@@ -1,4 +1,5 @@
 return {
+  { "smartpde/telescope-recent-files" },
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim" },
@@ -23,11 +24,11 @@ return {
       {
         "<leader>P",
         function()
-          local telescope = require("telescope.builtin")
+          local telescope = require("telescope")
 
-          telescope.oldfiles({ cwd_only = true })
+          telescope.extensions.recent_files.pick()
         end,
-        desc = "Files",
+        desc = "Recent files",
       },
       {
         "<leader>fw",
@@ -54,6 +55,14 @@ return {
         end,
         desc = "Search for input",
       },
+      {
+        "<leader>fg",
+        function()
+          local telescope = require("telescope.builtin")
+          telescope.git_status()
+        end,
+        desc = "Find changed files",
+      },
     },
     config = function()
       local actions = require("telescope.actions")
@@ -76,6 +85,7 @@ return {
             "%.jpeg",
             "%.gif",
             "%.webp",
+            "venv/",
           },
           vimgrep_arguments = {
             "rg",
@@ -99,6 +109,12 @@ return {
             n = { ["<C-c>"] = actions.close },
           },
         },
+        extensions = {
+          recent_files = {
+            stat_files = true,
+            only_cwd = true,
+          },
+        },
         pickers = {
           grep_string = {
             prompt_prefix = " 🔍 ",
@@ -106,6 +122,8 @@ return {
           },
         },
       })
+
+      require("telescope").load_extension("recent_files")
     end,
   },
 }

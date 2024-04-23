@@ -29,6 +29,59 @@ M.send_selection = function()
   M.send(lines)
 end
 
+local server = {
+  ["mix.exs"] = {
+    {
+      contents = "phoenix",
+      cmd = function()
+        M.send("iex -S mix phx.server\n", "repl")
+      end,
+    },
+    {
+      cmd = function()
+        M.send("iex -S mix\n", "repl")
+      end,
+    },
+  },
+  ["package-lock.json"] = {
+    {
+      contents = '"dev"',
+      cmd = function()
+        M.send("npm run dev\n", "repl")
+      end,
+    },
+    {
+      cmd = function()
+        M.send("npm start\n", "repl")
+      end,
+    },
+  },
+  ["yarn.json"] = {
+    {
+      contents = '"dev"',
+      cmd = function()
+        M.send("yarn dev\n", "repl")
+      end,
+    },
+    {
+      cmd = function()
+        M.send("yarn start\n", "repl")
+      end,
+    },
+  },
+  ["Cargo.toml"] = {
+    cmd = function()
+      M.send("cargo run\n", "repl")
+    end,
+  },
+}
+
+local recompile = {
+  ["mix.exs"] = function()
+    M.send("recompile\n")
+  end,
+}
+
 M.start = function()
   if has_file("mix.exs") then
     includes("mix.exs", "phoenix", function(result)

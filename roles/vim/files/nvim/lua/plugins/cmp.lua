@@ -1,21 +1,21 @@
 return {
   {
     "zbirenbaum/copilot.lua",
-    opts = { panel = { enabled = false }, suggestion = { enabled = false } },
+    opts = {
+      panel = { enabled = false },
+      suggestion = { enabled = false },
+    },
   },
   {
     "zbirenbaum/copilot-cmp",
     after = { "copilot.lua" },
-    config = function()
-      require("copilot_cmp").setup()
-    end,
+    opts = {},
   },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "zbirenbaum/copilot-cmp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
@@ -28,8 +28,7 @@ return {
 
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0
-            and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
 
       cmp.setup({

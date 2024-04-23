@@ -18,6 +18,14 @@ local terminals = {
     cmd = "lazygit",
     start_in_insert = true,
     hidden = true,
+    on_open = function(term)
+      vim.cmd("startinsert!")
+      -- vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
+    -- function to run on closing the terminal
+    on_close = function(term)
+      vim.cmd("startinsert!")
+    end,
   }),
 }
 
@@ -41,7 +49,8 @@ M.open_last = function()
   end
 end
 
-M.toggle = function(name, cmd)
+M.toggle = function(name, cmd, opts)
+  local opts = opts or {}
   local terminal = get_terminal(name)
   last_terminal = terminal
 
@@ -50,7 +59,12 @@ M.toggle = function(name, cmd)
     return
   end
 
-  terminal:open()
+  if opts["split"] then
+    dump(terminal)
+    terminal:open(100, "vertical")
+  else
+    terminal:open(nil, "float")
+  end
 
   if cmd then
     terminal:send(cmd)

@@ -11,14 +11,13 @@ return {
       vim.g.vim_markdown_folding_disabled = 1
     end,
   },
-  { "thesis/vim-solidity",         ft = "solidity" },
+  { "thesis/vim-solidity", ft = "solidity" },
   {
     "rhysd/vim-textobj-anyblock",
     dependencies = "kana/vim-textobj-user",
     lazy = false,
   },
-  { "tpope/vim-rails",             ft = "ruby" },
-  { "elixir-editors/vim-elixir",   ft = "elixir" },
+  { "tpope/vim-rails", ft = "ruby" },
   { "slime-lang/vim-slime-syntax", ft = "slime" },
   {
     "andyl/vim-textobj-elixir",
@@ -29,7 +28,7 @@ return {
     "folke/neodev.nvim",
     opts = {
       lspconfig = true,
-    }
+    },
   },
   "Glench/Vim-Jinja2-Syntax",
 }

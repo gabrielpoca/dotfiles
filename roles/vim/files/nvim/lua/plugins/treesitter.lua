@@ -21,7 +21,6 @@ return {
           "yaml",
           "html",
           "tsx",
-          "elixir",
         },
         highlight = { enable = true },
         autotag = {

@@ -1,18 +1,9 @@
 return {
   { "AndrewRadev/splitjoin.vim", lazy = false },
-  { "gcmt/wildfire.vim",         lazy = false },
-  { "tpope/vim-abolish",         lazy = false },
-  { "tpope/vim-commentary",      lazy = false },
-  { "tpope/vim-surround",        lazy = false },
-  {
-    "vim-test/vim-test",
-    keys = {
-      { "<leader>ra", "<cmd>TestSuite<CR>",   desc = "Run test suite" },
-      { "<leader>rt", "<cmd>TestFile<CR>",    desc = "Run test file" },
-      { "<leader>rr", "<cmd>TestNearest<CR>", desc = "Run test line" },
-      { "<leader>rl", "<cmd>TestLast<CR>",    desc = "Run last test" },
-    },
-  },
+  { "gcmt/wildfire.vim", lazy = false },
+  { "tpope/vim-abolish", lazy = false },
+  { "tpope/vim-commentary", lazy = false },
+  { "tpope/vim-surround", lazy = false },
   {
     dir = "~/Developer/replacer.nvim",
     keys = {
@@ -51,8 +42,8 @@ return {
     "tpope/vim-fugitive",
     cmd = "G",
     keys = {
-      { "<leader>gb", "<cmd>G blame<CR>",  desc = "Git blame" },
-      { "<leader>gp", "<cmd>G push<CR>",   desc = "Git push" },
+      { "<leader>gb", "<cmd>G blame<CR>", desc = "Git blame" },
+      { "<leader>gp", "<cmd>G push<CR>", desc = "Git push" },
       { "<leader>go", "<cmd>G browse<CR>", desc = "Git browse" },
       {
         "<leader>gh",
@@ -131,13 +122,25 @@ return {
           function()
             require("my.terminal").toggle("repl")
           end,
-          "General terminal",
+          "Server terminal",
+        },
+        I = {
+          function()
+            require("my.terminal").toggle("repl", nil, { split = true })
+          end,
+          "Server terminal",
         },
         u = {
           function()
             require("my.terminal").toggle("shell")
           end,
-          "Tests terminal",
+          "Commands terminal",
+        },
+        U = {
+          function()
+            require("my.terminal").toggle("shell", nil, { split = true })
+          end,
+          "Commands terminal",
         },
         t = {
           name = "terminal",
@@ -157,7 +160,7 @@ return {
       }, { prefix = "<leader>", nowait = true })
     end,
   },
-  { "derekprior/vim-trimmer",    lazy = false },
+  { "derekprior/vim-trimmer", lazy = false },
   {
     "embear/vim-localvimrc",
     lazy = false,
@@ -250,12 +253,14 @@ return {
         disabled_filetypes = { {} },
       },
       sections = {
-        lualine_a = { {
-          "mode",
-          fmt = function(str)
-            return str:sub(1, 1)
-          end,
-        } },
+        lualine_a = {
+          {
+            "mode",
+            fmt = function(str)
+              return str:sub(1, 1)
+            end,
+          },
+        },
         lualine_b = {
           "branch",
           {

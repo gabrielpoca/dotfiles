@@ -60,10 +60,10 @@ vim.o.foldenable = false
 
 -- highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank({ on_visual = false })
-	end,
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank({ on_visual = false })
+  end,
 })
 
 -- clear highlights
@@ -89,17 +89,22 @@ cmd([[
 nnoremap Y Y
 ]])
 
+if executable("nvr") then
+  vim.env.GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
+  vim.env.EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
+end
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable",
-		lazypath,
-	})
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
 end
 
 vim.opt.rtp:prepend(lazypath)
@@ -108,3 +113,20 @@ require("lazy").setup("plugins")
 require("my.repl")
 require("my.tests")
 require("my.git")
+
+local group = vim.api.nvim_create_augroup("AutoSaveFolds", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufWinLeave", "BufLeave" }, {
+  callback = function()
+    vim.cmd("silent! mkview")
+  end,
+  pattern = "*",
+  group = group,
+})
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter" }, {
+  callback = function()
+    vim.cmd("silent! loadview")
+  end,
+  pattern = "*",
+  group = group,
+})

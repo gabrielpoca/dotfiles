@@ -1,4 +1,9 @@
 local api = vim.api
+local fn = vim.fn
+
+function _G.executable(e)
+  return fn.executable(e) > 0
+end
 
 function _G.startinsert()
   vim.schedule(function()
