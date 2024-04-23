@@ -15,12 +15,6 @@
     - dest: .gitignore
       src: gitignore
 
-- name: link alacritty configuration
-  file:
-    src: '{{ ansible_env.PWD }}/roles/shell/files/alacritty'
-    dest: '{{ home_dir }}/.config/alacritty'
-    state: link
-
 - include: zsh.yml
   when: os_family == 'darwin'
   vars:

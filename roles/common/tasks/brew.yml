@@ -31,7 +31,6 @@
     state: present
   vars:
     homebrew_cask_packages:
-      - alacritty
       - docker
       - font-hack-nerd-font
       - hyperswitch
