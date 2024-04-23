@@ -17,3 +17,7 @@ alias t=terraform
 alias tl="tmux list-sessions"
 alias ta="tmux attach-session -t"
 alias tk="tmux kill-server"
+
+if [ -n "$NVIM" ]; then
+    alias nvim="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+fi
