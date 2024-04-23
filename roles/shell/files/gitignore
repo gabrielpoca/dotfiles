@@ -38,3 +38,4 @@ deployments/*
 typechain-types
 *.code-workspace
 .luarc.json
+.pnp.*
