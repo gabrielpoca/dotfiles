@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+ARGV.to_a.each do |path|
+  dest = "#{path}.tar.gz"
+
+  if File.exist?(dest) then
+    raise "#{dest} already exists"
+  end
+
+  `tar -zcvf "#{dest}" "#{path}"`
+end
