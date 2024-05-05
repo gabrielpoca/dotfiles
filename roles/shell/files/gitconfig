@@ -1,5 +1,5 @@
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [user]
 	name = Gabriel Poca
 	email = mail@gabrielpoca.com

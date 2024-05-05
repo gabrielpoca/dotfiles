@@ -3,7 +3,7 @@
 autoload colors; colors
 
 current=`git branch | sed -n '\/* /s///p'`
-destiny=${1:-master}
+destiny=${1:-main}
 
 # 1. Check if CI is failing
 if [[ "$2" != "-f" && "$1" != "-f" ]];
