@@ -9,18 +9,6 @@
 
 - name: link hammerspoon
   file:
-    src: '{{ ansible_env.PWD }}/roles/keyboard/files/hammerspoon'
-    dest: '{{ home_dir }}/.hammerspoon'
+    src: "{{ ansible_env.PWD }}/roles/keyboard/files/hammerspoon"
+    dest: "{{ home_dir }}/.hammerspoon"
     state: link
-
-- name: link com.local.KeyRemapping.plist
-  ansible.builtin.copy:
-    src: '{{ ansible_env.PWD }}/roles/keyboard/files/com.local.KeyRemapping.plist'
-    dest: '{{ home_dir }}/Library/LaunchAgents/com.local.KeyRemapping.plist'
-    force: false
-  register: key_remapping
-
-- name: reboot
-  ansible.builtin.debug:
-    msg: You need to reboot for KeyRemapping to take effect
-  when: key_remapping.changed

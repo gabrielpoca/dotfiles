@@ -11,8 +11,8 @@ terminal_osx_packages:
   - asdf
   - cormacrelf/tap/dark-notify
 
-
 terminal_packages:
+  - diff-so-fancy
   - bat
   - autoconf
   - automake

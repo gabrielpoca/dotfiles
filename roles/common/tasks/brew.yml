@@ -8,10 +8,6 @@
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   when: brew_found.rc == 1
 
-- name: fonts package
-  community.general.homebrew_tap:
-    name: homebrew/cask-fonts
-
 - name: install homebrew package
   homebrew:
     name: "{{ terminal_packages }}"
