@@ -41,6 +41,9 @@ end
 return {
   {
     "akinsho/toggleterm.nvim",
+    opts = {
+      open_mapping = "<C-t>",
+    },
     keys = {
       { "<Leader>yk", function() get_terminal():shutdown() end },
       { "<Leader>yv", function() get_terminal():open(100, "vertical") end },

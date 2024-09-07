@@ -16,6 +16,7 @@ return {
   { import = "astrocommunity.editing-support.wildfire-nvim" },
   { import = "astrocommunity.utility.telescope-fzy-native-nvim" },
   { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
+  { import = "astrocommunity.motion.harpoon" },
   { import = "astrocommunity.motion.hop-nvim" },
   { import = "astrocommunity.motion.nvim-surround" },
   { import = "astrocommunity.pack.elixir-phoenix" },
@@ -26,4 +27,5 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.ansible" },
+  { import = "astrocommunity.recipes.vscode" },
 }

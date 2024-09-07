@@ -32,6 +32,10 @@ return {
       },
       layout_config = { height = 0.9, width = 0.9 },
       file_ignore_patterns = {
+        "out/",
+        "abis/",
+        "abi/",
+        "cache/",
         "artifacts/",
         "typechain%-types/",
         "node_modules",
