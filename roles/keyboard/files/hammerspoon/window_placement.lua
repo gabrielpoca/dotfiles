@@ -71,23 +71,24 @@ end
 
 function on_application(name, callback)
   hs.window.filter
-    .new({ name })
-    :setAppFilter(name, {
-      allowTitles = 1,
-      hasTitlebar = true,
-    })
-    :subscribe(hs.window.filter.windowCreated, callback)
+      .new({ name })
+      :setAppFilter(name, {
+        allowTitles = 1,
+        hasTitlebar = true,
+      })
+      :subscribe(hs.window.filter.windowCreated, callback)
 end
 
 hs.hotkey.bind(globals.hyper, "Y", place_left_half)
 hs.hotkey.bind(globals.hyper, "O", place_right_half)
 hs.hotkey.bind(globals.hyper, "U", place_full)
 
-on_application("WezTerm", place_full)
-on_application("Brave Browser", place_full)
+on_application("Obsidian", place_full)
+on_application("Telegram", place_right_half)
+on_application("Arc", place_full)
 on_application("Calendar", place_full)
 on_application("Figma", place_full)
 on_application("Slack", place_full)
-on_application("Telegram", place_right_half)
-on_application("Todoist", place_right_half)
 on_application("Visual Studio Code", place_full)
+on_application("Cursor", place_full)
+on_application("WezTerm", place_full)

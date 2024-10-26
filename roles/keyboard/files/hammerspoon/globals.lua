@@ -1,3 +1,3 @@
 return {
-  hyper = {"cmd","ctrl"}
+  hyper = { "cmd", "ctrl" },
 }
