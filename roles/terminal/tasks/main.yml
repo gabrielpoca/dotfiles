@@ -1,9 +1,0 @@
-- name: link .tmux.conf
-  file:
-    src: '{{ ansible_env.PWD }}/roles/terminal/files/tmux.conf'
-    dest: '{{ home_dir }}/.tmux.conf'
-    state: link
-
-- git:
-    repo: https://github.com/tmux-plugins/tpm
-    dest: ~/.tmux/plugins/tpm
