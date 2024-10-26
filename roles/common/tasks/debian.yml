@@ -1,6 +1,0 @@
-- name: install apt package
-  become: true
-  apt:
-    name: "{{ terminal_packages }}"
-    update_cache: true
-    state: present

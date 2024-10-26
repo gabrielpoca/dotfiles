@@ -1,5 +1,0 @@
-[local]
-0.0.0.0
-
-[local:vars]
-ansible_connection=local

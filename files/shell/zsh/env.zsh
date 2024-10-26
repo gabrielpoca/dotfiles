@@ -1,5 +1,5 @@
 export HOMEBREW_NO_AUTO_UPDATE=1
-export KERL_BUILD_DOCS="yes"
+# export KERL_BUILD_DOCS="yes"
 
 if [ -n "$NVIM" ]; then
     export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"

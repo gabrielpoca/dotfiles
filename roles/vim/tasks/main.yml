@@ -1,5 +1,0 @@
-- name: link configuration folder
-  file:
-    src: '{{ ansible_env.PWD }}/roles/vim/files/nvim'
-    dest: '{{ home_dir }}/.config/nvim'
-    state: link

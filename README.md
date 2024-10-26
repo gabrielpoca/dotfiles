@@ -1,21 +1,29 @@
 # Gabriel Poça's Dotfiles
 
-My personal dotfiles.
+My personal dotfiles managed with Nix and Home Manager.
+
+## Prerequisites
+
+1. Install Nix: https://nixos.org/download.html
+2. Install nix-darwin: https://github.com/LnL7/nix-darwin
 
 ## Install
 
-Clone the repository:
+1. Clone the repository:
 
-    git@github.com:gabrielpoca/dotfiles.git ~/Developer/dotfiles
+        git@github.com:gabrielpoca/dotfiles.git ~/Developer/dotfiles
 
-Run the installation script:
+2. Change to the dotfiles directory:
 
-    ansible-playbook setup.yml -i hosts
+        cd ~/Developer/dotfiles
 
-Update your .netrc.
+3. Run the installation script:
 
-## Vagrant
 
-```
-vagrant up
-```
+        darwin-rebuild switch --flake $HOME/Developer/dotfiles/
+
+## Updating
+
+To update your configuration after making changes:
+
+    rebuild
