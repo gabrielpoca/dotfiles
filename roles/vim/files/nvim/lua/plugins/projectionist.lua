@@ -26,6 +26,14 @@ return {
         },
         ["src/*.js"] = { ["alternate"] = "{}.test.js", ["type"] = "source" },
         ["src/*.test.js"] = { ["alternate"] = "src/{}.js", ["type"] = "test" },
+        ["*.test.ts"] = {
+          ["alternate"] = "{}.ts",
+          ["type"] = "test",
+        },
+        ["*.ts"] = {
+          ["alternate"] = "{}.test.ts",
+          ["type"] = "source",
+        },
       },
       ["mix.exs"] = {
         ["lib/*_live.ex"] = {
@@ -42,7 +50,7 @@ return {
     }
   end,
   keys = {
-    { "<leader>a", "<cmd>A<CR>", desc = "Change to alternate" },
-    { "<leader>v", "<cmd>AV<CR>", desc = "Open alternate file in split" },
+    { "<leader>A", "<cmd>A<CR>", desc = "Change to alternate" },
+    { "<leader>V", "<cmd>AV<CR>", desc = "Open alternate file in split" },
   },
 }

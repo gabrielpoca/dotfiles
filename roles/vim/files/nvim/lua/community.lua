@@ -5,14 +5,16 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
-  -- import/override with your plugins folder
-  { import = "astrocommunity.completion.copilot-lua-cmp" },
+  { import = "astrocommunity.recipes.heirline-nvchad-statusline" },
+  { import = "astrocommunity.git.openingh-nvim" },
+  { import = "astrocommunity.git.diffview-nvim" },
+  { import = "astrocommunity.completion.supermaven-nvim" },
+  { import = "astrocommunity.completion.avante-nvim" },
   { import = "astrocommunity.editing-support.mini-splitjoin" },
   { import = "astrocommunity.editing-support.rainbow-delimiters-nvim" },
   { import = "astrocommunity.editing-support.vim-visual-multi" },
   { import = "astrocommunity.editing-support.conform-nvim" },
   { import = "astrocommunity.editing-support.nvim-treesitter-endwise" },
-  { import = "astrocommunity.editing-support.yanky-nvim" },
   { import = "astrocommunity.editing-support.wildfire-nvim" },
   { import = "astrocommunity.motion.harpoon" },
   { import = "astrocommunity.motion.hop-nvim" },
