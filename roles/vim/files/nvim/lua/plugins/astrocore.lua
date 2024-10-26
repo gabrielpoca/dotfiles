@@ -49,7 +49,11 @@ return {
         H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
         ["<C-q>"] = { ":close<CR>" },
         -- disable default grep search mapping
-        ["<Leader>fw"] = false,
+        -- ["<Leader>fw"] = false,
+        ["<Leader>fw"] = {
+          function() require("fzf-lua").grep { multiprocess = true, search = "" } end,
+          desc = "Find words",
+        },
         -- disable default toggleterm mappings
         ["<Leader>tf"] = false,
         ["<Leader>tv"] = false,

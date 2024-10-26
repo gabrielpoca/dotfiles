@@ -28,4 +28,5 @@ return {
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.ansible" },
   { import = "astrocommunity.recipes.vscode" },
+  { import = "astrocommunity.fuzzy-finder.fzf-lua" },
 }
