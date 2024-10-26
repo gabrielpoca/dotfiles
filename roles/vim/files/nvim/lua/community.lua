@@ -14,8 +14,6 @@ return {
   { import = "astrocommunity.editing-support.nvim-treesitter-endwise" },
   { import = "astrocommunity.editing-support.yanky-nvim" },
   { import = "astrocommunity.editing-support.wildfire-nvim" },
-  { import = "astrocommunity.utility.telescope-fzy-native-nvim" },
-  { import = "astrocommunity.utility.telescope-live-grep-args-nvim" },
   { import = "astrocommunity.motion.harpoon" },
   { import = "astrocommunity.motion.hop-nvim" },
   { import = "astrocommunity.motion.nvim-surround" },
