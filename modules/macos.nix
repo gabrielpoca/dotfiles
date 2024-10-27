@@ -1,59 +1,12 @@
 {
-  pkgs,
+  config,
   lib,
-  inputs,
+  pkgs,
   ...
 }:
+
 {
   security.pam.enableSudoTouchIdAuth = true;
-
-  environment.systemPackages = [
-    pkgs.vim
-    pkgs.rust-bin.stable.latest.default
-    pkgs.nixfmt-rfc-style
-  ];
-
-  homebrew = {
-    enable = true;
-
-    casks = [
-      "alt-tab"
-      "blackhole-2ch"
-      "docker"
-      "font-hack-nerd-font"
-      "hammerspoon"
-      "hiddenbar"
-      "hyperswitch"
-      "keepassxc"
-      "lulu"
-      "openmtp"
-      "pgadmin4"
-      "postman"
-      "quicklook-json"
-      "raycast"
-      "the-unarchiver"
-      "vagrant"
-      "virtualbox"
-      "vlc"
-      "wezterm"
-    ];
-
-    brews = [
-      "cormacrelf/tap/dark-notify"
-      {
-        name = "postgresql@16";
-        restart_service = true;
-        link = true;
-        conflicts_with = [ "postgresql" ];
-      }
-      {
-        name = "redis";
-        restart_service = true;
-        link = true;
-        conflicts_with = [ "redis" ];
-      }
-    ];
-  };
 
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
@@ -156,9 +109,7 @@
       AppleKeyboardUIMode = 3;
       AppleMeasurementUnits = "Centimeters";
       AppleTemperatureUnit = "Celsius";
-      # InitialKeyRepeat: 120, 94, 68, 35, 25, 15
       InitialKeyRepeat = 15;
-      # KeyRepeat: 120, 90, 60, 30, 12, 6, 2
       KeyRepeat = 2;
       NSAutomaticQuoteSubstitutionEnabled = false;
       NSAutomaticDashSubstitutionEnabled = false;
