@@ -32,6 +32,7 @@
     ];
 
     brews = [
+      "asdf"
       "cormacrelf/tap/dark-notify"
       {
         name = "postgresql@16";

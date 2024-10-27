@@ -11,6 +11,7 @@
   imports = [
     ./modules/git.nix
     ./modules/zsh.nix
+    ./modules/asdf.nix
   ];
 
   home.packages = with pkgs; [
@@ -70,20 +71,18 @@
     ".hammerspoon/" = {
       source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/hammerspoon";
     };
-    ".default-gems" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/asdf/default-gems";
-    };
-    ".default-npm-packages" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/asdf/default-npm-packages";
-    };
-    ".default-python-packages" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/asdf/default-python-packages";
-    };
-    ".tool-versions" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/asdf/tool-versions";
-    };
     ".tigrc" = {
-      source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/shell/tigrc";
+      text = ''
+        bind status P !git push origin
+        bind status F ?!git push -f origin
+        bind status A !git commit --amend
+
+        bind generic e @nvr -l +%(lineno) %(file)
+        bind generic b @hub browse
+        bind generic c @hub compare
+
+        bind generic S :source ~/.tigrc
+      '';
     };
   };
 
