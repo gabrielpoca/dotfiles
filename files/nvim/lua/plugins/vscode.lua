@@ -29,7 +29,6 @@ vim.tbl_map(function(plugin) enabled[plugin] = true end, {
   "vim-sandwich",
   "yanky.nvim",
   -- feel free to open PRs to add more support!
-  "tpope/vim-projectionist",
 })
 
 local Config = require "lazy.core.config"
@@ -49,6 +48,7 @@ return {
       mappings = {
         n = {
           ["<Leader>ff"] = "<CMD>Find<CR>",
+          ["<Leader>fb"] = "<CMD>call VSCodeNotify('workbench.action.showAllEditors')<CR>",
           ["<Leader>fw"] = "<CMD>call VSCodeNotify('workbench.action.findInFiles')<CR>",
           ["<Leader>fp"] = "<CMD>call VSCodeNotify('workbench.action.openRecent')<CR>",
           ["<Leader>ls"] = "<CMD>call VSCodeNotify('workbench.action.gotoSymbol')<CR>",
