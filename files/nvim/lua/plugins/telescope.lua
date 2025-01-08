@@ -55,12 +55,17 @@ return {
   },
   keys = {
     {
+      "<C-f>",
+      function() require("telescope.builtin").find_files() end,
+      desc = "Find files",
+    },
+    {
       "<Leader>fw",
       function()
         local telescope = require "telescope.builtin"
         telescope.grep_string { search = "" }
       end,
-      desc = "Find words",
+      desc = "Find words in all files",
     },
   },
 }
