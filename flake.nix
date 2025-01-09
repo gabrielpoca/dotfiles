@@ -9,10 +9,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     foundry.url = "github:shazow/foundry.nix/monthly";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -23,7 +19,6 @@
       home-manager,
       nixpkgs,
       foundry,
-      rust-overlay,
     }:
     let
       configuration =
@@ -41,7 +36,6 @@
           nixpkgs.hostPlatform = "aarch64-darwin";
           nixpkgs.overlays = [
             foundry.overlay
-            rust-overlay.overlays.default
             neovim-nightly-overlay.overlays.default
           ];
 
@@ -55,7 +49,6 @@
 
           environment.systemPackages = [
             pkgs.vim
-            pkgs.rust-bin.stable.latest.default
             pkgs.nixfmt-rfc-style
           ];
 

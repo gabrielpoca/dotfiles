@@ -32,6 +32,7 @@
     diff-so-fancy
     automake
     autoconf
+    rustup
   ];
 
   home.sessionVariables = {
@@ -54,11 +55,13 @@
     rr = "rm -rf";
     rebuild = "darwin-rebuild switch --flake $HOME/Developer/dotfiles/";
     ll = "ls -l";
+    gs = "git status";
   };
 
   home.sessionPath = [
     "$HOME/Developer/dotfiles/files/shell/bin"
     "/Applications/WezTerm.app/Contents/MacOS"
+    "$HOME/.local/bin"
   ];
 
   home.file = {
@@ -108,11 +111,6 @@
 
   programs.fd = {
     enable = true;
-  };
-
-  programs.mise = {
-    enable = true;
-    enableZshIntegration = true;
   };
 
   programs.neovim = {

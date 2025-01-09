@@ -52,7 +52,7 @@
       dashboard-in-overlay = false;
       enable-spring-load-actions-on-all-items = false;
       expose-animation-duration = 0.2;
-      expose-group-by-app = false;
+      expose-group-apps = false;
       launchanim = true;
       mineffect = "genie";
       minimize-to-application = false;
@@ -72,10 +72,10 @@
         "/Applications/WezTerm.app"
         "/Applications/Slack.app"
         "/System/Applications/Mail.app"
+        "/Applications/Bear.app"
         "/System/Applications/Calendar.app"
         "/Applications/Telegram.app"
         "/Applications/WhatsApp.app"
-        "/Applications/Obsidian.app"
       ];
     };
 

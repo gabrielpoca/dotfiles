@@ -25,6 +25,7 @@
       };
     };
     ignores = [
+      ".aider*"
       "!tmp/cache/.keep"
       "$TMPDIR/"
       "*.DS_Store"

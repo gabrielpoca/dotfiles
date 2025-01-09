@@ -42,20 +42,14 @@
     };
     ".tool-versions" = {
       text = ''
-        deno 1.6.3
         elixir 1.16.0-rc.0-otp-26
         erlang 26.1.2
         nodejs 20.7.0
-        python 3.10.4
+        python 3.13.1
         ruby 3.1.1
         golang 1.21.5
         java adoptopenjdk-11.0.24+8
       '';
     };
-  };
-
-  programs.mise = {
-    enable = true;
-    enableZshIntegration = true;
   };
 }
