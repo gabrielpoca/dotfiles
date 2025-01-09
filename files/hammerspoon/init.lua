@@ -11,10 +11,13 @@ spoon.BingDaily:init()
 local keys = spoon.AwesomeKeys
 
 keys:remapAppKeys({
-  app = "Arc",
+  app = "Zen Browser",
   keys = {
-    { from = { mods = { "command" }, key = "j" }, to = { mods = { "command", "option" }, key = "down" } },
-    { from = { mods = { "command" }, key = "k" }, to = { mods = { "command", "option" }, key = "up" } },
+    { from = { mods = { "command" }, key = "j" }, to = { mods = { "ctrl" }, key = "tab" } },
+    { from = { mods = { "command" }, key = "k" }, to = { mods = { "ctrl", "shift" }, key = "tab" } },
+    { from = { mods = { "command" }, key = "h" }, to = { mods = { "ctrl", "shift" }, key = "h" } },
+    { from = { mods = { "command" }, key = "l" }, to = { mods = { "ctrl", "shift" }, key = "l" } },
+    { from = { mods = { "command" }, key = "p" }, to = { key = "f6" } },
   },
 })
 
