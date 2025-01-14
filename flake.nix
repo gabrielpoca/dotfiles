@@ -51,5 +51,14 @@
           ];
         };
       };
+      
+      nixosConfigurations = {
+        bee = nixpkgs.lib.nixosSystem {
+          modules = [(
+            import ./hosts/bee
+          )];
+	        specialArgs = { inherit inputs; };
+        };
+      };
     };
 }
