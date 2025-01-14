@@ -25,4 +25,19 @@
       . "${pkgs.asdf-vm}/share/asdf-vm/completions/asdf.bash"
     '';
   };
+
+  home.shellAliases = {
+    "...." = "cd ../../..";
+    "..." = "cd ../..";
+    ".." = "cd ..";
+    d = "docker";
+    dc = "docker-compose";
+    la = "ls -a";
+    v = "nvim";
+    vi = "nvim";
+    vim = "nvim";
+    rr = "rm -rf";
+    ll = "ls -l";
+    gs = "git status";
+  };
 }

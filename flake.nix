@@ -21,54 +21,35 @@
       foundry,
     }:
     let
-      configuration =
-        { pkgs, ... }:
+      defaultConfiguration =
+        { pkgs, self, ... }:
         {
-          services.nix-daemon.enable = true;
-
           nix.settings.experimental-features = "nix-command flakes";
 
-          programs.zsh.enable = true; # default shell on catalina
+          programs.zsh.enable = true;
 
-          system.configurationRevision = self.rev or self.dirtyRev or null;
-          system.stateVersion = 4;
-
-          nixpkgs.hostPlatform = "aarch64-darwin";
-          nixpkgs.overlays = [
-            foundry.overlay
-            neovim-nightly-overlay.overlays.default
-          ];
-
-          # allowUnfree is required to install some packages that are not "free" software.
           nixpkgs.config.allowUnfree = true;
 
           users.users.gabriel = {
             name = "gabriel";
-            home = "/Users/gabriel";
           };
 
-          environment.systemPackages = [
-            pkgs.vim
-            pkgs.nixfmt-rfc-style
-          ];
-
-          home-manager.backupFileExtension = "bkp";
-          home-manager.users.gabriel = import ./home.nix;
-          home-manager.useUserPackages = true;
-          home-manager.useGlobalPkgs = true;
+          system.stateVersion = 4;
         };
 
     in
     {
-      darwinConfigurations."Gabriels-MacBook-Pro" = nix-darwin.lib.darwinSystem {
-        modules = [
-          home-manager.darwinModules.home-manager
-          configuration
-          ./modules/homebrew.nix
-          ./modules/macos.nix
-        ];
-      };
+      darwinConfigurations = {
+        "Gabriels-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+          specialArgs = inputs;
 
-      darwinPackages = self.darwinConfigurations."Gabriels-MacBook-Pro".pkgs;
+          system = "aarch64-darwin";
+          modules = [
+            home-manager.darwinModules.home-manager
+            defaultConfiguration
+            ./hosts/work
+          ];
+        };
+      };
     };
 }

@@ -9,9 +9,9 @@
 }:
 {
   imports = [
-    ./modules/git.nix
-    ./modules/zsh.nix
-    ./modules/asdf.nix
+    ../../modules/git.nix
+    ../../modules/shell.nix
+    ../../modules/asdf.nix
   ];
 
   home.packages = with pkgs; [
@@ -42,21 +42,7 @@
     ZSH_CUSTOM = "$HOME/Developer/dotfiles/files/shell/zsh";
   };
 
-  home.shellAliases = {
-    "...." = "cd ../../..";
-    "..." = "cd ../..";
-    ".." = "cd ..";
-    d = "docker";
-    dc = "docker-compose";
-    la = "ls -a";
-    v = "nvim";
-    vi = "nvim";
-    vim = "nvim";
-    rr = "rm -rf";
-    rebuild = "darwin-rebuild switch --flake $HOME/Developer/dotfiles/";
-    ll = "ls -l";
-    gs = "git status";
-  };
+  home.shellAliases.rebuild = "darwin-rebuild switch --flake $HOME/Developer/dotfiles/";
 
   home.sessionPath = [
     "$HOME/Developer/dotfiles/files/shell/bin"
