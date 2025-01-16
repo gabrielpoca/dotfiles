@@ -10,13 +10,13 @@
 
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
-  system.keyboard.userKeyMapping = [
-    {
-      # Right Command to Ctrl
-      HIDKeyboardModifierMappingSrc = 30064771303;
-      HIDKeyboardModifierMappingDst = 30064771300;
-    }
-  ];
+  # system.keyboard.userKeyMapping = [
+  #   {
+  #     # Right Command to Ctrl
+  #     HIDKeyboardModifierMappingSrc = 30064771303;
+  #     HIDKeyboardModifierMappingDst = 30064771300;
+  #   }
+  # ];
 
   system.activationScripts.postActivation.text = ''
     # Disable the sound effects on boot
