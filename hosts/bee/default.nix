@@ -20,6 +20,7 @@ in
     ../../modules/transmission.nix
     ../../modules/stremio.nix
     ../../modules/caddy.nix
+    ../../modules/soulseek.nix
   ];
 
   home-manager.backupFileExtension = "bkp";
@@ -111,6 +112,7 @@ in
     pciutils
     powertop
     wget
+    neovim
     nixfmt-rfc-style
   ];
 
@@ -137,6 +139,35 @@ in
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
+  };
+
+  services.restic.backups = {
+    daily = {
+      initialize = true;
+
+      environmentFile = "/etc/secrets/restic.env";
+      passwordFile = "/etc/secrets/restic_pwd";
+
+      paths = [
+        "/srv/books"
+        "/srv/music"
+      ];
+
+      repository = "b2:gabriel-docker-volumes:/bee";
+
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 5"
+        "--keep-monthly 12"
+      ];
+    };
+  };
+
+  soulseek = {
+    appDataFolder = "/srv/soulseek";
+    completeFolder = "/srv/music";
+    incompleteFolder = "/srv/soulseek/incomplete";
+    environmentFile = "/etc/secrets/soulseek";
   };
 
   networking.firewall.allowedTCPPorts = [ 11470 ];
