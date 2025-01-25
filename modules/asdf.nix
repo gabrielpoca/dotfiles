@@ -6,6 +6,11 @@
 }:
 
 {
+  programs.zsh.initExtra = ''
+    . "${pkgs.asdf-vm}/share/asdf-vm/asdf.sh"
+    . "${pkgs.asdf-vm}/share/asdf-vm/completions/asdf.bash"
+  '';
+
   home.file = {
     ".default-gems" = {
       text = ''

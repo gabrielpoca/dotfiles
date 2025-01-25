@@ -51,13 +51,14 @@
           ];
         };
       };
-      
+
       nixosConfigurations = {
         bee = nixpkgs.lib.nixosSystem {
-          modules = [(
-            import ./hosts/bee
-          )];
-	        specialArgs = { inherit inputs; };
+	        specialArgs = inputs;
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/bee
+         ];
         };
       };
     };
