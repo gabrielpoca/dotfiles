@@ -21,6 +21,7 @@ in
     ../../modules/stremio.nix
     ../../modules/caddy.nix
     ../../modules/soulseek.nix
+    ../../modules/tube.nix
   ];
 
   home-manager.backupFileExtension = "bkp";
@@ -61,6 +62,7 @@ in
           port = 22;
           authorizedKeys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIME9KfS6QNXn6aTH2LhbCU9O3E6OocgviMGucJ7OU/13 mail@gabrielpoca.com"
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHBjGk/A4s4BfPn7tAtTwn5c1KDmRiUOk8GqhCWSIknA home"
           ];
           # sudo ssh-keygen -t ed25519 -f /etc/secrets/initrd/ssh_host_ed25519_key
           hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
@@ -99,6 +101,7 @@ in
 
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIME9KfS6QNXn6aTH2LhbCU9O3E6OocgviMGucJ7OU/13 mail@gabrielpoca.com"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHBjGk/A4s4BfPn7tAtTwn5c1KDmRiUOk8GqhCWSIknA home"
     ];
   };
 
@@ -161,6 +164,10 @@ in
         "--keep-monthly 12"
       ];
     };
+  };
+
+  metatube = {
+    downloadFolder = "/srv/music";
   };
 
   soulseek = {
