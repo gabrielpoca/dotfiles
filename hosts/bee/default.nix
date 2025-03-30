@@ -19,9 +19,11 @@ in
     ../../modules/jackett.nix
     ../../modules/transmission.nix
     ../../modules/stremio.nix
-    ../../modules/caddy.nix
+    ../../modules/proxy.nix
     ../../modules/soulseek.nix
+    ../../modules/picard.nix
     ../../modules/tube.nix
+    ../../modules/samba.nix
   ];
 
   home-manager.backupFileExtension = "bkp";
@@ -98,7 +100,6 @@ in
     packages = with pkgs; [
       tree
     ];
-
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIME9KfS6QNXn6aTH2LhbCU9O3E6OocgviMGucJ7OU/13 mail@gabrielpoca.com"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHBjGk/A4s4BfPn7tAtTwn5c1KDmRiUOk8GqhCWSIknA home"
@@ -144,6 +145,53 @@ in
     enableOnBoot = true;
   };
 
+  # music
+  metatube = {
+    downloadFolder = "/srv/music";
+  };
+
+  soulseek = {
+    completeFolder = "/srv/music";
+    environmentFile = "/etc/secrets/soulseek";
+  };
+
+  picard.musicFolder = "/srv/music";
+  smb.folders = [ "/srv/music" ];
+
+  services.adguardhome = {
+    enable = true;
+    mutableSettings = true;
+    openFirewall = true;
+    settings = {
+      dns = {
+        ratelimit = 0;
+        bind_hosts = [ "0.0.0.0" ];
+        upstream_dns = [
+          "tls://dns.google"
+          "tls://cloudflare-dns.com"
+          "tls://dns.quad9.net"
+        ];
+        bootstrap_dns = [
+          "8.8.8.8"
+          "8.8.4.4"
+        ];
+        # bootstrap_dns = [
+        #   "9.9.9.10"
+        #   "149.112.112.10"
+        #   "2620:fe::10"
+        #   "2620:fe::fe:10"
+        # ];
+        # upstream_dns = [
+        #   "1.1.1.1"
+        #   "1.0.0.1"
+        #   "8.8.8.8"
+        #   "8.8.4.4"
+        # ];
+      };
+    };
+  };
+
+  # backups
   services.restic.backups = {
     daily = {
       initialize = true;
@@ -164,17 +212,6 @@ in
         "--keep-monthly 12"
       ];
     };
-  };
-
-  metatube = {
-    downloadFolder = "/srv/music";
-  };
-
-  soulseek = {
-    appDataFolder = "/srv/soulseek";
-    completeFolder = "/srv/music";
-    incompleteFolder = "/srv/soulseek/incomplete";
-    environmentFile = "/etc/secrets/soulseek";
   };
 
   networking.firewall.allowedTCPPorts = [ 11470 ];

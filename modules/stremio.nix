@@ -8,6 +8,8 @@ let
   mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
+  imports = [ ./proxy.nix ];
+
   virtualisation.oci-containers = {
     backend = "docker";
     containers = {
@@ -32,10 +34,9 @@ in
     };
   };
 
-  services.caddy.virtualHosts = lib.mkMerge [
-    (mkVHost {
-      subdomain = "stremio";
-      port = 11470;
-    })
-  ];
+  proxy.enable = true;
+  proxy.hosts.stremio = {
+    subdomain = "stremio";
+    port = 11470;
+  };
 }

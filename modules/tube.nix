@@ -10,11 +10,19 @@ let
   mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
+  imports = [ ./proxy.nix ];
+
   options.metatube.downloadFolder = mkOption {
     type = types.str;
   };
 
   config = {
+    proxy.enable = true;
+    proxy.hosts.tube = {
+      subdomain = "tube";
+      port = 8081;
+    };
+
     virtualisation.oci-containers = {
       backend = "docker";
       containers = {
@@ -32,12 +40,5 @@ in
         };
       };
     };
-
-    services.caddy.virtualHosts = lib.mkMerge [
-      (mkVHost {
-        subdomain = "tube";
-        port = 8081;
-      })
-    ];
   };
 }

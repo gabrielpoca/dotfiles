@@ -8,15 +8,16 @@ let
   mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
+  imports = [ ./proxy.nix ];
+
+  proxy.enable = true;
+  proxy.hosts.bazarr = {
+    subdomain = "bazarr";
+    port = 6767;
+  };
+
   services.bazarr = {
     enable = true;
     group = "media";
   };
-
-  services.caddy.virtualHosts = lib.mkMerge [
-    (mkVHost {
-      subdomain = "bazarr";
-      port = 6767;
-    })
-  ];
 }

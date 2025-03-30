@@ -8,17 +8,18 @@ let
   mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
+  imports = [ ./proxy.nix ];
+
+  proxy.enable = true;
+  proxy.hosts.jellyfin = {
+    subdomain = "media";
+    port = 8096;
+  };
+
   services.jellyfin = {
     enable = true;
     group = "media";
   };
-
-  services.caddy.virtualHosts = lib.mkMerge [
-    (mkVHost {
-      subdomain = "media";
-      port = 8096;
-    })
-  ];
 
   systemd.services.jellyfin.serviceConfig = {
     MemoryMax = "2G";

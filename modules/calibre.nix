@@ -8,6 +8,14 @@ let
   mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
+  imports = [ ./proxy.nix ];
+
+  proxy.enable = true;
+  proxy.hosts.books = {
+    subdomain = "books";
+    port = 8085;
+  };
+
   systemd.services.calibre-web = {
     after = [ "network.target" ];
     wants = [ "network.target" ];
@@ -32,11 +40,4 @@ in
       enableBookConversion = true;
     };
   };
-
-  services.caddy.virtualHosts = lib.mkMerge [
-    (mkVHost {
-      subdomain = "books";
-      port = 8085;
-    })
-  ];
 }

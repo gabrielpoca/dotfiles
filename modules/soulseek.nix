@@ -10,15 +10,9 @@ let
   mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
+  imports = [ ./proxy.nix ];
+
   options.soulseek.completeFolder = mkOption {
-    type = types.str;
-  };
-
-  options.soulseek.incompleteFolder = mkOption {
-    type = types.str;
-  };
-
-  options.soulseek.appDataFolder = mkOption {
     type = types.str;
   };
 
@@ -26,7 +20,27 @@ in
     type = types.str;
   };
 
+  options.soulseek.incompleteFolder = mkOption {
+    type = types.str;
+    default = "/var/lib/soulseek/incomplete";
+  };
+
+  options.soulseek.configFolder = mkOption {
+    type = types.str;
+    default = "/var/lib/soulseek/config";
+  };
+
   config = {
+    proxy.enable = true;
+    proxy.hosts.soulseek = {
+      subdomain = "soulseek";
+      port = 5030;
+    };
+
+    systemd.tmpfiles.rules = [
+      "d /var/lib/soulseek 0770 gabriel media -"
+    ];
+
     virtualisation.oci-containers = {
       backend = "docker";
       containers = {
@@ -37,7 +51,7 @@ in
           ];
           volumes = [
             "${cfg.completeFolder}:${cfg.completeFolder}"
-            "${cfg.appDataFolder}:/app"
+            "${cfg.configFolder}:/app"
             "${cfg.incompleteFolder}:${cfg.incompleteFolder}"
           ];
 
@@ -53,12 +67,5 @@ in
         };
       };
     };
-
-    services.caddy.virtualHosts = lib.mkMerge [
-      (mkVHost {
-        subdomain = "soulseek";
-        port = 5030;
-      })
-    ];
   };
 }

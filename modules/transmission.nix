@@ -8,6 +8,14 @@ let
   mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
+  imports = [ ./proxy.nix ];
+
+  proxy.enable = true;
+  proxy.hosts.torrents = {
+    subdomain = "torrents";
+    port = 9091;
+  };
+
   services.transmission = {
     enable = true;
     group = "media";
@@ -19,13 +27,6 @@ in
       rpc-host-whitelist = "torrents.gabrielpoca.com";
     };
   };
-
-  services.caddy.virtualHosts = lib.mkMerge [
-    (mkVHost {
-      subdomain = "torrents";
-      port = 9091;
-    })
-  ];
 
   systemd.services.transmission.serviceConfig = {
     Restart = "on-failure";
