@@ -16,11 +16,6 @@ local function update_theme(window)
   local appearance = window:get_appearance()
   local scheme = scheme_for_appearance(appearance)
 
-  -- wezterm.log_info("overrides: " .. overrides.color_scheme)
-  wezterm.log_info("appearance: " .. appearance)
-  wezterm.log_info("scheme: " .. scheme)
-  wezterm.log_info("yo", overrides.color_scheme ~= scheme)
-
   -- if overrides.color_scheme ~= scheme then
   --   wezterm.log_info("updating theme to " .. scheme)
   overrides.color_scheme = scheme

@@ -6,6 +6,10 @@ local M = {}
 
 local project_root = os.getenv("HOME") .. "/Developer/"
 
+wezterm.on("update-right-status", function(window, _pane)
+  window:set_right_status(window:active_workspace())
+end)
+
 local function get_projects()
   local projects = { { id = project_root, label = "default" } }
 
@@ -27,9 +31,6 @@ local function pick(label, window, pane, callback)
           wezterm.log_info("cancelled")
         else
           callback(id, label)
-
-          wezterm.reload_configuration()
-          window:active_tab():set_title(label)
         end
       end),
       choices = get_projects(),
@@ -55,11 +56,14 @@ M.open_workspace = function(window, pane)
       }),
       pane
     )
+
+    wezterm.reload_configuration()
+    -- window:active_tab():set_title(label)
   end)
 end
 
 M.open_pane = function(window, pane)
-  pick("Pane", window, pane, function(folder)
+  pick("Pane", window, pane, function(folder, label)
     window:perform_action(
       act.SpawnCommandInNewTab({
         cwd = folder,
@@ -67,6 +71,9 @@ M.open_pane = function(window, pane)
       }),
       pane
     )
+
+    wezterm.reload_configuration()
+    window:active_tab():set_title(label)
   end)
 end
 

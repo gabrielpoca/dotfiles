@@ -11,7 +11,7 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
-local font = "JetBrainsMono Nerd Font Mono"
+local font = "InconsolataGo Nerd Font Mono"
 
 config.default_cursor_style = "BlinkingBar"
 config.cursor_blink_rate = 500
@@ -47,7 +47,7 @@ config.font_rules = {
     }),
   },
 }
-config.font_size = 16.0
+config.font_size = 17.0
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = false
 config.enable_scroll_bar = false
@@ -204,6 +204,26 @@ config.keys = {
     key = "u",
     action = wezterm.action_callback(function(window, pane)
       projects.open_pane(window, pane)
+    end),
+  },
+  {
+    key = "j",
+    mods = "CMD",
+    action = wezterm.action_callback(function(_, pane)
+      local tab = pane:tab()
+      local panes = tab:panes_with_info()
+      if #panes == 1 then
+        pane:split({
+          direction = "Bottom",
+          size = 0.4,
+        })
+      elseif not panes[1].is_zoomed then
+        panes[1].pane:activate()
+        tab:set_zoomed(true)
+      elseif panes[1].is_zoomed then
+        tab:set_zoomed(false)
+        panes[2].pane:activate()
+      end
     end),
   },
   { key = "h", mods = "CMD",        action = act.ActivateTabRelative(-1) },
