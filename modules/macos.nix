@@ -6,7 +6,7 @@
 }:
 
 {
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToControl = true;
@@ -58,7 +58,7 @@
       minimize-to-application = false;
       mouse-over-hilite-stack = true;
       mru-spaces = false;
-      orientation = "bottom";
+      orientation = "left";
       show-process-indicators = true;
       show-recents = false;
       showhidden = true;
