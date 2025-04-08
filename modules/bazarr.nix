@@ -5,7 +5,6 @@
   ...
 }:
 let
-  mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
   imports = [ ./proxy.nix ];

@@ -8,7 +8,6 @@
 with lib;
 let
   cfg = config.picard;
-  mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
   imports = [ ./proxy.nix ];

@@ -7,7 +7,6 @@
 with lib;
 let
   cfg = config.soulseek;
-  mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
   imports = [ ./proxy.nix ];

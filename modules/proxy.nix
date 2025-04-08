@@ -7,7 +7,6 @@
 with lib;
 let
 cfg = config.proxy;
-mkVHost = import ../lib/mkVirtualHost.nix;
 in
 {
   options.proxy = {
@@ -58,32 +57,29 @@ in
       Restart = "on-failure";
     };
 
+    networking.firewall.enable = true;
     networking.firewall.allowedTCPPorts = [80 443];
 
-    # services.caddy.virtualHosts = lib.mkMerge (
-    #   mapAttrsToList (name: hostCfg:
-    #     mkVHost {
-    #       subdomain = hostCfg.subdomain;
-    #       port = hostCfg.port;
-    #     }
-    #   ) cfg.hosts
-    # );
+    services.adguardhome = {
+      enable = true;
+      mutableSettings = true;
+      openFirewall = true;
+      settings = {
+        dns = {
+          ratelimit = 0;
+          bind_hosts = [ "0.0.0.0" ];
+          upstream_dns = [
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
+          bootstrap_dns = [
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
+        };
+      };
+    };
 
-    # services.caddy.virtualHosts = lib.mkMerge (
-    #   mapAttrsToList (name: hostCfg:
-    #     "${hostCfg.subdomain}.gabrielpoca.com" = {
-    #       extraConfig = ''
-    #         reverse_proxy http://localhost:${toString hostCfg.port}
-
-    #         tls {
-    #           dns cloudflare {env.CF_API_TOKEN}
-    #         }
-    #       '';
-    #     };
-    #   ) cfg.hosts
-    # );
-
-    services.adguardhome.enable = true;
     services.adguardhome.settings.filtering.rewrites =
       mapAttrsToList (name: hostCfg: {
         domain = "${hostCfg.subdomain}.gabrielpoca.com";
