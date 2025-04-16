@@ -6,9 +6,10 @@ local get_terminal = function()
 
     terminal = Terminal:new {
       count = 2,
-      direction = "float",
+      direction = "vertical",
       auto_scroll = false,
       start_in_insert = false,
+      size = 80,
     }
   end
 
@@ -26,26 +27,39 @@ local toggle = function(cmd)
   end
 end
 
+---@type LazySpec
 return {
-  {
-    "vim-test/vim-test",
-    keys = {
-      { "<leader>ra", "<cmd>TestSuite<CR>",                                 desc = "Run test suite" },
-      { "<leader>rt", "<cmd>TestFile<CR>",                                  desc = "Run test file" },
-      { "<leader>rr", "<cmd>TestNearest<CR>",                               desc = "Run test line" },
-      { "<leader>rl", "<cmd>TestLast<CR>",                                  desc = "Run last test" },
-      { "<Leader>tk", function() get_terminal():shutdown() end },
-      { "<Leader>tv", function() get_terminal():open(100, "vertical") end },
-      { "<Leader>th", function() get_terminal():open(100, "horizontal") end },
-      { "<Leader>tf", function() get_terminal():open(nil, "float") end },
-      { "<C-1>",      function() get_terminal():open(nil, "float") end },
-    },
-    config = function()
-      vim.g["test#custom_strategies"] = {
-        myrepl = function(cmd) toggle(cmd) end,
-      }
+  "vim-test/vim-test",
+  cmd = { "TestNearest", "TestFile", "TestLast", "TestClass", "TestSuite", "TestVisit" },
+  dependencies = {
+    {
+      "AstroNvim/astrocore",
+      ---@param opts AstroCoreOpts
+      opts = function(_, opts)
+        local maps = assert(opts.mappings)
 
-      vim.g["test#strategy"] = "myrepl"
-    end,
+        local prefix = "<Leader>r"
+        maps.n[prefix] = { desc = require("astroui").get_icon("VimTest", 1, true) .. "Testing" }
+
+        maps.n[prefix .. "r"] = { ":TestNearest<CR>", desc = "Test Nearest" }
+        maps.n[prefix .. "t"] = { ":TestFile<CR>", desc = "Test File" }
+        maps.n[prefix .. "l"] = { ":TestLast<CR>", desc = "Test Last" }
+        maps.n[prefix .. "c"] = { ":TestClass<CR>", desc = "Test Class" }
+        maps.n[prefix .. "a"] = { ":TestSuite<CR>", desc = "Test Suite" }
+        maps.n[prefix .. "v"] = { ":TestVisit<CR>", desc = "Test Visit" }
+
+        -- Set the strategy to open results in a vertical split
+        if not opts.options then opts.options = {} end
+        if not opts.options.g then opts.options.g = {} end
+
+        opts.options.g["test#custom_strategies"] = {
+          myrepl = function(cmd) toggle(cmd) end,
+        }
+
+        opts.options.g["test#strategy"] = "myrepl"
+      end,
+    },
+    { "AstroNvim/astroui", opts = { icons = { VimTest = "󰙨" } } },
   },
+  event = { "VeryLazy" },
 }
