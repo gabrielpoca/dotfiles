@@ -40,7 +40,11 @@
     ZSH_CUSTOM = "$HOME/Developer/dotfiles/files/shell/zsh";
   };
 
-  home.shellAliases.rebuild = "darwin-rebuild switch --flake $HOME/Developer/dotfiles/";
+  home.shellAliases = {
+    rebuild = "darwin-rebuild switch --flake $HOME/Developer/dotfiles/";
+    # https://discourse.nixos.org/t/cross-platform-deployments/56606
+    rebuild-bee = "nix run nixpkgs#nixos-rebuild -- --fast --target-host bee --build-host bee --flake .#bee --use-remote-sudo switch";
+  };
 
   home.sessionPath = [
     "$HOME/Developer/dotfiles/files/shell/bin"
