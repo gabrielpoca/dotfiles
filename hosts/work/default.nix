@@ -16,7 +16,6 @@
 
   nixpkgs.overlays = [
     foundry.overlay
-    neovim-nightly-overlay.overlays.default
   ];
 
   home-manager.backupFileExtension = "bkp";
@@ -28,6 +27,5 @@
     pkgs.nixfmt-rfc-style
   ];
 
-  services.nix-daemon.enable = true;
   users.users.gabriel.home = "/Users/gabriel";
 }

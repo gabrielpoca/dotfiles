@@ -34,8 +34,6 @@
         solc
         prettier-plugin-solidity
         solhint
-        @fsouza/prettierd
-        eslint_d
       '';
     };
     ".default-python-packages" = {

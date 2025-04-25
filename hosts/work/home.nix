@@ -1,10 +1,6 @@
 {
-  neovim-nightly-overlay,
   pkgs,
   config,
-  foundry,
-  pkgs-unstable,
-  imports,
   ...
 }:
 {
@@ -33,6 +29,8 @@
     automake
     autoconf
     rustup
+    nixd
+    nil
   ];
 
   home.sessionVariables = {
