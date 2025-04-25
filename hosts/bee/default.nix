@@ -183,5 +183,33 @@ in
     };
   };
 
+  virtualisation = {
+    oci-containers = {
+      containers.portainer-ce =  {
+        image = "portainer/portainer-ce:latest";
+        volumes = [
+          "portainer_data:/data"
+          "/var/run/docker.sock:/var/run/docker.sock"
+          "/etc/localtime:/etc/localtime"
+        ];
+        ports =  [
+          "9000:9000"
+        ];
+        autoStart = true;
+        extraOptions = [
+          "--pull=always"
+          "--restart=unless-stopped"
+          "--rm=false"
+        ];
+      };
+      backend = "docker";
+    };
+  };
+
+  proxy.hosts.portainer = {
+    subdomain = "portainer";
+    port = 9000;
+  };
+
   system.stateVersion = "24.11"; # Did you read the comment?
 }
