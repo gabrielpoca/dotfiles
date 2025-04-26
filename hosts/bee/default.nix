@@ -18,7 +18,6 @@ in
     ../../modules/tube.nix
     ../../modules/samba.nix
     ../../modules/registry.nix
-    # ../../modules/liquidation_bot.nix
     ../../modules/stacks/monitoring.nix
     ../../modules/private/media/default.nix
   ];
