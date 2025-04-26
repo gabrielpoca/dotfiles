@@ -9,8 +9,6 @@ let
   cfg = config.soulseek;
 in
 {
-  imports = [ ./proxy.nix ];
-
   options.soulseek.completeFolder = mkOption {
     type = types.str;
   };

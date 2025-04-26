@@ -1,0 +1,3 @@
+[submodule "modules/priv"]
+	path = modules/priv
+	url = git@github.com:gabrielpoca/dotfiles-priv.git

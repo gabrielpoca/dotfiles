@@ -9,8 +9,6 @@ let
   cfg = config.metatube;
 in
 {
-  imports = [ ./proxy.nix ];
-
   options.metatube.downloadFolder = mkOption {
     type = types.str;
   };

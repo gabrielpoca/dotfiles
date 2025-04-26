@@ -10,8 +10,6 @@ let
   cfg = config.picard;
 in
 {
-  imports = [ ./proxy.nix ];
-
   options.picard.musicFolder = mkOption {
     type = types.str;
   };

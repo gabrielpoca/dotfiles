@@ -7,8 +7,6 @@
 let
 in
 {
-  imports = [ ./proxy.nix ];
-
   proxy.enable = true;
   proxy.hosts.books = {
     subdomain = "books";

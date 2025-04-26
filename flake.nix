@@ -9,6 +9,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     foundry.url = "github:shazow/foundry.nix/monthly";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    private.url = "git+file:./modules/priv?submodules=1";
   };
 
   outputs =
@@ -19,6 +20,7 @@
       home-manager,
       nixpkgs,
       foundry,
+      private
     }:
     let
       defaultConfiguration =
@@ -57,6 +59,8 @@
 	        specialArgs = inputs;
           modules = [
             home-manager.nixosModules.home-manager
+            private.modules.proxy
+            private.modules.media
             ./hosts/bee
          ];
         };

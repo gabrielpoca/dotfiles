@@ -12,14 +12,12 @@ in
     ./hardware-configuration.nix
     ../../modules/calibre.nix
     ../../modules/jellyfin.nix
-    ../../modules/proxy.nix
     ../../modules/soulseek.nix
     ../../modules/picard.nix
     ../../modules/tube.nix
     ../../modules/samba.nix
     ../../modules/registry.nix
     ../../modules/stacks/monitoring.nix
-    ../../modules/private/media/default.nix
   ];
 
   home-manager.backupFileExtension = "bkp";
