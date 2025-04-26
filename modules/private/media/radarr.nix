@@ -7,7 +7,7 @@
 let
 in
 {
-  imports = [ ./proxy.nix ];
+  imports = [ ../../proxy.nix ];
 
   services.radarr = {
     enable = true;

@@ -7,7 +7,7 @@
 let
 in
 {
-  imports = [ ./proxy.nix ];
+  imports = [ ../proxy.nix ];
 
   proxy.enable = true;
   proxy.hosts.torrents = {

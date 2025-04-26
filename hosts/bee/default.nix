@@ -12,20 +12,15 @@ in
     ./hardware-configuration.nix
     ../../modules/calibre.nix
     ../../modules/jellyfin.nix
-    ../../modules/sonarr.nix
-    ../../modules/radarr.nix
-    ../../modules/bazarr.nix
-    ../../modules/jackett.nix
-    ../../modules/transmission.nix
-    ../../modules/stremio.nix
     ../../modules/proxy.nix
     ../../modules/soulseek.nix
     ../../modules/picard.nix
     ../../modules/tube.nix
     ../../modules/samba.nix
     ../../modules/registry.nix
-    ../../modules/liquidation_bot.nix
+    # ../../modules/liquidation_bot.nix
     ../../modules/stacks/monitoring.nix
+    ../../modules/private/media/default.nix
   ];
 
   home-manager.backupFileExtension = "bkp";
@@ -97,6 +92,7 @@ in
     extraGroups = [
       "wheel"
       "media"
+      "docker"
     ];
     home = "/home/gabriel";
     packages = with pkgs; [
@@ -145,6 +141,10 @@ in
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
   };
 
   # music
@@ -183,32 +183,10 @@ in
     };
   };
 
-  virtualisation = {
-    oci-containers = {
-      containers.portainer-ce =  {
-        image = "portainer/portainer-ce:latest";
-        volumes = [
-          "portainer_data:/data"
-          "/var/run/docker.sock:/var/run/docker.sock"
-          "/etc/localtime:/etc/localtime"
-        ];
-        ports =  [
-          "9000:9000"
-        ];
-        autoStart = true;
-        extraOptions = [
-          "--pull=always"
-          "--restart=unless-stopped"
-          "--rm=false"
-        ];
-      };
-      backend = "docker";
-    };
-  };
 
-  proxy.hosts.portainer = {
-    subdomain = "portainer";
-    port = 9000;
+  proxy.hosts.adguard = {
+    subdomain = "adguard";
+    port = 3000;
   };
 
   system.stateVersion = "24.11"; # Did you read the comment?

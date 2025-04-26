@@ -31,6 +31,7 @@
     rustup
     nixd
     nil
+    transcrypt
   ];
 
   home.sessionVariables = {
