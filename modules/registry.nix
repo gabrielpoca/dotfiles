@@ -7,7 +7,6 @@
 let
 in
 {
-  proxy.enable = true;
   proxy.hosts.registry = {
     subdomain = "registry";
     port = 5000;

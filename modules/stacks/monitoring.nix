@@ -1,4 +1,3 @@
-
 {
   config,
   lib,
@@ -61,15 +60,19 @@
     scrapeConfigs = [
       {
         job_name = "bee";
-        static_configs = [{
-          targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
-        }];
+        static_configs = [
+          {
+            targets = [ "127.0.0.1:${toString config.services.prometheus.exporters.node.port}" ];
+          }
+        ];
       }
       {
         job_name = "liquidation_bot";
-        static_configs = [{
-          targets = [ "100.103.29.133:3030" ];
-        }];
+        static_configs = [
+          {
+            targets = [ "100.103.29.133:3030" ];
+          }
+        ];
       }
     ];
   };
@@ -101,16 +104,18 @@
 
       # https://grafana.com/docs/loki/latest/operations/storage/schema
       schema_config = {
-        configs = [{
-          from = "2024-01-01";
-          object_store = "filesystem";
-          store = "tsdb";
-          schema = "v13";
-          index = {
-            prefix = "index_";
-            period = "24h";
-          };
-        }];
+        configs = [
+          {
+            from = "2024-01-01";
+            object_store = "filesystem";
+            store = "tsdb";
+            schema = "v13";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
+        ];
       };
 
       storage_config = {
@@ -132,8 +137,6 @@
       tracing.enabled = false;
     };
   };
-
-  proxy.enable = true;
 
   proxy.hosts.grafana = {
     subdomain = "grafana";

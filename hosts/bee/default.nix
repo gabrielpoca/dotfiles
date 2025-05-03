@@ -1,7 +1,4 @@
 {
-  config,
-  inputs,
-  lib,
   pkgs,
   ...
 }:
@@ -10,13 +7,12 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/calibre.nix
     ../../modules/jellyfin.nix
     ../../modules/soulseek.nix
     ../../modules/picard.nix
-    ../../modules/tube.nix
     ../../modules/samba.nix
     ../../modules/registry.nix
+    ../../modules/stacks/server.nix
     ../../modules/stacks/monitoring.nix
   ];
 
@@ -76,78 +72,19 @@ in
 
   networking.hostName = "bee";
 
-  time.timeZone = "Europe/Lisbon";
-
-  security.sudo.wheelNeedsPassword = false;
-
   users.groups = {
     media = { };
   };
 
   users.users.gabriel = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "media"
-      "docker"
-    ];
-    home = "/home/gabriel";
-    packages = with pkgs; [
-      tree
-    ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIME9KfS6QNXn6aTH2LhbCU9O3E6OocgviMGucJ7OU/13 mail@gabrielpoca.com"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHBjGk/A4s4BfPn7tAtTwn5c1KDmRiUOk8GqhCWSIknA home"
-    ];
+    extraGroups = [ "media" ];
   };
 
   environment.systemPackages = with pkgs; [
-    gcc
-    git
-    htop
-    jellyfin
-    jellyfin-ffmpeg
-    jellyfin-web
     pciutils
     powertop
-    wget
-    neovim
     nixfmt-rfc-style
   ];
-
-  services.openssh = {
-    enable = true;
-    allowSFTP = true;
-  };
-
-  services.tailscale.enable = true;
-
-  services.jellyfin = {
-    enable = true;
-    group = "media";
-  };
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "dotnet-runtime-wrapped-6.0.36"
-    "aspnetcore-runtime-6.0.36"
-    "aspnetcore-runtime-wrapped-6.0.36"
-    "dotnet-sdk-6.0.428"
-    "dotnet-sdk-wrapped-6.0.428"
-  ];
-
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-    rootless = {
-      enable = true;
-      setSocketVariable = true;
-    };
-  };
-
-  # music
-  metatube = {
-    downloadFolder = "/srv/music";
-  };
 
   soulseek = {
     completeFolder = "/srv/music";
@@ -180,7 +117,8 @@ in
     };
   };
 
-
+  proxy.enable = true;
+  proxy.ip = "100.90.90.3";
   proxy.hosts.adguard = {
     subdomain = "adguard";
     port = 3000;

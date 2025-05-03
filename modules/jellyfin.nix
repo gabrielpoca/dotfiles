@@ -7,11 +7,16 @@
 let
 in
 {
-  proxy.enable = true;
   proxy.hosts.jellyfin = {
     subdomain = "media";
     port = 8096;
   };
+
+  environment.systemPackages = with pkgs; [
+    jellyfin
+    jellyfin-ffmpeg
+    jellyfin-web
+  ];
 
   services.jellyfin = {
     enable = true;
@@ -37,4 +42,12 @@ in
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";
   };
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-runtime-wrapped-6.0.36"
+    "aspnetcore-runtime-6.0.36"
+    "aspnetcore-runtime-wrapped-6.0.36"
+    "dotnet-sdk-6.0.428"
+    "dotnet-sdk-wrapped-6.0.428"
+  ];
 }

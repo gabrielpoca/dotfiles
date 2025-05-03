@@ -28,4 +28,6 @@
   ];
 
   users.users.gabriel.home = "/Users/gabriel";
+
+  system.stateVersion = 4;
 }

@@ -28,7 +28,6 @@ in
   };
 
   config = {
-    proxy.enable = true;
     proxy.hosts.soulseek = {
       subdomain = "soulseek";
       port = 5030;
@@ -43,6 +42,7 @@ in
       containers = {
         slskd = {
           image = "slskd/slskd:latest";
+          pull = "always";
           ports = [
             "5030:5030"
           ];
@@ -58,6 +58,7 @@ in
             SLSKD_DOWNLOADS_DIR = cfg.completeFolder;
             SLSKD_INCOMPLETE_DIR = cfg.incompleteFolder;
             SLSKD_UPLOAD_SLOTS = "1";
+            SLSKD_SHARED_DIR= cfg.completeFolder;
           };
 
           environmentFiles = [ cfg.environmentFile ];

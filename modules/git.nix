@@ -3,8 +3,6 @@
 {
   programs.git = {
     enable = true;
-    userName = "Gabriel Poca";
-    userEmail = "mail@gabrielpoca.com";
     delta.enable = true;
     extraConfig = {
       init = {
@@ -19,9 +17,6 @@
       };
       color = {
         ui = true;
-      };
-      github = {
-        user = "gabrielpoca";
       };
     };
     ignores = [

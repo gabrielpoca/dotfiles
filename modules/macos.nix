@@ -1,7 +1,4 @@
 {
-  config,
-  lib,
-  pkgs,
   ...
 }:
 
@@ -58,7 +55,7 @@
       minimize-to-application = false;
       mouse-over-hilite-stack = true;
       mru-spaces = false;
-      orientation = "left";
+      orientation = "bottom";
       show-process-indicators = true;
       show-recents = false;
       showhidden = true;
@@ -72,7 +69,7 @@
         "/Applications/WezTerm.app"
         "/Applications/Slack.app"
         "/System/Applications/Mail.app"
-        "/Applications/Bear.app"
+        "/Applications/Obsidian.app"
         "/System/Applications/Calendar.app"
         "/Applications/Telegram.app"
         "/Applications/WhatsApp.app"

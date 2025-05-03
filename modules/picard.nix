@@ -1,4 +1,3 @@
-
 {
   config,
   pkgs,
@@ -20,7 +19,6 @@ in
   };
 
   config = {
-    proxy.enable = true;
     proxy.hosts.picard = {
       subdomain = "picard";
       port = 5800;

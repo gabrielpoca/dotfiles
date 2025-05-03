@@ -20,11 +20,11 @@
       home-manager,
       nixpkgs,
       foundry,
-      private
+      private,
     }:
     let
       defaultConfiguration =
-        { pkgs, self, ... }:
+        { ... }:
         {
           nix.settings.experimental-features = "nix-command flakes";
 
@@ -36,7 +36,6 @@
             name = "gabriel";
           };
 
-          system.stateVersion = 4;
         };
 
     in
@@ -48,6 +47,7 @@
           system = "aarch64-darwin";
           modules = [
             home-manager.darwinModules.home-manager
+            private.modules.shell
             defaultConfiguration
             ./hosts/work
           ];
@@ -56,13 +56,16 @@
 
       nixosConfigurations = {
         bee = nixpkgs.lib.nixosSystem {
-	        specialArgs = inputs;
+          specialArgs = inputs;
           modules = [
             home-manager.nixosModules.home-manager
+            private.modules.shell
             private.modules.proxy
             private.modules.media
+            private.modules.security
+            defaultConfiguration
             ./hosts/bee
-         ];
+          ];
         };
       };
     };

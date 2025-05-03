@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -24,9 +23,22 @@ in
 
       settings = {
         global = {
-          "map to guest" = "Bad User";
+          "create mask" = "0775";
+          "directory mask" = "0775";
+          "server role" = "standalone";
           "guest account" = "nobody";
-          "usershare allow guests" = "yes";
+          "map to guest" = "bad user";
+          "security" = "auto";
+          "socket options" = "TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072";
+          "min receivefile size" = "16384";
+          "use sendfile" = "yes";
+          "aio read size" = "16384";
+          "aio write size" = "16384";
+          "read raw" = "yes";
+          "write raw" = "yes";
+          "getwd cache" = "yes";
+          "unix extensions" = "no";
+          "follow symlinks" = "yes";
         };
       };
 
@@ -35,12 +47,10 @@ in
           name = baseNameOf folder;
           value = {
             path = folder;
-            browseable = "yes";
+            public = true;
+            writable = true;
             "guest ok" = "yes";
-            "public" = "yes";
-            "writable" = "yes";
             "guest only" = "yes";
-            "force user" = "nobody";
           };
         })
         cfg.folders);
