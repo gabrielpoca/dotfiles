@@ -45,8 +45,8 @@
     };
     ".tool-versions" = {
       text = ''
-        elixir 1.16.0-rc.0-otp-26
-        erlang 26.1.2
+        elixir 1.18.4-otp-27
+        erlang 27.3.4
         nodejs 20.7.0
         python 3.13.1
         ruby 3.1.1
