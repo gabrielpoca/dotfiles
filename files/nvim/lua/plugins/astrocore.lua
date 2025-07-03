@@ -46,6 +46,8 @@ return {
         -- disable home screen mapping
         ["<Leader>h"] = false,
 
+        ["<Leader>n"] = false,
+
         -- navigate buffer tabs
         ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
