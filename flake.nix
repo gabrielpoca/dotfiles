@@ -59,6 +59,11 @@
           specialArgs = inputs;
           modules = [
             home-manager.nixosModules.home-manager
+            {
+              home-manager.users.gabriel.imports = [
+                private.modules.media-user
+              ];
+            }
             private.modules.shell
             private.modules.proxy
             private.modules.media
