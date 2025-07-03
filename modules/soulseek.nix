@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
@@ -13,10 +14,6 @@ in
   };
 
   options.soulseek.sharesFolder = mkOption {
-    type = types.str;
-  };
-
-  options.soulseek.environmentFile = mkOption {
     type = types.str;
   };
 
@@ -35,6 +32,13 @@ in
       subdomain = "soulseek";
       port = 5030;
     };
+
+    sops.templates."soulseek".content = ''
+      SLSKD_SLSK_USERNAME=${config.sops.placeholder."soulseek_username"}
+      SLSKD_SLSK_PASSWORD=${config.sops.placeholder."soulseek_password"}
+      SLSKD_USERNAME=${config.sops.placeholder."slskd_username"}
+      SLSKD_PASSWORD=${config.sops.placeholder."slskd_password"}
+    '';
 
     virtualisation.oci-containers = {
       backend = "docker";
@@ -61,7 +65,7 @@ in
             SLSKD_SHARED_DIR = cfg.sharesFolder;
           };
 
-          environmentFiles = [ cfg.environmentFile ];
+          environmentFiles = [ config.sops.templates."soulseek".path ];
         };
       };
     };

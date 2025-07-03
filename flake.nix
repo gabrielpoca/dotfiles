@@ -7,7 +7,6 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     private.url = "git+file:./modules/priv?submodules=1";
   };
 
@@ -15,7 +14,6 @@
     inputs@{
       self,
       nix-darwin,
-      neovim-nightly-overlay,
       home-manager,
       nixpkgs,
       private,
@@ -65,7 +63,7 @@
             private.modules.shell
             private.modules.proxy
             private.modules.media
-            private.modules.security
+            private.modules.server-secrets
             defaultConfiguration
             ./hosts/bee
           ];

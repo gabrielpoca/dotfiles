@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 let
@@ -104,7 +105,6 @@ in
   soulseek = {
     completeFolder = "/srv/musicinbox";
     sharesFolder = "/srv/music";
-    environmentFile = "/etc/secrets/soulseek";
   };
 
   picard.musicFolder = "/srv/music";
@@ -119,18 +119,23 @@ in
     tunnels = {
       bee = {
         default = "http_status:404";
-        credentialsFile = "/etc/secrets/cloudflared-tunnel.json";
+        credentialsFile = config.sops.secrets."cloudflared_tunnel".path;
       };
     };
   };
+
+  sops.templates."restic".content = ''
+    B2_ACCOUNT_ID=${config.sops.placeholder."backup_b2_account_id"}
+    B2_ACCOUNT_KEY=${config.sops.placeholder."backup_b2_account_key"}
+  '';
 
   # backups
   services.restic.backups = {
     daily = {
       initialize = true;
 
-      environmentFile = "/etc/secrets/restic.env";
-      passwordFile = "/etc/secrets/restic_pwd";
+      environmentFile = config.sops.templates."restic".path;
+      passwordFile = config.sops.secrets."restic_password".path;
 
       paths = [
         "/srv/books"
