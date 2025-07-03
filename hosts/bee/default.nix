@@ -5,6 +5,12 @@
 let
 in
 {
+  users.users.deploy = {
+    isNormalUser = true;
+    group = "media";
+    extraGroups = [ "media" ];
+  };
+
   imports = [
     ./hardware-configuration.nix
     ../../modules/jellyfin.nix
@@ -16,10 +22,19 @@ in
     ../../modules/stacks/monitoring.nix
   ];
 
-  home-manager.backupFileExtension = "bkp";
-  home-manager.users.gabriel = import ./home.nix;
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
+  systemd.tmpfiles.rules = [
+    "d /srv/music 0775 gabriel media -"
+    "d /srv/tvshows 0775 gabriel media -"
+    "d /srv/moives 0775 gabriel media -"
+    "d /srv/musicinbox 0775 gabriel media -"
+  ];
+
+  home-manager = {
+    backupFileExtension = "bkp";
+    useUserPackages = true;
+    useGlobalPkgs = true;
+    users.gabriel = import ./home.nix;
+  };
 
   programs.zsh.enable = true;
   users.users.gabriel.shell = pkgs.zsh;
@@ -87,12 +102,27 @@ in
   ];
 
   soulseek = {
-    completeFolder = "/srv/music";
+    completeFolder = "/srv/musicinbox";
+    sharesFolder = "/srv/music";
     environmentFile = "/etc/secrets/soulseek";
   };
 
   picard.musicFolder = "/srv/music";
-  smb.folders = [ "/srv/music" ];
+
+  smb.folders = [
+    "/srv/music"
+    "/srv/musicinbox"
+  ];
+
+  services.cloudflared = {
+    enable = true;
+    tunnels = {
+      bee = {
+        default = "http_status:404";
+        credentialsFile = "/etc/secrets/cloudflared-tunnel.json";
+      };
+    };
+  };
 
   # backups
   services.restic.backups = {

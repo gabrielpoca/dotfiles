@@ -12,6 +12,10 @@ in
     port = 8096;
   };
 
+  networking.firewall.allowedTCPPorts = [
+    8096
+  ];
+
   environment.systemPackages = with pkgs; [
     jellyfin
     jellyfin-ffmpeg

@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   ...
 }:
@@ -10,6 +9,10 @@ let
 in
 {
   options.soulseek.completeFolder = mkOption {
+    type = types.str;
+  };
+
+  options.soulseek.sharesFolder = mkOption {
     type = types.str;
   };
 
@@ -33,10 +36,6 @@ in
       port = 5030;
     };
 
-    systemd.tmpfiles.rules = [
-      "d /var/lib/soulseek 0770 gabriel media -"
-    ];
-
     virtualisation.oci-containers = {
       backend = "docker";
       containers = {
@@ -48,6 +47,7 @@ in
           ];
           volumes = [
             "${cfg.completeFolder}:${cfg.completeFolder}"
+            "${cfg.sharesFolder}:${cfg.sharesFolder}"
             "${cfg.configFolder}:/app"
             "${cfg.incompleteFolder}:${cfg.incompleteFolder}"
           ];
@@ -58,7 +58,7 @@ in
             SLSKD_DOWNLOADS_DIR = cfg.completeFolder;
             SLSKD_INCOMPLETE_DIR = cfg.incompleteFolder;
             SLSKD_UPLOAD_SLOTS = "1";
-            SLSKD_SHARED_DIR= cfg.completeFolder;
+            SLSKD_SHARED_DIR = cfg.sharesFolder;
           };
 
           environmentFiles = [ cfg.environmentFile ];
