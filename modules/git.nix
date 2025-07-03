@@ -20,6 +20,7 @@
       };
     };
     ignores = [
+      ".claude/"
       ".aider*"
       "!tmp/cache/.keep"
       "$TMPDIR/"
