@@ -10,15 +10,15 @@ spoon.BingDaily:init()
 
 local keys = spoon.AwesomeKeys
 
-keys:remapAppKeys({
-  app = "Zen",
-  keys = {
-    { from = { mods = { "command" }, key = "j" }, to = { mods = { "ctrl" }, key = "tab" } },
-    { from = { mods = { "command" }, key = "k" }, to = { mods = { "ctrl", "shift" }, key = "tab" } },
-    { from = { mods = { "command" }, key = "h" }, to = { mods = { "ctrl", "shift" }, key = "h" } },
-    { from = { mods = { "command" }, key = "l" }, to = { mods = { "ctrl", "shift" }, key = "l" } },
-  },
-})
+-- keys:remapAppKeys({
+--   app = "Zen",
+--   keys = {
+--     { from = { mods = { "command" }, key = "j" }, to = { mods = { "ctrl" }, key = "tab" } },
+--     { from = { mods = { "command" }, key = "k" }, to = { mods = { "ctrl", "shift" }, key = "tab" } },
+--     { from = { mods = { "command" }, key = "h" }, to = { mods = { "ctrl", "shift" }, key = "h" } },
+--     { from = { mods = { "command" }, key = "l" }, to = { mods = { "ctrl", "shift" }, key = "l" } },
+--   },
+-- })
 
 local HeadphoneAutoPause = hs.loadSpoon("HeadphoneAutoPause")
 HeadphoneAutoPause:start()
