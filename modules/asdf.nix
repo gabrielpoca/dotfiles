@@ -1,12 +1,10 @@
 {
-  config,
-  lib,
   pkgs,
   ...
 }:
 
 {
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     . "${pkgs.asdf-vm}/share/asdf-vm/asdf.sh"
     . "${pkgs.asdf-vm}/share/asdf-vm/completions/asdf.bash"
   '';

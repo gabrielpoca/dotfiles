@@ -1,21 +1,11 @@
 {
   pkgs,
-  self,
-  nix-darwin,
-  neovim-nightly-overlay,
-  home-manager,
-  nixpkgs,
-  foundry,
   ...
 }:
 {
   imports = [
     ../../modules/homebrew.nix
     ../../modules/macos.nix
-  ];
-
-  nixpkgs.overlays = [
-    foundry.overlay
   ];
 
   home-manager.backupFileExtension = "bkp";
@@ -29,5 +19,6 @@
 
   users.users.gabriel.home = "/Users/gabriel";
 
+  system.primaryUser = "gabriel";
   system.stateVersion = 4;
 }

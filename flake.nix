@@ -7,7 +7,6 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    foundry.url = "github:shazow/foundry.nix/monthly";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     private.url = "git+file:./modules/priv?submodules=1";
   };
@@ -19,7 +18,6 @@
       neovim-nightly-overlay,
       home-manager,
       nixpkgs,
-      foundry,
       private,
     }:
     let

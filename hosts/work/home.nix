@@ -12,7 +12,6 @@
 
   home.packages = with pkgs; [
     curl
-    foundry-bin
     fzf
     gh
     git-crypt
@@ -42,7 +41,7 @@
   };
 
   home.shellAliases = {
-    rebuild = "darwin-rebuild switch --flake $HOME/Developer/dotfiles/";
+    rebuild = "sudo darwin-rebuild switch --flake $HOME/Developer/dotfiles/";
     # https://discourse.nixos.org/t/cross-platform-deployments/56606
     rebuild-bee = "nix run nixpkgs#nixos-rebuild -- --fast --target-host bee --build-host bee --flake .#bee --use-remote-sudo switch";
   };
