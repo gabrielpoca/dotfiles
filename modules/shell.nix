@@ -14,6 +14,14 @@ in
   };
 
   config = {
+    programs.atuin = {
+      enable = true;
+      settings = {
+        enter_accept = false;
+        invert = true;
+      };
+    };
+
     programs.fzf = {
       enable = true;
       enableZshIntegration = true;
