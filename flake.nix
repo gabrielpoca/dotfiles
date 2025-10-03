@@ -44,6 +44,7 @@
           modules = [
             home-manager.darwinModules.home-manager
             private.modules.shell
+            private.modules.mac-secrets
             defaultConfiguration
             ./hosts/work
           ];
