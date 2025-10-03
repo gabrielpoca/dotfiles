@@ -11,43 +11,16 @@ if wezterm.config_builder then
   config = wezterm.config_builder()
 end
 
-local font = "InconsolataGo Nerd Font Mono"
+local font = "Maple Mono NF"
 
 config.default_cursor_style = "BlinkingBar"
 config.cursor_blink_rate = 500
+config.window_background_opacity = 0.96
 
 config.audible_bell = "Disabled"
 config.tab_max_width = 30
 config.font = wezterm.font(font)
-config.font_rules = {
-  {
-    intensity = "Normal",
-    italic = false,
-    font = wezterm.font({
-      family = font,
-      weight = "Regular",
-    }),
-  },
-  {
-    intensity = "Bold",
-    italic = false,
-    font = wezterm.font({
-      family = font,
-      weight = "Bold",
-      style = "Normal",
-    }),
-  },
-  {
-    intensity = "Bold",
-    italic = true,
-    font = wezterm.font({
-      family = font,
-      weight = "Bold",
-      style = "Italic",
-    }),
-  },
-}
-config.font_size = 17.0
+config.font_size = 15.0
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = false
 config.enable_scroll_bar = false
@@ -55,8 +28,6 @@ config.window_decorations = "RESIZE"
 config.inactive_pane_hsb = {
   saturation = 0.70,
   brightness = 1.00,
-  -- saturation = 0.90,
-  -- brightness = 0.90,
 }
 config.window_padding = {
   left = 0,
