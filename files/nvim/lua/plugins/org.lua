@@ -8,11 +8,12 @@ return {
   },
   event = "VeryLazy",
   opts = {
-    win_split_mode = { "float", 0.6 },
-    org_agenda_files = "~/Obsidian/Work/org/**/*",
+    win_split_mode = "tabnew",
+    org_agenda_files = "~/work_org/**/*",
     org_startup_indented = true,
-    org_default_notes_file = "~/Obsidian/Work/org/refile.org",
+    org_default_notes_file = "~/work_org/refile.org",
     org_startup_folded = "content",
+    org_todo_keywords = { "TODO", "|", "DONE", "|", "KILL" },
 
     mappings = {
       prefix = "<Leader>n",
@@ -22,17 +23,17 @@ return {
       t = {
         description = "Task",
         template = "* TODO %?",
-        target = "~/Obsidian/Work/org/tasks.org",
+        target = "~/work_org/tasks.org",
       },
       l = {
         description = "Someday/Maybe",
         template = "* %? :someday:\n%u",
-        target = "~/Obsidian/Work/org/later.org",
+        target = "~/work_org/later.org",
       },
       j = {
         description = "Journal",
-        template = "* %<%y%m%d>: %?\n%U",
-        target = "~/Obsidian/Work/org/journal.org",
+        template = "* %<%y%m%d> %?",
+        target = "~/work_org/journal.org",
       },
     },
 
@@ -43,6 +44,19 @@ return {
       d = {
         description = "Daily Agenda",
         agenda_filter = "+SCHEDULED=<today>|+DEADLINE=<today>",
+      },
+    },
+    org_agenda_custom_commands = {
+      u = {
+        description = "TODO tasks with no deadline",
+        types = {
+          {
+            type = "tags_todo",
+            org_agenda_overriding_header = '"TODO tasks with no deadline"',
+            org_agenda_todo_ignore_scheduled = "all",
+            org_agenda_todo_ignore_deadlines = "all",
+          },
+        },
       },
     },
   },
@@ -70,7 +84,7 @@ return {
     },
     {
       "<leader>nf",
-      function() require("snacks").picker.files { cwd = "~/Obsidian/Work/org" } end,
+      function() require("snacks").picker.files { cwd = "~/work_org" } end,
       desc = "Find",
     },
   },
@@ -84,7 +98,9 @@ return {
     require("blink.cmp").setup {
       sources = {
         per_filetype = {
-          { org = { "buffer", "path", "orgmode", "snippets" } },
+          {
+            org = { "buffer", "path", "orgmode", "snippets" },
+          },
         },
         providers = {
           orgmode = {
@@ -102,5 +118,54 @@ return {
     vim.keymap.set("n", "<leader>nr", require("telescope").extensions.orgmode.refile_heading)
     vim.keymap.set("n", "<leader>nh", require("telescope").extensions.orgmode.search_headings)
     vim.keymap.set("n", "<leader>ni", require("telescope").extensions.orgmode.insert_link)
+
+    local work_org_path = vim.fn.expand "~/work_org"
+    local watcher_started = false
+    local debounce_timers = {}
+
+    local function auto_commit_file(filename)
+      if not filename:match "%.org$" then return end
+
+      if debounce_timers[filename] then vim.loop.timer_stop(debounce_timers[filename]) end
+
+      debounce_timers[filename] = vim.loop.new_timer()
+      debounce_timers[filename]:start(
+        1000,
+        0,
+        vim.schedule_wrap(function()
+          vim.notify("Committing " .. filename, vim.log.levels.INFO)
+          vim.fn.jobstart({
+            "sh",
+            "-c",
+            string.format('cd ~/work_org && git add "%s" && git commit -m "Update %s" && git push', filename, filename),
+          }, {
+            on_exit = function(_, code)
+              if code ~= 0 then vim.notify("Git auto-commit failed", vim.log.levels.WARN) end
+            end,
+          })
+        end)
+      )
+    end
+
+    local function start_watcher()
+      if watcher_started then return end
+
+      vim.notify("Starting org file watcher for " .. work_org_path, vim.log.levels.INFO)
+      local handle = vim.loop.new_fs_event()
+      handle:start(work_org_path, { recursive = true }, function(err, filename, events)
+        if err then
+          vim.notify("File watcher error: " .. err, vim.log.levels.ERROR)
+          return
+        end
+        if filename and events.change then vim.schedule(function() auto_commit_file(filename) end) end
+      end)
+      watcher_started = true
+    end
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "org",
+      callback = start_watcher,
+      once = true,
+    })
   end,
 }
