@@ -25,6 +25,7 @@ return {
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.pack.docker" },
   { import = "astrocommunity.pack.rust" },
+  { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.nix" },
   { import = "astrocommunity.test.vim-test" },
   { import = "astrocommunity.recipes.ai" },
