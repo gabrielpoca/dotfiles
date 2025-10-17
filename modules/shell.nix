@@ -16,6 +16,7 @@ in
   config = {
     programs.atuin = {
       enable = true;
+      flags = [ "--disable-up-arrow" ];
       settings = {
         enter_accept = false;
         invert = true;
