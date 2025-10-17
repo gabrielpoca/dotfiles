@@ -3,6 +3,14 @@ return {
   "AstroNvim/astrolsp",
   ---@type AstroLSPOpts
   opts = {
+    formatting = {
+      filter = function(client)
+        if vim.bo.filetype == "javascript" then return client.name == "biome" end
+        if vim.bo.filetype == "typescript" then return client.name == "biome" end
+
+        return true
+      end,
+    },
     servers = {
       "elixirls",
     },
