@@ -7,6 +7,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    claude-code.url = "github:sadjow/claude-code-nix";
     private.url = "git+file:./modules/priv?submodules=1";
   };
 
@@ -16,6 +17,7 @@
       nix-darwin,
       home-manager,
       nixpkgs,
+      claude-code,
       private,
     }:
     let
@@ -43,6 +45,9 @@
           system = "aarch64-darwin";
           modules = [
             home-manager.darwinModules.home-manager
+            {
+              home-manager.extraSpecialArgs = inputs;
+            }
             private.modules.shell
             private.modules.mac-secrets
             defaultConfiguration

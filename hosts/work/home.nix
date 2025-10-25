@@ -7,7 +7,7 @@
   imports = [
     ../../modules/git.nix
     ../../modules/shell.nix
-    ../../modules/asdf.nix
+    ../../modules/languages.nix
   ];
 
   home.packages = with pkgs; [

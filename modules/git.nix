@@ -20,6 +20,7 @@
       };
     };
     ignores = [
+      ".direnv/"
       ".claude/"
       ".aider*"
       "!tmp/cache/.keep"

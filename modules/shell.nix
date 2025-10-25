@@ -38,7 +38,6 @@ in
         enable = true;
         plugins = [
           "git"
-          "asdf"
           "aws"
           "fzf"
           "gh"
