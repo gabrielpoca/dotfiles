@@ -13,6 +13,9 @@ end
 
 local font = "Maple Mono NF"
 
+config.max_fps = 120
+config.animation_fps = 120
+
 config.default_cursor_style = "BlinkingBar"
 config.cursor_blink_rate = 500
 config.window_background_opacity = 0.96
@@ -43,7 +46,7 @@ end
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
   if isViProcess(pane) then
     window:perform_action(
-    -- This should match the keybinds you set in Neovim.
+      -- This should match the keybinds you set in Neovim.
       act.SendKey({ key = vim_direction, mods = "CTRL" }),
       pane
     )
@@ -197,19 +200,29 @@ config.keys = {
       end
     end),
   },
-  { key = "h", mods = "CMD",        action = act.ActivateTabRelative(-1) },
-  { key = "l", mods = "CMD",        action = act.ActivateTabRelative(1) },
-  { key = "h", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-left") },
-  { key = "j", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-down") },
-  { key = "k", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-up") },
-  { key = "l", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-right") },
-  { key = "p", mods = "CMD",        action = act.ActivateCommandPalette },
-  { key = "f", mods = "CMD",        action = act.QuickSelect },
-  { key = "x", mods = "CMD",        action = act.ActivateCopyMode },
-  { key = "s", mods = "CMD",        action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
-  { key = "w", mods = "CMD",        action = act.CloseCurrentPane({ confirm = true }) },
+  -- {
+  --   key = "j",
+  --   mods = "CMD",
+  --   action = act.SendKey({ key = "j", mods = "ALT" }),
+  -- },
+  -- {
+  --   key = "k",
+  --   mods = "CMD",
+  --   action = act.SendKey({ key = "k", mods = "ALT" }),
+  -- },
+  { key = "h", mods = "CMD", action = act.ActivateTabRelative(-1) },
+  { key = "l", mods = "CMD", action = act.ActivateTabRelative(1) },
+  { key = "h", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-left") },
+  { key = "j", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-down") },
+  { key = "k", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-up") },
+  { key = "l", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-right") },
+  { key = "p", mods = "CMD", action = act.ActivateCommandPalette },
+  { key = "f", mods = "CMD", action = act.QuickSelect },
+  { key = "x", mods = "CMD", action = act.ActivateCopyMode },
+  { key = "s", mods = "CMD", action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
+  { key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
   { key = "f", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment },
-  { key = "v", mods = "CMD",        action = act.PasteFrom("Clipboard") },
+  { key = "v", mods = "CMD", action = act.PasteFrom("Clipboard") },
   {
     key = "c",
     mods = "CMD",
