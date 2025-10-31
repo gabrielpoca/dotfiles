@@ -1,18 +1,20 @@
-local terminal
+local terminals = {}
 
-local get_terminal = function()
-  if not terminal then
+local get_terminal = function(globalcount)
+  local count = globalcount or 3
+
+  if not terminals[count] then
     local Terminal = require("toggleterm.terminal").Terminal
 
-    terminal = Terminal:new {
-      count = 3,
+    terminals[count] = Terminal:new {
+      count = count,
       direction = "float",
       auto_scroll = false,
       start_in_insert = false,
     }
   end
 
-  return terminal
+  return terminals[count]
 end
 
 local toggle = function(cmd)
@@ -38,17 +40,46 @@ local includes = function(filename, contents, on_done)
   })
 end
 
+local smart_toggle = function(count)
+  local term = get_terminal(count)
+
+  if term:is_open() then
+    local current_buf = vim.api.nvim_get_current_buf()
+    local term_buf = term.bufnr
+
+    if current_buf == term_buf then
+      term:toggle()
+    else
+      term:focus()
+    end
+  else
+    local cols = vim.o.columns
+    local min_cols_for_vertical = 120
+
+    if cols >= min_cols_for_vertical then
+      vim.cmd "wincmd t"
+      local size = math.min(220, math.floor(cols * 0.5))
+      term:open(size, "vertical")
+    else
+      term:open(nil, "float")
+    end
+  end
+end
+
 return {
   "akinsho/toggleterm.nvim",
   opts = {
     open_mapping = "<C-t>",
     size = function(term)
       if term.direction == "horizontal" then
-        return 15
+        return 25
       elseif term.direction == "vertical" then
-        return vim.o.columns * 0.4
+        return vim.o.columns * 0.5
       end
     end,
+    responsiveness = {
+      horizontal_breakpoint = 160,
+    },
   },
   keys = {
     { "<Leader>yk", function() get_terminal():shutdown() end },
@@ -56,6 +87,10 @@ return {
     { "<Leader>yh", function() get_terminal():open(100, "horizontal") end },
     { "<Leader>yf", function() get_terminal():open(nil, "float") end },
     { "<Leader>yy", function() get_terminal():open() end },
+    -- { "<A-k>", function() smart_toggle(3) end },
+    -- { "<A-k>", function() smart_toggle(3) end, mode = "t" },
+    -- { "<A-j>", function() smart_toggle(4) end },
+    -- { "<A-j>", function() smart_toggle(4) end, mode = "t" },
     {
       "<Leader>ys",
       function()
@@ -94,7 +129,7 @@ return {
         elseif has_file "Cargo.toml" then
           toggle "cargo run\n"
         else
-          error "Failed to identify server"
+          vim.notify("Failed to identify server to start", vim.log.levels.ERROR, { title = "Terminal" })
         end
       end,
       desc = "ToggleTerm server",
