@@ -31,7 +31,7 @@
       };
       pruneTime = {
         Weekday = 1; # Monday
-        Hour = 11;
+        Hour = 22;
         Minute = 0;
       };
     };
