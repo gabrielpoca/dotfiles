@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+base="$1"
+shift
+
+git reset $(git merge-base $base $branch)
+git add -A
+git commit "$@"
