@@ -131,11 +131,11 @@
         "sops-nix": "sops-nix"
       },
       "locked": {
-        "lastModified": 1759523716,
-        "narHash": "sha256-AbMxCKJmr/8EL4YRh7qDNI3mGPsCf+VcXtblMF6PLwY=",
+        "lastModified": 1763225201,
+        "narHash": "sha256-oLuYRB/ZTK335qrlkXom5z/E9kE7n3fJGFBBw2WTtrQ=",
         "ref": "refs/heads/main",
-        "rev": "61d36aaaa38bbe9c7cfd8dc3b542dd5e5cdaf3be",
-        "revCount": 11,
+        "rev": "791a7682095634b6472f062f764257796942332c",
+        "revCount": 13,
         "submodules": true,
         "type": "git",
         "url": "file:./modules/priv"
