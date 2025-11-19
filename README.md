@@ -11,14 +11,13 @@ My personal dotfiles managed with Nix and Home Manager.
 
 1. Clone the repository:
 
-        git@github.com:gabrielpoca/dotfiles.git ~/Developer/dotfiles
+        git clone git@github.com:gabrielpoca/dotfiles.git ~/Developer/dotfiles
 
 2. Change to the dotfiles directory:
 
         cd ~/Developer/dotfiles
 
-3. Run the installation script:
-
+3. Run the installation:
 
         darwin-rebuild switch --flake $HOME/Developer/dotfiles/
 
