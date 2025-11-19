@@ -23,4 +23,8 @@ in
       };
     };
   };
+
+  systemd.services.registry.serviceConfig = {
+    Restart = "on-failure";
+  };
 }
