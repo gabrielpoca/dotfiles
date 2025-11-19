@@ -73,12 +73,6 @@ in
   };
 
   config = lib.mkIf (cfg.backups != { }) {
-    sops.secrets = {
-      "backup_b2_account_id".owner = config.users.users.gabriel.name;
-      "backup_b2_account_key".owner = config.users.users.gabriel.name;
-      "restic_password".owner = config.users.users.gabriel.name;
-    };
-
     home-manager.users.gabriel = {
       home.packages = [ pkgs.restic ];
 
