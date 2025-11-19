@@ -46,7 +46,6 @@ end
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
   if isViProcess(pane) then
     window:perform_action(
-      -- This should match the keybinds you set in Neovim.
       act.SendKey({ key = vim_direction, mods = "CTRL" }),
       pane
     )
@@ -200,16 +199,6 @@ config.keys = {
       end
     end),
   },
-  -- {
-  --   key = "j",
-  --   mods = "CMD",
-  --   action = act.SendKey({ key = "j", mods = "ALT" }),
-  -- },
-  -- {
-  --   key = "k",
-  --   mods = "CMD",
-  --   action = act.SendKey({ key = "k", mods = "ALT" }),
-  -- },
   { key = "h", mods = "CMD", action = act.ActivateTabRelative(-1) },
   { key = "l", mods = "CMD", action = act.ActivateTabRelative(1) },
   { key = "h", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-left") },
@@ -221,6 +210,7 @@ config.keys = {
   { key = "x", mods = "CMD", action = act.ActivateCopyMode },
   { key = "s", mods = "CMD", action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
   { key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
+  { key = "y", mods = "CMD", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
   { key = "f", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment },
   { key = "v", mods = "CMD", action = act.PasteFrom("Clipboard") },
   {
@@ -262,13 +252,17 @@ config.keys = {
     action = act.PromptInputLine({
       description = "Enter new name for tab",
       action = wezterm.action_callback(function(window, _pane, line)
-        -- line will be `nil` if they hit escape without entering anything
-        -- An empty string if they just hit enter
-        -- Or the actual line of text they wrote
         if line then
           window:active_tab():set_title(line)
         end
       end),
+    }),
+  },
+  {
+    key = "a",
+    mods = "CMD",
+    action = act.SpawnCommandInNewTab({
+      args = { "/opt/homebrew/bin/nvim", "-c", "lua require('orgmode').action('agenda.agenda')" },
     }),
   },
 }
