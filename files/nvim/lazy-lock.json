@@ -16,6 +16,7 @@
   "cmp-dap": { "branch": "master", "commit": "ea92773e84c0ad3288c3bc5e452ac91559669087" },
   "copilot.lua": { "branch": "master", "commit": "7fe314ffa6c7bbf1b7d1dc6836d9603fd9623f07" },
   "crates.nvim": { "branch": "main", "commit": "ac9fa498a9edb96dc3056724ff69d5f40b898453" },
+  "daml.nvim": { "branch": "main", "commit": "f8c54ffcaae352cad9919026698f163878d2b91f" },
   "deno-nvim": { "branch": "master", "commit": "5c1ef9762f916033bd3b9b37878384cae24ddb4e" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
   "flatten.nvim": { "branch": "main", "commit": "72527798e75b5e34757491947c2cb853ce21dc0e" },
