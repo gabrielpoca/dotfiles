@@ -22,7 +22,7 @@ return {
     org_capture_templates = {
       t = {
         description = "Task",
-        template = "* TODO %?",
+        template = "* TODO %?\nDEADLINE: %t",
         target = "~/work_org/tasks.org",
       },
       l = {
@@ -137,11 +137,12 @@ return {
           vim.fn.jobstart({
             "sh",
             "-c",
-            string.format('cd ~/work_org && git add "%s" && git commit -m "Update %s" && git push', filename, filename),
-          }, {
-            on_exit = function(_, code)
-              if code ~= 0 then vim.notify("Git auto-commit failed", vim.log.levels.WARN) end
-            end,
+            string.format(
+              'cd ~/work_org && git add "%s" && (git diff --cached --quiet "%s" || (git commit -m "Update %s" && git push))',
+              filename,
+              filename,
+              filename
+            ),
           })
         end)
       )
