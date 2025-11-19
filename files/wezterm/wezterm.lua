@@ -155,7 +155,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   -- return title
 end)
 
-wezterm.on("update-right-status", function(window, pane)
+wezterm.on("update-status", function(window, pane)
   window:set_right_status(" " .. window:active_workspace() .. " ")
 end)
 

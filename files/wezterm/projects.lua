@@ -6,10 +6,6 @@ local M = {}
 
 local project_root = os.getenv("HOME") .. "/Developer/"
 
-wezterm.on("update-right-status", function(window, _pane)
-  window:set_right_status(window:active_workspace())
-end)
-
 local function get_projects()
   local projects = { { id = project_root, label = "default" } }
 
