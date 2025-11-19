@@ -1,0 +1,35 @@
+#!/bin/bash -e
+
+use_bee=false
+update_secrets=false
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --bee)
+            use_bee=true
+            shift
+            ;;
+        --update-secrets)
+            update_secrets=true
+            shift
+            ;;
+        *)
+            echo "Unknown option: $1" >&2
+            exit 1
+            ;;
+    esac
+done
+
+if [[ "$update_secrets" == true ]]; then
+    if [[ "$use_bee" == true ]]; then
+        update_secrets --bee
+    else
+        update_secrets
+    fi
+fi
+
+if [[ "$use_bee" == true ]]; then
+    nix run nixpkgs#nixos-rebuild -- --fast --target-host bee --build-host bee --flake .#bee --use-remote-sudo switch
+else
+    sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles/"
+fi
