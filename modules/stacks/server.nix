@@ -12,6 +12,7 @@
   services.openssh = {
     enable = true;
     allowSFTP = true;
+    settings.PasswordAuthentication = false;
   };
 
   services.tailscale.enable = true;
