@@ -159,5 +159,7 @@ in
     port = 3000;
   };
 
+  omada.enable = true;
+
   system.stateVersion = "24.11"; # Did you read the comment?
 }

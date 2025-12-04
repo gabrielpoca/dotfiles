@@ -69,6 +69,8 @@
             private.modules.shell
             private.modules.proxy
             private.modules.media
+            private.modules.omada
+            private.modules.ssh
             private.modules.server-secrets
             defaultConfiguration
             ./hosts/bee
