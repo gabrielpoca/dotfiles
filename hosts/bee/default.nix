@@ -52,6 +52,11 @@ in
 
     kernelParams = [ "ip=dhcp" ];
 
+    kernel.sysctl = {
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
+    };
+
     initrd = {
       availableKernelModules = [ "r8169" ];
 
