@@ -72,6 +72,7 @@
             private.modules.omada
             private.modules.ssh
             private.modules.server-secrets
+            ./modules/k3s.nix
             defaultConfiguration
             ./hosts/bee
           ];

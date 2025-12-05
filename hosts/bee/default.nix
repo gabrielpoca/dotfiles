@@ -140,6 +140,7 @@ in
       paths = [
         "/srv/books"
         "/srv/music"
+        "/var/lib/rancher/k3s"
       ];
 
       repository = "b2:gabriel-docker-volumes:/bee";
@@ -154,12 +155,18 @@ in
 
   proxy.enable = true;
   proxy.ip = "100.90.90.3";
+  proxy.fallbackPort = 8090;
   proxy.hosts.adguard = {
     subdomain = "adguard";
     port = 3000;
   };
 
   omada.enable = true;
+
+  k3s-cluster.enable = true;
+  k3s-cluster.role = "server";
+  k3s-cluster.serverName = "bee";
+  k3s-cluster.tlsSan = "100.90.90.3";
 
   system.stateVersion = "24.11"; # Did you read the comment?
 }
