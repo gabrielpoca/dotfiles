@@ -26,7 +26,7 @@ in
   systemd.tmpfiles.rules = [
     "d /srv/music 0775 gabriel media -"
     "d /srv/tvshows 0775 gabriel media -"
-    "d /srv/moives 0775 gabriel media -"
+    "d /srv/movies 0775 gabriel media -"
     "d /srv/musicinbox 0775 gabriel media -"
   ];
 
