@@ -13,7 +13,7 @@
       pipenv
       neovim-remote
     ]))
-    ruby_3_1
+    ruby_3_3
     go
     beam.packages.erlang_27.elixir_1_18
     jdk11
