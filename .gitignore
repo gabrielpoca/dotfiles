@@ -1,3 +1,4 @@
 *.gem
 *.retry
 files/nvim/plugin/packer_compiled.lua
+k8s/

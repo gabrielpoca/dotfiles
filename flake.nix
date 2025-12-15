@@ -17,8 +17,8 @@
       nix-darwin,
       home-manager,
       nixpkgs,
-      claude-code,
       private,
+      ...
     }:
     let
       defaultConfiguration =
@@ -67,9 +67,6 @@
               ];
             }
             private.modules.shell
-            private.modules.proxy
-            private.modules.media
-            private.modules.omada
             private.modules.ssh
             private.modules.server-secrets
             ./modules/k3s.nix

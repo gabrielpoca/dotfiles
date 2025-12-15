@@ -14,13 +14,8 @@ in
 
   imports = [
     ./hardware-configuration.nix
-    ../../modules/jellyfin.nix
-    ../../modules/soulseek.nix
-    ../../modules/picard.nix
     ../../modules/samba.nix
-    ../../modules/registry.nix
     ../../modules/stacks/server.nix
-    ../../modules/stacks/monitoring.nix
   ];
 
   systemd.tmpfiles.rules = [
@@ -107,13 +102,6 @@ in
     nixfmt-rfc-style
   ];
 
-  soulseek = {
-    completeFolder = "/srv/musicinbox";
-    sharesFolder = "/srv/music";
-  };
-
-  picard.musicFolder = "/srv/music";
-
   smb.folders = [
     "/srv/music"
     "/srv/musicinbox"
@@ -146,6 +134,7 @@ in
         "/srv/books"
         "/srv/music"
         "/var/lib/rancher/k3s"
+        "/var/lib/omada/data"
       ];
 
       repository = "b2:gabriel-docker-volumes:/bee";
@@ -158,15 +147,20 @@ in
     };
   };
 
-  proxy.enable = true;
-  proxy.ip = "100.90.90.3";
-  proxy.fallbackPort = 8090;
-  proxy.hosts.adguard = {
-    subdomain = "adguard";
-    port = 3000;
-  };
-
-  omada.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    29811
+    29812
+    29813
+    29814
+    29815
+    29816
+    29817
+  ];
+  networking.firewall.allowedUDPPorts = [
+    19810
+    27001
+    29810
+  ];
 
   k3s-cluster.enable = true;
   k3s-cluster.role = "server";
