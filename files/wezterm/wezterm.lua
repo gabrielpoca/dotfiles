@@ -45,10 +45,7 @@ end
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
   if isViProcess(pane) then
-    window:perform_action(
-      act.SendKey({ key = vim_direction, mods = "CTRL" }),
-      pane
-    )
+    window:perform_action(act.SendKey({ key = vim_direction, mods = "CTRL" }), pane)
   else
     window:perform_action(act.ActivatePaneDirection(pane_direction), pane)
   end
@@ -68,6 +65,7 @@ wezterm.on("ActivatePaneDirection-down", function(window, pane)
 end)
 
 config.command_palette_font_size = 16.0
+config.leader = { key = "a", mods = "CMD", timeout_milliseconds = 1000 }
 
 local url_regex = "\\b\\w+://(?:[\\w.-]+)\\.[a-z]{2,15}(:[\\d]+)?\\S*\\b"
 local ip_addr_regex = "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b"
@@ -199,20 +197,20 @@ config.keys = {
       end
     end),
   },
-  { key = "h", mods = "CMD", action = act.ActivateTabRelative(-1) },
-  { key = "l", mods = "CMD", action = act.ActivateTabRelative(1) },
-  { key = "h", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-left") },
-  { key = "j", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-down") },
-  { key = "k", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-up") },
-  { key = "l", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-right") },
-  { key = "p", mods = "CMD", action = act.ActivateCommandPalette },
-  { key = "f", mods = "CMD", action = act.QuickSelect },
-  { key = "x", mods = "CMD", action = act.ActivateCopyMode },
-  { key = "s", mods = "CMD", action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
-  { key = "w", mods = "CMD", action = act.CloseCurrentPane({ confirm = true }) },
-  { key = "y", mods = "CMD", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+  { key = "h", mods = "CMD",        action = act.ActivateTabRelative(-1) },
+  { key = "l", mods = "CMD",        action = act.ActivateTabRelative(1) },
+  { key = "h", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-left") },
+  { key = "j", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-down") },
+  { key = "k", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-up") },
+  { key = "l", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-right") },
+  { key = "p", mods = "CMD",        action = act.ActivateCommandPalette },
+  { key = "f", mods = "CMD",        action = act.QuickSelect },
+  { key = "x", mods = "CMD",        action = act.ActivateCopyMode },
+  { key = "s", mods = "CMD",        action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
+  { key = "w", mods = "CMD",        action = act.CloseCurrentPane({ confirm = true }) },
+  { key = "y", mods = "CMD",        action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
   { key = "f", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment },
-  { key = "v", mods = "CMD", action = act.PasteFrom("Clipboard") },
+  { key = "v", mods = "CMD",        action = act.PasteFrom("Clipboard") },
   {
     key = "c",
     mods = "CMD",
@@ -250,7 +248,7 @@ config.keys = {
     key = "e",
     mods = "CMD",
     action = act.PromptInputLine({
-      description = "Enter new name for tab",
+      description = "Rename tab:",
       action = wezterm.action_callback(function(window, _pane, line)
         if line then
           window:active_tab():set_title(line)
@@ -260,9 +258,16 @@ config.keys = {
   },
   {
     key = "a",
-    mods = "CMD",
+    mods = "LEADER",
     action = act.SpawnCommandInNewTab({
       args = { "/opt/homebrew/bin/nvim", "-c", "lua require('orgmode').action('agenda.agenda')" },
+    }),
+  },
+  {
+    key = "c",
+    mods = "LEADER",
+    action = act.SplitHorizontal({
+      args = { "/bin/zsh", "-ic", "claude" },
     }),
   },
 }
