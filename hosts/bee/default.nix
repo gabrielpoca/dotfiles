@@ -107,16 +107,6 @@ in
     "/srv/musicinbox"
   ];
 
-  services.cloudflared = {
-    enable = true;
-    tunnels = {
-      bee = {
-        default = "http_status:404";
-        credentialsFile = config.sops.secrets."cloudflared_tunnel".path;
-      };
-    };
-  };
-
   sops.templates."restic".content = ''
     B2_ACCOUNT_ID=${config.sops.placeholder."backup_b2_account_id"}
     B2_ACCOUNT_KEY=${config.sops.placeholder."backup_b2_account_key"}
