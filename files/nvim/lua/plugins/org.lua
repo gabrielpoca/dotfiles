@@ -11,7 +11,7 @@ return {
     win_split_mode = "tabnew",
     org_agenda_files = "~/work_org/**/*",
     org_startup_indented = true,
-    org_default_notes_file = "~/work_org/refile.org",
+    org_default_notes_file = "~/work_org/main.org",
     org_startup_folded = "content",
     org_todo_keywords = { "TODO", "|", "DONE", "|", "KILL" },
 
@@ -22,18 +22,47 @@ return {
     org_capture_templates = {
       t = {
         description = "Task",
-        template = "* TODO %?\nDEADLINE: %t",
-        target = "~/work_org/tasks.org",
+        template = "** TODO %?\nDEADLINE: %t",
+        target = "~/work_org/main.org",
+        datetree = {
+          tree_type = "custom",
+          tree = {
+            { format = "%y%m%d", pattern = "^(%d%d)(%d%d)(%d%d)$", order = { 1, 2, 3 } },
+          },
+        },
       },
       l = {
         description = "Someday/Maybe",
-        template = "* %? :someday:\n%u",
-        target = "~/work_org/later.org",
+        template = "** %? :someday:",
+        target = "~/work_org/main.org",
+        datetree = {
+          tree_type = "custom",
+          tree = {
+            { format = "%y%m%d", pattern = "^(%d%d)(%d%d)(%d%d)$", order = { 1, 2, 3 } },
+          },
+        },
       },
       j = {
         description = "Journal",
-        template = "* %<%y%m%d> %?",
-        target = "~/work_org/journal.org",
+        template = "** %?",
+        target = "~/work_org/main.org",
+        datetree = {
+          tree_type = "custom",
+          tree = {
+            { format = "%y%m%d", pattern = "^(%d%d)(%d%d)(%d%d)$", order = { 1, 2, 3 } },
+          },
+        },
+      },
+      n = {
+        description = "Note",
+        template = "** %?",
+        target = "~/work_org/main.org",
+        datetree = {
+          tree_type = "custom",
+          tree = {
+            { format = "%y%m%d", pattern = "^(%d%d)(%d%d)(%d%d)$", order = { 1, 2, 3 } },
+          },
+        },
       },
     },
 
@@ -132,19 +161,20 @@ return {
       debounce_timers[filename]:start(
         1000,
         0,
-        vim.schedule_wrap(function()
-          vim.notify("Committing " .. filename, vim.log.levels.INFO)
-          vim.fn.jobstart({
-            "sh",
-            "-c",
-            string.format(
-              'cd ~/work_org && git add "%s" && (git diff --cached --quiet "%s" || (git commit -m "Update %s" && git push))',
-              filename,
-              filename,
-              filename
-            ),
-          })
-        end)
+        vim.schedule_wrap(
+          function()
+            vim.fn.jobstart {
+              "sh",
+              "-c",
+              string.format(
+                'cd ~/work_org && git add "%s" && (git diff --cached --quiet "%s" || (git commit -m "Update %s" && git push))',
+                filename,
+                filename,
+                filename
+              ),
+            }
+          end
+        )
       )
     end
 
@@ -167,6 +197,16 @@ return {
       pattern = "org",
       callback = start_watcher,
       once = true,
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "org",
+      callback = function()
+        vim.keymap.set("i", "<S-CR>", '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
+          silent = true,
+          buffer = true,
+        })
+      end,
     })
   end,
 }
