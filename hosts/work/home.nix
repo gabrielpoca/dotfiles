@@ -18,7 +18,6 @@
     glow
     hub
     jq
-    lazygit
     ncdu
     nmap
     tig

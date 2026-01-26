@@ -1,6 +1,21 @@
 { config, pkgs, ... }:
 
 {
+  programs.lazygit = {
+    enable = true;
+    settings.git.pagers = [
+      {
+        colorArg = "always";
+        pager = "delta --paging=never";
+      }
+    ];
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+  };
+
   programs.git = {
     enable = true;
     delta.enable = true;

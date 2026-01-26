@@ -11,7 +11,6 @@
   shell.theme = "afowler";
 
   home.packages = with pkgs; [
-    lazygit
   ];
 
   home.shellAliases.rebuild = "sudo nixos-rebuild switch --flake .#bee --impure";
