@@ -124,15 +124,14 @@ in
         "/srv/books"
         "/srv/music"
         "/var/lib/rancher/k3s"
-        "/var/lib/omada/data"
       ];
 
       repository = "b2:gabriel-docker-volumes:/bee";
 
       pruneOpts = [
-        "--keep-daily 7"
-        "--keep-weekly 5"
-        "--keep-monthly 12"
+        "--keep-daily 3"
+        "--keep-weekly 2"
+        "--keep-monthly 6"
       ];
     };
   };

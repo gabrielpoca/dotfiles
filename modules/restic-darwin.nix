@@ -25,11 +25,11 @@ let
         type = lib.types.listOf lib.types.str;
         default = [
           "--keep-daily"
-          "7"
+          "3"
           "--keep-weekly"
-          "5"
+          "2"
           "--keep-monthly"
-          "12"
+          "6"
         ];
         description = "Options for restic forget --prune";
       };
