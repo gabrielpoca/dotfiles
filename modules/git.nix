@@ -18,8 +18,7 @@
 
   programs.git = {
     enable = true;
-    delta.enable = true;
-    extraConfig = {
+    settings = {
       init = {
         defaultBranch = "main";
       };
@@ -32,6 +31,19 @@
       };
       color = {
         ui = true;
+      };
+      alias = {
+        a = "add";
+        b = "branch";
+        c = "checkout";
+        cb = "checkout -b";
+        co = "commit";
+        d = "diff";
+        f = "fetch";
+        p = "push -u";
+        r = "rebase";
+        rc = "rebase --continue";
+        s = "status";
       };
     };
     ignores = [
@@ -88,18 +100,5 @@
       "*.tsx text eol=lf"
       "package.json text eol=lf"
     ];
-    aliases = {
-      a = "add";
-      b = "branch";
-      c = "checkout";
-      cb = "checkout -b";
-      co = "commit";
-      d = "diff";
-      f = "fetch";
-      p = "push -u";
-      r = "rebase";
-      rc = "rebase --continue";
-      s = "status";
-    };
   };
 }
