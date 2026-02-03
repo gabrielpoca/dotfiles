@@ -21,6 +21,7 @@ config.cursor_blink_rate = 500
 config.window_background_opacity = 0.96
 
 config.audible_bell = "Disabled"
+config.notification_handling = "AlwaysShow"
 config.tab_max_width = 30
 config.font = wezterm.font(font)
 config.font_size = 15.0
@@ -153,8 +154,18 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
   -- return title
 end)
 
-wezterm.on("update-status", function(window, pane)
+local function update_workspace_status(window)
   window:set_right_status(" " .. window:active_workspace() .. " ")
+end
+
+wezterm.on("update-status", function(window, pane)
+  update_workspace_status(window)
+end)
+
+wezterm.on("window-config-reloaded", function(window, pane)
+  wezterm.time.call_after(0.05, function()
+    update_workspace_status(window)
+  end)
 end)
 
 config.key_tables = {
@@ -197,20 +208,29 @@ config.keys = {
       end
     end),
   },
-  { key = "h", mods = "CMD",        action = act.ActivateTabRelative(-1) },
-  { key = "l", mods = "CMD",        action = act.ActivateTabRelative(1) },
-  { key = "h", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-left") },
-  { key = "j", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-down") },
-  { key = "k", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-up") },
-  { key = "l", mods = "CTRL",       action = act.EmitEvent("ActivatePaneDirection-right") },
-  { key = "p", mods = "CMD",        action = act.ActivateCommandPalette },
-  { key = "f", mods = "CMD",        action = act.QuickSelect },
-  { key = "x", mods = "CMD",        action = act.ActivateCopyMode },
-  { key = "s", mods = "CMD",        action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
-  { key = "w", mods = "CMD",        action = act.CloseCurrentPane({ confirm = true }) },
-  { key = "y", mods = "CMD",        action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
+  { key = "h", mods = "CMD", action = act.ActivateTabRelative(-1) },
+  { key = "l", mods = "CMD", action = act.ActivateTabRelative(1) },
+  { key = "h", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-left") },
+  { key = "j", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-down") },
+  { key = "k", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-up") },
+  { key = "l", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-right") },
+  { key = "p", mods = "CMD", action = act.ActivateCommandPalette },
+  { key = "f", mods = "CMD", action = act.QuickSelect },
+  { key = "x", mods = "CMD", action = act.ActivateCopyMode },
+  { key = "s", mods = "CMD", action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
+  {
+    key = "w",
+    mods = "CMD",
+    action = wezterm.action_callback(function(window, pane)
+      window:perform_action(act.CloseCurrentPane({ confirm = true }), pane)
+      wezterm.time.call_after(0.1, function()
+        wezterm.reload_configuration()
+      end)
+    end),
+  },
+  { key = "y", mods = "CMD", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
   { key = "f", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment },
-  { key = "v", mods = "CMD",        action = act.PasteFrom("Clipboard") },
+  { key = "v", mods = "CMD", action = act.PasteFrom("Clipboard") },
   {
     key = "c",
     mods = "CMD",
@@ -260,7 +280,8 @@ config.keys = {
     key = "a",
     mods = "LEADER",
     action = act.SpawnCommandInNewTab({
-      args = { "/opt/homebrew/bin/nvim", "-c", "lua require('orgmode').action('agenda.agenda')" },
+      args = { os.getenv("SHELL"), "-lc", "nvim -c \"lua require('orgmode').action('agenda.agenda')\"" },
+      cwd = "/Users/gabriel/Developer/dotfiles/",
     }),
   },
   {
