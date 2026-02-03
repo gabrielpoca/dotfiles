@@ -1,12 +1,12 @@
 return {
-  "numToStr/Navigator.nvim",
-  opts = {
-    disable_on_zoom = false,
-  },
+  "mrjones2014/smart-splits.nvim",
+  lazy = true,
+  event = "VeryLazy",
+  opts = {},
   keys = {
-    { "<C-h>", function() require("Navigator").left() end },
-    { "<C-l>", function() require("Navigator").right() end },
-    { "<C-k>", function() require("Navigator").up() end },
-    { "<C-j>", function() require("Navigator").down() end },
+    { "<C-h>", function() require("smart-splits").move_cursor_left() end },
+    { "<C-j>", function() require("smart-splits").move_cursor_down() end },
+    { "<C-k>", function() require("smart-splits").move_cursor_up() end },
+    { "<C-l>", function() require("smart-splits").move_cursor_right() end },
   },
 }

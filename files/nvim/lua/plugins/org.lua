@@ -12,11 +12,14 @@ return {
     org_agenda_files = "~/work_org/**/*",
     org_startup_indented = true,
     org_default_notes_file = "~/work_org/main.org",
-    org_startup_folded = "content",
+    org_startup_folded = "showeverything",
     org_todo_keywords = { "TODO", "|", "DONE", "|", "KILL" },
 
     mappings = {
       prefix = "<Leader>n",
+      org = {
+        org_refile = false,
+      },
     },
 
     org_capture_templates = {
@@ -92,7 +95,6 @@ return {
   keys = {
     { "<leader>n", "", desc = "Org Mode" },
     { "<leader>nid", "", desc = "Change deadline" },
-    { "<leader>nr", "", desc = "Refile" },
     { "<leader>n*", "", desc = "Toggle headline" },
     { "<leader>na", function() require("orgmode").action "agenda.prompt" end, desc = "Agenda" },
     { "<leader>nc", function() require("orgmode").action "capture.prompt" end, desc = "Capture" },
@@ -115,6 +117,58 @@ return {
       "<leader>nf",
       function() require("snacks").picker.files { cwd = "~/work_org" } end,
       desc = "Find",
+    },
+    {
+      "<leader>nu",
+      function()
+        local pickers = require "telescope.pickers"
+        local finders = require "telescope.finders"
+        local conf = require("telescope.config").values
+        local action_state = require "telescope.actions.state"
+        local actions = require "telescope.actions"
+        local orgfiles = require("orgmode").files
+
+        local results = {}
+        for _, file in ipairs(orgfiles:all()) do
+          for _, headline in ipairs(file:get_headlines()) do
+            if headline:get_level() == 2 and #headline:get_tags() == 0 then
+              table.insert(results, {
+                file = file.filename,
+                line = headline:get_range().start_line,
+                title = headline:get_title(),
+              })
+            end
+          end
+        end
+
+        pickers.new({}, {
+          prompt_title = "Untagged Level 2 Headings",
+          finder = finders.new_table {
+            results = results,
+            entry_maker = function(entry)
+              return {
+                value = entry,
+                display = entry.title,
+                ordinal = entry.title,
+                filename = entry.file,
+                lnum = entry.line,
+              }
+            end,
+          },
+          sorter = conf.generic_sorter {},
+          previewer = conf.grep_previewer {},
+          attach_mappings = function(prompt_bufnr)
+            actions.select_default:replace(function()
+              actions.close(prompt_bufnr)
+              local selection = action_state.get_selected_entry()
+              vim.cmd("edit " .. selection.filename)
+              vim.api.nvim_win_set_cursor(0, { selection.lnum, 0 })
+            end)
+            return true
+          end,
+        }):find()
+      end,
+      desc = "Untagged headings",
     },
   },
   config = function(_, opts)
@@ -182,7 +236,9 @@ return {
       if watcher_started then return end
 
       vim.notify("Starting org file watcher for " .. work_org_path, vim.log.levels.INFO)
+
       local handle = vim.loop.new_fs_event()
+
       handle:start(work_org_path, { recursive = true }, function(err, filename, events)
         if err then
           vim.notify("File watcher error: " .. err, vim.log.levels.ERROR)
@@ -190,6 +246,7 @@ return {
         end
         if filename and events.change then vim.schedule(function() auto_commit_file(filename) end) end
       end)
+
       watcher_started = true
     end
 
