@@ -16,6 +16,7 @@ in
     ./hardware-configuration.nix
     ../../modules/samba.nix
     ../../modules/stacks/server.nix
+    ./microvms/agent-sandbox.nix
   ];
 
   systemd.tmpfiles.rules = [
