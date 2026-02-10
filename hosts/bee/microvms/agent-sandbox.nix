@@ -3,6 +3,7 @@
   imports = [ microvm.nixosModules.host ];
 
   networking.useNetworkd = true;
+  services.resolved.fallbackDns = [ "8.8.8.8" "1.1.1.1" ];
 
   systemd.network.netdevs."10-br-agent" = {
     netdevConfig = {
@@ -76,6 +77,10 @@
       services.openssh = {
         enable = true;
         settings.PermitRootLogin = "prohibit-password";
+        hostKeys = [
+          { path = "/var/lib/ssh/ssh_host_ed25519_key"; type = "ed25519"; }
+          { path = "/var/lib/ssh/ssh_host_rsa_key"; type = "rsa"; bits = 4096; }
+        ];
       };
 
       users.users.root.openssh.authorizedKeys.keys = [
@@ -84,6 +89,16 @@
 
       environment.systemPackages = with pkgs; [
         git curl wget jq
+        nodejs_22
+        gnumake cmake gcc
+      ];
+
+      environment.variables.NPM_CONFIG_PREFIX = "$HOME/.npm-global";
+      environment.sessionVariables.PATH = [ "$HOME/.npm-global/bin" ];
+
+      systemd.tmpfiles.rules = [
+        "d /var/home/root 0700 root root -"
+        "L+ /root - - - - /var/home/root"
       ];
 
       virtualisation.docker.enable = true;
