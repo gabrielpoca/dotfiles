@@ -76,6 +76,19 @@
             ./hosts/bee
           ];
         };
+
+        wasp = nixpkgs.lib.nixosSystem {
+          specialArgs = inputs;
+          modules = [
+            home-manager.nixosModules.home-manager
+            private.modules.shell
+            private.modules.ssh
+            private.modules.server-secrets
+            ./modules/k3s.nix
+            defaultConfiguration
+            ./hosts/wasp
+          ];
+        };
       };
     };
 }
