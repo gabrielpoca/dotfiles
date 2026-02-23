@@ -156,6 +156,8 @@ in
   k3s-cluster.role = "server";
   k3s-cluster.serverName = "bee";
   k3s-cluster.tlsSan = "100.90.90.3";
+  k3s-cluster.nodeIp = "100.90.90.3";
+  k3s-cluster.flannelIface = "tailscale0";
 
   system.stateVersion = "24.11"; # Did you read the comment?
 }
