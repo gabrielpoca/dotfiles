@@ -103,6 +103,10 @@
 
       virtualisation.docker.enable = true;
 
+      networking.firewall.extraCommands = ''
+        iptables -I nixos-fw 3 -p tcp -s 192.168.0.100 --dport 18789 -j nixos-fw-accept
+      '';
+
       system.stateVersion = "24.11";
     };
   };
