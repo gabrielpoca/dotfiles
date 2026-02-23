@@ -11,8 +11,13 @@
 
   services.openssh = {
     enable = true;
-    allowSFTP = true;
-    settings.PasswordAuthentication = false;
+    allowSFTP = false;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      X11Forwarding = false;
+      PermitRootLogin = "prohibit-password";
+    };
   };
 
   services.tailscale.enable = true;
