@@ -60,6 +60,9 @@
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 ];
+    extraCommands = ''
+      iptables -A nixos-fw -s 10.42.0.0/16 -j nixos-fw-accept
+    '';
   };
 
   system.stateVersion = "24.11";
