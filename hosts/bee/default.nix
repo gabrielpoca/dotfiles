@@ -33,6 +33,7 @@ in
     users.gabriel = import ./home.nix;
   };
 
+  programs.nix-ld.enable = true;
   programs.zsh.enable = true;
   users.users.gabriel.shell = pkgs.zsh;
 
@@ -101,6 +102,7 @@ in
     pciutils
     powertop
     nixfmt-rfc-style
+    nodejs
   ];
 
   smb.folders = [
