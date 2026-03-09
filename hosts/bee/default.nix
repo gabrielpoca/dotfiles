@@ -126,7 +126,6 @@ in
       paths = [
         "/srv/books"
         "/srv/music"
-        "/var/lib/rancher/k3s"
       ];
 
       repository = "b2:gabriel-docker-volumes:/bee";
