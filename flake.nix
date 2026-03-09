@@ -1,93 +1,18 @@
 {
-  description = "Personal Nix configuration";
+  description = "Public Nix modules";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nix-darwin.url = "github:LnL7/nix-darwin";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-microvm.url = "github:astro/microvm.nix";
-    microvm.inputs.nixpkgs.follows = "nixpkgs";
-    private.url = "git+file:./modules/priv?submodules=1";
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-  outputs =
-    inputs@{
-      self,
-      nix-darwin,
-      home-manager,
-      nixpkgs,
-      private,
-      ...
-    }:
-    let
-      defaultConfiguration =
-        { ... }:
-        {
-          nix.settings.experimental-features = "nix-command flakes";
-
-          programs.zsh.enable = true;
-
-          nixpkgs.config.allowUnfree = true;
-
-          users.users.gabriel = {
-            name = "gabriel";
-          };
-
-        };
-
-    in
-    {
-      darwinConfigurations = {
-        "Gabriels-MacBook-Pro" = nix-darwin.lib.darwinSystem {
-          specialArgs = inputs;
-
-          system = "aarch64-darwin";
-          modules = [
-            home-manager.darwinModules.home-manager
-            {
-              home-manager.extraSpecialArgs = inputs;
-            }
-            private.modules.shell
-            private.modules.mac-secrets
-            defaultConfiguration
-            ./hosts/work
-          ];
-        };
-      };
-
-      nixosConfigurations = {
-        bee = nixpkgs.lib.nixosSystem {
-          specialArgs = inputs;
-          modules = [
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.users.gabriel.imports = [
-                private.modules.media-user
-              ];
-            }
-            private.modules.shell
-            private.modules.ssh
-            private.modules.server-secrets
-            ./modules/k3s.nix
-            defaultConfiguration
-            ./hosts/bee
-          ];
-        };
-
-        wasp = nixpkgs.lib.nixosSystem {
-          specialArgs = inputs;
-          modules = [
-            home-manager.nixosModules.home-manager
-            private.modules.shell
-            private.modules.ssh
-            private.modules.server-secrets
-            ./modules/k3s.nix
-            defaultConfiguration
-            ./hosts/wasp
-          ];
-        };
-      };
+  outputs = { self, ... }: {
+    modules = {
+      shell         = import ./modules/shell.nix;
+      git           = import ./modules/git.nix;
+      languages     = import ./modules/languages.nix;
+      homebrew      = import ./modules/homebrew.nix;
+      macos         = import ./modules/macos.nix;
+      restic-darwin = import ./modules/restic-darwin.nix;
+      samba         = import ./modules/stacks/samba.nix;
+      server        = import ./modules/stacks/server.nix;
     };
+  };
 }

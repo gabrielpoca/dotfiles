@@ -31,5 +31,5 @@ fi
 if [[ "$use_bee" == true ]]; then
     nix run nixpkgs#nixos-rebuild -- --fast --target-host bee --build-host bee --flake .#bee --use-remote-sudo switch
 else
-    sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles/"
+    sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/"
 fi
