@@ -1,6 +1,5 @@
 {
   pkgs,
-  claude-code,
   ...
 }:
 
@@ -24,7 +23,5 @@
     nodePackages.prettier
     nodePackages.http-server
 
-    # Claude Code
-    claude-code.packages.${pkgs.system}.default
   ];
 }

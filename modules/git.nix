@@ -48,8 +48,7 @@
     };
     ignores = [
       ".direnv/"
-      ".claude/"
-      ".aider*"
+".aider*"
       "!tmp/cache/.keep"
       "$TMPDIR/"
       "*.DS_Store"
