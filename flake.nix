@@ -11,8 +11,8 @@
       homebrew      = import ./modules/homebrew.nix;
       macos         = import ./modules/macos.nix;
       restic-darwin = import ./modules/restic-darwin.nix;
-      samba         = import ./modules/stacks/samba.nix;
-      server        = import ./modules/stacks/server.nix;
+      server        = import ./modules/server.nix;
+      dev           = import ./modules/dev.nix;
     };
   };
 }

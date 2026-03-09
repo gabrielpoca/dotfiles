@@ -3,6 +3,31 @@
 }:
 
 {
+  home-manager.users.gabriel = { config, ... }: {
+    home.sessionVariables = {
+      FZF_DEFAULT_OPTS = "--layout=reverse";
+      ZSH_CUSTOM = "$HOME/Developer/dotfiles/files/shell/zsh";
+    };
+
+    home.sessionPath = [
+      "$HOME/Developer/dotfiles/files/shell/bin"
+      "/Applications/WezTerm.app/Contents/MacOS"
+      "$HOME/.local/bin"
+    ];
+
+    home.shellAliases = {
+      rebuild = "rebuild";
+      rebuild-bee = "rebuild --bee";
+      rebuild-wasp = "rebuild --wasp";
+    };
+
+    home.file = {
+      ".config/wezterm/".source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/wezterm/";
+      ".config/nvim/".source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/nvim";
+      ".hammerspoon/".source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/hammerspoon";
+    };
+  };
+
   security.pam.services.sudo_local.touchIdAuth = true;
 
   system.keyboard.enableKeyMapping = true;
