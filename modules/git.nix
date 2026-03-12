@@ -48,7 +48,7 @@
     };
     ignores = [
       ".direnv/"
-".aider*"
+      ".aider*"
       "!tmp/cache/.keep"
       "$TMPDIR/"
       "*.DS_Store"
@@ -90,6 +90,12 @@
       "*.code-workspace"
       ".luarc.json"
       ".pnp.*"
+      "*.local.json"
+      ".claude/worktrees/"
+      ".claude/scheduled_tasks.lock"
+      ".cursor/"
+      ".mcp.json"
+      ".playwright-mcp/"
     ];
     attributes = [
       "db/schema.rb merge=railsschema"
