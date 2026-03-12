@@ -37,6 +37,11 @@ return {
     mappings = {
       -- first key is the mode
       n = {
+        ["<Leader>yr"] = {
+          function() require("utils").copy_reference() end,
+          desc = "Yank file reference",
+        },
+
         -- navigate buffer tabs with `H` and `L`
         L = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         H = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
@@ -68,6 +73,12 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+      },
+      v = {
+        ["<Leader>yr"] = {
+          function() require("utils").copy_reference() end,
+          desc = "Yank file reference",
+        },
       },
       t = {
         ["<C-q>"] = { "<C-\\><C-n>:close<CR>" },

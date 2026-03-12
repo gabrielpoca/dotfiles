@@ -67,4 +67,47 @@ function M.set_component_left(opts, component)
   table.insert(opts.statusline, index, component)
 end
 
+local function get_ref_path()
+  local path = vim.fn.expand("%:p")
+  if path == "" then return nil end
+
+  local git_root = vim.fn.system("git rev-parse --show-toplevel 2>/dev/null"):gsub("\n", "")
+  if git_root ~= "" and vim.v.shell_error == 0 then
+    if path:sub(1, #git_root) == git_root then
+      path = path:sub(#git_root + 2)
+    end
+  else
+    path = vim.fn.fnamemodify(path, ":.")
+  end
+
+  return path
+end
+
+function M.copy_reference()
+  local path = get_ref_path()
+  if not path then
+    vim.notify("No file to copy", vim.log.levels.WARN)
+    return
+  end
+
+  local mode = vim.api.nvim_get_mode().mode
+  local reference
+
+  if mode:match("^[vV\022]") then
+    local l1 = vim.fn.line("v")
+    local l2 = vim.fn.line(".")
+    local start_line = math.min(l1, l2)
+    local end_line = math.max(l1, l2)
+    reference = start_line == end_line
+      and (path .. ":" .. start_line)
+      or (path .. ":" .. start_line .. "-" .. end_line)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+  else
+    reference = path .. ":" .. vim.fn.line(".")
+  end
+
+  vim.fn.setreg("+", reference)
+  vim.notify("Copied: " .. reference)
+end
+
 return M
