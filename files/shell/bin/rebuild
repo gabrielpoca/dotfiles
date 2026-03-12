@@ -36,7 +36,7 @@ fi
 if [[ "$use_bee" == true ]]; then
     nix run nixpkgs#nixos-rebuild -- --fast --target-host bee --build-host bee --flake "$HOME/Developer/dotfiles-priv#bee" --use-remote-sudo switch
 elif [[ "$use_wasp" == true ]]; then
-    nix run nixpkgs#nixos-rebuild -- --fast --target-host wasp --build-host wasp --flake "$HOME/Developer/dotfiles-priv#wasp" --use-remote-sudo switch
+    nix run nixpkgs#nixos-rebuild -- --fast --target-host wasp --build-host bee --flake "$HOME/Developer/dotfiles-priv#wasp" --use-remote-sudo switch
 else
-    sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/"
+    sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/" --override-input public path:"$HOME/Developer/dotfiles"
 fi
