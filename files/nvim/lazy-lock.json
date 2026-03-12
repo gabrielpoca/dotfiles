@@ -13,8 +13,6 @@
   "blink.cmp": { "branch": "main", "commit": "b19413d214068f316c78978b08264ed1c41830ec" },
   "blink.compat": { "branch": "main", "commit": "2ed6d9a28b07fa6f3bface818470605f8896408c" },
   "cmp-dap": { "branch": "master", "commit": "ea92773e84c0ad3288c3bc5e452ac91559669087" },
-  "conform.nvim": { "branch": "master", "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f" },
-  "copilot.lua": { "branch": "master", "commit": "9688ca7ad7583c659979591d006e5ff0b0b0da07" },
   "crates.nvim": { "branch": "main", "commit": "ac9fa498a9edb96dc3056724ff69d5f40b898453" },
   "daml.nvim": { "branch": "main", "commit": "611cdf094a03e77df12c85542d1a155568f77952" },
   "deno-nvim": { "branch": "master", "commit": "5c1ef9762f916033bd3b9b37878384cae24ddb4e" },

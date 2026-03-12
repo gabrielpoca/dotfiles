@@ -29,7 +29,5 @@ return {
   { import = "astrocommunity.pack.nix" },
   { import = "astrocommunity.test.vim-test" },
   { import = "astrocommunity.recipes.ai" },
-  { import = "astrocommunity.completion.copilot-lua" },
-  { import = "astrocommunity.completion.copilot-lua-cmp" },
-  { import = "astrocommunity.terminal-integration.flatten-nvim" },
+{ import = "astrocommunity.terminal-integration.flatten-nvim" },
 }
