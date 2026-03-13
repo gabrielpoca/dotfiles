@@ -23,7 +23,6 @@
 
     home.file = {
       ".config/wezterm/".source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/wezterm/";
-      ".config/zellij/".source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/zellij/";
       ".config/nvim/".source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/nvim";
       ".hammerspoon/".source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/hammerspoon";
     };

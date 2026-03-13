@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-dir=$(find ~/Developer -maxdepth 1 -mindepth 1 -type d | fzf --layout=reverse)
-[ -z "$dir" ] && exit 0
-name=$(basename "$dir")
-zellij attach --create "$name" options --default-cwd "$dir"
