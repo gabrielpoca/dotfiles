@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if [ "$1" = "dark" ]; then
+    zellij options --theme "astrodark"
+else
+    zellij options --theme "astrolight"
+fi

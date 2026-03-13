@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -47,6 +48,8 @@ in
         theme = cfg;
       };
     };
+
+    home.packages = [ pkgs.zellij ];
 
     home.shellAliases = {
       "...." = "cd ../../..";
