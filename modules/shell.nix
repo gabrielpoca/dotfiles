@@ -35,10 +35,6 @@ in
         size = 10000;
       };
 
-      envExtra = ''
-        [[ -f ~/.secrets ]] && source ~/.secrets
-      '';
-
       oh-my-zsh = {
         enable = true;
         plugins = [
