@@ -35,8 +35,8 @@ in
         size = 10000;
       };
 
-      initContent = ''
-        [[ -f ~/.zprofile ]] && source ~/.zprofile
+      envExtra = ''
+        [[ -f ~/.secrets ]] && source ~/.secrets
       '';
 
       oh-my-zsh = {
