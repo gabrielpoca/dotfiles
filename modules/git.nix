@@ -96,6 +96,9 @@
       ".cursor/"
       ".mcp.json"
       ".playwright-mcp/"
+      "CLAUDE.local.md"
+      ".claude/settings.local.json"
+      ".worktrees/"
     ];
     attributes = [
       "db/schema.rb merge=railsschema"

@@ -34,6 +34,11 @@ in
       history = {
         size = 10000;
       };
+
+      initContent = ''
+        [[ -f ~/.zprofile ]] && source ~/.zprofile
+      '';
+
       oh-my-zsh = {
         enable = true;
         plugins = [

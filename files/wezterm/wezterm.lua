@@ -1,72 +1,23 @@
-require("utils")
-
 local wezterm = require("wezterm")
 local act = wezterm.action
 local theme = require("theme")
-local projects = require("projects")
 
-local config = {}
+local config = wezterm.config_builder()
 
-if wezterm.config_builder then
-  config = wezterm.config_builder()
-end
-
-local font = "Maple Mono NF"
-
+config.font = wezterm.font("Maple Mono NF")
+config.font_size = 15.0
 config.max_fps = 120
 config.animation_fps = 120
-
 config.default_cursor_style = "BlinkingBar"
 config.cursor_blink_rate = 500
 config.window_background_opacity = 0.96
-
 config.audible_bell = "Disabled"
 config.notification_handling = "AlwaysShow"
-config.tab_max_width = 30
-config.font = wezterm.font(font)
-config.font_size = 15.0
-config.use_fancy_tab_bar = false
-config.hide_tab_bar_if_only_one_tab = false
-config.enable_scroll_bar = false
 config.window_decorations = "RESIZE"
-config.inactive_pane_hsb = {
-  saturation = 0.70,
-  brightness = 1.00,
-}
-config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 10,
-}
+config.enable_scroll_bar = false
+config.enable_tab_bar = false
+config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
-local function isViProcess(pane)
-  return pane:get_foreground_process_name():find("n?vim") ~= nil
-end
-
-local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
-  if isViProcess(pane) then
-    window:perform_action(act.SendKey({ key = vim_direction, mods = "CTRL" }), pane)
-  else
-    window:perform_action(act.ActivatePaneDirection(pane_direction), pane)
-  end
-end
-
-wezterm.on("ActivatePaneDirection-right", function(window, pane)
-  conditionalActivatePane(window, pane, "Right", "l")
-end)
-wezterm.on("ActivatePaneDirection-left", function(window, pane)
-  conditionalActivatePane(window, pane, "Left", "h")
-end)
-wezterm.on("ActivatePaneDirection-up", function(window, pane)
-  conditionalActivatePane(window, pane, "Up", "k")
-end)
-wezterm.on("ActivatePaneDirection-down", function(window, pane)
-  conditionalActivatePane(window, pane, "Down", "j")
-end)
-
-config.command_palette_font_size = 16.0
-config.leader = { key = "a", mods = "CMD", timeout_milliseconds = 1000 }
 
 local url_regex = "\\b\\w+://(?:[\\w.-]+)\\.[a-z]{2,15}(:[\\d]+)?\\S*\\b"
 local ip_addr_regex = "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b"
@@ -79,218 +30,32 @@ config.quick_select_patterns = {
   "[A-Za-z0-9-_.]{4,100}",
 }
 
-config.hyperlink_rules = {
-  {
-    regex = url_regex,
-    format = "$0",
-  },
-  {
-    regex = ip_addr_regex,
-    format = "$0",
-  },
-}
-
-local copy_mode = wezterm.gui.default_key_tables().copy_mode
-
-table.insert(copy_mode, {
-  key = "/",
-  mods = "NONE",
-  action = act.Multiple({
-    act.CopyMode("ClearPattern"),
-    act.Search("CurrentSelectionOrEmptyString"),
-  }),
-})
-
-table.insert(copy_mode, { key = "i", mods = "NONE", action = act.CopyMode("Close") })
-table.insert(copy_mode, { key = "n", mods = "NONE", action = act.CopyMode("NextMatch") })
-table.insert(copy_mode, { key = "N", mods = "NONE", action = act.CopyMode("PriorMatch") })
-
-table.insert(copy_mode, {
-  key = "Escape",
-  mods = "NONE",
-  action = act.Multiple({
-    act.ClearSelection,
-    act.CopyMode("ClearPattern"),
-    act.CopyMode("ClearSelectionMode"),
-  }),
-})
-
-local search_mode = wezterm.gui.default_key_tables().search_mode
-
-table.insert(search_mode, {
-  key = "Enter",
-  mods = "NONE",
-  action = act.Multiple({
-    act.CopyMode("ClearSelectionMode"),
-    act.ActivateCopyMode,
-  }),
-})
-
-table.insert(search_mode, { key = "Escape", mods = "NONE", action = act.CopyMode("Close") })
-table.insert(search_mode, { key = "p", mods = "CTRL", action = act.CopyMode("PriorMatch") })
-table.insert(search_mode, { key = "n", mods = "CTRL", action = act.CopyMode("NextMatch") })
-
-local function tab_title(tab_info)
-  local title = tab_info.tab_title
-  -- if the tab title is explicitly set, take that
-  if title and #title > 0 then
-    return title
-  end
-  -- Otherwise, use the title from the active pane
-  -- in that tab
-  return tab_info.active_pane.title
-end
-
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-  local title = tab_title(tab)
-
-  -- if tab.is_active then
-  return {
-    -- { Background = { Color = "blue" } },
-    { Text = " " .. title .. " " },
-  }
-  -- end
-
-  -- return title
-end)
-
-local function update_workspace_status(window)
-  window:set_right_status(" " .. window:active_workspace() .. " ")
-end
-
-wezterm.on("update-status", function(window, pane)
-  update_workspace_status(window)
-end)
-
-wezterm.on("window-config-reloaded", function(window, pane)
-  wezterm.time.call_after(0.05, function()
-    update_workspace_status(window)
-  end)
-end)
-
-config.key_tables = {
-  copy_mode = copy_mode,
-  search_mode = search_mode,
-}
-
 config.keys = {
-  {
-    mods = "CMD",
-    key = "i",
-    action = wezterm.action_callback(function(window, pane)
-      projects.open_workspace(window, pane)
-    end),
-  },
-  {
-    mods = "CMD",
-    key = "u",
-    action = wezterm.action_callback(function(window, pane)
-      projects.open_pane(window, pane)
-    end),
-  },
-  {
-    key = "j",
-    mods = "CMD",
-    action = wezterm.action_callback(function(_, pane)
-      local tab = pane:tab()
-      local panes = tab:panes_with_info()
-      if #panes == 1 then
-        pane:split({
-          direction = "Bottom",
-          size = 0.4,
-        })
-      elseif not panes[1].is_zoomed then
-        panes[1].pane:activate()
-        tab:set_zoomed(true)
-      elseif panes[1].is_zoomed then
-        tab:set_zoomed(false)
-        panes[2].pane:activate()
-      end
-    end),
-  },
-  { key = "h", mods = "CMD", action = act.ActivateTabRelative(-1) },
-  { key = "l", mods = "CMD", action = act.ActivateTabRelative(1) },
-  { key = "h", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-left") },
-  { key = "j", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-down") },
-  { key = "k", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-up") },
-  { key = "l", mods = "CTRL", action = act.EmitEvent("ActivatePaneDirection-right") },
-  { key = "p", mods = "CMD", action = act.ActivateCommandPalette },
-  { key = "f", mods = "CMD", action = act.QuickSelect },
-  { key = "x", mods = "CMD", action = act.ActivateCopyMode },
-  { key = "s", mods = "CMD", action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
-  {
-    key = "w",
-    mods = "CMD",
-    action = wezterm.action_callback(function(window, pane)
-      window:perform_action(act.CloseCurrentPane({ confirm = true }), pane)
-      wezterm.time.call_after(0.1, function()
-        wezterm.reload_configuration()
-      end)
-    end),
-  },
-  { key = "y", mods = "CMD", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
-  { key = "f", mods = "CTRL|SHIFT", action = act.DisableDefaultAssignment },
   { key = "v", mods = "CMD", action = act.PasteFrom("Clipboard") },
-  {
-    key = "c",
-    mods = "CMD",
-    action = wezterm.action_callback(function(window, pane)
-      local name = window:active_tab():get_title()
-
-      window:perform_action(
-        act.SpawnCommandInNewTab({
-          domain = "DefaultDomain",
-        }),
-        pane
-      )
-
-      window:active_tab():set_title(name)
-    end),
-  },
-  {
-    key = "o",
-    mods = "CMD",
-    action = act.RotatePanes("Clockwise"),
-  },
-  {
-    key = "r",
-    mods = "CMD",
-    action = wezterm.action_callback(function()
-      wezterm.reload_configuration()
-    end),
-  },
-  {
-    key = "z",
-    mods = "CMD",
-    action = wezterm.action.TogglePaneZoomState,
-  },
-  {
-    key = "e",
-    mods = "CMD",
-    action = act.PromptInputLine({
-      description = "Rename tab:",
-      action = wezterm.action_callback(function(window, _pane, line)
-        if line then
-          window:active_tab():set_title(line)
-        end
-      end),
-    }),
-  },
-  {
-    key = "a",
-    mods = "LEADER",
-    action = act.SpawnCommandInNewTab({
-      args = { os.getenv("SHELL"), "-lc", "nvim -c \"lua require('orgmode').action('agenda.agenda')\"" },
-      cwd = "/Users/gabriel/Developer/dotfiles/",
-    }),
-  },
-  {
-    key = "c",
-    mods = "LEADER",
-    action = act.SplitHorizontal({
-      args = { "/bin/zsh", "-ic", "claude" },
-    }),
-  },
+  { key = "c", mods = "CMD", action = act.SendKey({ key = "c", mods = "ALT" }) },
+  { key = "h", mods = "CMD", action = act.SendKey({ key = "h", mods = "ALT" }) },
+  { key = "l", mods = "CMD", action = act.SendKey({ key = "l", mods = "ALT" }) },
+  { key = "s", mods = "CMD", action = act.SendKey({ key = "s", mods = "ALT" }) },
+  { key = "j", mods = "CMD", action = act.SendKey({ key = "j", mods = "ALT" }) },
+  { key = "w", mods = "CMD", action = act.SendKey({ key = "w", mods = "ALT" }) },
+  { key = "z", mods = "CMD", action = act.SendKey({ key = "z", mods = "ALT" }) },
+  { key = "x", mods = "CMD", action = act.SendKey({ key = "x", mods = "ALT" }) },
+  { key = "e", mods = "CMD", action = act.SendKey({ key = "e", mods = "ALT" }) },
+  { key = "i", mods = "CMD", action = act.SendKey({ key = "i", mods = "ALT" }) },
+  { key = "y", mods = "CMD", action = act.SendKey({ key = "y", mods = "ALT" }) },
+  { key = "o", mods = "CMD", action = act.SendKey({ key = "o", mods = "ALT" }) },
+  { key = "f", mods = "CMD", action = act.QuickSelect },
+  { key = "u", mods = "CMD", action = act.SendKey({ key = "u", mods = "ALT" }) },
+  { key = "r", mods = "CMD", action = act.SendKey({ key = "r", mods = "ALT" }) },
+  { key = "d", mods = "CMD", action = act.SendKey({ key = "d", mods = "ALT" }) },
+  { key = "q", mods = "CMD", action = act.DisableDefaultAssignment },
 }
 
-return object_assign(config, theme)
+config.send_composed_key_when_left_alt_is_pressed = false
+config.send_composed_key_when_right_alt_is_pressed = false
+
+for k, v in pairs(theme) do
+  config[k] = v
+end
+
+return config
