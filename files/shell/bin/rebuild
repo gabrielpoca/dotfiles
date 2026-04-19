@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
 use_bee=false
-use_wasp=false
+use_hornet=false
+use_agent_sandbox=false
+use_dev_sandbox=false
 update_secrets=false
 
 while [[ $# -gt 0 ]]; do
@@ -10,8 +12,16 @@ while [[ $# -gt 0 ]]; do
             use_bee=true
             shift
             ;;
-        --wasp)
-            use_wasp=true
+        --hornet)
+            use_hornet=true
+            shift
+            ;;
+        --agent-sandbox)
+            use_agent_sandbox=true
+            shift
+            ;;
+        --dev-sandbox)
+            use_dev_sandbox=true
             shift
             ;;
         --update-secrets)
@@ -33,10 +43,60 @@ if [[ "$update_secrets" == true ]]; then
     fi
 fi
 
+current_host="$(hostname)"
+
 if [[ "$use_bee" == true ]]; then
-    nix run nixpkgs#nixos-rebuild -- --fast --target-host bee --build-host bee --flake "$HOME/Developer/dotfiles-priv#bee" --use-remote-sudo switch
-elif [[ "$use_wasp" == true ]]; then
-    nix run nixpkgs#nixos-rebuild -- --fast --target-host wasp --build-host bee --flake "$HOME/Developer/dotfiles-priv#wasp" --use-remote-sudo switch
+    if [[ "$current_host" == "bee" ]]; then
+        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#bee"
+    else
+        nix run nixpkgs#nixos-rebuild -- --fast --target-host bee --build-host bee --flake "$HOME/Developer/dotfiles-priv#bee" --use-remote-sudo switch
+    fi
+elif [[ "$use_hornet" == true ]]; then
+    if [[ "$current_host" == "hornet" ]]; then
+        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#hornet"
+    else
+        nix run nixpkgs#nixos-rebuild -- --fast --target-host hornet --build-host bee --flake "$HOME/Developer/dotfiles-priv#hornet" --use-remote-sudo switch
+    fi
+elif [[ "$use_agent_sandbox" == true ]]; then
+    if [[ "$current_host" == "agent-sandbox" ]]; then
+        TOKEN=$(github-app-token)
+        sudo nixos-rebuild switch \
+            --refresh \
+            --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" \
+            --option access-tokens "github.com=$TOKEN" \
+            --override-input telepi "git+https://github.com/gabrielpoca/TelePi.git?ref=refs/heads/main" \
+            "$@"
+    else
+        nix run nixpkgs#nixos-rebuild -- --fast --target-host gabriel@agent-sandbox --build-host bee --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" --use-remote-sudo switch
+    fi
+elif [[ "$use_dev_sandbox" == true ]]; then
+    if [[ "$current_host" == "dev-sandbox" ]]; then
+        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
+    else
+        limactl shell dev-sandbox -- bash -c "sudo nixos-rebuild switch --flake \$HOME/Developer/dotfiles-priv#dev-sandbox"
+    fi
 else
-    sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/" --override-input public path:"$HOME/Developer/dotfiles"
+    case "$current_host" in
+        bee)
+            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#bee"
+            ;;
+        hornet)
+            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#hornet"
+            ;;
+        agent-sandbox)
+            TOKEN=$(github-app-token)
+            sudo nixos-rebuild switch \
+                --refresh \
+                --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" \
+                --option access-tokens "github.com=$TOKEN" \
+                --override-input telepi "git+https://github.com/gabrielpoca/TelePi.git?ref=refs/heads/main" \
+                "$@"
+            ;;
+        dev-sandbox)
+            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
+            ;;
+        *)
+            sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/" --override-input public path:"$HOME/Developer/dotfiles"
+            ;;
+    esac
 fi
