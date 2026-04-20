@@ -1,11 +1,16 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
 let
   cfg = config.shell.theme;
+  rebuildScript = pkgs.runCommand "rebuild" { } ''
+    install -D -m 755 ${../files/shell/bin/rebuild} $out/bin/rebuild
+    patchShebangs $out/bin/rebuild
+  '';
 in
 {
   options.shell.theme = mkOption {
@@ -52,6 +57,8 @@ in
     home.sessionPath = [
       "$HOME/Developer/dotfiles/files/shell/bin"
     ];
+
+    home.packages = [ rebuildScript ];
 
     home.shellAliases = {
       "...." = "cd ../../..";
