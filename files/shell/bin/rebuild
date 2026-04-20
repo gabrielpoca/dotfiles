@@ -55,7 +55,7 @@ elif [[ "$use_hornet" == true ]]; then
     if [[ "$current_host" == "hornet" ]]; then
         sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#hornet"
     else
-        nix run nixpkgs#nixos-rebuild -- --fast --target-host hornet --build-host bee --flake "$HOME/Developer/dotfiles-priv#hornet" --use-remote-sudo switch
+        nix run nixpkgs#nixos-rebuild -- --fast --target-host hornet --build-host hornet --flake "$HOME/Developer/dotfiles-priv#hornet" --use-remote-sudo switch
     fi
 elif [[ "$use_agent_sandbox" == true ]]; then
     if [[ "$current_host" == "agent-sandbox" ]]; then
