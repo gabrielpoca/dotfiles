@@ -49,6 +49,10 @@ in
       };
     };
 
+    home.sessionPath = [
+      "$HOME/Developer/dotfiles/files/shell/bin"
+    ];
+
     home.shellAliases = {
       "...." = "cd ../../..";
       "..." = "cd ../..";

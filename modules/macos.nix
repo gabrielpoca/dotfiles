@@ -10,16 +10,9 @@
     };
 
     home.sessionPath = [
-      "$HOME/Developer/dotfiles/files/shell/bin"
       "/Applications/WezTerm.app/Contents/MacOS"
       "$HOME/.local/bin"
     ];
-
-    home.shellAliases = {
-      rebuild = "rebuild";
-      rebuild-bee = "rebuild --bee";
-      rebuild-wasp = "rebuild --wasp";
-    };
 
     home.file = {
       ".config/wezterm/".source = config.lib.file.mkOutOfStoreSymlink "/Users/gabriel/Developer/dotfiles/files/wezterm/";
