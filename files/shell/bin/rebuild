@@ -62,18 +62,18 @@ elif [[ "$use_agent_sandbox" == true ]]; then
         TOKEN=$(github-app-token)
         sudo nixos-rebuild switch \
             --refresh \
+            --impure \
             --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" \
             --option access-tokens "github.com=$TOKEN" \
-            --override-input telepi "git+https://github.com/gabrielpoca/TelePi.git?ref=refs/heads/main" \
             "$@"
     else
         nix run nixpkgs#nixos-rebuild -- --fast --target-host gabriel@agent-sandbox --build-host bee --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" --use-remote-sudo switch
     fi
 elif [[ "$use_dev_sandbox" == true ]]; then
     if [[ "$current_host" == "dev-sandbox" ]]; then
-        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
+        sudo nixos-rebuild switch --impure --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
     else
-        limactl shell dev-sandbox -- bash -c "sudo nixos-rebuild switch --flake \$HOME/Developer/dotfiles-priv#dev-sandbox"
+        limactl shell dev-sandbox -- bash -c "sudo nixos-rebuild switch --impure --flake \$HOME/Developer/dotfiles-priv#dev-sandbox"
     fi
 else
     case "$current_host" in
@@ -87,13 +87,13 @@ else
             TOKEN=$(github-app-token)
             sudo nixos-rebuild switch \
                 --refresh \
+                --impure \
                 --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" \
                 --option access-tokens "github.com=$TOKEN" \
-                --override-input telepi "git+https://github.com/gabrielpoca/TelePi.git?ref=refs/heads/main" \
                 "$@"
             ;;
         dev-sandbox)
-            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
+            sudo nixos-rebuild switch --impure --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
             ;;
         *)
             sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/" --override-input public path:"$HOME/Developer/dotfiles"
