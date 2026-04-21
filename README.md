@@ -23,6 +23,6 @@ My personal dotfiles managed with Nix and Home Manager.
 
 ## Updating
 
-To update your configuration after making changes:
+To rebuild the current host after making changes:
 
     rebuild
