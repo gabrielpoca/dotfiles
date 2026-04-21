@@ -20,6 +20,7 @@
     rustup
     tig
     tldr
+    tmux
     transcrypt
     wget
   ];

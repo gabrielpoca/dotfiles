@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if [ "$1" = "dark" ]; then
+    tmux source-file ~/.config/tmux/themes/astrodark.conf
+else
+    tmux source-file ~/.config/tmux/themes/astrolight.conf
+fi

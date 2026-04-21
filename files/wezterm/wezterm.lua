@@ -15,7 +15,8 @@ config.audible_bell = "Disabled"
 config.notification_handling = "AlwaysShow"
 config.window_decorations = "RESIZE"
 config.enable_scroll_bar = false
-config.enable_tab_bar = false
+config.enable_tab_bar = true
+config.hide_tab_bar_if_only_one_tab = true
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
 
 
@@ -48,11 +49,26 @@ config.keys = {
   { key = "u", mods = "CMD", action = act.SendKey({ key = "u", mods = "ALT" }) },
   { key = "r", mods = "CMD", action = act.SendKey({ key = "r", mods = "ALT" }) },
   { key = "d", mods = "CMD", action = act.SendKey({ key = "d", mods = "ALT" }) },
-  { key = "q", mods = "CMD", action = act.DisableDefaultAssignment },
+  { key = "g", mods = "CMD", action = act.SendKey({ key = "g", mods = "ALT" }) },
+
+  { key = "t", mods = "CMD", action = act.SendKey({ key = "t", mods = "ALT" }) },
+
+  -- WezTerm native: new tab and splits
+  { key = "t", mods = "CMD|SHIFT", action = act.SpawnTab("CurrentPaneDomain") },
+  { key = "d", mods = "CMD|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+  { key = "e", mods = "CMD|SHIFT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+  { key = "w", mods = "CMD|SHIFT", action = act.CloseCurrentPane({ confirm = true }) },
 }
 
 config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
+
+-- Notifications from remote sessions via SetUserVar
+wezterm.on("user-var-changed", function(window, pane, name, value)
+  if name == "notify" then
+    window:toast_notification("Claude", value, nil, 4000)
+  end
+end)
 
 for k, v in pairs(theme) do
   config[k] = v
