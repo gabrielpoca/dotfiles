@@ -22,6 +22,8 @@
     nodePackages.yarn
     nodePackages.prettier
     nodePackages.http-server
+    nodePackages.typescript-language-server
+    nodePackages.typescript
 
   ];
 }
