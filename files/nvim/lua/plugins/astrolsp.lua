@@ -5,10 +5,11 @@ return {
   opts = {
     formatting = {
       filter = function(client)
-        if vim.bo.filetype == "javascript" then return client.name == "biome" end
-        if vim.bo.filetype == "typescript" then return client.name == "biome" end
-
-        return true
+        local biome = require "utils.biome"
+        if not biome.applies_to_ft(vim.bo.filetype) then return true end
+        local has = biome.has_config()
+        if client.name == "biome" then return has end
+        return not has
       end,
     },
     servers = {

@@ -20,6 +20,7 @@ return {
   { import = "astrocommunity.pack.elixir-phoenix" },
   { import = "astrocommunity.pack.typescript-all-in-one" },
   { import = "astrocommunity.pack.biome" },
+  { import = "astrocommunity.pack.prettier" },
   { import = "astrocommunity.pack.tailwindcss" },
   { import = "astrocommunity.pack.markdown" },
   { import = "astrocommunity.pack.lua" },
