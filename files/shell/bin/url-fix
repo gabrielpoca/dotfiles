@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  url-fix 'https://example.com/...'
+  url-fix https://example.com/foo bar baz
+  pbpaste | url-fix
+
+Removes all whitespace from a pasted URL, copies the cleaned URL to the
+clipboard when possible, and opens it in vim.
+EOF
+}
+
+copy_to_clipboard() {
+  local value="$1"
+
+  if command -v pbcopy >/dev/null 2>&1; then
+    printf '%s' "$value" | pbcopy
+    return 0
+  fi
+
+  if command -v wl-copy >/dev/null 2>&1; then
+    printf '%s' "$value" | wl-copy
+    return 0
+  fi
+
+  if command -v xclip >/dev/null 2>&1; then
+    printf '%s' "$value" | xclip -selection clipboard
+    return 0
+  fi
+
+  if command -v xsel >/dev/null 2>&1; then
+    printf '%s' "$value" | xsel --clipboard --input
+    return 0
+  fi
+
+  return 1
+}
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+raw_input=""
+
+if [[ $# -gt 0 ]]; then
+  raw_input="$*"
+elif [[ ! -t 0 ]]; then
+  raw_input="$(cat)"
+else
+  usage >&2
+  exit 1
+fi
+
+clean_url="$(printf '%s' "$raw_input" | tr -d '[:space:]')"
+clean_url="$(printf '%s' "$clean_url" | sed 's/\\\([?&=]\)/\1/g')"
+
+if [[ -z "$clean_url" ]]; then
+  echo "No URL content found after removing whitespace." >&2
+  exit 1
+fi
+
+temp_file="$(mktemp)"
+trap 'rm -f "$temp_file"' EXIT
+
+printf '%s\n' "$clean_url" >"$temp_file"
+
+clipboard_status="Clipboard copy skipped."
+if copy_to_clipboard "$clean_url"; then
+  clipboard_status="Copied cleaned URL to clipboard."
+fi
+
+vim "$temp_file"
+
+echo "$clipboard_status" >&2
