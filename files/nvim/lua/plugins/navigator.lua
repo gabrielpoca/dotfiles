@@ -1,7 +1,6 @@
 return {
   "mrjones2014/smart-splits.nvim",
-  lazy = true,
-  event = "VeryLazy",
+  lazy = false,
   opts = {},
   keys = {
     { "<C-h>", function() require("smart-splits").move_cursor_left() end },

@@ -1,5 +1,6 @@
 return {
   "obsidian-nvim/obsidian.nvim",
+  enabled = vim.fn.isdirectory("/Users/gabriel/Obsidian/Work") == 1,
   version = "*",
   dependencies = {
     "nvim-lua/plenary.nvim",
