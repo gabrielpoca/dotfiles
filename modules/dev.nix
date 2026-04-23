@@ -16,6 +16,7 @@
     ncdu
     nil
     nixd
+    neovim
     nmap
     rustup
     tig
@@ -55,11 +56,4 @@
   programs.aria2.enable = true;
 
   programs.fd.enable = true;
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-  };
 }
