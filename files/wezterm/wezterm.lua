@@ -17,7 +17,50 @@ config.window_decorations = "RESIZE"
 config.enable_scroll_bar = false
 config.enable_tab_bar = true
 config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = false
+config.tab_bar_at_bottom = false
+config.tab_max_width = 32
+config.show_new_tab_button_in_tab_bar = false
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
+
+local HOST_ICON = {
+  mac    = wezterm.nerdfonts.dev_apple,
+  linux  = wezterm.nerdfonts.dev_linux,
+  remote = wezterm.nerdfonts.md_server,
+}
+
+local function host_info(pane)
+  local cwd = pane.current_working_dir
+  local host
+  if cwd then
+    if type(cwd) == "userdata" and cwd.host then
+      host = cwd.host
+    elseif type(cwd) == "string" then
+      host = cwd:match("^%w+://([^/]+)")
+    end
+  end
+  host = host or pane.domain_name or ""
+  local hl = host:lower()
+  local kind
+  if hl:find("mac") or hl:find("darwin") then
+    kind = "mac"
+  elseif hl == "" or hl == "local" then
+    kind = "remote"
+  else
+    kind = "linux"
+  end
+  local short = host:gsub("%..*$", "")
+  if short == "" then short = "local" end
+  return kind, short
+end
+
+wezterm.on("format-tab-title", function(tab, _tabs, _panes, _config, _hover, _max_width)
+  local kind, name = host_info(tab.active_pane)
+  return {
+    { Attribute = { Intensity = tab.is_active and "Bold" or "Normal" } },
+    { Text = string.format("  %s  %s  ", HOST_ICON[kind], name) },
+  }
+end)
 
 
 local url_regex = "\\b\\w+://(?:[\\w.-]+)\\.[a-z]{2,15}(:[\\d]+)?\\S*\\b"

@@ -40,6 +40,27 @@ in
         size = 10000;
       };
 
+      initContent = ''
+        # Emit OSC 7 so terminal (wezterm) knows hostname + cwd
+        _osc7_cwd() {
+          local strlen=''${#PWD}
+          local encoded=""
+          local i c o
+          for (( i = 0; i < strlen; ++i )); do
+            c=''${PWD[i+1]}
+            case "$c" in
+              [-/_.~A-Za-z0-9]) o="$c" ;;
+              *) printf -v o '%%%02X' "'$c" ;;
+            esac
+            encoded+="$o"
+          done
+          printf '\e]7;file://%s%s\e\\' "''${HOST:-$(hostname)}" "$encoded"
+        }
+        autoload -Uz add-zsh-hook
+        add-zsh-hook chpwd _osc7_cwd
+        _osc7_cwd
+      '';
+
       oh-my-zsh = {
         enable = true;
         plugins = [
