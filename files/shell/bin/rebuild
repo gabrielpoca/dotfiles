@@ -2,7 +2,6 @@
 
 use_bee=false
 use_hornet=false
-use_agent_sandbox=false
 use_dev_sandbox=false
 update_secrets=false
 
@@ -14,10 +13,6 @@ while [[ $# -gt 0 ]]; do
             ;;
         --hornet)
             use_hornet=true
-            shift
-            ;;
-        --agent-sandbox)
-            use_agent_sandbox=true
             shift
             ;;
         --dev-sandbox)
@@ -57,18 +52,6 @@ elif [[ "$use_hornet" == true ]]; then
     else
         nix run nixpkgs#nixos-rebuild -- --fast --target-host hornet --build-host hornet --flake "$HOME/Developer/dotfiles-priv#hornet" --use-remote-sudo switch
     fi
-elif [[ "$use_agent_sandbox" == true ]]; then
-    if [[ "$current_host" == "agent-sandbox" ]]; then
-        TOKEN=$(github-app-token)
-        sudo nixos-rebuild switch \
-            --refresh \
-            \
-            --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" \
-            --option access-tokens "github.com=$TOKEN" \
-            "$@"
-    else
-        nix run nixpkgs#nixos-rebuild -- --fast --target-host gabriel@agent-sandbox --build-host bee --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" --use-remote-sudo switch
-    fi
 elif [[ "$use_dev_sandbox" == true ]]; then
     if [[ "$current_host" == "dev-sandbox" ]]; then
         sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" --override-input public path:"$HOME/Developer/dotfiles"
@@ -82,15 +65,6 @@ else
             ;;
         hornet)
             sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#hornet"
-            ;;
-        agent-sandbox)
-            TOKEN=$(github-app-token)
-            sudo nixos-rebuild switch \
-                --refresh \
-                \
-                --flake "$HOME/Developer/dotfiles-priv#agent-sandbox" \
-                --option access-tokens "github.com=$TOKEN" \
-                "$@"
             ;;
         dev-sandbox)
             sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" --override-input public path:"$HOME/Developer/dotfiles"
