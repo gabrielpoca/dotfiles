@@ -54,9 +54,9 @@ elif [[ "$use_hornet" == true ]]; then
     fi
 elif [[ "$use_dev_sandbox" == true ]]; then
     if [[ "$current_host" == "dev-sandbox" ]]; then
-        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" --override-input public path:"$HOME/Developer/dotfiles"
+        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
     else
-        limactl shell dev-sandbox -- bash -c "sudo nixos-rebuild switch --flake \$HOME/Developer/dotfiles-priv#dev-sandbox --override-input public path:\$HOME/Developer/dotfiles"
+        limactl shell dev-sandbox -- bash -c "sudo nixos-rebuild switch --flake \$HOME/Developer/dotfiles-priv#dev-sandbox"
     fi
 else
     case "$current_host" in
@@ -67,10 +67,10 @@ else
             sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#hornet"
             ;;
         dev-sandbox)
-            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" --override-input public path:"$HOME/Developer/dotfiles"
+            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
             ;;
         *)
-            sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/" --override-input public path:"$HOME/Developer/dotfiles"
+            sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/"
             ;;
     esac
 fi
