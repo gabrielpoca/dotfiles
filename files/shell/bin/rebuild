@@ -39,6 +39,10 @@ if [[ "$update_secrets" == true ]]; then
 fi
 
 current_host="$(hostname)"
+public_override=()
+if [[ -d "$HOME/Developer/dotfiles" ]]; then
+    public_override=(--override-input public "path:$HOME/Developer/dotfiles")
+fi
 
 if [[ "$use_bee" == true ]]; then
     if [[ "$current_host" == "bee" ]]; then
@@ -54,9 +58,9 @@ elif [[ "$use_hornet" == true ]]; then
     fi
 elif [[ "$use_dev_sandbox" == true ]]; then
     if [[ "$current_host" == "dev-sandbox" ]]; then
-        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
+        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" "${public_override[@]}"
     else
-        limactl shell dev-sandbox -- bash -c "sudo nixos-rebuild switch --flake \$HOME/Developer/dotfiles-priv#dev-sandbox"
+        limactl shell dev-sandbox -- bash -lc 'public_override=(); if [[ -d "$HOME/Developer/dotfiles" ]]; then public_override=(--override-input public "path:$HOME/Developer/dotfiles"); fi; sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" "${public_override[@]}"'
     fi
 else
     case "$current_host" in
@@ -67,10 +71,10 @@ else
             sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#hornet"
             ;;
         dev-sandbox)
-            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox"
+            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" "${public_override[@]}"
             ;;
         *)
-            sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/"
+            sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/" "${public_override[@]}"
             ;;
     esac
 fi
