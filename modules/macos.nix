@@ -83,8 +83,9 @@
       wvous-tl-corner = 1;
       wvous-tr-corner = 1;
       persistent-apps = [
-        "/Applications/Arc.app"
+        "/Applications/Zen.app"
         "/Applications/WezTerm.app"
+        "/Applications/Claude.app"
         "/Applications/Slack.app"
         "/System/Applications/Mail.app"
         "/Applications/Obsidian.app"
