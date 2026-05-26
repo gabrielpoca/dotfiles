@@ -54,7 +54,12 @@ in
             esac
             encoded+="$o"
           done
-          printf '\e]7;file://%s%s\e\\' "''${HOST:-$(hostname)}" "$encoded"
+          local host="''${HOST:-$(hostname)}"
+          if [[ -n "$TMUX" ]]; then
+            printf '\ePtmux;\e\e]7;file://%s%s\a\e\\' "$host" "$encoded"
+          else
+            printf '\e]7;file://%s%s\a' "$host" "$encoded"
+          fi
         }
         autoload -Uz add-zsh-hook
         add-zsh-hook chpwd _osc7_cwd
