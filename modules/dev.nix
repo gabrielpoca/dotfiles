@@ -29,6 +29,9 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     ERL_AFLAGS = "-kernel shell_history enabled";
+    # Auto-shutdown the agent-browser daemon after 5 min idle so forgotten
+    # sessions don't pin a CPU core on headless SwiftShader rendering.
+    AGENT_BROWSER_IDLE_TIMEOUT_MS = "300000";
   };
 
   home.file.".tigrc".text = ''
