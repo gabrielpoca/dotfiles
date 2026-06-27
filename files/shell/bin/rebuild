@@ -2,8 +2,6 @@
 
 use_bee=false
 use_hornet=false
-use_dev_sandbox=false
-use_mantis=false
 update_secrets=false
 
 while [[ $# -gt 0 ]]; do
@@ -14,14 +12,6 @@ while [[ $# -gt 0 ]]; do
             ;;
         --hornet)
             use_hornet=true
-            shift
-            ;;
-        --dev-sandbox)
-            use_dev_sandbox=true
-            shift
-            ;;
-        --mantis)
-            use_mantis=true
             shift
             ;;
         --update-secrets)
@@ -61,19 +51,9 @@ elif [[ "$use_hornet" == true ]]; then
     else
         nix run nixpkgs#nixos-rebuild -- --fast --target-host hornet --build-host hornet --flake "$HOME/Developer/dotfiles-priv#hornet" --use-remote-sudo switch
     fi
-elif [[ "$use_dev_sandbox" == true ]]; then
-    if [[ "$current_host" == "dev-sandbox" ]]; then
-        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" "${public_override[@]}"
-    else
-        limactl shell dev-sandbox -- bash -lc 'public_override=(); if [[ -d "$HOME/Developer/dotfiles" ]]; then public_override=(--override-input public "path:$HOME/Developer/dotfiles"); fi; sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" "${public_override[@]}"'
-    fi
-elif [[ "$use_mantis" == true ]]; then
-    if [[ "$current_host" == "mantis" ]]; then
-        sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#mantis"
-    else
-        nix run nixpkgs#nixos-rebuild -- --fast --target-host mantis --build-host mantis --flake "$HOME/Developer/dotfiles-priv#mantis" --use-remote-sudo switch
-    fi
 else
+    # dev-sandbox and mantis rebuild only from the host itself (no cross-host
+    # dispatch) so a stale clone elsewhere can never deploy an old config to them.
     case "$current_host" in
         bee)
             sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#bee"
