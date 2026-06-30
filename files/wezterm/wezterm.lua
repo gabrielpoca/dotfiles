@@ -100,13 +100,74 @@ config.quick_select_patterns = {
   "[A-Za-z0-9-_.]{4,100}",
 }
 
+-- Remote multiplexing into mantis (Zed-style): wezterm-mux-server holds the
+-- terminal grid on mantis and this GUI renders it locally. Connect with
+-- `wezterm connect mantis`. Both ends run the same pinned-nixpkgs wezterm so the
+-- mux codec versions match.
+local REMOTE_HOST = "mantis"
+local REMOTE_DIR = "/tmp/wezterm-clip"
+
+config.ssh_domains = {
+  {
+    name = REMOTE_HOST,
+    remote_address = REMOTE_HOST,
+    username = "gabriel",
+    multiplexing = "WezTerm",
+    remote_wezterm_path = "/run/current-system/sw/bin/wezterm",
+    -- mantis is in Hetzner Germany (~53ms RTT from here). The default
+    -- threshold is 100ms, so predictive echo never engages and every keystroke
+    -- waits a full round-trip. Lowering it below 53ms turns on mosh-style local
+    -- echo so typing feels instant.
+    local_echo_threshold_ms = 10,
+  },
+}
+
+local function clipboard_has_image()
+  local ok, out = wezterm.run_child_process({ "osascript", "-e", "clipboard info" })
+  return ok and out ~= nil and out:find("PNGf") ~= nil
+end
+
+local function save_clipboard_png(local_path)
+  local script = string.format(
+    'set f to (open for access POSIX file "%s" with write permission)\n'
+      .. "try\n"
+      .. "  write (the clipboard as «class PNGf») to f\n"
+      .. "end try\n"
+      .. "close access f",
+    local_path
+  )
+  return wezterm.run_child_process({ "osascript", "-e", script })
+end
+
+-- Cmd+V on a mantis pane holding a clipboard image: save it on the Mac, ship it
+-- to mantis, and insert the remote path so Claude Code can Read it. Otherwise a
+-- normal clipboard paste.
+local function smart_paste(window, pane)
+  local domain = pane:get_domain_name() or ""
+  if domain:find(REMOTE_HOST) and clipboard_has_image() then
+    local stamp = string.format("%d-%d", os.time(), pane:pane_id())
+    local tmp = os.getenv("TMPDIR") or "/tmp"
+    local local_png = string.format("%s/wezterm-clip-%s.png", tmp, stamp)
+    local remote_png = string.format("%s/paste-%s.png", REMOTE_DIR, stamp)
+    local saved = save_clipboard_png(local_png)
+    local made = wezterm.run_child_process({ "ssh", REMOTE_HOST, "mkdir -p " .. REMOTE_DIR })
+    local sent = wezterm.run_child_process({ "scp", "-q", local_png, REMOTE_HOST .. ":" .. remote_png })
+    if saved and made and sent then
+      window:perform_action(act.SendString(remote_png), pane)
+      return
+    end
+    window:toast_notification("WezTerm", "clipboard image paste to " .. REMOTE_HOST .. " failed", nil, 4000)
+  end
+  window:perform_action(act.PasteFrom("Clipboard"), pane)
+end
+
 -- Send CSI-u Alt+<key> for Cmd+<key> so tmux can disambiguate from bare Esc + key
 local function alt_csi_u(letter)
   return act.SendString(string.format("\x1b[%d;3u", string.byte(letter)))
 end
 
 config.keys = {
-  { key = "v", mods = "CMD", action = act.PasteFrom("Clipboard") },
+  { key = "v", mods = "CMD", action = wezterm.action_callback(smart_paste) },
   { key = "c", mods = "CMD", action = alt_csi_u("c") },
   { key = "h", mods = "CMD", action = alt_csi_u("h") },
   { key = "k", mods = "CMD", action = alt_csi_u("k") },
@@ -131,7 +192,12 @@ config.keys = {
 
   -- WezTerm native: new tab and splits
   { key = "n", mods = "CMD|SHIFT", action = act.SpawnWindow },
-  { key = "t", mods = "CMD|SHIFT", action = act.SpawnTab("CurrentPaneDomain") },
+  -- Always local, so opening a mantis tab doesn't make every later new tab
+  -- inherit the mantis domain. Mantis is reached only via Cmd+Shift+M below.
+  { key = "t", mods = "CMD|SHIFT", action = act.SpawnTab({ DomainName = "local" }) },
+  -- Attach the mantis mux domain as a tab in the current window (no second GUI
+  -- process, so no phantom local window like `wezterm connect` produces).
+  { key = "m", mods = "CMD|SHIFT", action = act.SpawnTab({ DomainName = REMOTE_HOST }) },
   { key = "d", mods = "CMD|SHIFT", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
   { key = "e", mods = "CMD|SHIFT", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
   { key = "w", mods = "CMD|SHIFT", action = act.CloseCurrentPane({ confirm = true }) },
