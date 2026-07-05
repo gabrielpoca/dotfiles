@@ -67,6 +67,9 @@ else
         mantis)
             sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#mantis"
             ;;
+        mantis-dev)
+            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#mantis-dev"
+            ;;
         *)
             sudo darwin-rebuild switch --flake "$HOME/Developer/dotfiles-priv/" "${public_override[@]}"
             ;;
