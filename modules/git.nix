@@ -91,6 +91,8 @@
       ".luarc.json"
       ".pnp.*"
       "*.local.json"
+      "__pycache__/"
+      "*.py[cod]"
       ".claude/worktrees/"
       ".claude/scheduled_tasks.lock"
       ".cursor/"
