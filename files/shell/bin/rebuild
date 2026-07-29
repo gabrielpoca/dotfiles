@@ -52,7 +52,7 @@ elif [[ "$use_hornet" == true ]]; then
         nix run nixpkgs#nixos-rebuild -- --fast --target-host hornet --build-host hornet --flake "$HOME/Developer/dotfiles-priv#hornet" --use-remote-sudo switch
     fi
 else
-    # dev-sandbox and mantis rebuild only from the host itself (no cross-host
+    # mantis and mantis-dev rebuild only from the host itself (no cross-host
     # dispatch) so a stale clone elsewhere can never deploy an old config to them.
     case "$current_host" in
         bee)
@@ -60,9 +60,6 @@ else
             ;;
         hornet)
             sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#hornet"
-            ;;
-        dev-sandbox)
-            sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#dev-sandbox" "${public_override[@]}"
             ;;
         mantis)
             sudo nixos-rebuild switch --flake "$HOME/Developer/dotfiles-priv#mantis"
