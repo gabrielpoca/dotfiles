@@ -6,6 +6,12 @@ local window_gap = 0
 local last_position
 
 function place_window(x, y, w, h)
+  -- AeroSpace owns window geometry while running. Keep these shortcuts and
+  -- app-placement hooks available as a fallback when AeroSpace is quit.
+  if hs.application.get("bobko.aerospace") then
+    return
+  end
+
   local win = hs.window.focusedWindow()
   local f = win:frame()
 
