@@ -2,11 +2,11 @@ globals = require("globals")
 
 hs.window.animationDuration = 0
 
+local window_gap = 0
 local last_position
 
-function place_window(x, y, w, h, win)
-  win = win or hs.window.focusedWindow()
-  if not win then return end
+function place_window(x, y, w, h)
+  local win = hs.window.focusedWindow()
   local f = win:frame()
 
   f.x = x
@@ -17,22 +17,17 @@ function place_window(x, y, w, h, win)
   win:setFrame(f)
 end
 
-function screen_frame(win)
-  win = win or hs.window.focusedWindow()
-  if not win then return end
+function screen_frame()
+  local win = hs.window.focusedWindow()
   local screen = win:screen()
-  if not screen then return end
   local frame = screen:frame()
   local full_frame = screen:fullFrame()
 
   return { x = frame.x, y = frame.y, w = frame.w, h = full_frame.h }
 end
 
-function place_left_half(win)
-  win = win or hs.window.focusedWindow()
-  if not win then return end
-  local frame = screen_frame(win)
-  if not frame then return end
+function place_left_half()
+  local frame = screen_frame()
   local window_width = frame.w / 2
 
   if last_position == "left" then
@@ -42,14 +37,11 @@ function place_left_half(win)
     last_position = "left"
   end
 
-  place_window(frame.x, 0, window_width, frame.h, win)
+  place_window(frame.x, 0, window_width, frame.h)
 end
 
-function place_right_half(win)
-  win = win or hs.window.focusedWindow()
-  if not win then return end
-  local frame = screen_frame(win)
-  if not frame then return end
+function place_right_half()
+  local frame = screen_frame()
   local window_width = frame.w / 2
 
   if last_position == "right" then
@@ -59,27 +51,21 @@ function place_right_half(win)
     last_position = "right"
   end
 
-  place_window(frame.w - window_width + frame.x, 0, window_width, frame.h, win)
+  place_window(frame.w - window_width + frame.x, 0, window_width, frame.h)
 end
 
-function place_full(win)
-  win = win or hs.window.focusedWindow()
-  if not win then return end
-  local frame = screen_frame(win)
-  if not frame then return end
+function place_full()
+  local frame = screen_frame()
   local x_offset = 0
-  place_window(frame.x + x_offset, frame.y, frame.w - x_offset, frame.h, win)
+  place_window(frame.x + x_offset, frame.y, frame.w - x_offset, frame.h)
   last_position = "full"
 end
 
-function place_center(win)
-  win = win or hs.window.focusedWindow()
-  if not win then return end
-  local frame = screen_frame(win)
-  if not frame then return end
+function place_center()
+  local frame = screen_frame()
   local width = frame.w / 8 * 7
   local height = frame.h / 8 * 7
-  place_window(frame.x + (frame.w - width) / 2, frame.y + (frame.h - height) / 2, width, height, win)
+  place_window(frame.x + (frame.w - width) / 2, frame.y + (frame.h - height) / 2, width, height)
   last_position = "center"
 end
 
@@ -90,10 +76,7 @@ function on_application(name, callback)
         allowTitles = 1,
         hasTitlebar = true,
       })
-      :subscribe(hs.window.filter.windowCreated, function(win)
-        -- A new window may belong to a background app; never use focus here.
-        if win then callback(win) end
-      end)
+      :subscribe(hs.window.filter.windowCreated, callback)
 end
 
 hs.hotkey.bind(globals.hyper, "Y", place_left_half)
