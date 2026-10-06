@@ -18,7 +18,7 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       elixirls = {
-        cmd = { vim.fn.expand "~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
+        cmd = { vim.fn.stdpath "data" .. "/mason/packages/elixir-ls/language_server.sh" },
       },
     },
   },

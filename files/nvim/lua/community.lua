@@ -29,6 +29,5 @@ return {
   { import = "astrocommunity.pack.terraform" },
   { import = "astrocommunity.pack.nix" },
   { import = "astrocommunity.test.vim-test" },
-  { import = "astrocommunity.recipes.ai" },
 { import = "astrocommunity.terminal-integration.flatten-nvim" },
 }
