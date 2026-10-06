@@ -76,7 +76,11 @@ end
 local function refreshWindows()
     windows = {}
     for _, win in ipairs(windowFilter:getWindows()) do
-        if win:isVisible() and win:isStandard() then
+        local app = win:application()
+        local bundleID = app and app:bundleID()
+        local isSystemUI = bundleID == "com.apple.controlcenter"
+            or bundleID == "com.apple.MenuBarAgent"
+        if not isSystemUI and win:isVisible() and win:isStandard() then
             table.insert(windows, win)
         end
     end
