@@ -20,7 +20,6 @@
       "pgadmin4"
       "postman"
       "quicklook-json"
-      "raycast"
       "the-unarchiver"
       "vagrant"
       "virtualbox"
@@ -29,7 +28,6 @@
     ];
 
     brews = [
-      "asdf"
       "cormacrelf/tap/dark-notify"
       {
         name = "postgresql@16";
