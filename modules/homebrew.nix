@@ -24,7 +24,6 @@
       "vagrant"
       "virtualbox"
       "vlc"
-      "wezterm"
     ];
 
     brews = [
