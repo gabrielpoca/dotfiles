@@ -5,6 +5,7 @@
 
   outputs = { self, ... }: {
     modules = {
+      system-base   = import ./modules/system-base.nix;
       shell         = import ./modules/shell.nix;
       git           = import ./modules/git.nix;
       languages     = import ./modules/languages.nix;
