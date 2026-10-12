@@ -121,7 +121,8 @@
 
     NSGlobalDomain = {
       "com.apple.keyboard.fnState" = null;
-      AppleInterfaceStyleSwitchesAutomatically = true;
+      AppleInterfaceStyle = "Dark";
+      AppleInterfaceStyleSwitchesAutomatically = false;
       AppleKeyboardUIMode = 3;
       AppleMeasurementUnits = "Centimeters";
       AppleTemperatureUnit = "Celsius";
