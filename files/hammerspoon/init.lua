@@ -1,6 +1,7 @@
 require("window_placement")
 require("string")
 require("window-switcher")
+require("dictation")
 
 hs.loadSpoon("ReloadConfiguration")
 hs.loadSpoon("AwesomeKeys")
