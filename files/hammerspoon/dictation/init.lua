@@ -5,6 +5,7 @@ local python = os.getenv("HOME") .. "/.local/share/hammerspoon-dictation/venv/bi
 local log = hs.logger.new("dictation", "info")
 local escape, panel, worker, pendingStart, target, focusedElement
 local buffer, errors = "", ""
+local lastTranscript -- Memory only; cleared when Hammerspoon reloads or quits.
 
 local function preview(_, _text)
   local states = {
@@ -122,6 +123,7 @@ local function message(event)
     M.phase = "finalizing"
     preview("Finalizing locally… · Esc cancels", M.text)
   elseif event.type == "final" then
+    if event.text and event.text:match("%S") then lastTranscript = event.text end
     local current = hs.window.focusedWindow()
     local element = focus()
     if target and current and current:id() == target:id()
@@ -198,8 +200,22 @@ function M.toggle()
   end
 end
 
+function M.pasteLast()
+  if M.phase ~= "idle" and M.phase ~= "result" then
+    hs.alert.show("Finish or cancel the current dictation first")
+    return
+  end
+  if not lastTranscript then
+    hs.alert.show("No previous transcription yet")
+    return
+  end
+  escape:enable()
+  paste(lastTranscript)
+end
+
 escape = hs.hotkey.new({}, "escape", M.cancel)
 M.hotkey = hs.hotkey.bind({"cmd"}, ".", M.toggle)
+M.pasteLastHotkey = hs.hotkey.bind({"cmd", "shift"}, ".", M.pasteLast)
 local previousShutdown = hs.shutdownCallback
 hs.shutdownCallback = function()
   if worker and worker:isRunning() then

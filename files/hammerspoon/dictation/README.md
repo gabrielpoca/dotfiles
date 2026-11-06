@@ -1,6 +1,9 @@
 # Local dictation
 
 - **Cmd+.**: record; press again to finalize and paste.
+- **Cmd+Shift+.**: paste the last completed, nonempty transcription again.
+  It stays in memory until Hammerspoon reloads or quits. Cancelled recordings
+  and silence do not replace it. Finish or cancel an active recording first.
 - **Escape**: cancel without pasting.
 - A compact bottom-of-screen badge shows recording, loading, or transcription
   status. It disappears when done. There is no live preview or partial insertion.
@@ -33,7 +36,8 @@ Normal inference uses offline mode. There are no cloud calls or AI rewriting.
 Audio is held in memory and a private temporary WAV; normal completion,
 cancellation, and handled errors remove the WAV. Forced process termination or a
 system crash can leave a temporary folder in the macOS temporary directory.
-No transcript history is saved. Model weights and the Python environment remain.
+The latest completed transcript is retained in memory for Cmd+Shift+.; no
+transcript history is saved to disk. Model weights and the Python environment remain.
 
 Parakeet V3 supports English and Portuguese without a language lock. Mixed
 language accuracy is not guaranteed; test with your own speech. A synthetic
