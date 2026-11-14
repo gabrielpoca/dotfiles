@@ -11,6 +11,7 @@ local webview = nil
 local windows = {}          -- ordered hs.window list for the current invocation
 local selectedIndex = 1     -- 1-based index into `windows`
 local isShowing = false
+local switchingWithRightCmd = false
 local iconCache = {}        -- bundleID -> icon data URI
 
 -- All standard windows, across every Space.
@@ -154,8 +155,13 @@ local function advance(direction)
     renderSelection()
 end
 
+local function cycle(direction)
+    if isShowing then advance(direction) else showSwitcher(direction) end
+end
+
 local function commit()
     isShowing = false
+    switchingWithRightCmd = false
     if webview then webview:hide() end
     local win = windows[selectedIndex]
     if win then win:focus() end
@@ -163,6 +169,7 @@ end
 
 local function cancel()
     isShowing = false
+    switchingWithRightCmd = false
     if webview then webview:hide() end
 end
 
@@ -212,6 +219,10 @@ local flagTap = nil
 local function init()
     createWebview()
 
+    local keys = hs.keycodes.map
+    local masks = hs.eventtap.event.rawFlagMasks
+    local rightCmdCaptured = false
+
     -- Maintain recency order from focus events; drop windows when they close.
     windowFilter:subscribe(hs.window.filter.windowFocused, mruBump)
     windowFilter:subscribe(hs.window.filter.windowDestroyed, mruRemove)
@@ -228,14 +239,13 @@ local function init()
         local flags = event:getFlags()
         local code = event:getKeyCode()
 
-        if code == hs.keycodes.map.tab and flags.cmd
+        if code == keys.tab and flags.cmd
             and not flags.alt and not flags.ctrl and not flags.fn then
-            local direction = flags.shift and -1 or 1
-            if isShowing then advance(direction) else showSwitcher(direction) end
+            cycle(flags.shift and -1 or 1)
             return true
         end
 
-        if isShowing and code == hs.keycodes.map.escape then
+        if isShowing and code == keys.escape then
             cancel()
             return true
         end
@@ -244,10 +254,27 @@ local function init()
     end)
     keyTap:start()
 
-    -- Commit the selection when Cmd is released (mirrors the native switcher).
     flagTap = hs.eventtap.new({ hs.eventtap.event.types.flagsChanged }, function(event)
-        if isShowing and not event:getFlags().cmd then
+        local flags = event:getFlags()
+        local rawFlags = event:rawFlags()
+        local leftCmdDown = (rawFlags & masks.deviceLeftCommand) ~= 0
+        if isShowing and (not flags.cmd or (switchingWithRightCmd and not leftCmdDown)) then
             commit()
+        end
+
+        if event:getKeyCode() == keys.rightcmd then
+            local rightCmdDown = (rawFlags & masks.deviceRightCommand) ~= 0
+            if not rightCmdDown then
+                local captured = rightCmdCaptured
+                rightCmdCaptured = false
+                return captured
+            end
+            if leftCmdDown and not flags.alt and not flags.ctrl and not flags.fn then
+                rightCmdCaptured = true
+                cycle(flags.shift and -1 or 1)
+                switchingWithRightCmd = isShowing
+                return true
+            end
         end
         return false
     end)
@@ -258,7 +285,7 @@ local function init()
     M.flagTap = flagTap
     M.webview = webview
 
-    hs.alert.show("window-switcher: Cmd+Tab window switcher ready")
+    hs.alert.show("window-switcher: Cmd+Tab or Left Cmd+Right Cmd ready")
 end
 
 init()
